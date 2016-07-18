@@ -1,115 +1,165 @@
-require("player") -- include player.lua 
-
-WIDTH = 600--윈도우 폭 
-HEIGHT = 200-- 윈도우 높이 
-SCALE = 1 -- 화면의 크기 
-DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
-
-bgcolor = {236,243,201,255} -- 배경색 RGBA 순서 
-darkcolor = {2,9,4,255} -- 검정색 RGBA
-
-isFullScreen = false --전체화면 설정
-
 function love.load()
-	love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
-	loadResources() -- 이미지 리소스 불러옴 
-	pl = Player.create() -- 플레이어 객체 
-	updateScale()
-	start() -- 시작 
-end
+  CELLSIZE=32
+  PLAYERSIZE=16
 
-function start()
-	pl:reset() -- 플레이어 객체 새로고침 
+  Player={x=92, y=100, G=-100, S=100, jumping=true, falling=false, Cells={}}
+  createMap()
 end
 
 function love.update(dt)
-	updateGame(dt)
-end
-
-function debug(setting)
-	if setting == false then
-		return 
-	end
-	love.graphics.setColor(darkcolor)
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-    love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
-    name, version, vendor, device = love.graphics.getRendererInfo( )
-    love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
-	stats = love.graphics.getStats()
-    str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
-    love.graphics.print(str, 10, 90)
-    features = love.graphics.getSupported( )
-    love.graphics.print(features, 10, 100)
-    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2 , HEIGHT-20)
+  playermove(dt)
 end
 
 function love.draw()
-	love.graphics.scale(SCALE,SCALE) -- 크기 지정 
-	love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
-	drawGame() -- 게임 로드 
-	debug(DEBUG_SETTING)
+  love.graphics.setColor(255,255,255)
+  for y=1,#map do
+    for x=1,#map[y] do
+      if map[y][x] == 1 then
+       love.graphics.draw(imgSprites,map,x*CELLSIZE,y*CELLSIZE,CELLSIZE,CELLSIZE)
+      else
+        if DEBUG then
+          love.graphics.draw(imgSprites,x*CELLSIZE,y*CELLSIZE,CELLSIZE,CELLSIZE)
+        end
+      end
+    end
+  end
+  love.graphics.setColor(255,0,0,128)
+  love.graphics.draw(imgSprites,Player.x,Player.y,PLAYERSIZE, PLAYERSIZE)
+  if DEBUG then
+    love.graphics.setColor(0,255,0)
+    love.graphics.print(string.format("Player at (%06.2f , %06.2f) jumping=%s falling=", Player.x, Player.y, tostring(Player.jumping), tostring(Player.falling)), 50,0)
+    love.graphics.print(string.format("Player occupies cells(%d): %s", #Player.Cells, table.concat(Player.Cells, ' | ')), 450,0)
+  end
 end
 
-function SetScale(key,scancode)
-	if scancode == '1'then
-		SCALE = 1
-		updateScale()
-	elseif scancode == '2' then
-		SCALE = 2
-		updateScale()
-	elseif scancode == '3'then
-		SCALE = 3
-		updateScale()
-	elseif scancode == '4' then
-		SCALE = 4
-		updateScale()
-	elseif scancode == '5' then
-		SCALE = 5
-		updateScale()
-	elseif scancode == '6' then
-		SCALE = 6
-		updateScale()
-	end
+-- is user off map?
+function isOffMap(x, y)
+  if x<CELLSIZE or x+PLAYERSIZE> (1+#map[1])*CELLSIZE
+   or y<CELLSIZE or y+PLAYERSIZE>(1+#map)*CELLSIZE 
+  then
+    return true
+  else
+    return false
+  end
 end
 
-function SetScreen()
-	if isFullScreen == true then
-		isFullScreen = false
-	else
-		isFullScreen = true
-	end
-	success = love.window.setFullscreen(isFullScreen)
+function createMap()
+  map = {
+      {0,0,0,0,0,0,0,0,0,0,},
+      {0,0,0,1,0,0,0,0,0,0,},
+      {0,0,0,0,0,0,0,0,1,0,},
+      {0,0,0,0,0,0,0,1,0,0,},
+      {0,0,0,1,0,0,0,0,0,0,},
+      {0,0,0,0,0,0,1,0,0,0,},
+      {1,1,1,1,1,1,1,1,1,1,},
+  }
 end
 
-function love.keypressed(key,scancode) -- 키입력
-	SetScale(key,scancode) -- 윈도우 크기 결정
-
-	if love.keyboard.isDown("lalt") and love.keyboard.isDown("return") then
-		SetScreen()
-	end -- 테스트중 미완성
+-- which tile is that?
+function posToTile(x, y)
+  local tx=math.floor(x/CELLSIZE)
+  local ty=math.floor(y/CELLSIZE)
+  return tx, ty
 end
 
-function updateScale()
-	SCRNWIDTH = WIDTH*SCALE
-	SCRNHEIGHT = HEIGHT*SCALE
-	love.window.setMode(SCRNWIDTH,SCRNHEIGHT)
+-- Find out which cells are occupied by a player (check for each corner)
+function playerOnCells(x, y)
+  local Cells={}
+  local tx,ty=posToTile(x, y)
+  local key=tx..','..ty
+  Cells[key]=true
+  Cells[#Cells+1]=key
+
+  tx,ty=posToTile(x+PLAYERSIZE, y)
+  key=tx..','..ty
+  if not Cells[key] then
+    Cells[key]=true
+    Cells[#Cells+1]=key
+  end
+
+  tx,ty=posToTile(x+PLAYERSIZE, y+PLAYERSIZE)
+  key=tx..','..ty
+  if not Cells[key] then
+    Cells[key]=true
+    Cells[#Cells+1]=key
+  end
+
+  tx,ty=posToTile(x, y+PLAYERSIZE)
+  key=tx..','..ty
+  if not Cells[key] then
+    Cells[key]=true
+    Cells[#Cells+1]=key
+  end
+  return Cells
 end
 
-function updateGame(dt)
-	pl:update(dt)
-	
+local isDown = love.keyboard.isDown
+function playermove(dt)
+  -- Moving right or left?
+  local newX, newY
+  if isDown("left") then
+    newX=Player.x-Player.S*dt
+  end
+  if isDown("right") then
+    newX=Player.x+Player.S*dt
+  end
+  if newX then -- trying to move to a side
+    local offmap=isOffMap(newX, Player.y)
+    local colliding=isColliding(playerOnCells(newX, Player.y))
+    if not offmap and not colliding then
+      Player.x=newX
+    end
+  end
+
+  -- jumping up or falling down
+  Player.G = Player.G + Player.S*dt
+
+  if not Player.jumping and isDown(" ") and not Player.falling then
+    Player.jumping = true 
+    Player.G = -100
+  end
+
+    -- check only for upper or lower collision
+  newY= Player.y + Player.G*dt -- always falling
+
+  local coll=isColliding(playerOnCells(Player.x, newY))
+  if coll then
+    if Player.G>=0 then -- falling down on the ground
+      Player.jumping=false
+      Player.falling=false
+    end
+    Player.G=0
+  else
+    Player.falling=true -- falling down
+  end
+
+  if not isOffMap(Player.x, newY) and not coll then
+    Player.y=newY
+  end
+  if DEBUG then
+    Player.Cells=playerOnCells(Player.x, Player.y) -- 
+  end
 end
 
-function drawGame()
-	--love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
-	pl:draw() -- 플레이어 스프라이트 그리기 
+-- list of tiles
+function isColliding(T)
+  local collision=false
+  for k,v in ipairs(T) do
+    local x,y=v:match('(%d+),(%d+)')
+    x,y=tonumber(x), tonumber(y)
+    if not map[y] or not map[y][x] then
+      collision=true -- off-map
+    elseif map[tonumber(y)][tonumber(x)] == 1 then
+      collision=true
+    end
+  end
+  return collision
 end
 
-function loadResources()
-	-- Load images
-	imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
-	imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
-
-	-- imgBox = love.graphics.newImage("images/box.png")
-	-- imgBox::setFilter("nearest","nearest")
+function love.keypressed(k)
+  if k=='escape' then
+    love.event.quit()
+  end
+  if k=='d' then DEBUG=not DEBUG end
 end
+
