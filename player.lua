@@ -3,7 +3,7 @@ Player.__index = Player
 
 JUMP_POWER = -300
 GRAVITY = 1000
-PLAYER_MOVE_POWER = 0.12
+PLAYER_MOVE_POWER = 2 -- Geforce Version
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
@@ -34,7 +34,7 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
 		self.frame = (self.frame + 15*dt) % 3
 		if self.x < WIDTH - 10 then
-			
+
 			self.x = self.x + PLAYER_MOVE_POWER
 		end
 		player_now_frame = player_frames_x[math.floor(self.frame)]
