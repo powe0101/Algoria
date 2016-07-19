@@ -18,7 +18,7 @@ function BoxListDraw()
   	end
 end
 
-function BoxListUpdate()
+function BoxListUpdate(dt)
 	for i = 0, BOX_COUNT-1 do
 		boxList[i]:update()
 	end
