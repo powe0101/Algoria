@@ -3,7 +3,7 @@ Player.__index = Player
 
 JUMP_POWER = -300
 GRAVITY = 1000
-PLAYER_MOVE_POWER = 0.12--테스트 by.현식
+PLAYER_MOVE_POWER = 1--테스트 by.현식
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
@@ -13,7 +13,6 @@ PLAYER_START_Y = 150
 player_frames_x = {}
 player_frames_y = {}
 
-
 for i=0,2 do
 	player_frames_x[i] = love.graphics.newQuad(10*i,32,12,15,128,128)
 end
@@ -21,7 +20,6 @@ end
 for i=0,2 do
 	player_frames_y[i] = love.graphics.newQuad(10*i,16,12,15,128,128)
 end
-
 
 function Player.create()
 	local self = {}
@@ -34,8 +32,9 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
 		self.frame = (self.frame + 15*dt) % 3
 		if self.x < WIDTH - 10 then
-			
-			self.x = self.x + PLAYER_MOVE_POWER
+			if isCanMove then
+				self.x = self.x + PLAYER_MOVE_POWER
+			end
 		end
 		player_now_frame = player_frames_x[math.floor(self.frame)]
 	end
@@ -43,7 +42,9 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('left') then
 		self.frame = (self.frame + 15*dt) % 3
 			if self.x > 0 then
-				self.x = self.x - PLAYER_MOVE_POWER
+				if isCanMove then
+					self.x = self.x - PLAYER_MOVE_POWER
+				end
 			end
 		player_now_frame = player_frames_y[math.floor(self.frame)]
 	end
@@ -73,7 +74,9 @@ function Player:update(dt)
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
+	
 end
+
 
 function Player:reset()
 	self.frame = 1
@@ -89,4 +92,12 @@ function Player:draw()
 	-- Update position
 	love.graphics.draw(imgSprites,player_now_frame,self.x,self.y)
 	-- Check keyboard input
+end
+
+function Player:GetX()
+	return self.x
+end
+
+function Player:GetY()
+	return self.y
 end
