@@ -1,6 +1,12 @@
 require("player") -- include player.lua 
+<<<<<<< HEAD
 require("Box")
 require("BoxList")
+=======
+require("tree") -- include tree.lua
+require("treeList")
+
+>>>>>>> origin/master
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
@@ -13,7 +19,14 @@ darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
 
+<<<<<<< HEAD
 isCanMove = true
+=======
+treeList = {}
+treeCount = 0
+
+bgImg = love.graphics.newImage("images/char.png")
+>>>>>>> origin/master
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -21,9 +34,14 @@ function love.load()
 
   pl = Player.create() -- 플레이어 객체 
 
+<<<<<<< HEAD
   CreateBox(200,120)
   CreateBox(150,150)
 
+=======
+  CreateTree(100,50)
+  CreateTree(200,50)
+>>>>>>> origin/master
   updateScale()
   start() -- 시작 
 end
@@ -89,6 +107,7 @@ function debug(setting)
   if setting == false then
     return 
   end
+<<<<<<< HEAD
     love.graphics.setColor(darkcolor)
     love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
     love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
@@ -101,6 +120,19 @@ function debug(setting)
     love.graphics.print(features, 10, 100)
     love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2-50 , HEIGHT-20)
     love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",WIDTH/2/2 +100, HEIGHT-20)
+=======
+  love.graphics.setColor(darkcolor)
+  love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+  love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
+  name, version, vendor, device = love.graphics.getRendererInfo( )
+  love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
+  stats = love.graphics.getStats()
+  str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
+  love.graphics.print(str, 10, 90)
+  features = love.graphics.getSupported( )
+  love.graphics.print(features, 10, 100)
+  love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2 , HEIGHT-20)
+>>>>>>> origin/master
 end
 
 function love.draw()
@@ -142,11 +174,12 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
-  SetScale(key,scancode) -- 윈도우 크기 결정
-
   if love.keyboard.isDown("lalt") and love.keyboard.isDown("return") then
     SetScreen()
-  end -- 테스트중 미완성
+   -- 테스트중 미완성
+  else
+    SetScale(key,scancode) -- 윈도우 크기 결정
+  end
 end
 
 function updateScale()
@@ -157,6 +190,7 @@ end
 
 function updateGame(dt)
   pl:update(dt)
+<<<<<<< HEAD
   BoxListUpdate()
 
 end
@@ -174,10 +208,33 @@ function isEdge()
       end
   end
   return true
+=======
+
+  for i = 0, treeCount-1 do
+    treeList[i]:update(dt)
+  end
+end
+
+function drawGame()
+  --love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
+  
+  for i = 0, treeCount-1 do
+    treeList[i]:draw(dt)
+  end
+  pl:draw() -- 플레이어 스프라이트 그리기
+>>>>>>> origin/master
 end
 
 function loadResources()
   -- Load images
   imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
+<<<<<<< HEAD
+=======
+
+  imgTree = love.graphics.newImage("images/tree.png")
+  imgTree:setFilter("nearest","nearest")
+  -- imgBox = love.graphics.newImage("images/box.png")
+  -- imgBox::setFilter("nearest","nearest")
+>>>>>>> origin/master
 end
