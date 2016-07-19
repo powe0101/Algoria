@@ -2,8 +2,8 @@ Player = {}
 Player.__index = Player
 
 JUMP_POWER = -300
-GRAVITY = 1000
-PLAYER_MOVE_POWER = 0.12--테스트 by.현식
+GRAVITY = 500
+PLAYER_MOVE_POWER = 1--테스트 by.현식
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15

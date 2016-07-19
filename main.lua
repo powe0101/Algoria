@@ -31,16 +31,16 @@ function debug(setting)
     return 
   end
   love.graphics.setColor(darkcolor)
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-    love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
-    name, version, vendor, device = love.graphics.getRendererInfo( )
-    love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
+  love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+  love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
+  name, version, vendor, device = love.graphics.getRendererInfo( )
+  love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
   stats = love.graphics.getStats()
-    str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
-    love.graphics.print(str, 10, 90)
-    features = love.graphics.getSupported( )
-    love.graphics.print(features, 10, 100)
-    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2 , HEIGHT-20)
+  str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
+  love.graphics.print(str, 10, 90)
+  features = love.graphics.getSupported( )
+  love.graphics.print(features, 10, 100)
+  love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2 , HEIGHT-20)
 end
 
 function love.draw()
@@ -82,11 +82,14 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
-  SetScale(key,scancode) -- 윈도우 크기 결정
+  
 
   if love.keyboard.isDown("lalt") and love.keyboard.isDown("return") then
     SetScreen()
-  end -- 테스트중 미완성
+   -- 테스트중 미완성
+  else
+    SetScale(key,scancode) -- 윈도우 크기 결정
+  end
 end
 
 function updateScale()
