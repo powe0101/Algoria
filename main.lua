@@ -1,4 +1,6 @@
 require("player") -- include player.lua 
+require("tree") -- include tree.lua
+require("treeList")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -10,10 +12,18 @@ darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
 
+treeList = {}
+treeCount = 0
+
+bgImg = love.graphics.newImage("images/char.png")
+
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
   pl = Player.create() -- 플레이어 객체 
+
+  CreateTree(100,50)
+  CreateTree(200,50)
   updateScale()
   start() -- 시작 
 end
@@ -82,8 +92,6 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
-  
-
   if love.keyboard.isDown("lalt") and love.keyboard.isDown("return") then
     SetScreen()
    -- 테스트중 미완성
@@ -100,12 +108,19 @@ end
 
 function updateGame(dt)
   pl:update(dt)
-  
+
+  for i = 0, treeCount-1 do
+    treeList[i]:update(dt)
+  end
 end
 
 function drawGame()
   --love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
-  pl:draw() -- 플레이어 스프라이트 그리기 
+  
+  for i = 0, treeCount-1 do
+    treeList[i]:draw(dt)
+  end
+  pl:draw() -- 플레이어 스프라이트 그리기
 end
 
 function loadResources()
@@ -113,6 +128,8 @@ function loadResources()
   imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
+  imgTree = love.graphics.newImage("images/tree.png")
+  imgTree:setFilter("nearest","nearest")
   -- imgBox = love.graphics.newImage("images/box.png")
   -- imgBox::setFilter("nearest","nearest")
 end
