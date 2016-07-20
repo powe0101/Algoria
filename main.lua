@@ -16,11 +16,15 @@ darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
 
-isCanMove = true
+isCanMoveLeft = true
+isCanMoveRight = true
+
 treeList = {}
 treeCount = 0
 
 bgImg = love.graphics.newImage("images/char.png")
+
+nowY = 150
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -28,10 +32,10 @@ function love.load()
 
   pl = Player.create() -- 플레이어 객체 
 
-  CreateBox(350,150)
+  CreateBox(200,150)
 
-  CreateTree(100,50)
-  CreateTree(200,50)
+  CreateTree(100,40)
+  CreateTree(200,40)
   updateScale()
   start() -- 시작 
 end
@@ -79,7 +83,7 @@ end
       love.graphics.present()
     end
  
-    if love.timer then love.timer.sleep(0.016) end
+    if love.timer then love.timer.sleep(0.001) end
   end
 end
 
@@ -106,7 +110,7 @@ function debug(setting)
     love.graphics.print(str, 10, 90)
     features = love.graphics.getSupported( )
     love.graphics.print(features, 10, 100)
-    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2-50 , HEIGHT-20)
+    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",0 , HEIGHT-20)
     love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",WIDTH/2/2 +100, HEIGHT-20)
   love.graphics.setColor(darkcolor)
   love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
@@ -118,7 +122,10 @@ function debug(setting)
   love.graphics.print(str, 10, 90)
   features = love.graphics.getSupported( )
   love.graphics.print(features, 10, 100)
-  love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2 , HEIGHT-20)
+
+  love.graphics.print("blockX : "..tostring(blockX).." blockY : "..tostring(blockY).." nowX : "..tostring(nowX).." nowY: "..tostring(nowY),200,25)
+  love.graphics.print("yspeed : "..tostring(pl:GetYSpeed()))
+  love.graphics.print("isJump :"..tostring(isJump).."isCanMove : "..tostring(isCanMove),100,0)
 end
 
 function love.draw()
@@ -182,28 +189,11 @@ function updateGame(dt)
 end
 
 function drawGame()
-  pl:draw() -- 플레이어 스프라이트 그리기 
+  TreeListDraw()
   BoxListDraw()
-  isCanMove = isEdge()
+  pl:draw() -- 플레이어 스프라이트 그리기 
 end
 
-function isEdge()
-  for i = 0, BOX_COUNT-1 do 
-      if pl:GetX() - (boxList[i]:GetX()-11) == 0 then
-          return false
-      end
-  end
-  return true
-end
-
-function drawGame()
-  --love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
-  
-  for i = 0, treeCount-1 do
-    treeList[i]:draw(dt)
-  end
-  pl:draw() -- 플레이어 스프라이트 그리기
-end
 
 function loadResources()
   -- Load images

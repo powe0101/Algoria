@@ -1,7 +1,7 @@
 Tree = {}
 Tree.__index = Tree
 
-tree_frame = love.graphics.newQuad(0,0,108,212,128,128)
+tree_frame = love.graphics.newQuad(0,0,108,212,64,128)
 
 function Tree.create()
 	local self = {}
