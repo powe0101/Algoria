@@ -3,6 +3,7 @@ require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
 require("treeList")
+require("gameDebug")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -96,43 +97,12 @@ function love.update(dt)
   updateGame(dt)
 end
 
-function debug(setting)
-  if setting == false then
-    return 
-  end
-    love.graphics.setColor(darkcolor)
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-    love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
-    name, version, vendor, device = love.graphics.getRendererInfo( )
-    love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
-    stats = love.graphics.getStats()
-    str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
-    love.graphics.print(str, 10, 90)
-    features = love.graphics.getSupported( )
-    love.graphics.print(features, 10, 100)
-    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",0 , HEIGHT-20)
-    love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",WIDTH/2/2 +100, HEIGHT-20)
-  love.graphics.setColor(darkcolor)
-  love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-  love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
-  name, version, vendor, device = love.graphics.getRendererInfo( )
-  love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
-  stats = love.graphics.getStats()
-  str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
-  love.graphics.print(str, 10, 90)
-  features = love.graphics.getSupported( )
-  love.graphics.print(features, 10, 100)
-
-  love.graphics.print("blockX : "..tostring(blockX).." blockY : "..tostring(blockY).." nowX : "..tostring(nowX).." nowY: "..tostring(nowY),200,25)
-  love.graphics.print("yspeed : "..tostring(pl:GetYSpeed()))
-  love.graphics.print("isJump :"..tostring(isJump).."isCanMove : "..tostring(isCanMove),100,0)
-end
 
 function love.draw()
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드 
-  debug(DEBUG_SETTING)
+  drawDebug(DEBUG_SETTING)
 end
 
 function SetScale(key,scancode)
