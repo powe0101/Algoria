@@ -13,7 +13,7 @@ require("houseList")
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
-DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 BOX_COUNT = 0
 
@@ -40,9 +40,6 @@ function love.load()
   loadResources() -- 이미지 리소스 불러옴 
 
   pl = Player.create() -- 플레이어 객체 
-  tree = Tree.create()
-  cloud = Cloud.create()
-  house = House.create()
 
   sideScolling(x,y)
 
@@ -100,9 +97,6 @@ end
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
   BoxListReset()
-  tree:reset(x,y)
-  cloud:reset(x,y)
-  house:reset(x,y)
 end
 
 function love.update(dt)
@@ -183,7 +177,7 @@ end
 
 function loadResources()
   -- Load images
-  imgSprites = love.graphics.newImage("images/algola_char.png") -- char.png 등록
+  imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
   imgTree = love.graphics.newImage("images/tree.png")
@@ -192,7 +186,7 @@ function loadResources()
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
-  imgHouse = love.graphics.newImage("images/house04.png")
+  imgHouse = love.graphics.newImage("images/Sword.png")
   imgHouse:setFilter("nearest","nearest")  
 
 end
