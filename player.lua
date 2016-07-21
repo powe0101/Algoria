@@ -3,7 +3,12 @@ Player.__index = Player
 
 JUMP_POWER = -300
 GRAVITY = 1000
+<<<<<<< HEAD
 PLAYER_MOVE_POWER = 1--테스트 by.현식
+=======
+
+PLAYER_MOVE_POWER = 1
+>>>>>>> origin/LHJ
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
@@ -101,5 +106,9 @@ end
 
 function Player:GetY()
 	return self.y
+<<<<<<< HEAD
 end
 
+=======
+end
+>>>>>>> origin/LHJ
