@@ -235,7 +235,7 @@ function loadResources()
   -- imgBox::setFilter("nearest","nearest")
 end
 
-function sideScolling(x,y)
+function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입 
   CreateTree(x-150,y)
   CreateTree(x,y)
   CreateTree(x+300,y)
