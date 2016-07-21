@@ -3,11 +3,9 @@ Player.__index = Player
 
 JUMP_POWER = -300
 GRAVITY = 1000
-<<<<<<< HEAD
-PLAYER_MOVE_POWER = 2 -- Geforce Version
-=======
-PLAYER_MOVE_POWER = 1--테스트 by.현식
->>>>>>> refs/remotes/origin/master
+
+PLAYER_MOVE_POWER = 1
+
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
@@ -18,11 +16,11 @@ player_frames_x = {}
 player_frames_y = {}
 
 for i=0,2 do
-	player_frames_x[i] = love.graphics.newQuad(10*i,32,12,15,128,128)
+	player_frames_x[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
 
 for i=0,2 do
-	player_frames_y[i] = love.graphics.newQuad(10*i,16,12,15,128,128)
+	player_frames_y[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
 end
 
 function Player.create()
@@ -36,15 +34,12 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
 		self.frame = (self.frame + 15*dt) % 3
 		if self.x < WIDTH - 10 then
-<<<<<<< HEAD
-
 			self.x = self.x + PLAYER_MOVE_POWER
-=======
+
 			if isCanMove then
 				self.x = self.x + PLAYER_MOVE_POWER
 				
 			end
->>>>>>> refs/remotes/origin/master
 		end
 		player_now_frame = player_frames_x[math.floor(self.frame)]
 	end
@@ -71,8 +66,8 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if self.y > 160 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
-			self.y = 160
+		if self.y > 135 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+			self.y = 135
 			self.yspeed = 0
 			self.onGround = true
 		end
@@ -86,7 +81,6 @@ function Player:update(dt)
 	self:normal(dt)
 	
 end
-
 
 function Player:reset()
 	self.frame = 1
@@ -103,8 +97,6 @@ function Player:draw()
 	love.graphics.draw(imgSprites,player_now_frame,self.x,self.y)
 	-- Check keyboard input
 end
-<<<<<<< HEAD
-=======
 
 function Player:GetX()
 	return self.x
@@ -113,5 +105,3 @@ end
 function Player:GetY()
 	return self.y
 end
-
->>>>>>> refs/remotes/origin/master
