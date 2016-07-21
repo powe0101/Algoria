@@ -32,7 +32,10 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
 		self.frame = (self.frame + 15*dt) % 3
 		if self.x < WIDTH - 10 then
-			self.x = self.x + PLAYER_MOVE_POWER
+			if isCanMove then
+				self.x = self.x + PLAYER_MOVE_POWER
+				
+			end
 		end
 		player_now_frame = player_frames_x[math.floor(self.frame)]
 	end
@@ -40,14 +43,16 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('left') then
 		self.frame = (self.frame + 15*dt) % 3
 			if self.x > 0 then
-				self.x = self.x - PLAYER_MOVE_POWER
+				if isCanMove then
+					self.x = self.x - PLAYER_MOVE_POWER
+				end
 			end
 		player_now_frame = player_frames_y[math.floor(self.frame)]
 	end
 end
 
 function Player:CheckSpaceBarDown(dt)
-	if love.keyboard.isDown('space') and self.onGround == true then
+if love.keyboard.isDown('space') and self.onGround == true then
 		self.yspeed = JUMP_POWER
 	end
 	self.onGround = false
@@ -70,6 +75,7 @@ function Player:update(dt)
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
+	
 end
 
 
@@ -97,6 +103,3 @@ function Player:GetY()
 	return self.y
 end
 
-function Player:GetYSpeed()
-	return self.yspeed
-end

@@ -3,7 +3,11 @@ require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
 require("treeList")
-
+require("Control")
+require("cloud")
+require("cloudList")
+x=100
+y=50
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
@@ -16,29 +20,28 @@ darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
 
-isCanMoveLeft = true
-isCanMoveRight = true
-
+isCanMove = true
 treeList = {}
 treeCount = 0
+cloudList={}
+cloudCount=0
 
 bgImg = love.graphics.newImage("images/char.png")
-
-nowY = 150
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
 
   pl = Player.create() -- 플레이어 객체 
+  tree = Tree.create()
+  cloud = Cloud.create()
+ 
+  sideScolling(x,y)
 
-  CreateBox(200,150)
-
-  CreateTree(100,40)
-  CreateTree(200,40)
   updateScale()
   start() -- 시작 
 end
+
 
   function love.run()
   if love.math then
@@ -83,13 +86,16 @@ end
       love.graphics.present()
     end
  
-    if love.timer then love.timer.sleep(0.001) end
+    if love.timer then love.timer.sleep(0.016) end
   end
 end
 
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
-  BoxListReset()
+  tree:reset(x,y)
+  cloud:reset(x,y)
+
+
 end
 
 function love.update(dt)
@@ -110,7 +116,7 @@ function debug(setting)
     love.graphics.print(str, 10, 90)
     features = love.graphics.getSupported( )
     love.graphics.print(features, 10, 100)
-    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",0 , HEIGHT-20)
+    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2-50 , HEIGHT-20)
     love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",WIDTH/2/2 +100, HEIGHT-20)
   love.graphics.setColor(darkcolor)
   love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
@@ -122,10 +128,7 @@ function debug(setting)
   love.graphics.print(str, 10, 90)
   features = love.graphics.getSupported( )
   love.graphics.print(features, 10, 100)
-
-  love.graphics.print("blockX : "..tostring(blockX).." blockY : "..tostring(blockY).." nowX : "..tostring(nowX).." nowY: "..tostring(nowY),200,25)
-  love.graphics.print("yspeed : "..tostring(pl:GetYSpeed()))
-  love.graphics.print("isJump :"..tostring(isJump).."isCanMove : "..tostring(isCanMove),100,0)
+  love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2 , HEIGHT-20)
 end
 
 function love.draw()
@@ -183,17 +186,40 @@ end
 
 function updateGame(dt)
   pl:update(dt)
-  TreeListUpdate(dt)
-  BoxListUpdate(dt)
 
+  tree:update(dt)
+  TreeListUpdate(dt)
+  
+  cloud:update(dt)
+  CloudListUpdate(dt)
 end
 
 function drawGame()
-  TreeListDraw()
-  BoxListDraw()
   pl:draw() -- 플레이어 스프라이트 그리기 
+  BoxListDraw()
+  isCanMove = isEdge()
 end
 
+function isEdge()
+  for i = 0, BOX_COUNT-1 do 
+      if pl:GetX() - (boxList[i]:GetX()-11) == 0 then
+          return false
+      end
+  end
+  return true
+end
+
+function drawGame()
+  --love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
+  
+  for i = 0, treeCount-1 do
+    treeList[i]:draw(dt)
+  end
+  for i=0, cloudCount-1 do
+    cloudList[i]:draw(dt)
+  end
+  pl:draw() -- 플레이어 스프라이트 그리기
+end
 
 function loadResources()
   -- Load images
@@ -202,6 +228,26 @@ function loadResources()
 
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
+
+   imgS = love.graphics.newImage("images/c.png")
+   imgS:setFilter("nearest","nearest")
   -- imgBox = love.graphics.newImage("images/box.png")
   -- imgBox::setFilter("nearest","nearest")
+end
+
+function sideScolling(x,y)
+  CreateTree(x-150,y)
+  CreateTree(x,y)
+  CreateTree(x+300,y)
+  CreateTree(x+150,y)
+ CreateTree(x+450,y)
+ CreateTree(x+600,y)
+ CreateTree(x+750,y)
+ CreateTree(x-150,y)
+ CreateCloud(x+20,y+20)
+
+  
+  --CreateCloud(x+300,100)
+
+
 end
