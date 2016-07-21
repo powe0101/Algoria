@@ -3,9 +3,7 @@ Player.__index = Player
 
 JUMP_POWER = -300
 GRAVITY = 1000
-
-PLAYER_MOVE_POWER = 1
-
+PLAYER_MOVE_POWER = 1--테스트 by.현식
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
@@ -34,8 +32,6 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
 		self.frame = (self.frame + 15*dt) % 3
 		if self.x < WIDTH - 10 then
-			self.x = self.x + PLAYER_MOVE_POWER
-
 			if isCanMove then
 				self.x = self.x + PLAYER_MOVE_POWER
 				
@@ -82,6 +78,7 @@ function Player:update(dt)
 	
 end
 
+
 function Player:reset()
 	self.frame = 1
 	self.x = PLAYER_START_X
@@ -105,3 +102,4 @@ end
 function Player:GetY()
 	return self.y
 end
+
