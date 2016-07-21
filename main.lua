@@ -177,7 +177,7 @@ end
 
 function loadResources()
   -- Load images
-  imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
+  imgSprites = love.graphics.newImage("images/algola_char.png") -- 용사 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
   imgTree = love.graphics.newImage("images/tree.png")
@@ -186,7 +186,7 @@ function loadResources()
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
-  imgHouse = love.graphics.newImage("images/Sword.png")
+  imgHouse = love.graphics.newImage("images/house04.png")
   imgHouse:setFilter("nearest","nearest")  
 
 end
