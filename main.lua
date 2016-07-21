@@ -83,7 +83,7 @@ end
       love.graphics.present()
     end
  
-    if love.timer then love.timer.sleep(0.001) end
+    if love.timer then love.timer.sleep(0.016) end
   end
 end
 
