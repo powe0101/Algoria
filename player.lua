@@ -8,7 +8,7 @@ PLAYER_MOVE_POWER = 1--테스트 by.현식
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
 PLAYER_START_X = 50
-PLAYER_START_Y = 150
+PLAYER_START_Y = 100
 
 player_frames_x = {}
 player_frames_y = {}
@@ -32,7 +32,10 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
 		self.frame = (self.frame + 15*dt) % 3
 		if self.x < WIDTH - 10 then
-			self.x = self.x + PLAYER_MOVE_POWER
+			if isCanMove then
+				self.x = self.x + PLAYER_MOVE_POWER
+				
+			end
 		end
 		player_now_frame = player_frames_x[math.floor(self.frame)]
 	end
@@ -40,14 +43,16 @@ function Player:UpdateMove(dt)
 	if love.keyboard.isDown('left') then
 		self.frame = (self.frame + 15*dt) % 3
 			if self.x > 0 then
-				self.x = self.x - PLAYER_MOVE_POWER
+				if isCanMove then
+					self.x = self.x - PLAYER_MOVE_POWER
+				end
 			end
 		player_now_frame = player_frames_y[math.floor(self.frame)]
 	end
 end
 
 function Player:CheckSpaceBarDown(dt)
-	if love.keyboard.isDown('space') and self.onGround == true then
+if love.keyboard.isDown('space') and self.onGround == true then
 		self.yspeed = JUMP_POWER
 	end
 	self.onGround = false
@@ -57,8 +62,8 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if self.y > 150 then
-			self.y = 150
+		if self.y > 160 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+			self.y = 160
 			self.yspeed = 0
 			self.onGround = true
 		end
@@ -70,6 +75,7 @@ function Player:update(dt)
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
+	
 end
 
 
@@ -97,6 +103,3 @@ function Player:GetY()
 	return self.y
 end
 
-function Player:GetYSpeed()
-	return self.yspeed
-end

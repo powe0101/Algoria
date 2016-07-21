@@ -4,6 +4,11 @@ require("BoxList")
 require("tree") -- include tree.lua
 require("treeList")
 require("gameDebug")
+require("Control")
+require("cloud")
+require("cloudList")
+require("House")
+require("houseList")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -19,24 +24,28 @@ isFullScreen = false --전체화면 설정
 
 isCanMoveLeft = true
 isCanMoveRight = true
+isCanMove = true
 
 treeList = {}
 treeCount = 0
 
-bgImg = love.graphics.newImage("images/char.png")
+cloudList={}
+cloudCount=0
 
-nowY = 150
+houseList = {}
+houseCount = 0
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
 
   pl = Player.create() -- 플레이어 객체 
+  tree = Tree.create()
+  cloud = Cloud.create()
+  house = House.create()
 
-  CreateBox(200,150)
+  sideScolling(x,y)
 
-  CreateTree(100,40)
-  CreateTree(200,40)
   updateScale()
   start() -- 시작 
 end
@@ -91,6 +100,9 @@ end
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
   BoxListReset()
+  tree:reset(x,y)
+  cloud:reset(x,y)
+  house:reset(x,y)
 end
 
 function love.update(dt)
@@ -155,15 +167,19 @@ function updateGame(dt)
   pl:update(dt)
   TreeListUpdate(dt)
   BoxListUpdate(dt)
-
+  CloudListUpdate(dt)
+  HouseListUpdate(dt)
 end
 
 function drawGame()
   TreeListDraw()
   BoxListDraw()
-  pl:draw() -- 플레이어 스프라이트 그리기 
-end
+  HouseListDraw()
+  CloudListDraw()
 
+  pl:draw() -- 플레이어 스프라이트 그리기 
+  isCanMove = isEdge()
+end
 
 function loadResources()
   -- Load images
@@ -172,6 +188,44 @@ function loadResources()
 
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
-  -- imgBox = love.graphics.newImage("images/box.png")
-  -- imgBox::setFilter("nearest","nearest")
+
+  imgCloud = love.graphics.newImage("images/cloud04.png")
+  imgCloud:setFilter("nearest","nearest")
+
+  imgHouse = love.graphics.newImage("images/house04.png")
+  imgHouse:setFilter("nearest","nearest")  
+
+end
+
+function isEdge()
+  for i = 0, BOX_COUNT-1 do 
+      if pl:GetX() - (boxList[i]:GetX()-11) == 0 then
+          return false
+      end
+  end
+  return true
+end
+
+x=100
+y=50
+function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입 
+  CreateTree(x-150,y)
+  CreateTree(x,y)
+  CreateTree(x+300,y)
+  CreateTree(x+150,y)
+
+  CreateTree(x+450,y)
+  CreateTree(x+600,y)
+  CreateTree(x+750,y)
+  CreateTree(x-150,y)
+
+  CreateCloud(0,1)
+  CreateCloud(100,1)
+  CreateCloud(200,1)
+  CreateCloud(300,1)
+  CreateCloud(400,1)
+  CreateCloud(500,1)
+
+  CreateHouse(17,54)
+  --CreateCloud(x+300,100)
 end
