@@ -183,7 +183,7 @@ end
 
 function loadResources()
   -- Load images
-  imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
+  imgSprites = love.graphics.newImage("images/algola_char.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
   imgTree = love.graphics.newImage("images/tree.png")
