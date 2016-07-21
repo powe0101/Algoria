@@ -1,8 +1,6 @@
 Tree = {}
 Tree.__index = Tree
 
-TREE_MOVE_POWER = 1--테스트 by.현식
-
 tree_frames_x = {}
 tree_frames_y = {}
 tree_frames_x[0]  = love.graphics.newQuad(0,0,108,212,128,128)
@@ -27,7 +25,7 @@ function Tree:reset(x,y)
 end
 
 function Tree:normal(dt)  --tree 이동 
-	self=BackgroundNomal(self,dt)
+	self=BackgroundNormal(self,dt)
 end
 
 function Tree:UpdateMove(dt) --tree key이벤트 

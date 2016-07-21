@@ -1,13 +1,10 @@
 Cloud = {}
 Cloud.__index = Cloud
 
-
-CLOUD_MOVE_POWER = 1--테스트 by.현식
-
 cloud_frames_x = {}
 cloud_frames_y = {}
-cloud_frames_x[0]  = love.graphics.newQuad(0,0,108,212,128,128)
-cloud_frames_y[0] = love.graphics.newQuad(0,0,108,212,128,128)
+cloud_frames_x[0]  = love.graphics.newQuad(0,0,160,160,64,64)
+cloud_frames_y[0] = love.graphics.newQuad(0,0,160,160,64,64)
 
 	
 function Cloud.create()
@@ -30,7 +27,7 @@ function Cloud:reset(x,y)
 end
 
 function Cloud:normal(dt) --cloud 이동 
-	self=BackgroundNomal(self,dt)
+	self=BackgroundNormal(self,dt)
 end
 
 function Cloud:UpdateMove(dt) --cloud key이벤트 
@@ -43,7 +40,7 @@ function Cloud:update(dt)
 end
 
 function Cloud:draw()
-	love.graphics.draw(imgS,cloud_frames_x[0],self.x,self.y)
+	love.graphics.draw(imgCloud,cloud_frames_x[0],self.x,self.y)
 	
 end
 

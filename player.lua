@@ -8,7 +8,7 @@ PLAYER_MOVE_POWER = 1--테스트 by.현식
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
 PLAYER_START_X = 50
-PLAYER_START_Y = 150
+PLAYER_START_Y = 100
 
 player_frames_x = {}
 player_frames_y = {}
@@ -62,8 +62,8 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if self.y > 150 then
-			self.y = 150
+		if self.y > 160 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+			self.y = 160
 			self.yspeed = 0
 			self.onGround = true
 		end

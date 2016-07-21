@@ -3,11 +3,14 @@ require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
 require("treeList")
+require("gameDebug")
 require("Control")
 require("cloud")
 require("cloudList")
-x=100
-y=50
+require("House")
+require("houseList")
+require("village")
+
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
@@ -20,28 +23,33 @@ darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
 
+isCanMoveLeft = true
+isCanMoveRight = true
 isCanMove = true
+
 treeList = {}
 treeCount = 0
+
 cloudList={}
 cloudCount=0
 
-bgImg = love.graphics.newImage("images/char.png")
+houseList = {}
+houseCount = 0
+
+startStage=0 --맵 시작 값 --0721 근영 
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
 
   pl = Player.create() -- 플레이어 객체 
-  tree = Tree.create()
-  cloud = Cloud.create()
- 
-  sideScolling(x,y)
+
+
+   createStage()
 
   updateScale()
   start() -- 시작 
 end
-
 
   function love.run()
   if love.math then
@@ -92,8 +100,7 @@ end
 
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
-  tree:reset(x,y)
-  cloud:reset(x,y)
+  BoxListReset()
 
 
 end
@@ -102,40 +109,12 @@ function love.update(dt)
   updateGame(dt)
 end
 
-function debug(setting)
-  if setting == false then
-    return 
-  end
-    love.graphics.setColor(darkcolor)
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-    love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
-    name, version, vendor, device = love.graphics.getRendererInfo( )
-    love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
-    stats = love.graphics.getStats()
-    str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
-    love.graphics.print(str, 10, 90)
-    features = love.graphics.getSupported( )
-    love.graphics.print(features, 10, 100)
-    love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2-50 , HEIGHT-20)
-    love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",WIDTH/2/2 +100, HEIGHT-20)
-  love.graphics.setColor(darkcolor)
-  love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-  love.graphics.print("WIDTH : "..tostring(love.graphics.getWidth()).." HEIGHT : "..tostring(love.graphics.getHeight()),10,20)
-  name, version, vendor, device = love.graphics.getRendererInfo( )
-  love.graphics.print(name.."\n"..version.."\n"..vendor.."\n"..device.."\n",10,30)
-  stats = love.graphics.getStats()
-  str = string.format("Estimated amount of texture memory used: %.2f MB", stats.texturememory / 1024 / 1024)
-  love.graphics.print(str, 10, 90)
-  features = love.graphics.getSupported( )
-  love.graphics.print(features, 10, 100)
-  love.graphics.print("KEY : SPACEBAR , 1 ~ 6",WIDTH / 2 /2 , HEIGHT-20)
-end
 
 function love.draw()
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드 
-  debug(DEBUG_SETTING)
+  drawDebug(DEBUG_SETTING)
 end
 
 function SetScale(key,scancode)
@@ -186,18 +165,36 @@ end
 
 function updateGame(dt)
   pl:update(dt)
-
-  tree:update(dt)
   TreeListUpdate(dt)
-  
-  cloud:update(dt)
+  BoxListUpdate(dt)
   CloudListUpdate(dt)
+  HouseListUpdate(dt)
 end
 
 function drawGame()
-  pl:draw() -- 플레이어 스프라이트 그리기 
+  TreeListDraw()
   BoxListDraw()
+  HouseListDraw()
+  CloudListDraw()
+
+  pl:draw() -- 플레이어 스프라이트 그리기 
   isCanMove = isEdge()
+end
+
+function loadResources()
+  -- Load images
+  imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
+  imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
+
+  imgTree = love.graphics.newImage("images/tree.png")
+  imgTree:setFilter("nearest","nearest")
+
+  imgCloud = love.graphics.newImage("images/cloud04.png")
+  imgCloud:setFilter("nearest","nearest")
+
+  imgHouse = love.graphics.newImage("images/house04.png")
+  imgHouse:setFilter("nearest","nearest")  
+
 end
 
 function isEdge()
@@ -209,45 +206,11 @@ function isEdge()
   return true
 end
 
-function drawGame()
-  --love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
-  
-  for i = 0, treeCount-1 do
-    treeList[i]:draw(dt)
-  end
-  for i=0, cloudCount-1 do
-    cloudList[i]:draw(dt)
-  end
-  pl:draw() -- 플레이어 스프라이트 그리기
-end
 
-function loadResources()
-  -- Load images
-  imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
-  imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
-
-  imgTree = love.graphics.newImage("images/tree.png")
-  imgTree:setFilter("nearest","nearest")
-
-   imgS = love.graphics.newImage("images/c.png")
-   imgS:setFilter("nearest","nearest")
-  -- imgBox = love.graphics.newImage("images/box.png")
-  -- imgBox::setFilter("nearest","nearest")
-end
-
-function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입 
-  CreateTree(x-150,y)
-  CreateTree(x,y)
-  CreateTree(x+300,y)
-  CreateTree(x+150,y)
- CreateTree(x+450,y)
- CreateTree(x+600,y)
- CreateTree(x+750,y)
- CreateTree(x-150,y)
- CreateCloud(x+20,y+20)
-
-  
-  --CreateCloud(x+300,100)
-
+function createStage() --0721 근영 맵 만드는 함수
+ 
+if startStage==0 then -- if문으로 stage설정 
+  createVillage()
+end 
 
 end
