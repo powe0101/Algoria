@@ -3,12 +3,8 @@ Player.__index = Player
 
 JUMP_POWER = -300
 GRAVITY = 1000
-<<<<<<< HEAD
-PLAYER_MOVE_POWER = 1--테스트 by.현식
-=======
 
-PLAYER_MOVE_POWER = 1
->>>>>>> origin/LHJ
+PLAYER_MOVE_POWER = 1--테스트 by.현식
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
@@ -83,7 +79,6 @@ function Player:update(dt)
 	
 end
 
-
 function Player:reset()
 	self.frame = 1
 	self.x = PLAYER_START_X
@@ -106,9 +101,4 @@ end
 
 function Player:GetY()
 	return self.y
-<<<<<<< HEAD
 end
-
-=======
-end
->>>>>>> origin/LHJ
