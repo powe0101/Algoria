@@ -41,12 +41,11 @@ function drawDebug(setting)
   local DEBUG_BOOLEANINFO_Y = 0
   showBooleanInfo(DEBUG_BOOLEANINFO_X,DEBUG_BOOLEANINFO_Y)
 
+  local DEBUG_BOOLEANINFO_X = 300
+  local DEBUG_BOOLEANINFO_Y = 150
+  showPlayerInfo(DEBUG_BOOLEANINFO_X,DEBUG_BOOLEANINFO_Y)
+
 end
-
-
-
-
-
 
 function showFps(x,y)
   love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), x, y)

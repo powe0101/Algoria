@@ -36,7 +36,7 @@ function Cloud:UpdateMove(dt) --cloud key이벤트
 
 function Cloud:update(dt)
 	self:UpdateMove(dt)
-	self:normal(dt)
+	--self:normal(dt)
 end
 
 function Cloud:draw()

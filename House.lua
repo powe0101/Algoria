@@ -2,9 +2,7 @@ House = {}
 House.__index = House
 
 house_frames_x = {}
-house_frames_y = {}
 house_frames_x[0]  = love.graphics.newQuad(0,0,320,272,128,128)
-house_frames_y[0] = love.graphics.newQuad(0,0,320,272,128,128)
 
 function House.create()
 	local self = {}
@@ -19,7 +17,6 @@ function House:reset(x,y)
 	self.y = y
 	self.onGround = true
 	self.yspeed = 0
-	self.onGround = true
 	self.status = 0
 	house_now_frame = house_frames_x[0]
 end
@@ -34,7 +31,7 @@ function House:UpdateMove(dt) --tree key이벤트
 
 function House:update(dt)
 	self:UpdateMove(dt)
-	self:normal(dt)
+	--self:normal(dt)
 end
 
 function House:draw()

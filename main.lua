@@ -40,9 +40,6 @@ function love.load()
   loadResources() -- 이미지 리소스 불러옴 
 
   pl = Player.create() -- 플레이어 객체 
-  tree = Tree.create()
-  cloud = Cloud.create()
-  house = House.create()
 
   sideScolling(x,y)
 
@@ -100,9 +97,6 @@ end
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
   BoxListReset()
-  tree:reset(x,y)
-  cloud:reset(x,y)
-  house:reset(x,y)
 end
 
 function love.update(dt)
@@ -111,10 +105,15 @@ end
 
 
 function love.draw()
+  --cloudCount를 출력해보자.
+
+
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드 
   drawDebug(DEBUG_SETTING)
+
+  
 end
 
 function SetScale(key,scancode)
@@ -183,7 +182,7 @@ end
 
 function loadResources()
   -- Load images
-  imgSprites = love.graphics.newImage("images/char.png") -- char.png 등록
+  imgSprites = love.graphics.newImage("images/algola_char.png") -- 용사 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
   imgTree = love.graphics.newImage("images/tree.png")
@@ -206,18 +205,16 @@ function isEdge()
   return true
 end
 
-x=100
-y=50
-function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입 
-  CreateTree(x-150,y)
-  CreateTree(x,y)
-  CreateTree(x+300,y)
-  CreateTree(x+150,y)
 
-  CreateTree(x+450,y)
-  CreateTree(x+600,y)
-  CreateTree(x+750,y)
-  CreateTree(x-150,y)
+function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입 
+  CreateTree(-50,50)
+  CreateTree(100,50)
+  CreateTree(250,50)
+  CreateTree(400,50)
+  
+  CreateTree(550,50)
+  CreateTree(700,50)
+  CreateTree(850,50)
 
   CreateCloud(0,1)
   CreateCloud(100,1)
@@ -225,6 +222,11 @@ function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입
   CreateCloud(300,1)
   CreateCloud(400,1)
   CreateCloud(500,1)
+  CreateCloud(600,1)
+  CreateCloud(700,1)
+  CreateCloud(800,1)
+  CreateCloud(900,1)
+  CreateCloud(1000,1)
 
   CreateHouse(17,54)
   --CreateCloud(x+300,100)

@@ -34,7 +34,7 @@ function Tree:UpdateMove(dt) --tree key이벤트
 
 function Tree:update(dt)
 	self:UpdateMove(dt)
-	self:normal(dt)
+	--self:normal(dt)
 end
 
 function Tree:draw()
