@@ -18,7 +18,7 @@ function createVillage()
 end
 
 function deleteVillage()
-DeleteCloud()
-DeleteTree()
-DeleteHouse()
+  DeleteCloud()
+  DeleteTree()
+  DeleteHouse()
 end

@@ -1,8 +1,10 @@
+DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+
 function drawDebug(setting)  
   if setting == false then
     return 
   end
-  
+
   love.graphics.setColor(darkcolor)  
 
   local DEBUG_FPS_X = 10

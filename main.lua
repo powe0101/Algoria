@@ -11,31 +11,15 @@ require("House")
 require("houseList")
 require("village")
 
-
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
-DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
-
-BOX_COUNT = 0
 
 bgcolor = {236,243,201,255} -- 배경색 RGBA 순서 
 darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
-
-isCanMoveLeft = true
-isCanMoveRight = true
-isCanMove = true
-
-treeList = {}
-treeCount = 0
-
-cloudList = {}
-cloudCount = 0
-
-houseList = {}
-houseCount = 0
+isCanMove = true -- 움직일수 있는 경우 
 
 startStage = 0 --맵 시작 값 --0721 근영 
 
@@ -45,13 +29,13 @@ function love.load()
 
   pl = Player.create() -- 플레이어 객체 
 
-   createStage() -- stage 만들기 근영 
+  createStage() -- stage 만들기 근영 
 
   updateScale()
   start() -- 시작 
 end
 
-  function love.run()
+function love.run()
   if love.math then
     love.math.setRandomSeed(os.time())
   end
@@ -101,8 +85,6 @@ end
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
   BoxListReset()
-
-
 end
 
 function love.update(dt)
@@ -114,7 +96,7 @@ function love.draw()
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드 
-  drawDebug(DEBUG_SETTING)
+  drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 end
 
 function SetScale(key,scancode)
@@ -197,14 +179,13 @@ function loadResources()
 end
 
 function isEdge()
-  for i = 0, BOX_COUNT-1 do 
+  for i = 0, boxCount-1 do 
       if pl:GetX() - (boxList[i]:GetX()-11) == 0 then
           return false
       end
   end
   return true
 end
-
 
 function createStage() --0721 근영 맵 만드는 함수
   if startStage==0 then -- if문으로 stage설정 

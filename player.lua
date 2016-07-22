@@ -34,7 +34,6 @@ function Player:UpdateMove(dt)
 		if self.x < WIDTH - 10 then
 			if isCanMove then
 				self.x = self.x + PLAYER_MOVE_POWER
-				
 			end
 		end
 		player_now_frame = player_frames_left[math.floor(self.frame)]
@@ -52,7 +51,7 @@ function Player:UpdateMove(dt)
 end
 
 function Player:CheckSpaceBarDown(dt)
-if love.keyboard.isDown('space') and self.onGround == true then
+	if love.keyboard.isDown('space') and self.onGround == true then
 		self.yspeed = JUMP_POWER
 	end
 	self.onGround = false
@@ -71,7 +70,7 @@ function Player:normal(dt)
 end
 
 function Player:update(dt)
--- Update walk frame
+	-- Update walk frame
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)

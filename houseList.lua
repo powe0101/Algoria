@@ -1,3 +1,6 @@
+houseList = {}
+houseCount = 0
+
 function CreateHouse(x,y)
 	houseList[houseCount] = House.create()
 	houseList[houseCount]:reset(x,y)

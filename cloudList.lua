@@ -1,3 +1,6 @@
+cloudList = {}
+cloudCount = 0
+
 function CreateCloud(x,y)
 	cloudList[cloudCount] = Cloud.create()
 	cloudList[cloudCount]:reset(x,y)
