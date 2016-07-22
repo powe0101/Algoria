@@ -10,6 +10,13 @@ function CloudListUpdate(dt)
   end
 end
 
+function DeleteCloud()--07 21 근영 구름 초기화
+   for i=0, cloudCount-1 do
+   cloudList[i]=nil
+   end
+   cloudCount=0
+end
+
 function CloudListDraw()
    for i=0, cloudCount-1 do
      cloudList[i]:draw(dt)

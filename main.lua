@@ -9,11 +9,13 @@ require("cloud")
 require("cloudList")
 require("House")
 require("houseList")
+require("village")
+
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
-DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 BOX_COUNT = 0
 
@@ -35,13 +37,15 @@ cloudCount=0
 houseList = {}
 houseCount = 0
 
+startStage=0 --맵 시작 값 --0721 근영 
+
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
 
   pl = Player.create() -- 플레이어 객체 
 
-  sideScolling(x,y)
+   createStage() -- stage 만들기 근영 
 
   updateScale()
   start() -- 시작 
@@ -97,6 +101,8 @@ end
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
   BoxListReset()
+
+
 end
 
 function love.update(dt)
@@ -177,7 +183,7 @@ end
 
 function loadResources()
   -- Load images
-  imgSprites = love.graphics.newImage("images/algola_char.png") -- 용사 등록
+  imgSprites = love.graphics.newImage("images/algola_char.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
   imgTree = love.graphics.newImage("images/tree.png")
@@ -200,26 +206,11 @@ function isEdge()
   return true
 end
 
-x=100
-y=50
-function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입 
-  CreateTree(x-150,y)
-  CreateTree(x,y)
-  CreateTree(x+300,y)
-  CreateTree(x+150,y)
 
-  CreateTree(x+450,y)
-  CreateTree(x+600,y)
-  CreateTree(x+750,y)
-  CreateTree(x-150,y)
+function createStage() --0721 근영 맵 만드는 함수
+ 
+if startStage==0 then -- if문으로 stage설정 
+  createVillage()
+end 
 
-  CreateCloud(0,1)
-  CreateCloud(100,1)
-  CreateCloud(200,1)
-  CreateCloud(300,1)
-  CreateCloud(400,1)
-  CreateCloud(500,1)
-
-  CreateHouse(17,54)
-  --CreateCloud(x+300,100)
 end

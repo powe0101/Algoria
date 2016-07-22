@@ -10,6 +10,13 @@ function HouseListUpdate(dt)
   end
 end
 
+function HouseTree()--07 21 근영 집 초기화
+   for i=0, houseCount-1 do
+   houseList[i]=nil
+   end
+   houseCount=0
+end
+
 function HouseListDraw()
    for i=0, houseCount-1 do
      houseList[i]:draw(dt)

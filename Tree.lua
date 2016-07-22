@@ -25,7 +25,7 @@ function Tree:reset(x,y)
 end
 
 function Tree:normal(dt)  --tree 이동 
-	self=BackgroundNomal(self,dt)
+	self=BackgroundNormal(self,dt)
 end
 
 function Tree:UpdateMove(dt) --tree key이벤트 

@@ -25,7 +25,7 @@ function House:reset(x,y)
 end
 
 function House:normal(dt)  --tree 이동 
-	self=BackgroundNomal(self,dt)
+	self=BackgroundNormal(self,dt)
 end
 
 function House:UpdateMove(dt) --tree key이벤트 

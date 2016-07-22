@@ -27,7 +27,7 @@ function Cloud:reset(x,y)
 end
 
 function Cloud:normal(dt) --cloud 이동 
-	self=BackgroundNomal(self,dt)
+	self=BackgroundNormal(self,dt)
 end
 
 function Cloud:UpdateMove(dt) --cloud key이벤트 
