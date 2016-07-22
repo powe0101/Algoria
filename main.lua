@@ -31,13 +31,13 @@ isCanMove = true
 treeList = {}
 treeCount = 0
 
-cloudList={}
-cloudCount=0
+cloudList = {}
+cloudCount = 0
 
 houseList = {}
 houseCount = 0
 
-startStage=0 --맵 시작 값 --0721 근영 
+startStage = 0 --맵 시작 값 --0721 근영 
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -194,7 +194,6 @@ function loadResources()
 
   imgHouse = love.graphics.newImage("images/house04.png")
   imgHouse:setFilter("nearest","nearest")  
-
 end
 
 function isEdge()
@@ -208,9 +207,7 @@ end
 
 
 function createStage() --0721 근영 맵 만드는 함수
- 
-if startStage==0 then -- if문으로 stage설정 
-  createVillage()
-end 
-
+  if startStage==0 then -- if문으로 stage설정 
+    createVillage()
+  end 
 end

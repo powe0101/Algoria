@@ -1,6 +1,4 @@
-
 function createVillage()
-
   CreateTree(300,54)
   CreateTree(150,54)
 

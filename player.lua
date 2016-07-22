@@ -10,15 +10,15 @@ PLAYER_HEIGHT = 15
 PLAYER_START_X = 50
 PLAYER_START_Y = 100
 
-player_frames_x = {}
-player_frames_y = {}
+player_frames_left = {}
+player_frames_right = {}
 
 for i=0,2 do
-	player_frames_x[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
+	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
 
 for i=0,2 do
-	player_frames_y[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
+	player_frames_right[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
 end
 
 function Player.create()
@@ -37,7 +37,7 @@ function Player:UpdateMove(dt)
 				
 			end
 		end
-		player_now_frame = player_frames_x[math.floor(self.frame)]
+		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
 
 	if love.keyboard.isDown('left') then
@@ -47,7 +47,7 @@ function Player:UpdateMove(dt)
 					self.x = self.x - PLAYER_MOVE_POWER
 				end
 			end
-		player_now_frame = player_frames_y[math.floor(self.frame)]
+		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
 end
 
@@ -75,7 +75,6 @@ function Player:update(dt)
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
-	
 end
 
 
@@ -83,7 +82,7 @@ function Player:reset()
 	self.frame = 1
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
-	player_now_frame = player_frames_x[0]
+	player_now_frame = player_frames_left[0]
 	self.yspeed = 0
 	self.onGround = true
 	self.status = 0

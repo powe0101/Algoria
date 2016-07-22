@@ -17,10 +17,6 @@ function Tree:reset(x,y)
 	self.frame = 1
 	self.x = x
 	self.y = y
-	self.onGround = true
-	self.yspeed = 0
-	self.onGround = true
-	self.status = 0
 	tree_now_frame = tree_frames_x[0]
 end
 
@@ -30,7 +26,7 @@ end
 
 function Tree:UpdateMove(dt) --tree key이벤트 
 	self=BackgroundMove(self,dt)
-  end
+end
 
 function Tree:update(dt)
 	self:UpdateMove(dt)
