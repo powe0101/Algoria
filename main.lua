@@ -33,6 +33,14 @@ function love.load()
 
   updateScale()
   start() -- 시작 
+
+  audio()
+end
+
+function audio()
+  bgMusic = love.audio.newSource("audio/1.mp3")
+  love.audio.play(bgMusic)
+
 end
 
 function love.run()
