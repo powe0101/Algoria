@@ -10,7 +10,7 @@ require("cloudList")
 require("House")
 require("houseList")
 
---이하 스테이지
+--이하 스테이지 관련
 require("village")
 require("StageFall")
 
