@@ -10,7 +10,6 @@ function Box:create()
 	local self = {}
 	setmetatable(self, Box)
 	self:reset()
-
 	return self
 end
 
@@ -35,6 +34,7 @@ end
 function Box:GetY()
 	return self.y
 end
+
 function Box:draw()
 	love.graphics.setColor(darkcolor) -- 흰색 RGBA
  	love.graphics.rectangle('fill', self:GetX(), self:GetY(), BOX_WIDTH, BOX_HEIGHT)

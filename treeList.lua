@@ -1,3 +1,6 @@
+treeList = {}
+treeCount = 0
+
 function CreateTree(x,y)
 	treeList[treeCount] = Tree.create()
 	treeList[treeCount]:reset(x,y)
@@ -8,6 +11,13 @@ function TreeListUpdate(dt)
 	for i = 0, treeCount-1 do
     treeList[i]:update(dt)
   end
+end
+
+function DeleteTree()--07 21 근영 나무 초기화
+   for i=0, treeCount-1 do
+   treeList[i]=nil
+   end
+   treeCount=0
 end
 
 function TreeListDraw()

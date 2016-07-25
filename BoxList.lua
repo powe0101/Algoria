@@ -1,25 +1,26 @@
 boxList = {}
+boxCount = 0
 
 function CreateBox(x,y)
-  boxList[BOX_COUNT] = Box.create()
-  boxList[BOX_COUNT]:init(x,y)
-  BOX_COUNT = BOX_COUNT + 1
+  boxList[boxCount] = Box.create()
+  boxList[boxCount]:init(x,y)
+  boxCount = boxCount + 1
 end
 
 function BoxListReset()
-  for i = 0 , BOX_COUNT-1 do
+  for i = 0 , boxCount-1 do
   boxList[i]:reset()
   end 
 end
 
 function BoxListDraw()
-	for i = 0, BOX_COUNT-1 do
+	for i = 0, boxCount-1 do
     	boxList[i]:draw()
   	end
 end
 
 function BoxListUpdate(dt)
-	for i = 0, BOX_COUNT-1 do
+	for i = 0, boxCount-1 do
 		boxList[i]:update()
 	end
 end 

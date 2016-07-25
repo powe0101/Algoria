@@ -17,28 +17,28 @@ function Tree:reset(x,y)
 	self.frame = 1
 	self.x = x
 	self.y = y
-	self.onGround = true
-	self.yspeed = 0
-	self.onGround = true
-	self.status = 0
 	tree_now_frame = tree_frames_x[0]
 end
 
 function Tree:normal(dt)  --tree 이동 
-	self=BackgroundNomal(self,dt)
+	self=BackgroundNormal(self,dt)
 end
 
 function Tree:UpdateMove(dt) --tree key이벤트 
 	self=BackgroundMove(self,dt)
-  end
+end
 
 function Tree:update(dt)
 	self:UpdateMove(dt)
-	--self:normal(dt)
+	self:normal(dt)
 end
 
 function Tree:draw()
-	love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
+	if startStage == 0 then
+		love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
+	elseif startStage == 1 then
+		love.graphics.draw(imgFTree,tree_frames_x[0],self.x,self.y)
+	end
 end
 
 function Tree:GetX()

@@ -10,44 +10,38 @@ require("cloudList")
 require("House")
 require("houseList")
 
+--이하 스테이지
+require("village")
+require("StageFall")
+
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
-DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
-
-BOX_COUNT = 0
 
 bgcolor = {236,243,201,255} -- 배경색 RGBA 순서 
 darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
+isCanMove = true -- 움직일수 있는 경우 
 
-isCanMoveLeft = true
-isCanMoveRight = true
-isCanMove = true
-
-treeList = {}
-treeCount = 0
-
-cloudList={}
-cloudCount=0
-
-houseList = {}
-houseCount = 0
+startStage = 0 --맵 시작 값 --0721 근영 
 
 function love.load()
+  megaman = love.audio.newSource("bgm/megaman2_wily.mp3") --록맨 bgm
+  love.audio.setVolume(0.3)
+  love.audio.play(megaman) 
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
 
   pl = Player.create() -- 플레이어 객체 
 
-  sideScolling(x,y)
+  createStage() -- stage 만들기 근영 
 
   updateScale()
   start() -- 시작 
 end
 
-  function love.run()
+function love.run()
   if love.math then
     love.math.setRandomSeed(os.time())
   end
@@ -101,19 +95,15 @@ end
 
 function love.update(dt)
   updateGame(dt)
+  CheckPortal()
 end
 
 
 function love.draw()
-  --cloudCount를 출력해보자.
-
-
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드 
-  drawDebug(DEBUG_SETTING)
-
-  
+  drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 end
 
 function SetScale(key,scancode)
@@ -182,22 +172,24 @@ end
 
 function loadResources()
   -- Load images
-  imgSprites = love.graphics.newImage("images/algola_char.png") -- 용사 등록
+  imgSprites = love.graphics.newImage("images/algola_char.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
+
+  imgFTree = love.graphics.newImage("images/FallTree01.png")
+  imgFTree:setFilter("nearest","nearest")
 
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
   imgHouse = love.graphics.newImage("images/house04.png")
   imgHouse:setFilter("nearest","nearest")  
-
 end
 
 function isEdge()
-  for i = 0, BOX_COUNT-1 do 
+  for i = 0, boxCount-1 do 
       if pl:GetX() - (boxList[i]:GetX()-11) == 0 then
           return false
       end
@@ -205,29 +197,9 @@ function isEdge()
   return true
 end
 
-
-function sideScolling(x,y) --0721 근영 횡스크롤방식 이미지 삽입 
-  CreateTree(-50,50)
-  CreateTree(100,50)
-  CreateTree(250,50)
-  CreateTree(400,50)
-  
-  CreateTree(550,50)
-  CreateTree(700,50)
-  CreateTree(850,50)
-
-  CreateCloud(0,1)
-  CreateCloud(100,1)
-  CreateCloud(200,1)
-  CreateCloud(300,1)
-  CreateCloud(400,1)
-  CreateCloud(500,1)
-  CreateCloud(600,1)
-  CreateCloud(700,1)
-  CreateCloud(800,1)
-  CreateCloud(900,1)
-  CreateCloud(1000,1)
-
-  CreateHouse(17,54)
-  --CreateCloud(x+300,100)
+function createStage() --0721 근영 맵 만드는 함수
+  if startStage==0 then -- if문으로 stage설정 
+    createVillage()
+    --CreateFall()
+  end
 end

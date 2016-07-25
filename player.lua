@@ -10,15 +10,15 @@ PLAYER_HEIGHT = 15
 PLAYER_START_X = 50
 PLAYER_START_Y = 100
 
-player_frames_x = {}
-player_frames_y = {}
+player_frames_left = {}
+player_frames_right = {}
 
 for i=0,2 do
-	player_frames_x[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
+	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
 
 for i=0,2 do
-	player_frames_y[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
+	player_frames_right[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
 end
 
 function Player.create()
@@ -34,10 +34,9 @@ function Player:UpdateMove(dt)
 		if self.x < WIDTH - 10 then
 			if isCanMove then
 				self.x = self.x + PLAYER_MOVE_POWER
-				
 			end
 		end
-		player_now_frame = player_frames_x[math.floor(self.frame)]
+		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
 
 	if love.keyboard.isDown('left') then
@@ -47,17 +46,19 @@ function Player:UpdateMove(dt)
 					self.x = self.x - PLAYER_MOVE_POWER
 				end
 			end
-		player_now_frame = player_frames_y[math.floor(self.frame)]
+		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
 end
 
 function Player:CheckSpaceBarDown(dt)
-if love.keyboard.isDown('space') and self.onGround == true then
+	if love.keyboard.isDown('space') and self.onGround == true then
 		self.yspeed = JUMP_POWER
 	end
 	self.onGround = false
 	self.yspeed = self.yspeed + dt*GRAVITY
 end
+
+
 
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
@@ -71,11 +72,10 @@ function Player:normal(dt)
 end
 
 function Player:update(dt)
--- Update walk frame
+	-- Update walk frame
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
-	
 end
 
 
@@ -83,7 +83,7 @@ function Player:reset()
 	self.frame = 1
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
-	player_now_frame = player_frames_x[0]
+	player_now_frame = player_frames_left[0]
 	self.yspeed = 0
 	self.onGround = true
 	self.status = 0
@@ -103,3 +103,6 @@ function Player:GetY()
 	return self.y
 end
 
+function Player:GetOnGround()
+	return self.onGround
+end
