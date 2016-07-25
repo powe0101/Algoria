@@ -1,14 +1,18 @@
 require("player") -- include player.lua 
+require("gameDebug")
+require("Control")
+
+--그래픽 관련
 require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
 require("treeList")
-require("gameDebug")
-require("Control")
 require("cloud")
 require("cloudList")
 require("House")
 require("houseList")
+require("Portal")
+require("portalList")
 
 --이하 스테이지 관련
 require("village")
@@ -27,9 +31,6 @@ isCanMove = true -- 움직일수 있는 경우
 startStage = 0 --맵 시작 값 --0721 근영 
 
 function love.load()
-  megaman = love.audio.newSource("bgm/megaman2_wily.mp3") --록맨 bgm
-  love.audio.setVolume(0.3)
-  love.audio.play(megaman) 
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
 
@@ -40,13 +41,13 @@ function love.load()
   updateScale()
   start() -- 시작 
 
-  audio()
+  audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
 function audio()
   bgMusic = love.audio.newSource("audio/1.mp3")
+  love.audio.setVolume(0.3)
   love.audio.play(bgMusic)
-
 end
 
 function love.run()
@@ -166,6 +167,7 @@ function updateGame(dt)
   BoxListUpdate(dt)
   CloudListUpdate(dt)
   HouseListUpdate(dt)
+  PortalListUpdate(dt)
 end
 
 function drawGame()
@@ -173,6 +175,7 @@ function drawGame()
   BoxListDraw()
   HouseListDraw()
   CloudListDraw()
+  PortalListDraw()
 
   pl:draw() -- 플레이어 스프라이트 그리기 
   isCanMove = isEdge()
@@ -193,7 +196,10 @@ function loadResources()
   imgCloud:setFilter("nearest","nearest")
 
   imgHouse = love.graphics.newImage("images/house04.png")
-  imgHouse:setFilter("nearest","nearest")  
+  imgHouse:setFilter("nearest","nearest") 
+
+  imgPortal = love.graphics.newImage("images/portal03.png") 
+  imgPortal:setFilter("nearest","nearest") 
 end
 
 function isEdge()

@@ -28,7 +28,7 @@ end
 
 function Cloud:UpdateMove(dt) --cloud key이벤트 
 	self=BackgroundMove(self,dt)
-  end
+end
 
 function Cloud:update(dt)
 	self:UpdateMove(dt)
@@ -37,12 +37,4 @@ end
 
 function Cloud:draw()
 	love.graphics.draw(imgCloud,cloud_frames_x[0],self.x,self.y)
-end
-
-function Cloud:GetX()
-	return self.x
-end
-
-function Cloud:GetY()
-	return self.y
 end
