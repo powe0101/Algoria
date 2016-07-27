@@ -33,6 +33,7 @@ function drawDebug(setting)
 
   local DEBUG_PLAYERINFO_X = WIDTH/2/2 +100
   local DEBUG_PLAYERINFO_Y = HEIGHT-20
+  showPlayerInfo(DEBUG_PLAYERINFO_X, DEBUG_PLAYERINFO_Y)
   
   local DEBUG_BLOCKINFO_X = 200
   local DEBUG_BLOCKINFO_Y = 25

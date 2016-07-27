@@ -34,9 +34,10 @@ function Tree:update(dt)
 end
 
 function Tree:draw()
+	--나무가 생성될 때 계절,스테이지에 따라 다르게 생성되게끔 만듬. by.현식
 	if startStage == 0 then
 		love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
-	elseif startStage == 1 then
+	elseif startStage == 3 then --가을입니다. by.현식
 		love.graphics.draw(imgFTree,tree_frames_x[0],self.x,self.y)
 	end
 end

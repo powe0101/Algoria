@@ -13,9 +13,13 @@ require("House")
 require("houseList")
 require("Portal")
 require("portalList")
+require("Ground")
+require("groundList")
+
 
 --이하 스테이지 관련
 require("village")
+require("Season")
 require("StageFall")
 
 WIDTH = 600--윈도우 폭 
@@ -163,6 +167,7 @@ end
 
 function updateGame(dt)
   pl:update(dt)
+  GroundListUpdate(dt)
   TreeListUpdate(dt)
   BoxListUpdate(dt)
   CloudListUpdate(dt)
@@ -171,6 +176,7 @@ function updateGame(dt)
 end
 
 function drawGame()
+  GroundListDraw()
   TreeListDraw()
   BoxListDraw()
   HouseListDraw()
@@ -200,6 +206,9 @@ function loadResources()
 
   imgPortal = love.graphics.newImage("images/portal03.png") 
   imgPortal:setFilter("nearest","nearest") 
+
+  imgGround = love.graphics.newImage("images/ground.png") 
+  imgGround:setFilter("nearest","nearest") 
 end
 
 function isEdge()
@@ -214,6 +223,5 @@ end
 function createStage() --0721 근영 맵 만드는 함수
   if startStage==0 then -- if문으로 stage설정 
     createVillage()
-    --CreateFall()
   end
 end

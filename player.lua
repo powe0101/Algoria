@@ -3,7 +3,7 @@ Player.__index = Player
 
 JUMP_POWER = -300
 GRAVITY = 1000
-PLAYER_MOVE_POWER = 1--테스트 by.현식
+PLAYER_MOVE_POWER = 1-- 이 값을 바꾸면 전체적인 x좌표에도 영향을 주는듯? ex.포탈 by.현식 0727
 
 PLAYER_WIDTH = 10
 PLAYER_HEIGHT = 15
@@ -30,13 +30,17 @@ end
 
 function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
-		self.frame = (self.frame + 15*dt) % 3
-		if self.x < WIDTH - 10 then
-			if isCanMove then
-				self.x = self.x + PLAYER_MOVE_POWER
+		if self.x > 289 and startStage > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
+			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
+		else
+			self.frame = (self.frame + 15*dt) % 3
+			if self.x < WIDTH - 10 then
+				if isCanMove then
+					self.x = self.x + PLAYER_MOVE_POWER
+				end
 			end
+			player_now_frame = player_frames_left[math.floor(self.frame)]
 		end
-		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
 
 	if love.keyboard.isDown('left') then
