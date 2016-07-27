@@ -30,7 +30,7 @@ end
 
 function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
-		if self.x > 289 and startStage > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
+		if self.x > 225 and startStage > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
 		else
 			self.frame = (self.frame + 15*dt) % 3
@@ -109,4 +109,9 @@ end
 
 function Player:GetOnGround()
 	return self.onGround
+end
+
+function Player:SetStartPosition() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+	self.x = PLAYER_START_X
+	self.y = PLAYER_START_Y
 end
