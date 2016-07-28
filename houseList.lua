@@ -1,3 +1,6 @@
+houseList = {}
+houseCount = 0
+
 function CreateHouse(x,y)
 	houseList[houseCount] = House.create()
 	houseList[houseCount]:reset(x,y)
@@ -11,6 +14,13 @@ function HouseListUpdate(dt)
 end
 
 function HouseTree()--07 21 근영 집 초기화
+   for i=0, houseCount-1 do
+   houseList[i]=nil
+   end
+   houseCount=0
+end
+
+function DeleteHouse()--07 22 House만 추가 안해놨길래 만들음.
    for i=0, houseCount-1 do
    houseList[i]=nil
    end

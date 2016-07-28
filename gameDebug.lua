@@ -1,9 +1,10 @@
-function drawDebug(setting)
-  
+DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+
+function drawDebug(setting)  
   if setting == false then
     return 
   end
-  
+
   love.graphics.setColor(darkcolor)  
 
   local DEBUG_FPS_X = 10
@@ -32,6 +33,7 @@ function drawDebug(setting)
 
   local DEBUG_PLAYERINFO_X = WIDTH/2/2 +100
   local DEBUG_PLAYERINFO_Y = HEIGHT-20
+  showPlayerInfo(DEBUG_PLAYERINFO_X, DEBUG_PLAYERINFO_Y)
   
   local DEBUG_BLOCKINFO_X = 200
   local DEBUG_BLOCKINFO_Y = 25
@@ -41,12 +43,10 @@ function drawDebug(setting)
   local DEBUG_BOOLEANINFO_Y = 0
   showBooleanInfo(DEBUG_BOOLEANINFO_X,DEBUG_BOOLEANINFO_Y)
 
+  local DEBUG_STAGEINFO_X = 200
+  local DEBUG_STAGEINFO_Y = 13
+  showStageIfno(DEBUG_STAGEINFO_X,DEBUG_STAGEINFO_Y)
 end
-
-
-
-
-
 
 function showFps(x,y)
   love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), x, y)
@@ -87,4 +87,8 @@ end
 
 function showBooleanInfo(x,y)
   love.graphics.print("isJump :"..tostring(isJump).."isCanMove : "..tostring(isCanMove),x,y)
+end
+
+function showStageIfno(x,y)
+  love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
 end
