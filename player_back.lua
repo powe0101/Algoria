@@ -21,9 +21,6 @@ for i=0,2 do
 	player_frames_right[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
 end
 
-player_frames_stand = love.graphics.newQuad(42,0,42,42,128,170)
-player_frames_jump = love.graphics.newQuad(42,126,42,42,128,170)
-
 function Player.create()
 	local self = {}
 	setmetatable(self,Player)
@@ -42,11 +39,7 @@ function Player:UpdateMove(dt)
 					self.x = self.x + PLAYER_MOVE_POWER
 				end
 			end
-			if love.keyboard.isDown('space') then
-				player_now_frame = player_frames_jump
-			else
-				player_now_frame = player_frames_left[math.floor(self.frame)]
-			end
+			player_now_frame = player_frames_left[math.floor(self.frame)]
 		end
 	end
 
@@ -57,11 +50,7 @@ function Player:UpdateMove(dt)
 					self.x = self.x - PLAYER_MOVE_POWER
 				end
 			end
-		if love.keyboard.isDown('space') then
-			player_now_frame = player_frames_jump
-		else
-			player_now_frame = player_frames_right[math.floor(self.frame)]
-		end
+		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
 end
 
@@ -90,6 +79,7 @@ function Player:update(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
 end
+
 
 function Player:reset()
 	self.frame = 1
