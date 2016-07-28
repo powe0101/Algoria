@@ -30,7 +30,7 @@ end
 
 function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
-		if self.x > 225 and startStage > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
+		if self.x > 225 and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
 		else
 			self.frame = (self.frame + 15*dt) % 3
@@ -61,8 +61,6 @@ function Player:CheckSpaceBarDown(dt)
 	self.onGround = false
 	self.yspeed = self.yspeed + dt*GRAVITY
 end
-
-
 
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside

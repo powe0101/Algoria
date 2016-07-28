@@ -90,5 +90,5 @@ function showBooleanInfo(x,y)
 end
 
 function showStageIfno(x,y)
-  love.graphics.print("StageLevel :"..tostring(startStage),x,y)
+  love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
 end
