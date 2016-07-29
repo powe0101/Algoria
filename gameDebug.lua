@@ -33,6 +33,7 @@ function drawDebug(setting)
 
   local DEBUG_PLAYERINFO_X = WIDTH/2/2 +100
   local DEBUG_PLAYERINFO_Y = HEIGHT-20
+  showPlayerInfo(DEBUG_PLAYERINFO_X, DEBUG_PLAYERINFO_Y)
   
   local DEBUG_BLOCKINFO_X = 200
   local DEBUG_BLOCKINFO_Y = 25
@@ -41,6 +42,10 @@ function drawDebug(setting)
   local DEBUG_BOOLEANINFO_X = 200
   local DEBUG_BOOLEANINFO_Y = 0
   showBooleanInfo(DEBUG_BOOLEANINFO_X,DEBUG_BOOLEANINFO_Y)
+
+  local DEBUG_STAGEINFO_X = 200
+  local DEBUG_STAGEINFO_Y = 13
+  showStageIfno(DEBUG_STAGEINFO_X,DEBUG_STAGEINFO_Y)
 end
 
 function showFps(x,y)
@@ -82,4 +87,8 @@ end
 
 function showBooleanInfo(x,y)
   love.graphics.print("isJump :"..tostring(isJump).."isCanMove : "..tostring(isCanMove),x,y)
+end
+
+function showStageIfno(x,y)
+  love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
 end

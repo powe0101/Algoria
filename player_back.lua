@@ -13,8 +13,6 @@ PLAYER_START_Y = 100
 player_frames_left = {}
 player_frames_right = {}
 
-PLAYER_GROUND_Y = 135
-
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
@@ -22,9 +20,6 @@ end
 for i=0,2 do
 	player_frames_right[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
 end
-
-player_frames_stand = love.graphics.newQuad(42,0,42,42,128,170)
-player_frames_jump = love.graphics.newQuad(42,126,42,42,128,170)
 
 function Player.create()
 	local self = {}
@@ -34,11 +29,6 @@ function Player.create()
 end
 
 function Player:UpdateMove(dt)
-		--Add by G 0729
-	if self.y == PLAYER_GROUND_Y then
-		player_now_frame = player_frames_left[0]
-	end
-	
 	if love.keyboard.isDown('right') then
 		if self.x > 225 and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
@@ -49,11 +39,7 @@ function Player:UpdateMove(dt)
 					self.x = self.x + PLAYER_MOVE_POWER
 				end
 			end
-			if love.keyboard.isDown('space') then
-				player_now_frame = player_frames_jump
-			else
-				player_now_frame = player_frames_left[math.floor(self.frame)]
-			end
+			player_now_frame = player_frames_left[math.floor(self.frame)]
 		end
 	end
 
@@ -64,14 +50,8 @@ function Player:UpdateMove(dt)
 					self.x = self.x - PLAYER_MOVE_POWER
 				end
 			end
-		if love.keyboard.isDown('space') then
-			player_now_frame = player_frames_jump
-		else
-			player_now_frame = player_frames_right[math.floor(self.frame)]
-		end
+		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
-
-
 end
 
 function Player:CheckSpaceBarDown(dt)
@@ -85,8 +65,8 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if self.y > PLAYER_GROUND_Y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
-			self.y = PLAYER_GROUND_Y
+		if self.y > 135 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+			self.y = 135
 			self.yspeed = 0
 			self.onGround = true
 		end
@@ -99,6 +79,7 @@ function Player:update(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
 end
+
 
 function Player:reset()
 	self.frame = 1

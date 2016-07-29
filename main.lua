@@ -1,15 +1,28 @@
 require("player") -- include player.lua 
+require("gameDebug")
+require("Control")
+
+--그래픽 관련
 require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
 require("treeList")
-require("gameDebug")
-require("Control")
 require("cloud")
 require("cloudList")
 require("House")
 require("houseList")
+require("Portal")
+require("portalList")
+require("Ground")
+require("groundList")
+require("River")
+require("riverList")
+
+
+--이하 스테이지 관련
 require("village")
+require("Season")
+require("StageFall")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -21,7 +34,7 @@ darkcolor = {2,9,4,255} -- 검정색 RGBA
 isFullScreen = false --전체화면 설정
 isCanMove = true -- 움직일수 있는 경우 
 
-startStage = 0 --맵 시작 값 --0721 근영 
+stageLevel = 0 --맵 시작 값 --0721 근영 
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -34,13 +47,13 @@ function love.load()
   updateScale()
   start() -- 시작 
 
-  audio()
+  --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
 function audio()
   bgMusic = love.audio.newSource("audio/1.mp3")
+  love.audio.setVolume(0.3)
   love.audio.play(bgMusic)
-
 end
 
 function love.run()
@@ -97,6 +110,7 @@ end
 
 function love.update(dt)
   updateGame(dt)
+  CheckPortal()
 end
 
 
@@ -155,17 +169,23 @@ end
 
 function updateGame(dt)
   pl:update(dt)
+  GroundListUpdate(dt)
   TreeListUpdate(dt)
   BoxListUpdate(dt)
   CloudListUpdate(dt)
   HouseListUpdate(dt)
+  PortalListUpdate(dt)
+  RiverListUpdate(dt)
 end
 
 function drawGame()
+  GroundListDraw()
   TreeListDraw()
   BoxListDraw()
   HouseListDraw()
   CloudListDraw()
+  PortalListDraw()
+  RiverListDraw()
 
   pl:draw() -- 플레이어 스프라이트 그리기 
   isCanMove = isEdge()
@@ -179,11 +199,23 @@ function loadResources()
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
 
+  imgFTree = love.graphics.newImage("images/FallTree01.png")
+  imgFTree:setFilter("nearest","nearest")
+
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
   imgHouse = love.graphics.newImage("images/house04.png")
-  imgHouse:setFilter("nearest","nearest")  
+  imgHouse:setFilter("nearest","nearest") 
+
+  imgPortal = love.graphics.newImage("images/portal03.png") 
+  imgPortal:setFilter("nearest","nearest") 
+
+  imgGround = love.graphics.newImage("images/ground.png") 
+  imgGround:setFilter("nearest","nearest") 
+
+  imgRiver = love.graphics.newImage("images/river01.png")
+  imgRiver:setFilter("nearest","nearest") 
 end
 
 function isEdge()
@@ -196,7 +228,7 @@ function isEdge()
 end
 
 function createStage() --0721 근영 맵 만드는 함수
-  if startStage==0 then -- if문으로 stage설정 
+  if stageLevel==0 then -- if문으로 stage설정 
     createVillage()
-  end 
+  end
 end
