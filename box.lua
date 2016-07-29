@@ -13,19 +13,26 @@ function Box:create()
 	return self
 end
 
-function Box:init(x,y)
+function Box:reset(x,y)
 	self.x = x
 	self.y = y
-end
-
-function Box:reset()
 	self.frame = 1
 	self.onGround = true
 end
 
-function Box:update()
-	self:draw()
+function Box:normal(dt) --cloud 이동 
+	self=BackgroundNormal(self,dt)
 end
+
+function Box:UpdateMove(dt) --cloud key이벤트 
+	self=BackgroundMove(self,dt)
+end
+
+function Box:update(dt)
+	self:UpdateMove(dt)
+	self:normal(dt)
+end
+
 
 function Box:GetX()
 	return self.x
@@ -36,6 +43,6 @@ function Box:GetY()
 end
 
 function Box:draw()
-	love.graphics.setColor(darkcolor) -- 흰색 RGBA
- 	love.graphics.rectangle('fill', self:GetX(), self:GetY(), BOX_WIDTH, BOX_HEIGHT)
+	love.graphics.setColor(255,255,255) -- 흰색 RGBA
+ 	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
 end
