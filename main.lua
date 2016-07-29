@@ -6,7 +6,7 @@ require("Control")
 require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
-require ("treeList")
+require("treeList")
 require("cloud")
 require("cloudList")
 require("House")
@@ -35,7 +35,6 @@ isFullScreen = false --전체화면 설정
 isCanMove = true -- 움직일수 있는 경우 
 
 stageLevel = 0 --맵 시작 값 --0721 근영 
-canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -48,11 +47,10 @@ function love.load()
   updateScale()
   start() -- 시작 
 
-  audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
+  --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
 function audio()
-  bgCheck = true
   bgMusic = love.audio.newSource("audio/1.mp3")
   love.audio.setVolume(0.3)
   love.audio.play(bgMusic)
@@ -155,17 +153,6 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
-  if love.keyboard.isDown("escape") then
-    --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
-    if bgCheck then
-      love.audio.pause()
-      bgCheck = false
-    else
-      love.audio.resume()
-      bgCheck = true
-    end
-  end
-
   if love.keyboard.isDown("lalt") and love.keyboard.isDown("return") then
     SetScreen()
    -- 테스트중 미완성
