@@ -98,5 +98,5 @@ function showStageIfno(x,y)
 end
 
 function showBoxInfo(x,y)
-  love.graphics.print("BoxCount : "..tostring(boxCount),x,y)
+  love.graphics.print("BoxCount : "..tostring(boxCount)..tostring(global_isCollision),x,y)
 end

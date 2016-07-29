@@ -7,7 +7,7 @@ BOX_WIDTH = 20
 BOX_HEIGHT = 20
 
 collisionColor = {255,0,0}
-
+global_isCollision = false
 function Box:create()
 	local self = {}
 	setmetatable(self, Box)
@@ -34,9 +34,13 @@ end
 function Box:update(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
-
-	if pl:GetX() - self:GetX() >= 5 then
-		self.isCollision = true
+	local x_distance = pl:GetX() - self:GetX()
+	local y_distance = pl:GetY() - self:GetY()
+	if x_distance <= 12 and x_distance >= -35 then
+		if y_distance <= 12 and y_distance >= -35 then 
+			self.isCollision = true
+			return 
+		end
 	else
 		self.isCollision = false
 	end
