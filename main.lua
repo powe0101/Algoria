@@ -105,7 +105,6 @@ end
 
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
-  BoxListReset()
 end
 
 function love.update(dt)
@@ -188,7 +187,7 @@ function drawGame()
   RiverListDraw()
 
   pl:draw() -- 플레이어 스프라이트 그리기 
-  isCanMove = isEdge()
+  --isCanMove = isEdge()
 end
 
 function loadResources()
