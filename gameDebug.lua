@@ -46,6 +46,10 @@ function drawDebug(setting)
   local DEBUG_STAGEINFO_X = 200
   local DEBUG_STAGEINFO_Y = 13
   showStageIfno(DEBUG_STAGEINFO_X,DEBUG_STAGEINFO_Y)
+
+  local DEBUG_BOXINFO_X = 500
+  local DEBUG_BOXINFO_Y = 30
+  showBoxInfo(DEBUG_BOXINFO_X,DEBUG_BOXINFO_Y)
 end
 
 function showFps(x,y)
@@ -91,4 +95,8 @@ end
 
 function showStageIfno(x,y)
   love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
+end
+
+function showBoxInfo(x,y)
+  love.graphics.print("BoxCount : "..tostring(boxCount),x,y)
 end

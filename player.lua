@@ -118,6 +118,9 @@ end
 function Player:draw()
 	-- Update position
 	love.graphics.draw(imgSprites,player_now_frame,self.x,self.y)
+	if DEBUG_SETTING then
+		love.graphics.rectangle("line",self.x+8,self.y,25,42)
+	end
 	-- Check keyboard input
 end
 
