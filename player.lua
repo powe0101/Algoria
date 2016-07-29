@@ -24,7 +24,7 @@ for i=0,2 do
 end
 
 player_frames_stand = love.graphics.newQuad(42,0,42,42,128,170)
-player_frames_jump = love.graphics.newQuad(42,126,42,42,128,170)
+player_frames_jump = love.graphics.newQuad(42,128,42,42,128,170)
 
 function Player.create()
 	local self = {}
@@ -33,45 +33,50 @@ function Player.create()
 	return self
 end
 
+function Player:UpdateMoveRight(dt)
+	self.frame = (self.frame + 15*dt) % 3
+	if self.x < WIDTH - 10 then
+		if isCanMove then
+			self.x = self.x + PLAYER_MOVE_POWER
+		end
+	end
+
+	if love.keyboard.isDown('space') then
+		player_now_frame = player_frames_jump
+	else
+		player_now_frame = player_frames_left[math.floor(self.frame)]
+	end
+end
+--Add by G 0729
+
+function Player:UpdateMoveLeft(dt)
+	self.frame = (self.frame + 15*dt) % 3
+	if self.x > 0 then
+		if isCanMove then
+			self.x = self.x - PLAYER_MOVE_POWER
+		end
+	end
+
+	if love.keyboard.isDown('space') then
+			player_now_frame = player_frames_jump
+	else
+			player_now_frame = player_frames_right[math.floor(self.frame)]
+	end
+end
+--Add by G 0729
+
 function Player:UpdateMove(dt)
 		--Add by G 0729
-	if self.y == PLAYER_GROUND_Y then
-		player_now_frame = player_frames_left[0]
-	end
-	
 	if love.keyboard.isDown('right') then
 		if self.x > 225 and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
 		else
-			self.frame = (self.frame + 15*dt) % 3
-			if self.x < WIDTH - 10 then
-				if isCanMove then
-					self.x = self.x + PLAYER_MOVE_POWER
-				end
-			end
-			if love.keyboard.isDown('space') then
-				player_now_frame = player_frames_jump
-			else
-				player_now_frame = player_frames_left[math.floor(self.frame)]
-			end
+			self:UpdateMoveRight(dt)
 		end
 	end
-
 	if love.keyboard.isDown('left') then
-		self.frame = (self.frame + 15*dt) % 3
-			if self.x > 0 then
-				if isCanMove then
-					self.x = self.x - PLAYER_MOVE_POWER
-				end
-			end
-		if love.keyboard.isDown('space') then
-			player_now_frame = player_frames_jump
-		else
-			player_now_frame = player_frames_right[math.floor(self.frame)]
-		end
+		self:UpdateMoveLeft(dt)
 	end
-
-
 end
 
 function Player:CheckSpaceBarDown(dt)
