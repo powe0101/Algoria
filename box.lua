@@ -31,21 +31,19 @@ function Box:reset(x,y)
 
 end
 
-function Box:CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
+function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
 	--1 : box 
 	--2 : player
-
-	if x1 < x2+w2 and x2 < x1+w1 then
-  		isCanMoveRight = isCanMoveLeft = false
-  		return true
-  	else
-  		isCanMove = true
-  		return false
-  	end
-
-	if y1 < y2+h2 and y2 < y1+h1 then
-		return false
-	end
+	if x1 > x2 + w2 or -- 왼쪽
+       y1 > y2 + h2 or -- 위
+       x2 > x1 + w1 or -- 오른쪽 
+       y2 > y1 + h1    -- 아래
+    then
+    	--PLAYER_GROUND_Y = 135
+        return false  -- No collision. Yay!
+    else
+        return true    -- Yes collision. Ouch!
+    end
 end
 
 function Box:normal(dt) --cloud 이동 
@@ -67,7 +65,7 @@ function Box:update(dt)
 	self.y_distance = pl:GetY() - self:GetY()
 	--Debug
 
-	self.isCollision = self:CheckCollision(self.x,self.y,self.width,self.height,pl:GetX(),pl:GetY(),pl.width,pl.height)
+	self.isCollision = CheckCollision(self.x,self.y,self.width,self.height,pl:GetX(),pl:GetY(),pl.width,pl.height)
 end
 
 function Box:GetX()

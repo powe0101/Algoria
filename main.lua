@@ -187,7 +187,6 @@ function drawGame()
   RiverListDraw()
 
   pl:draw() -- 플레이어 스프라이트 그리기 
-  --isCanMove = isEdge()
 end
 
 function loadResources()
@@ -217,14 +216,6 @@ function loadResources()
   imgRiver:setFilter("nearest","nearest") 
 end
 
-function isEdge()
-  for i = 0, boxCount-1 do 
-      if pl:GetX() - (boxList[i]:GetX()-11) == 0 then
-          return false
-      end
-  end
-  return true
-end
 
 function createStage() --0721 근영 맵 만드는 함수
   if stageLevel==0 then -- if문으로 stage설정 

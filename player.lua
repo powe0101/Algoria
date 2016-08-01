@@ -35,16 +35,31 @@ function Player.create()
 	return self
 end
 
+function place_free(qx,qy,qwidth,qheight)
+	free = false
+
+	for i=0,boxCount-1 do
+		if CheckCollision(qx,qy,qwidth,qheight,
+			boxList[i]:GetX(),boxList[i]:GetY(),boxList[i].width,boxList[i].height)
+		then
+			free = true
+		end
+	end
+	
+	return free
+end
+
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 then
-		if isCanMoveRight then
-			self.x = self.x + PLAYER_MOVE_POWER
-		end
+	if self.x < WIDTH - 10 and place_free(self.x+(PLAYER_MOVE_POWER*dt),self.y,self.width,self.height) == false then
+		self.x = self.x + PLAYER_MOVE_POWER
 	end
 
 	if love.keyboard.isDown('space') then
 		player_now_frame = player_frames_jump
+		if place_free(self.x+(PLAYER_MOVE_POWER*dt),self.y,self.width,self.height) then
+			self.y = self.y - 4
+		end
 	else
 		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
@@ -53,7 +68,7 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0 then
+	if self.x > 0 and  place_free(self.x+(PLAYER_MOVE_POWER*dt),self.y,self.width,self.height) == false then
 			self.x = self.x - PLAYER_MOVE_POWER
 	end
 
@@ -67,6 +82,7 @@ end
 
 function Player:UpdateMove(dt)
 		--Add by G 0729
+	
 	if love.keyboard.isDown('right') then
 		if self.x > 225 and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
@@ -83,6 +99,7 @@ function Player:CheckSpaceBarDown(dt)
 	if love.keyboard.isDown('space') and self.onGround == true then
 		self.yspeed = JUMP_POWER
 	end
+
 	self.onGround = false
 	self.yspeed = self.yspeed + dt*GRAVITY
 end
