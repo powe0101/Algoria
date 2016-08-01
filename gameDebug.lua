@@ -1,4 +1,4 @@
-DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+  DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 function drawDebug(setting)  
   if setting == false then
@@ -47,7 +47,7 @@ function drawDebug(setting)
   local DEBUG_STAGEINFO_Y = 13
   showStageIfno(DEBUG_STAGEINFO_X,DEBUG_STAGEINFO_Y)
 
-  local DEBUG_BOXINFO_X = 500
+  local DEBUG_BOXINFO_X = 350
   local DEBUG_BOXINFO_Y = 30
   showBoxInfo(DEBUG_BOXINFO_X,DEBUG_BOXINFO_Y)
 end
@@ -99,4 +99,8 @@ end
 
 function showBoxInfo(x,y)
   love.graphics.print("BoxCount : "..tostring(boxCount)..tostring(global_isCollision),x,y)
+
+  for i = 0, boxCount-1 do
+    love.graphics.print("x_distance :"..tostring(boxList[i].x_distance).."y_distance"..tostring(boxList[i].y_distance.."\n")..tostring(boxList[i].isCollision),x,y+(20*i)+20)
+  end
 end

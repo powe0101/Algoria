@@ -32,7 +32,7 @@ bgcolor = {236,243,201,255} -- 배경색 RGBA 순서
 darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
-isCanMove = true -- 움직일수 있는 경우 
+ 
 
 stageLevel = 0 --맵 시작 값 --0721 근영 
 

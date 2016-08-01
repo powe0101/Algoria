@@ -8,6 +8,7 @@ BOX_HEIGHT = 20
 
 collisionColor = {255,0,0}
 global_isCollision = false
+
 function Box:create()
 	local self = {}
 	setmetatable(self, Box)
@@ -21,10 +22,38 @@ function Box:reset(x,y)
 	self.frame = 1
 	self.onGround = true
 	self.isCollision = false
+
+	--박스 크기
+	self.width = 20
+	self.height = 20
+
+	--위치 조정
+
+end
+
+function Box:CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
+	--1 : box 
+	--2 : player
+
+	if x1 < x2+w2 and x2 < x1+w1 then
+  		isCanMoveRight = isCanMoveLeft = false
+  		return true
+  	else
+  		isCanMove = true
+  		return false
+  	end
+
+	if y1 < y2+h2 and y2 < y1+h1 then
+		return false
+	end
 end
 
 function Box:normal(dt) --cloud 이동 
 	self=BackgroundNormal(self,dt)
+	self.top = self:GetY() - (self.height * 2)
+	self.left = self:GetX() - (self.width * 2)
+	self.right = self:GetX() + (self.width * 2)
+	self.bottom = self:GetY()
 end
 
 function Box:UpdateMove(dt) --cloud key이벤트 
@@ -34,17 +63,11 @@ end
 function Box:update(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
-	local x_distance = pl:GetX() - self:GetX()
-	local y_distance = pl:GetY() - self:GetY()
-	if x_distance <= 12 and x_distance >= -35 then
-		if y_distance <= 12 and y_distance >= -35 then 
-			self.isCollision = true
-			return 
-		end
-	else
-		self.isCollision = false
-	end
+	self.x_distance = pl:GetX() - self:GetX()
+	self.y_distance = pl:GetY() - self:GetY()
+	--Debug
 
+	self.isCollision = self:CheckCollision(self.x,self.y,self.width,self.height,pl:GetX(),pl:GetY(),pl.width,pl.height)
 end
 
 function Box:GetX()
@@ -61,6 +84,7 @@ function Box:draw()
  	if self.isCollision then
 		love.graphics.setColor(collisionColor) -- 흰색 RGBA
  		love.graphics.rectangle('line', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
+
  	end
 
  	love.graphics.setColor(255,255,255) -- 흰색 RGBA

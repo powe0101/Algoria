@@ -14,7 +14,9 @@ player_frames_left = {}
 player_frames_right = {}
 
 PLAYER_GROUND_Y = 135
-
+isCanMoveRight = true -- 움직일수 있는 경우
+isCanMoveLeft = true
+isCanMove = true
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
@@ -36,7 +38,7 @@ end
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
 	if self.x < WIDTH - 10 then
-		if isCanMove then
+		if isCanMoveRight then
 			self.x = self.x + PLAYER_MOVE_POWER
 		end
 	end
@@ -52,9 +54,7 @@ end
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
 	if self.x > 0 then
-		if isCanMove then
 			self.x = self.x - PLAYER_MOVE_POWER
-		end
 	end
 
 	if love.keyboard.isDown('space') then
@@ -113,6 +113,15 @@ function Player:reset()
 	self.yspeed = 0
 	self.onGround = true
 	self.status = 0
+
+	--캐릭터 수정
+	self.width = 42
+	self.height = 42
+	self.top = self.y - (self.height * 2)
+	self.left = self.x - (self.width * 2)
+	self.right = self.x + (self.width * 2)
+	self.bottom = self.y
+
 end
 
 function Player:draw()
@@ -123,6 +132,7 @@ function Player:draw()
 	end
 	-- Check keyboard input
 end
+
 
 function Player:GetX()
 	return self.x
