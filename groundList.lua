@@ -13,7 +13,7 @@ function GroundListUpdate(dt)
   end
 end
 
-function DeleteGround()
+function GroundListDelete()
    for i=0, groundCount-1 do
     groundList[i]=nil
    end

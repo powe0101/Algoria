@@ -13,6 +13,8 @@ PLAYER_START_Y = 100
 player_frames_left = {}
 player_frames_right = {}
 
+
+
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
@@ -32,9 +34,32 @@ function Player.create()
 end
 
 function Player:UpdateMove(dt)
+	if love.keyboard.isDown('9') then --문제를 풀었을 때의 가정.
+		if stageLevel > 0 then
+			if BridegePassValue >= 90 then --3문제를 모두 풀었을 경우 완전히 다리를 넘아갈 수 있도록.
+				canPass = true
+			else --문제를 풀때마다 수치가 조금씩 증가함. 30씩 증가하면 됨.
+				BridegePassValue = BridegePassValue + 10
+			end
+		end
+	end
+
 	if love.keyboard.isDown('right') then
-		if self.x > 225 and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
+		if self.x > 225 + BridegePassValue and stageLevel == 3 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
+			if canPass then -- 이 사이에 있는 부분을 메서드로 빼면 좋을 것 같은데 방법이 없나? 계속 터지네.. by.현식 0728
+				self.frame = (self.frame + 15*dt) % 3
+				if self.x < WIDTH - 10 then
+					if isCanMove then
+						self.x = self.x + PLAYER_MOVE_POWER
+					end
+				end
+				if love.keyboard.isDown('space') then
+					player_now_frame = player_frames_jump
+				else
+					player_now_frame = player_frames_left[math.floor(self.frame)]
+				end			
+			end -- canPass
 		else
 			self.frame = (self.frame + 15*dt) % 3
 			if self.x < WIDTH - 10 then

@@ -2,11 +2,13 @@ require("player") -- include player.lua
 require("gameDebug")
 require("Control")
 
+require("AnAL") --애니메이션 관련
+
 --그래픽 관련
 require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
-require("treeList")
+require ("treeList")
 require("cloud")
 require("cloudList")
 require("House")
@@ -17,13 +19,15 @@ require("Ground")
 require("groundList")
 require("River")
 require("riverList")
-
+require("Bridge")
+require("BridgeList")
 
 --이하 스테이지 관련
 require("village")
 require("Season")
 require("StageFall")
 require("StageSummer")
+
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
@@ -35,10 +39,15 @@ isFullScreen = false --전체화면 설정
 isCanMove = true -- 움직일수 있는 경우 
 
 stageLevel = 0 --맵 시작 값 --0721 근영 
+canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
+BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해서 총 3번째 문제를 풀면 위의 canPass가 true로 바뀌게 됨. by.현식 0729
 
 function love.load()
+ 
+
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
   loadResources() -- 이미지 리소스 불러옴 
+
 
   pl = Player.create() -- 플레이어 객체 
 
@@ -47,10 +56,11 @@ function love.load()
   updateScale()
   start() -- 시작 
 
-  --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
+  audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
 function audio()
+  bgCheck = true
   bgMusic = love.audio.newSource("audio/1.mp3")
   love.audio.setVolume(0.3)
   love.audio.play(bgMusic)
@@ -153,6 +163,17 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
+  if love.keyboard.isDown("escape") then
+    --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
+    if bgCheck then
+      love.audio.pause()
+      bgCheck = false
+    else 
+      love.audio.resume()
+      bgCheck = true
+    end
+  end
+
   if love.keyboard.isDown("lalt") and love.keyboard.isDown("return") then
     SetScreen()
    -- 테스트중 미완성
@@ -176,6 +197,12 @@ function updateGame(dt)
   HouseListUpdate(dt)
   PortalListUpdate(dt)
   RiverListUpdate(dt)
+  BridgeListUpdate(dt)
+ 
+  if stageLevel == 3 then --애니메이션 테스트 by.근영 0801가을에 다리 나타나기 
+   aniBridge:update(dt) --애니메이션 테스트 by.현식 0730 
+  end
+
 end
 
 function drawGame()
@@ -186,6 +213,12 @@ function drawGame()
   CloudListDraw()
   PortalListDraw()
   RiverListDraw()
+  BridgeListDraw()
+
+  if stageLevel == 3 then
+    --aniBridge:draw(bridge_frames,100, 100) --애니메이션 테스트 by.현식 0730
+    aniBridge:draw() --애니메이션 테스트 by.현식 0730
+  end
 
   pl:draw() -- 플레이어 스프라이트 그리기 
   isCanMove = isEdge()
@@ -202,6 +235,9 @@ function loadResources()
   imgFTree = love.graphics.newImage("images/FallTree01.png")
   imgFTree:setFilter("nearest","nearest")
 
+  imgSTree = love.graphics.newImage("images/summerTree.png")
+  imgSTree:setFilter("nearest","nearest")  
+
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
@@ -214,15 +250,18 @@ function loadResources()
   imgGround = love.graphics.newImage("images/ground.png") 
   imgGround:setFilter("nearest","nearest") 
 
-  imgRiver = love.graphics.newImage("images/river01.png")
-  imgRiver:setFilter("nearest","nearest") 
+  imgSGround = love.graphics.newImage("images/summerGround.png")
+  imgSGround:setFilter("nearest","nearest") 
 
-  imgSTree = love.graphics.newImage("images/summerTree.png")
-  imgSTree:setFilter("nearest","nearest")
-  
-  imgSGround =love.graphics.newImage("images/summerGround.png")
-  imgSGround:setFilter("nearest","nearest")
-  
+  imgRiver = love.graphics.newImage("images/river01.png")
+  imgRiver:setFilter("nearest","nearest")  
+ 
+  imgBridge = love.graphics.newImage("images/bridge02.png")
+  imgBridge:setFilter("nearest","nearest") 
+
+
+ 
+
 end
 
 function isEdge()
@@ -239,3 +278,4 @@ function createStage() --0721 근영 맵 만드는 함수
     createVillage()
   end
 end
+

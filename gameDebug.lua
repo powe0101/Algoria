@@ -46,6 +46,10 @@ function drawDebug(setting)
   local DEBUG_STAGEINFO_X = 200
   local DEBUG_STAGEINFO_Y = 13
   showStageIfno(DEBUG_STAGEINFO_X,DEBUG_STAGEINFO_Y)
+
+  local DEBUG_BRIDGEINFO_X = 200
+  local DEBUG_BRIDGEINFO_Y = 38
+  showBridgePassIfno(DEBUG_BRIDGEINFO_X, DEBUG_BRIDGEINFO_Y)
 end
 
 function showFps(x,y)
@@ -92,3 +96,9 @@ end
 function showStageIfno(x,y)
   love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
 end
+
+function showBridgePassIfno(x,y)
+  love.graphics.print("BridegePassValue :"..tostring(BridegePassValue)..", canPass :"..tostring(canPass),x,y)
+end
+
+

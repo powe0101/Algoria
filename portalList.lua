@@ -13,7 +13,7 @@ function PortalListUpdate(dt)
   end
 end
 
-function DeletePortal()--07 21 근영 구름 초기화
+function PortalListDelete()
    for i=0, portalCount-1 do
     portalList[i]=nil
    end
