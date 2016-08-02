@@ -106,5 +106,5 @@ function showBridgePassIfno(x,y)
 end
 
 function showPopupIfno(x,y)
-  love.graphics.print("popupCheck :"..tostring(popupCheck)..", levelCheck :"..tostring(levelCheck),x,y)
+  love.graphics.print("popupCheck :"..tostring(popupCheck)..", nowLevel :"..tostring(nowLevel),x,y)
 end

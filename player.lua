@@ -13,18 +13,15 @@ PLAYER_START_Y = 100
 player_frames_left = {}
 player_frames_right = {}
 
-
+PLAYER_GROUND_Y = 145
 
 for i=0,2 do
-	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
+	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
 end
 
 for i=0,2 do
-	player_frames_right[i] = love.graphics.newQuad(42*i,84,42,42,128,170)
+	player_frames_right[i] = love.graphics.newQuad(32*i,32,32,32,96,64)
 end
-
-player_frames_stand = love.graphics.newQuad(42,0,42,42,128,170)
-player_frames_jump = love.graphics.newQuad(42,126,42,42,128,170)
 
 function Player.create()
 	local self = {}
@@ -33,60 +30,42 @@ function Player.create()
 	return self
 end
 
-function Player:UpdateMove(dt)
-	if love.keyboard.isDown('9') then --문제를 풀었을 때의 가정.
-		if stageLevel > 0 then
-			if BridegePassValue >= 90 then --3문제를 모두 풀었을 경우 완전히 다리를 넘아갈 수 있도록.
-				canPass = true
-			else --문제를 풀때마다 수치가 조금씩 증가함. 30씩 증가하면 됨.
-				BridegePassValue = BridegePassValue + 10
-			end
+function Player:UpdateMoveRight(dt)
+	self.frame = (self.frame + 15*dt) % 3
+	if self.x < WIDTH - 10 then
+		if isCanMove then
+			self.x = self.x + PLAYER_MOVE_POWER
 		end
 	end
+	player_now_frame = player_frames_left[math.floor(self.frame)]
+end
+--Add by G 0729
 
+function Player:UpdateMoveLeft(dt)
+	self.frame = (self.frame + 15*dt) % 3
+	if self.x > 0 then
+		if isCanMove then
+			self.x = self.x - PLAYER_MOVE_POWER
+		end
+	end
+	player_now_frame = player_frames_right[math.floor(self.frame)]
+end
+--Add by G 0729
+
+function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then
-		if self.x > 225 + BridegePassValue and stageLevel == 3 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
+		if self.x > 225 + BridegePassValue and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
 			if canPass then -- 이 사이에 있는 부분을 메서드로 빼면 좋을 것 같은데 방법이 없나? 계속 터지네.. by.현식 0728
-				self.frame = (self.frame + 15*dt) % 3
-				if self.x < WIDTH - 10 then
-					if isCanMove then
-						self.x = self.x + PLAYER_MOVE_POWER
-					end
-				end
-				if love.keyboard.isDown('space') then
-					player_now_frame = player_frames_jump
-				else
-					player_now_frame = player_frames_left[math.floor(self.frame)]
-				end			
+				self:UpdateMoveRight(dt)		
 			end -- canPass
 		else
-			self.frame = (self.frame + 15*dt) % 3
-			if self.x < WIDTH - 10 then
-				if isCanMove then
-					self.x = self.x + PLAYER_MOVE_POWER
-				end
-			end
-			if love.keyboard.isDown('space') then
-				player_now_frame = player_frames_jump
-			else
-				player_now_frame = player_frames_left[math.floor(self.frame)]
-			end
+			self:UpdateMoveRight(dt)
 		end
 	end
 
 	if love.keyboard.isDown('left') then
-		self.frame = (self.frame + 15*dt) % 3
-			if self.x > 0 then
-				if isCanMove then
-					self.x = self.x - PLAYER_MOVE_POWER
-				end
-			end
-		if love.keyboard.isDown('space') then
-			player_now_frame = player_frames_jump
-		else
-			player_now_frame = player_frames_right[math.floor(self.frame)]
-		end
+		self:UpdateMoveLeft(dt)
 	end
 end
 
@@ -101,8 +80,8 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if self.y > 135 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
-			self.y = 135
+		if self.y > PLAYER_GROUND_Y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+			self.y = PLAYER_GROUND_Y
 			self.yspeed = 0
 			self.onGround = true
 		end
@@ -114,6 +93,7 @@ function Player:update(dt)
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
+	self:IfQuest() --퀘스트 만들기 전까지 임시 대용. by.현식 0802
 end
 
 function Player:reset()
@@ -147,4 +127,16 @@ end
 function Player:SetStartPosition() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
+end
+
+function Player:IfQuest()
+	if love.keyboard.isDown('9') then
+		if stageLevel > 0 then
+			if BridegePassValue >= 90 then --3문제를 모두 풀었을 경우 완전히 다리를 넘아갈 수 있도록.
+				canPass = true
+			else --문제를 풀때마다 수치가 조금씩 증가함. 30씩 증가하면 됨.
+				BridegePassValue = BridegePassValue + 10
+			end
+		end
+	end
 end

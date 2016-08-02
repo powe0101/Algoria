@@ -21,12 +21,15 @@ require("River")
 require("riverList")
 require("Bridge")
 require("BridgeList")
+require("Picket")
+require("picketList")
 
 --이하 스테이지 관련
 require("village")
 require("Season")
 require("StageFall")
 require("StageSummer")
+require("StageWinter")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -46,6 +49,8 @@ BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해�
 
 popupCheck = false --팝업을 만들때 다른 것들은 update시키지 않기 위한 bool형 변수. by.현식 0801
 levelCheck = 1 --팝업창에서 계절을 선택하고 그 값을 stageLevel에 넘겨주는 변수. by.현식 0801
+
+
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -174,7 +179,7 @@ end
 function love.keypressed(key,scancode) -- 키입력
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801
 
-  if love.keyboard.isDown("escape")then
+  if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
     if bgCheck then
       love.audio.pause()
@@ -209,12 +214,14 @@ function updateGame(dt)
   PortalListUpdate(dt)
   RiverListUpdate(dt)
   --BridgeListUpdate(dt)
+  PicketListUpdate(dt)
  
-  if stageLevel == 3 then --애니메이션 테스트 by.근영 0801가을에 다리 나타나기
+  if stageLevel == 3 then --다리 애니메이션 업데이트 부분.
+    CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수 
     aniBridge1:update(dt)
-    --aniBridge2:update(dt)
-    --aniBridge3:update(dt)
-  end
+    aniBridge2:update(dt)
+    aniBridge3:update(dt)
+  end 
 end
 
 function drawGame()
@@ -225,12 +232,13 @@ function drawGame()
   CloudListDraw()
   PortalListDraw()
   RiverListDraw()
-  BridgeListDraw()
+  --BridgeListDraw()
+  PicketListDraw()
 
-  if stageLevel == 3 then
-    aniBridge1:draw()
-    --aniBridge2:draw()
-    --aniBridge3:draw()
+   if stageLevel == 3 then --다리 애니메이션 그리는 부분.
+     aniBridge1:draw()--첫 문제를 풀었다고 가정
+     aniBridge2:draw() --두번째 문제를 풀었다고 가정
+     aniBridge3:draw()
   end
 
   pl:draw() -- 플레이어 스프라이트 그리기 
@@ -239,32 +247,41 @@ end
 
 function loadResources()
   -- Load images
-  imgSprites = love.graphics.newImage("images/algola_char.png") -- char.png 등록
+  imgSprites = love.graphics.newImage("images/algolaChar.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
 
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
 
+  imgSTree = love.graphics.newImage("images/summerTree.png")
+  imgSTree:setFilter("nearest","nearest")  
+
   imgFTree = love.graphics.newImage("images/FallTree01.png")
   imgFTree:setFilter("nearest","nearest")
 
-  imgSTree = love.graphics.newImage("images/summerTree.png")
-  imgSTree:setFilter("nearest","nearest")  
+  imgWTree = love.graphics.newImage("images/winterTree.png")
+  imgWTree:setFilter("nearest","nearest")  
 
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
-  imgHouse = love.graphics.newImage("images/house04.png")
+  imgHouse = love.graphics.newImage("images/house.png")
   imgHouse:setFilter("nearest","nearest") 
 
   imgPortal = love.graphics.newImage("images/portal03.png") 
   imgPortal:setFilter("nearest","nearest") 
+
+  imgPicket = love.graphics.newImage("images/picket.png")
+  imgPicket:setFilter("nearest", "nearest")
 
   imgGround = love.graphics.newImage("images/ground.png") 
   imgGround:setFilter("nearest","nearest") 
 
   imgSGround = love.graphics.newImage("images/summerGround.png")
   imgSGround:setFilter("nearest","nearest") 
+
+  imgWGround = love.graphics.newImage("images/winterGround.png")
+  imgWGround:setFilter("nearest","nearest") 
 
   imgRiver = love.graphics.newImage("images/river01.png")
   imgRiver:setFilter("nearest","nearest")  
@@ -296,15 +313,14 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
       else
         levelCheck = levelCheck - 1
       end
-    end --up
-
+    end
     if love.keyboard.isDown("down") then
       if levelCheck == 4 then
         --스테이지가 4보다 커지면 아무 동작도 안함
       else
         levelCheck = levelCheck + 1
       end
-    end --down
+    end
 
     if love.keyboard.isDown("return") then --enter키임
       stageLevel = levelCheck
@@ -312,11 +328,17 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
       
       deleteVillage()
       CheckSeason()
-    end --Enter
-
-    if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 팝업창이 닫히게끔.
-      levelCheck = 1
-      popupCheck = false
     end
   end
+end
+
+function CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수  
+  if BridegePassValue  < 20  then --첫번째 문제를 출었다고 가정 
+      aniBridge1:play()
+    elseif BridegePassValue >= 60 and not canPass then
+      aniBridge2:play()--두번째 문제를 풀었다고 가정
+    end
+    if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
+      aniBridge3:play()
+    end
 end

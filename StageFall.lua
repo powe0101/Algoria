@@ -12,28 +12,28 @@ function CreateFall()
  		CreateTree(600,54)
  		CreateTree(750,54)
 
+    CreatePicket(400,146)
+
  		--여기서부터 
 
     aniBridge1 = newAnimation(imgBridge, 75, 61, 0.3, 0)
-    --aniBridge2 = newAnimation(imgBridge, 75, 61, 0.3, 0)
-    aniBridge1:setMode("once")
-      aniBridge1:CreateBridge(425,155)
+    aniBridge2 = newAnimation(imgBridge, 75, 61, 0.3, 0)
+    aniBridge3 = newAnimation(imgBridge, 75, 61, 0.3, 0)
+ 
+    aniBridge1:setMode("once")  
+    aniBridge2:setMode("once") 
+    aniBridge3:setMode("once")
 
-    if BridegePassValue == 30 then
-      
-      aniBridge1:setMode("once")
-      aniBridge1:CreateBridge(425,155) --첫 문제를 풀었다고 가정
-    elseif BridegePassValue == 60 then
-      
-      --aniBridge2:setMode("once")
-      --aniBridge2:CreateBridge(489,155) --두번째 문제를 풀었다고 가정
-    end
+    --위와 같이 애니메이션으로 사용할 다리 3개에 대한 생성과 설정값만 적용해놓고
+    --아래처럼 조건문을 줘서 총 3차례에 걸쳐서 다리가 나타나게 하려고 함.
+    --현재 문제가 없기 때문에 숫자키 '9'를 누르면 BridgePassValue값이 조금씩 증가해서
+    --다리가 올라오게끔 구상함. by.현식 0802
 
-    if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
-      --aniBridge3 = newAnimation(imgBridge, 75, 61, 0.3, 0)
-      --aniBridge3:setMode("once")
-      --aniBridge3:CreateBridge(553,155)
-    end
+    aniBridge1:CreateBridge(425,155) --첫 문제를 풀었다고 가정
+    aniBridge2:CreateBridge(489,155) --두번째 문제를 풀었다고 가정
+    aniBridge3:CreateBridge(553,155)
+      
+ 
 
  		pl:SetStartPosition() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end

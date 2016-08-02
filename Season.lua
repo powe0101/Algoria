@@ -20,7 +20,7 @@ function CheckSeason() --아직 가을까지밖에 적용이 안됨.
     elseif stageLevel == 3 then
       CreateFall()
     elseif stageLevel == 4 then
-      --CreateWinter()
+      CreateWinter()
   end
 end
 
