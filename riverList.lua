@@ -13,7 +13,7 @@ function RiverListUpdate(dt)
   end
 end
 
-function DeleteRiver()--07 21 근영 구름 초기화
+function RiverListDelete()
    for i=0, riverCount-1 do
     riverList[i]=nil
    end

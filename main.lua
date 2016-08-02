@@ -2,11 +2,13 @@ require("player") -- include player.lua
 require("gameDebug")
 require("Control")
 
+require("AnAL") --애니메이션 관련
+
 --그래픽 관련
 require("Box")
 require("BoxList")
 require("tree") -- include tree.lua
-require("treeList")
+require ("treeList")
 require("cloud")
 require("cloudList")
 require("House")
@@ -17,12 +19,14 @@ require("Ground")
 require("groundList")
 require("River")
 require("riverList")
-
+require("Bridge")
+require("BridgeList")
 
 --이하 스테이지 관련
 require("village")
 require("Season")
 require("StageFall")
+require("StageSummer")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -35,6 +39,13 @@ isFullScreen = false --전체화면 설정
 isCanMove = true -- 움직일수 있는 경우 
 
 stageLevel = 0 --맵 시작 값 --0721 근영 
+canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
+
+canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
+BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해서 총 3번째 문제를 풀면 위의 canPass가 true로 바뀌게 됨. by.현식 0729
+
+popupCheck = false --팝업을 만들때 다른 것들은 update시키지 않기 위한 bool형 변수. by.현식 0801
+levelCheck = 1 --팝업창에서 계절을 선택하고 그 값을 stageLevel에 넘겨주는 변수. by.현식 0801
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -47,10 +58,11 @@ function love.load()
   updateScale()
   start() -- 시작 
 
-  --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
+  audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
 function audio()
+  bgCheck = true
   bgMusic = love.audio.newSource("audio/1.mp3")
   love.audio.setVolume(0.3)
   love.audio.play(bgMusic)
@@ -105,10 +117,14 @@ end
 
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
+  BoxListReset()
 end
 
 function love.update(dt)
-  updateGame(dt)
+  if popupCheck == false then
+    updateGame(dt)
+  end
+
   CheckPortal()
 end
 
@@ -118,6 +134,10 @@ function love.draw()
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드 
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
+
+  if popupCheck == true then
+    DrawPopup()
+  end
 end
 
 function SetScale(key,scancode)
@@ -152,6 +172,19 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
+  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801
+
+  if love.keyboard.isDown("escape")then
+    --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
+    if bgCheck then
+      love.audio.pause()
+      bgCheck = false
+    else 
+      love.audio.resume()
+      bgCheck = true
+    end
+  end
+
   if love.keyboard.isDown("lalt") and love.keyboard.isDown("return") then
     SetScreen()
    -- 테스트중 미완성
@@ -175,6 +208,13 @@ function updateGame(dt)
   HouseListUpdate(dt)
   PortalListUpdate(dt)
   RiverListUpdate(dt)
+  --BridgeListUpdate(dt)
+ 
+  if stageLevel == 3 then --애니메이션 테스트 by.근영 0801가을에 다리 나타나기
+    aniBridge1:update(dt)
+    --aniBridge2:update(dt)
+    --aniBridge3:update(dt)
+  end
 end
 
 function drawGame()
@@ -185,9 +225,16 @@ function drawGame()
   CloudListDraw()
   PortalListDraw()
   RiverListDraw()
+  BridgeListDraw()
+
+  if stageLevel == 3 then
+    aniBridge1:draw()
+    --aniBridge2:draw()
+    --aniBridge3:draw()
+  end
 
   pl:draw() -- 플레이어 스프라이트 그리기 
-  --isCanMove = isEdge()
+  isCanMove = isEdge()
 end
 
 function loadResources()
@@ -201,6 +248,9 @@ function loadResources()
   imgFTree = love.graphics.newImage("images/FallTree01.png")
   imgFTree:setFilter("nearest","nearest")
 
+  imgSTree = love.graphics.newImage("images/summerTree.png")
+  imgSTree:setFilter("nearest","nearest")  
+
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
@@ -213,8 +263,14 @@ function loadResources()
   imgGround = love.graphics.newImage("images/ground.png") 
   imgGround:setFilter("nearest","nearest") 
 
+  imgSGround = love.graphics.newImage("images/summerGround.png")
+  imgSGround:setFilter("nearest","nearest") 
+
   imgRiver = love.graphics.newImage("images/river01.png")
-  imgRiver:setFilter("nearest","nearest") 
+  imgRiver:setFilter("nearest","nearest")  
+ 
+  imgBridge = love.graphics.newImage("images/bridge04.png")
+  imgBridge:setFilter("nearest","nearest") 
 end
 
 function isEdge()
@@ -229,5 +285,38 @@ end
 function createStage() --0721 근영 맵 만드는 함수
   if stageLevel==0 then -- if문으로 stage설정 
     createVillage()
+  end
+end
+
+function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/아래키로 스테이지를 선택하는 메서드.
+  if popupCheck then
+    if love.keyboard.isDown("up") then
+      if levelCheck == 1 then
+        --스테이지가 1보다 작아지면 아무 동작도 안함
+      else
+        levelCheck = levelCheck - 1
+      end
+    end --up
+
+    if love.keyboard.isDown("down") then
+      if levelCheck == 4 then
+        --스테이지가 4보다 커지면 아무 동작도 안함
+      else
+        levelCheck = levelCheck + 1
+      end
+    end --down
+
+    if love.keyboard.isDown("return") then --enter키임
+      stageLevel = levelCheck
+      popupCheck = false
+      
+      deleteVillage()
+      CheckSeason()
+    end --Enter
+
+    if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 팝업창이 닫히게끔.
+      levelCheck = 1
+      popupCheck = false
+    end
   end
 end
