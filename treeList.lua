@@ -13,7 +13,7 @@ function TreeListUpdate(dt)
   end
 end
 
-function DeleteTree()--07 21 근영 나무 초기화
+function TreeListDelete()
    for i=0, treeCount-1 do
    treeList[i]=nil
    end

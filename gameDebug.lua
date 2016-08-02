@@ -1,4 +1,4 @@
-  DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+  DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 function drawDebug(setting)  
   if setting == false then
@@ -50,6 +50,13 @@ function drawDebug(setting)
   local DEBUG_BOXINFO_X = 350
   local DEBUG_BOXINFO_Y = 30
   showBoxInfo(DEBUG_BOXINFO_X,DEBUG_BOXINFO_Y)
+  local DEBUG_BRIDGEINFO_X = 200
+  local DEBUG_BRIDGEINFO_Y = 38
+  showBridgePassIfno(DEBUG_BRIDGEINFO_X, DEBUG_BRIDGEINFO_Y)
+
+  local DEBUG_POPUPINFO_X = 200
+  local DEBUG_POPUPINFO_Y = 53
+  showPopupIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
 end
 
 function showFps(x,y)
@@ -100,7 +107,12 @@ end
 function showBoxInfo(x,y)
   love.graphics.print("BoxCount : "..tostring(boxCount)..tostring(global_isCollision),x,y)
 
-  for i = 0, boxCount-1 do
-    love.graphics.print("x_distance :"..tostring(boxList[i].x_distance).."y_distance"..tostring(boxList[i].y_distance.."\n")..tostring(boxList[i].isCollisionRight),x,y+(20*i)+20)
-  end
+end
+
+function showBridgePassIfno(x,y)
+  love.graphics.print("BridegePassValue :"..tostring(BridegePassValue)..", canPass :"..tostring(canPass),x,y)
+end
+
+function showPopupIfno(x,y)
+  love.graphics.print("popupCheck :"..tostring(popupCheck)..", nowLevel :"..tostring(nowLevel),x,y)
 end

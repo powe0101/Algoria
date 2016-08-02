@@ -1,9 +1,8 @@
-boxList = {}
 boxCount = 0
-
+boxList = {}
 function CreateBox(x,y)
   boxList[boxCount] = Box.create()
-  boxList[boxCount]:reset(x,y)
+  boxList[boxCount]:init(x,y)
   boxList[boxCount]:CreateDirectionBox(boxList[boxCount].directionBox)
   boxCount = boxCount + 1
 end
@@ -62,11 +61,24 @@ function DeleteBox()
     boxList[i]=nil
    end
    boxCount=0
+  boxList[boxCount]:init(x,y)
+  boxCount = boxCount + 1
 end
 
-function BoxListDraw()
+function BoxListReset()
   for i = 0 , boxCount-1 do
-  boxList[i]:draw(dt)
+  boxList[i]:reset()
   end 
 end
 
+function BoxListDraw()
+	for i = 0, boxCount-1 do
+    	boxList[i]:draw()
+  	end
+end
+
+function BoxListUpdate(dt)
+	for i = 0, boxCount-1 do
+		boxList[i]:update()
+	end
+end 

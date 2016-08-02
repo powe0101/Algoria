@@ -13,13 +13,13 @@ global_isCollision = false
 function Box:create()
 	local self = {}
 	setmetatable(self, Box)
-	self:reset()
+	self:init()
 	self.dtBox = {}
 
 	return self
 end
 
-function Box:reset(x,y)
+function Box:init(x,y)
 	self.x = x
 	self.y = y
 	self.frame = 1
@@ -64,8 +64,9 @@ function Box:normal(dt) --cloud 이동
 	self.bottom = self:GetY()
 end
 
-function Box:UpdateMove(dt) --cloud key이벤트 
-	self=BackgroundMove(self,dt)
+function Box:reset()
+	self.frame = 1
+	self.onGround = true
 end
 
 function Box:update(dt)
@@ -74,7 +75,9 @@ function Box:update(dt)
 	self.x_distance = pl:GetX() - self:GetX()
 	self.y_distance = pl:GetY() - self:GetY()
 	--Debug
-
+end
+function Box:update()
+	self:draw()
 end
 
 function Box:GetX()
@@ -140,4 +143,6 @@ function drawDirectionBox(box, r,g,b)
   love.graphics.rectangle("fill", box.x, box.y - BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x, box.y - BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
+	love.graphics.setColor(darkcolor) -- 흰색 RGBA
+-- 	love.graphics.rectangle('fill', self:GetX(), self:GetY(), BOX_WIDTH, BOX_HEIGHT)
 end

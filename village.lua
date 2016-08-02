@@ -28,9 +28,9 @@ function createVillage()
 end
 
 function deleteVillage()
-  DeleteCloud()
-  DeleteTree()
-  DeleteHouse()
-  DeletePortal()
-  DeleteGround()
+  CloudListDelete()
+  TreeListDelete()
+  HouseListDelete()
+  PortalListDelete()
+  GroundListDelete()
 end
