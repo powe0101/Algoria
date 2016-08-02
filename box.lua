@@ -67,12 +67,18 @@ function Box:DrawLine(_color,_x,_y)
 end
 
 function Box:draw()
-	love.graphics.setColor(255,255,255) -- 흰색 RGBA
- 	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
-
- 	if self.isCollision == true then 
+	-- love.graphics.setColor(255,255,255) -- 흰색 RGBA
+ -- 	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
+ 	drawBox(self,255,255,255)
+ 	if self.isCollision == false then 
  		self:DrawLine(collisionColor,self.x,self.y)
  	end
+ 	-- love.graphics.setColor(255,255,255) -- 흰색 RGBA
+end
 
- 	love.graphics.setColor(255,255,255) -- 흰색 RGBA
+function drawBox(box, r,g,b)
+  love.graphics.setColor(r,g,b,70)
+  love.graphics.rectangle("fill", box.x, box.y, BOX_WIDTH, BOX_HEIGHT)
+  love.graphics.setColor(r,g,b)
+  love.graphics.rectangle("line", box.x, box.y, BOX_WIDTH, BOX_HEIGHT)
 end

@@ -15,6 +15,9 @@ player_frames_right = {}
 
 PLAYER_GROUND_Y = 135
 
+isCanMoveLeft = true
+isCanMoveRight = true
+
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
@@ -36,11 +39,11 @@ end
 
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 and self:CollisionByBox() then
+	if self.x < WIDTH - 10 and isCollision then
 		self.x = self.x + PLAYER_MOVE_POWER
 	end
 
-	if love.keyboard.isDown('space')  then
+	if love.keyboard.isDown('space') then
 		player_now_frame = player_frames_jump
 	else
 		player_now_frame = player_frames_left[math.floor(self.frame)]
@@ -50,7 +53,7 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0  and self:CollisionByBox() then
+	if self.x > 0  and isCollision then
 		self.x = self.x - PLAYER_MOVE_POWER
 	end
 
@@ -99,6 +102,7 @@ end
 
 function Player:update(dt)
 	-- Update walk frame
+	isCollision = self:CollisionByBox()
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
@@ -152,9 +156,9 @@ end
 
 function Player:CollisionByBox()
 	for i = 0, boxCount-1 do
-		if self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY()) then
+		isCollision = self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY(),20,20,pl:GetX(),pl:GetY(),42,42)
+		if isCollision then
 			boxList[i].isCollision = true
-			return false
 		else
 			boxList[i].isCollision = false
 		end
@@ -162,11 +166,15 @@ function Player:CollisionByBox()
 	return true
 end
 
-function Player:collideWithPoint(x,y)
-	if x > pl.x and x < pl.x+PLAYER_WIDTH
-	and y > pl.y and y < pl.y+PLAYER_HEIGHT then
-		return true
-	else
-		return false
-	end
+function Player:collideWithPoint(x1,y1,w1,h1, x2,y2,w2,h2)
+	if x1 < x2+w2 and
+    x2 < x1+w1 and
+    y1 < y2+h2 and
+    y2 < y1+h1 then 
+    
+    return false 
+   
+    else
+    	return true
+    end
 end

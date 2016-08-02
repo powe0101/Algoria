@@ -24,6 +24,8 @@ require("village")
 require("Season")
 require("StageFall")
 
+
+--block
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
