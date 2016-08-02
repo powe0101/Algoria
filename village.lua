@@ -20,15 +20,17 @@ function createVillage()
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
 
-  CreateBox(300,135)
-  CreateBox(400,135)
+  CreateBox(300,50)
+  CreateBox(400,166)
 
+  CreateBox(600,130)
+  CreateBox(350,100)
 end
 
 function deleteVillage()
-  DeleteCloud()
-  DeleteTree()
-  DeleteHouse()
-  DeletePortal()
-  DeleteGround()
+  CloudListDelete()
+  TreeListDelete()
+  HouseListDelete()
+  PortalListDelete()
+  GroundListDelete()
 end
