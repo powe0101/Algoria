@@ -30,6 +30,7 @@ require("Season")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
+require("Quest")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -50,6 +51,7 @@ BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해�
 popupCheck = false --팝업을 만들때 다른 것들은 update시키지 않기 위한 bool형 변수. by.현식 0801
 levelCheck = 1 --팝업창에서 계절을 선택하고 그 값을 stageLevel에 넘겨주는 변수. by.현식 0801
 
+questCheck = false --표지판을 통해서 수행하는 퀘스트가 돌아가는 동안에는 메인 update를 막음.
 
 
 function love.load()
@@ -126,22 +128,32 @@ function start()
 end
 
 function love.update(dt)
-  if popupCheck == false then
+  if popupCheck == false and questCheck == false then
     updateGame(dt)
   end
 
   CheckPortal()
+  CheckQuest()
 end
 
 
 function love.draw()
+  test_now_frame = love.graphics.newQuad(0,0,583,337,583,337)
+
+
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드 
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 
-  if popupCheck == true then
+  if popupCheck then
     DrawPopup()
+  end
+  
+
+  if questCheck then
+    DrawQuest()
+    love.graphics.draw(imgTest,test_now_frame,10,10 )
   end
 end
 
@@ -178,6 +190,7 @@ end
 
 function love.keypressed(key,scancode) -- 키입력
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801
+  ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
@@ -288,6 +301,9 @@ function loadResources()
  
   imgBridge = love.graphics.newImage("images/bridge04.png")
   imgBridge:setFilter("nearest","nearest") 
+
+  imgTest = love.graphics.newImage("images/test.png")
+  imgTest:setFilter("nearest","nearest") 
 end
 
 function isEdge()
@@ -305,35 +321,10 @@ function createStage() --0721 근영 맵 만드는 함수
   end
 end
 
-function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/아래키로 스테이지를 선택하는 메서드.
-  if popupCheck then
-    if love.keyboard.isDown("up") then
-      if levelCheck == 1 then
-        --스테이지가 1보다 작아지면 아무 동작도 안함
-      else
-        levelCheck = levelCheck - 1
-      end
-    end
-    if love.keyboard.isDown("down") then
-      if levelCheck == 4 then
-        --스테이지가 4보다 커지면 아무 동작도 안함
-      else
-        levelCheck = levelCheck + 1
-      end
-    end
-
-    if love.keyboard.isDown("return") then --enter키임
-      stageLevel = levelCheck
-      popupCheck = false
-      
-      deleteVillage()
-      CheckSeason()
-    end
-  end
-end
+--ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 
 function CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수  
-  if BridegePassValue  < 20  then --첫번째 문제를 출었다고 가정 
+  if 0 < BridegePassValue and BridegePassValue < 30  then --첫번째 문제를 출었다고 가정 
       aniBridge1:play()
     elseif BridegePassValue >= 60 and not canPass then
       aniBridge2:play()--두번째 문제를 풀었다고 가정

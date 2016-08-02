@@ -77,6 +77,38 @@ function DrawRectangle(x, y, width, height) --마리오에서 따온거임
   love.graphics.rectangle("fill", (x+width-1)*scale, y*scale, scale, height*scale)
 end
 
+function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/아래키로 스테이지를 선택하는 메서드.
+  if popupCheck then
+    if love.keyboard.isDown("up") then
+      if levelCheck == 1 then
+        --스테이지가 1보다 작아지면 아무 동작도 안함
+      else
+        levelCheck = levelCheck - 1
+      end
+    end
+    if love.keyboard.isDown("down") then
+      if levelCheck == 4 then
+        --스테이지가 4보다 커지면 아무 동작도 안함
+      else
+        levelCheck = levelCheck + 1
+      end
+    end
+
+    if love.keyboard.isDown("return") then --enter키임
+      stageLevel = levelCheck
+      popupCheck = false
+      
+      deleteVillage()
+      CheckSeason()
+    end
+
+    if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 팝업창이 닫히게끔.
+      levelCheck = 1
+      popupCheck = false
+    end
+  end
+end
+
 function ChooseStage() --MessageBox를 이용한 스테이지 선택 방법. But,지금은 안씀. by. 현식 0801
   local title = "알고리즘 게임"
   local message = "스테이지를 선택하세요"
