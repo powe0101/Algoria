@@ -151,8 +151,8 @@ function Player:SetStartPosition() --스테이지가 변경됐을 때 캐릭터 
 end
 
 function Player:CollisionByBox()
-	for i=0, boxCount-1 do 
-		if Player.collideWidthPoint(boxList[i],v.GetX(),v.GetY()) then
+	for i, v in ipairs(boxList) do
+		if Player.collideWidthPoint(self,v.GetX(),v.GetY()) then
 			v.isCollision = true
 			return true
 		else
