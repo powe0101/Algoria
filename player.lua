@@ -17,6 +17,7 @@ PLAYER_GROUND_Y = 135
 
 isCanMoveLeft = true
 isCanMoveRight = true
+isCanJump = true
 
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
@@ -38,8 +39,9 @@ end
 
 
 function Player:UpdateMoveRight(dt)
+	FindCollisionRightDirection()
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 and isCollision then
+	if self.x < WIDTH - 10 and isCanMoveRight then
 		self.x = self.x + PLAYER_MOVE_POWER
 	end
 
@@ -52,8 +54,9 @@ end
 --Add by G 0729
 
 function Player:UpdateMoveLeft(dt)
+	FindCollisionLeftDirection()
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0  and isCollision then
+	if self.x > 0  and isCanMoveLeft then
 		self.x = self.x - PLAYER_MOVE_POWER
 	end
 
@@ -81,7 +84,8 @@ function Player:UpdateMove(dt)
 end
 
 function Player:CheckSpaceBarDown(dt)
-	if love.keyboard.isDown('space') and self.onGround == true then
+	FindCollisionBottomDirection()
+	if love.keyboard.isDown('space') and self.onGround == true and isCanJump then
 		self.yspeed = JUMP_POWER
 	end
 
@@ -98,14 +102,21 @@ function Player:normal(dt)
 			self.onGround = true
 		end
 	end
+
+	FindCollisionTopDirection()
+	if self.status == 1 then
+
+	end
 end
 
 function Player:update(dt)
 	-- Update walk frame
-	isCollision = self:CollisionByBox()
+	
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
+	self:CollisionByBox()
+
 end
 
 function Player:reset()
@@ -124,7 +135,6 @@ function Player:reset()
 	self.left = self.x - (self.width * 2)
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
-
 end
 
 function Player:draw()
@@ -133,6 +143,7 @@ function Player:draw()
 	if DEBUG_SETTING then
 		love.graphics.rectangle("line",self.x+8,self.y,25,42)
 	end
+
 	-- Check keyboard input
 end
 
@@ -155,26 +166,40 @@ function Player:SetStartPosition() --스테이지가 변경됐을 때 캐릭터 
 end
 
 function Player:CollisionByBox()
-	for i = 0, boxCount-1 do
-		isCollision = self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY(),20,20,pl:GetX(),pl:GetY(),42,42)
-		if isCollision then
-			boxList[i].isCollision = true
-		else
-			boxList[i].isCollision = false
-		end
+	for i = 0 , boxCount - 1 do 
+		boxList[i].isCollisionRight = 
+		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH,boxList[i]:GetY(),self)
+		
+		boxList[i].isCollisionLeft =
+		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH,boxList[i]:GetY(),self)
+
+		boxList[i].isCollisionTop = 
+		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
+
+		boxList[i].isCollisionBottom =
+		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
 	end
-	return true
 end
 
-function Player:collideWithPoint(x1,y1,w1,h1, x2,y2,w2,h2)
-	if x1 < x2+w2 and
-    x2 < x1+w1 and
-    y1 < y2+h2 and
-    y2 < y1+h1 then 
-    
-    return false 
-   
-    else
-    	return true
-    end
+function Player:collideWithPoint(x,y,_player)
+		x1 = x
+		y1 = y
+		
+		w1 = BOX_WIDTH 
+		h1 = BOX_HEIGHT
+
+		x2 = pl:GetX() 
+		y2 = pl:GetY() 
+		w2 = pl.width 
+		h2= pl.height
+
+		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
+       	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
+       	x2  + 25 > x1 + w1 or -- 오른쪽
+       	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면 
+    	then
+        	return false                -- 충돌 안함
+   		else
+       		 return true                 -- 충돌
+   		end
 end

@@ -22,8 +22,9 @@ function createVillage()
 
   CreateBox(300,50)
   CreateBox(400,166)
-  CreateBox(500,135)
-  CreateBox(600,113)
+
+  CreateBox(600,130)
+  CreateBox(350,100)
 end
 
 function deleteVillage()

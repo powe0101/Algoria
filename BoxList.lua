@@ -4,7 +4,51 @@ boxCount = 0
 function CreateBox(x,y)
   boxList[boxCount] = Box.create()
   boxList[boxCount]:reset(x,y)
+  boxList[boxCount]:CreateDirectionBox(boxList[boxCount].directionBox)
   boxCount = boxCount + 1
+end
+
+function FindCollisionRightDirection()
+  for i =0, boxCount-1 do
+    if boxList[i].isCollisionLeft then
+      isCanMoveRight = false
+      return 
+    end
+  end
+
+  isCanMoveRight = true
+end
+
+function FindCollisionLeftDirection()
+  for i =0, boxCount-1 do
+    if boxList[i].isCollisionRight then
+      isCanMoveLeft = false
+      return 
+    end
+  end
+
+  isCanMoveLeft = true
+end
+
+function FindCollisionTopDirection()
+  for i =0, boxCount-1 do
+    if boxList[i].isCollisionTop then
+      
+      return 
+    end
+  end
+
+end
+
+function FindCollisionBottomDirection()
+  for i =0, boxCount-1 do
+    if boxList[i].isCollisionTop then
+      isCanJump = false
+      return 
+    end
+  end
+
+  isCanJump = true
 end
 
 function BoxListUpdate(dt)
