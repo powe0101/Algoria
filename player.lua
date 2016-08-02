@@ -14,9 +14,7 @@ player_frames_left = {}
 player_frames_right = {}
 
 PLAYER_GROUND_Y = 135
-isCanMoveRight = true -- 움직일수 있는 경우
-isCanMoveLeft = true
-isCanMove = true
+
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(42*i,42,42,42,128,170)
 end
@@ -35,31 +33,15 @@ function Player.create()
 	return self
 end
 
-function place_free(qx,qy,qwidth,qheight)
-	free = false
-
-	for i=0,boxCount-1 do
-		if CheckCollision(qx,qy,qwidth,qheight,
-			boxList[i]:GetX(),boxList[i]:GetY(),boxList[i].width,boxList[i].height)
-		then
-			free = true
-		end
-	end
-	
-	return free
-end
 
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 and place_free(self.x+(PLAYER_MOVE_POWER*dt),self.y,self.width,self.height) == false then
+	if self.x < WIDTH - 10 and self:CollisionByBox() then
 		self.x = self.x + PLAYER_MOVE_POWER
 	end
 
-	if love.keyboard.isDown('space') then
+	if love.keyboard.isDown('space')  then
 		player_now_frame = player_frames_jump
-		if place_free(self.x+(PLAYER_MOVE_POWER*dt),self.y,self.width,self.height) then
-			self.y = self.y - 4
-		end
 	else
 		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
@@ -68,11 +50,11 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0 and  place_free(self.x+(PLAYER_MOVE_POWER*dt),self.y,self.width,self.height) == false then
-			self.x = self.x - PLAYER_MOVE_POWER
+	if self.x > 0  and self:CollisionByBox() then
+		self.x = self.x - PLAYER_MOVE_POWER
 	end
 
-	if love.keyboard.isDown('space') then
+	if love.keyboard.isDown('space')  then
 			player_now_frame = player_frames_jump
 	else
 			player_now_frame = player_frames_right[math.floor(self.frame)]
@@ -166,4 +148,26 @@ end
 function Player:SetStartPosition() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
+end
+
+function Player:CollisionByBox()
+	for i, v in ipairs(boxList) do
+		if Player.collideWidthPoint(self,v.GetX(),v.GetY()) then
+			v.isCollision = true
+			return true
+		else
+			v.isCollision = false
+		end
+	end
+	return false
+end
+
+
+function Player:collideWithPoint(x,y)
+	if x > self.x and x < self.x+PLAYER_WIDTH
+	and y > self.y and y < self.y+PLAYER_HEIGHT then
+		return true
+	else
+		return false
+	end
 end
