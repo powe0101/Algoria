@@ -53,7 +53,7 @@ function drawDebug(setting)
 
   local DEBUG_POPUPINFO_X = 200
   local DEBUG_POPUPINFO_Y = 53
-  showPopupIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
+  showPopupAndPhaseIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
 end
 
 function showFps(x,y)
@@ -105,6 +105,6 @@ function showBridgePassIfno(x,y)
   love.graphics.print("BridegePassValue :"..tostring(BridegePassValue)..", canPass :"..tostring(canPass),x,y)
 end
 
-function showPopupIfno(x,y)
-  love.graphics.print("popupCheck :"..tostring(popupCheck)..", nowLevel :"..tostring(nowLevel),x,y)
+function showPopupAndPhaseIfno(x,y)
+  love.graphics.print("popupCheck :"..tostring(popupCheck)..", nowLevel :"..tostring(nowLevel)..", phase : "..tostring(phase),x,y)
 end

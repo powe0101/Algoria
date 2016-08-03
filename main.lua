@@ -303,6 +303,8 @@ function loadResources()
 
   imgTest = love.graphics.newImage("images/test_re.png")
   imgTest:setFilter("nearest","nearest") 
+
+  FallQuestAndAnswerLoad()
 end
 
 function isEdge()
