@@ -27,6 +27,7 @@ require("picketList")
 --이하 스테이지 관련
 require("village")
 require("Season")
+require("StageSpring")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
@@ -65,7 +66,7 @@ function love.load()
   updateScale()
   start() -- 시작 
 
-  audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
+  --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
 function audio()
@@ -138,7 +139,7 @@ end
 
 
 function love.draw()
-  test_now_frame = love.graphics.newQuad(0,0,583,337,583,337)
+  test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
 
 
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
@@ -150,10 +151,8 @@ function love.draw()
     DrawPopup()
   end
   
-
   if questCheck then
     DrawQuest()
-    love.graphics.draw(imgTest,test_now_frame,10,10 )
   end
 end
 
@@ -229,7 +228,7 @@ function updateGame(dt)
   --BridgeListUpdate(dt)
   PicketListUpdate(dt)
  
-  if stageLevel == 3 then --다리 애니메이션 업데이트 부분.
+  if stageLevel == 3 then --가을
     CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수 
     aniBridge1:update(dt)
     aniBridge2:update(dt)
@@ -248,7 +247,7 @@ function drawGame()
   --BridgeListDraw()
   PicketListDraw()
 
-   if stageLevel == 3 then --다리 애니메이션 그리는 부분.
+   if stageLevel == 3 then --가을
      aniBridge1:draw()--첫 문제를 풀었다고 가정
      aniBridge2:draw() --두번째 문제를 풀었다고 가정
      aniBridge3:draw()
@@ -302,7 +301,7 @@ function loadResources()
   imgBridge = love.graphics.newImage("images/bridge04.png")
   imgBridge:setFilter("nearest","nearest") 
 
-  imgTest = love.graphics.newImage("images/test.png")
+  imgTest = love.graphics.newImage("images/test_re.png")
   imgTest:setFilter("nearest","nearest") 
 end
 
