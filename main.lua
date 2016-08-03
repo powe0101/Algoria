@@ -31,7 +31,7 @@ require("StageFall")
 require("StageSummer")
 require("StageWinter")
 require("Quest")
-
+require("BlackSmith")
 
 --block
 WIDTH = 600--윈도우 폭 
@@ -55,6 +55,8 @@ levelCheck = 1 --팝업창에서 계절을 선택하고 그 값을 stageLevel에
 
 questCheck = false --표지판을 통해서 수행하는 퀘스트가 돌아가는 동안에는 메인 update를 막음.
 
+blacksmithCheck = false -- 대장간 팝업창용 변수 popupCheck와 같다
+menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N) 
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -130,12 +132,13 @@ function start()
 end
 
 function love.update(dt)
-  if popupCheck == false and questCheck == false then
+  if popupCheck == false and questCheck == false and blacksmithCheck == false then
     updateGame(dt)
   end
 
   CheckPortal()
   CheckQuest()
+  CheckBlackSmith()
 end
 
 
@@ -151,7 +154,10 @@ function love.draw()
   if popupCheck then
     DrawPopup()
   end
-  
+
+  if blacksmithCheck then
+    DrawBlackSmith()
+  end
 
   if questCheck then
     DrawQuest()
@@ -193,6 +199,7 @@ end
 function love.keypressed(key,scancode) -- 키입력
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802
+  ControlBlackSmith()
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
