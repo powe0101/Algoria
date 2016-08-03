@@ -61,8 +61,6 @@ function DeleteBox()
     boxList[i]=nil
    end
    boxCount=0
-  boxList[boxCount]:init(x,y)
-  boxCount = boxCount + 1
 end
 
 function BoxListDraw()
