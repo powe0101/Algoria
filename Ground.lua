@@ -39,5 +39,7 @@ function Ground:draw()
 		love.graphics.draw(imgSGround,Ground_now_frame,self.x,self.y)
 	elseif stageLevel == 3 then --가을입니다. by.현식
 		love.graphics.draw(imgGround,Ground_now_frame,self.x,self.y)
+	elseif stageLevel == 4 then
+		love.graphics.draw(imgWGround,Ground_now_frame,self.x,self.y)
 	end
 end

@@ -36,7 +36,7 @@ animation.__index = animation
 -- @return The created animation
 function newAnimation(image, fw, fh, delay, frames)
 	local self = {}
-
+ 
 	self.x=nil
 	self.y=nil
 	self.onGround=true
@@ -49,7 +49,7 @@ function newAnimation(image, fw, fh, delay, frames)
 	self.position = 1
 	self.fw = fw
 	self.fh = fh
-	self.playing = true
+	self.playing = false
 	self.speed = 1
 	self.mode = 1
 	self.direction = 1
@@ -74,7 +74,6 @@ function animation:CreateBridge(x,y)--made by 근영 0801
   self.y=y
 end
 
-
 function animation:normal(dt) --cloud 이동 
 	self=BackgroundNormal(self,dt)
 end
@@ -83,9 +82,14 @@ function animation:UpdateMove(dt) --cloud key이벤트
 	self=BackgroundMove(self,dt)
 end
 
+
+
 --- Update the animation
 -- @param dt Time that has passed since last call
 function animation:update(dt)
+    self:UpdateMove(dt)
+	self:normal(dt)
+
 
 	if not self.playing then return end
 	self.timer = self.timer + dt * self.speed
@@ -112,8 +116,7 @@ function animation:update(dt)
 		end
 	end
 
-    self:UpdateMove(dt)
-	self:normal(dt)
+  
 end
 
 --- Draw the animation
