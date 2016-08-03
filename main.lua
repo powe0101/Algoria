@@ -14,7 +14,7 @@ require("cloudList")
 require("House")
 require("houseList")
 require("Portal")
-require("portalList")
+--require("portalList")
 require("Ground")
 require("groundList")
 require("River")
@@ -226,11 +226,15 @@ function updateGame(dt)
   BoxListUpdate(dt)
   CloudListUpdate(dt)
   HouseListUpdate(dt)
-  PortalListUpdate(dt)
+  --PortalListUpdate(dt)
   RiverListUpdate(dt)
   --BridgeListUpdate(dt)
   PicketListUpdate(dt)
  
+   if stageLevel == 0 then
+    PortalUpdate(dt)
+  end
+
   if stageLevel == 3 then --다리 애니메이션 업데이트 부분.
     CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수 
     aniBridge1:update(dt)
@@ -245,10 +249,14 @@ function drawGame()
   BoxListDraw()
   HouseListDraw()
   CloudListDraw()
-  PortalListDraw()
+  --PortalListDraw()
   RiverListDraw()
   --BridgeListDraw()
   PicketListDraw()
+
+  if stageLevel == 0 then
+    PortalDraw()
+  end
 
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
      aniBridge1:draw()--첫 문제를 풀었다고 가정
@@ -282,7 +290,7 @@ function loadResources()
   imgHouse = love.graphics.newImage("images/house.png")
   imgHouse:setFilter("nearest","nearest") 
 
-  imgPortal = love.graphics.newImage("images/portal03.png") 
+  imgPortal = love.graphics.newImage("images/portal07.png") 
   imgPortal:setFilter("nearest","nearest") 
 
   imgPicket = love.graphics.newImage("images/picket.png")

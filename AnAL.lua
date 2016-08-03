@@ -73,6 +73,11 @@ function animation:CreateBridge(x,y)--made by 근영 0801
   self.x=x
   self.y=y
 end
+function
+ animation:CreatePortal(x,y)--made by 근영 0801
+  self.x=x
+  self.y=y
+end
 
 function animation:normal(dt) --cloud 이동 
 	self=BackgroundNormal(self,dt)
