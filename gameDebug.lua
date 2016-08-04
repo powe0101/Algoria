@@ -106,5 +106,5 @@ function showBridgePassIfno(x,y)
 end
 
 function showPopupAndPhaseIfno(x,y)
-  love.graphics.print("popupCheck :"..tostring(popupCheck)..", nowLevel :"..tostring(nowLevel)..", phase : "..tostring(phase),x,y)
+  love.graphics.print("popupCheck :"..tostring(popupCheck)..", levelCheck :"..tostring(levelCheck)..", phase : "..tostring(phase),x,y)
 end

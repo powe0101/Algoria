@@ -31,7 +31,10 @@ require("StageSpring")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
+
+--문제풀이 관련
 require("Quest")
+require("Answer")
 
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -46,7 +49,6 @@ isCanMove = true -- 움직일수 있는 경우
 stageLevel = 0 --맵 시작 값 --0721 근영 
 canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
 
-canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
 BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해서 총 3번째 문제를 풀면 위의 canPass가 true로 바뀌게 됨. by.현식 0729
 
 popupCheck = false --팝업을 만들때 다른 것들은 update시키지 않기 위한 bool형 변수. by.현식 0801
@@ -135,6 +137,7 @@ function love.update(dt)
 
   CheckPortal()
   CheckQuest()
+  CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
 end
 
 
@@ -298,13 +301,14 @@ function loadResources()
   imgRiver = love.graphics.newImage("images/river01.png")
   imgRiver:setFilter("nearest","nearest")  
  
-  imgBridge = love.graphics.newImage("images/bridge04.png")
+  imgBridge = love.graphics.newImage("images/bridge07.png")
   imgBridge:setFilter("nearest","nearest") 
 
   imgTest = love.graphics.newImage("images/test_re.png")
   imgTest:setFilter("nearest","nearest") 
 
-  FallQuestAndAnswerLoad()
+  FallQuestAndAnswerLoad() --0803 테스트용
+  AnsewerLoad() --정답과 관련된 이미지 호출. Answer.lua
 end
 
 function isEdge()
