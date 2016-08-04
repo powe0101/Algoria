@@ -35,7 +35,13 @@ function House:update(dt)
 end
 
 function House:draw()
-	love.graphics.draw(imgHouse,house_frames_x[0],self.x,self.y)
+	if stageLevel == 0 then
+		love.graphics.draw(imgHouse,house_frames_x[0],self.x,self.y)
+	else
+		love.graphics.draw(imgSatanHouse,house_frames_x[0],self.x,self.y)
+		house_frames_x[0]  = love.graphics.newQuad(0,0,228,128,228,128)
+        house_frames_y[0] = love.graphics.newQuad(0,0,228,128,228,128)
+    end
 end
 
 function House:GetX()

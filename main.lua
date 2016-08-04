@@ -305,6 +305,9 @@ function loadResources()
 
   imgTest = love.graphics.newImage("images/test.png")
   imgTest:setFilter("nearest","nearest") 
+
+  imgSatanHouse = love.graphics.newImage("images/SatanHouseGate.png")
+  imgSatanHouse:setFilter("nearest","nearest") 
 end
 
 
