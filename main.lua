@@ -126,7 +126,7 @@ end
 
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
-  BoxListReset()
+ 
 end
 
 function love.update(dt)
