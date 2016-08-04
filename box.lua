@@ -98,27 +98,6 @@ end
 function Box:draw()
 	love.graphics.setColor(255,255,255) -- 흰색 RGBA
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
-
-  	if DEBUG_SETTING then 
- 		drawDirectionBox(self,255,255,255)
- 	end
-
- 	if self.isCollisionRight then 
- 		self:DrawLine(self.x + BOX_WIDTH, self.y)
- 	end
-
- 	if self.isCollisionLeft then 
- 		self:DrawLine(self.x - BOX_WIDTH, self.y)
- 	end
-
- 	if self.isCollisionBottom then 
- 		self:DrawLine(self.x, self.y + BOX_WIDTH)
- 	end
-
- 	if self.isCollisionTop then 
- 		self:DrawLine(self.x, self.y - BOX_WIDTH)
- 	end
-
  	love.graphics.setColor(255,255,255) -- 흰색 RGBA
 end
 

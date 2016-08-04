@@ -31,4 +31,5 @@ function deleteVillage()
   HouseListDelete()
   PortalListDelete()
   GroundListDelete()
+  BoxListDelete()
 end

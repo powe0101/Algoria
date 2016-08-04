@@ -57,7 +57,7 @@ function BoxListUpdate(dt)
   end
 end 
 
-function DeleteBox()
+function BoxListDelete()
    for i=0, boxCount-1 do
     boxList[i]=nil
    end
