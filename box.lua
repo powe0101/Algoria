@@ -13,13 +13,13 @@ global_isCollision = false
 function Box:create()
 	local self = {}
 	setmetatable(self, Box)
-	self:init()
+	self:reset()
 	self.dtBox = {}
 
 	return self
 end
 
-function Box:init(x,y)
+function Box:reset(x,y)
 	self.x = x
 	self.y = y
 	self.frame = 1
@@ -35,9 +35,11 @@ function Box:init(x,y)
 
 	--위치 조정
 end
+
 function Box:GetDT()
 	return self.dtBox
 end
+
 function Box:CreateDirectionBox()
   self.dtBox[0] = self.x + BOX_WIDTH
   self.dtBox[1] = self.y
@@ -56,17 +58,17 @@ function Box:CreateDirectionBox()
  	--bottom
 end
 
+function Box:UpdateMove(dt) --tree key이벤트 
+	self=BackgroundMove(self,dt)
+  end
+
 function Box:normal(dt) --cloud 이동 
 	self=BackgroundNormal(self,dt)
+	
 	self.top = self:GetY() - (self.height * 2)
 	self.left = self:GetX() - (self.width * 2)
 	self.right = self:GetX() + (self.width * 2)
 	self.bottom = self:GetY()
-end
-
-function Box:reset()
-	self.frame = 1
-	self.onGround = true
 end
 
 function Box:update(dt)
@@ -76,9 +78,8 @@ function Box:update(dt)
 	self.y_distance = pl:GetY() - self:GetY()
 	--Debug
 end
-function Box:update()
-	self:draw()
-end
+
+
 
 function Box:GetX()
 	return self.x
