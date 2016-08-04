@@ -51,11 +51,11 @@ function Box:CreateDirectionBox()
 
   self.dtBox[4] = self.x
   self.dtBox[5] = self.y + BOX_WIDTH
-  	--top
+  	--bottom
 
   self.dtBox[6] = self.x
   self.dtBox[7] = self.y - BOX_WIDTH
- 	--bottom
+ 	--top
 end
 
 function Box:UpdateMove(dt) --tree key이벤트 
@@ -111,11 +111,11 @@ function Box:draw()
  		self:DrawLine(self.x - BOX_WIDTH, self.y)
  	end
 
- 	if self.isCollisionTop then 
+ 	if self.isCollisionBottom then 
  		self:DrawLine(self.x, self.y + BOX_WIDTH)
  	end
 
- 	if self.isCollisionBottom then 
+ 	if self.isCollisionTop then 
  		self:DrawLine(self.x, self.y - BOX_WIDTH)
  	end
 

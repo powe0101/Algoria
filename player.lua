@@ -1,3 +1,4 @@
+  isCanJump = true
 Player = {}
 Player.__index = Player
 
@@ -18,6 +19,9 @@ PLAYER_GROUND_Y = 145
 isCanMoveLeft = true
 isCanMoveRight = true
 isCanJump = true
+
+collision_Top_Y = 0
+collision_Bottom_Y = 0
 
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
@@ -63,7 +67,6 @@ end
 
 function Player:UpdateMove(dt)
 		--Add by G 0729
-	
 	if love.keyboard.isDown('right') then
 		if self.x > 225 + BridegePassValue and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
@@ -81,9 +84,8 @@ function Player:UpdateMove(dt)
 end
 
 function Player:CheckSpaceBarDown(dt)
-	FindCollisionBottomDirection()
-	if love.keyboard.isDown('space') and self.onGround == true and isCanJump then
-		self.yspeed = JUMP_POWER
+	if love.keyboard.isDown('space') and self.onGround == true then
+		self.yspeed = JUMP_POWER + collision_Bottom_Y
 	end
 
 	self.onGround = false
@@ -93,22 +95,24 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if self.y > PLAYER_GROUND_Y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+		if collision_Top_Y > 0 and self.yspeed > 0 then
+			if self.isTop then 
+				self.y = collision_Top_Y - 10
+				self.yspeed = 0
+				self.onGround = true
+			end
+		elseif self.y > PLAYER_GROUND_Y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
 			self.y = PLAYER_GROUND_Y
 			self.yspeed = 0
 			self.onGround = true
 		end
 	end
-
-	FindCollisionTopDirection()
-	if self.status == 1 then
-
-	end
 end
 
 function Player:update(dt)
 	-- Update walk frame
-	
+	self.isTop = FindCollisionTopDirection()
+	self.isBottom = FindCollisionBottomDirection()
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
@@ -171,10 +175,10 @@ function Player:CollisionByBox()
 		boxList[i].isCollisionLeft =
 		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH,boxList[i]:GetY(),self)
 
-		boxList[i].isCollisionTop = 
+		boxList[i].isCollisionBottom = 
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
 
-		boxList[i].isCollisionBottom =
+		boxList[i].isCollisionTop =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
 	end
 end
@@ -186,14 +190,14 @@ function Player:collideWithPoint(x,y,_player)
 		w1 = BOX_WIDTH 
 		h1 = BOX_HEIGHT
 
-		x2 = pl:GetX() 
+		x2 = pl:GetX()
 		y2 = pl:GetY() 
-		w2 = pl.width 
+		w2 = pl.width
 		h2= pl.height
 
-		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
+		 if x1 + 30 > x2 + w2 or -- 플레이어 기준 왼쪽 
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
-       	x2  + 25 > x1 + w1 or -- 오른쪽
+       	x2 + 30 > x1 + w1 or -- 오른쪽
        	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면 
     	then
         	return false                -- 충돌 안함
@@ -201,6 +205,7 @@ function Player:collideWithPoint(x,y,_player)
        		 return true                 -- 충돌
    		end
 end
+
 function Player:IfQuest()
 	if love.keyboard.isDown('9') then
 		if stageLevel > 0 then

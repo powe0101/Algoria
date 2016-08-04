@@ -93,7 +93,7 @@ end
 
 function showBlockInfo(x,y)
   love.graphics.print("blockX : "..tostring(blockX).." blockY : "..tostring(blockY).." nowX : "..tostring(nowX).." nowY: "..tostring(nowY),x,y)
-  love.graphics.print("yspeed : "..tostring(pl.yspeed))
+  love.graphics.print("yspeed : "..tostring(pl.yspeed)..tostring(collision_Bottom_Y))
 end
 
 function showBooleanInfo(x,y)

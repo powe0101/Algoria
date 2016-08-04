@@ -32,22 +32,23 @@ end
 function FindCollisionTopDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionTop then
-      
-      return 
+      collision_Top_Y = boxList[i].dtBox[7]
+      return true
     end
   end
-
+  collision_Top_Y = 0
+  return false
 end
 
 function FindCollisionBottomDirection()
   for i =0, boxCount-1 do
-    if boxList[i].isCollisionTop then
-      isCanJump = false
-      return 
+    if boxList[i].isCollisionBottom then
+      collision_Bottom_Y = boxList[i].dtBox[5]
+      return true
     end
   end
-
-  isCanJump = true
+  collision_Bottom_Y = 0
+  return false 
 end
 
 function BoxListUpdate(dt)
