@@ -1,19 +1,28 @@
+-- Made : 2016/08/04 - G
+-- Name : Notice.lua
+
 Notice = {}
-Notice.__index = {}
+Notice.__index = Notice
 
 function Notice.Create(_text,_x,_y)
 	local self = {}
 	setmetatable(self,Notice)
+	
+	self:reset()
 	self:SetText(_text)
 	self:SetPosition(_x,_y)
-	self:reset()
+	
 	return self	
 end
 
 function Notice:reset() -- 초기값
-	self.textColor = {255,255,255} --White RGB
-	self.backGroundColor = {0,0,0} --Black RGB
-	self.Alpha = 0.3
+	self.alpha = 1
+	self.textColor = {255,255,255,self.Alpha} --White RGB
+	self.backGroundColor = {0,0,0,self.Alpha} --Black RGB
+	self.width = 365
+	self.height = 48
+	self.x = 0
+	self.y = 0
 end
 
 function Notice:SetText(_text)
@@ -23,6 +32,11 @@ end
 function Notice:SetPosition(_x,_y)
 	self.x = _x
 	self.y = _y
+end
+
+function Notice:SetSize(_width,_height)
+	self.width = _width
+	self.height = _height
 end
 
 function Notice:Draw()
@@ -42,5 +56,5 @@ function Notice:SetBackgroundColor(r,g,b)
 end
 
 function Notice:SetBackgroundAlpha(_alpha)
-	self.Alpha = _alpha--노티스 투명도
+	self.alpha = _alpha--노티스 투명도
 end

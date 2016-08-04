@@ -32,6 +32,8 @@ require("StageSummer")
 require("StageWinter")
 require("Quest")
 
+--Notice
+require("Notice")
 
 --block
 WIDTH = 600--윈도우 폭 
