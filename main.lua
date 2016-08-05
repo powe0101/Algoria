@@ -30,6 +30,7 @@ require("Season")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
+require("StageSpring")
 require("Quest")
 
 --Notice

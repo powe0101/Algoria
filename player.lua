@@ -1,4 +1,3 @@
-  isCanJump = true
 Player = {}
 Player.__index = Player
 
