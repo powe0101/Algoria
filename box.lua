@@ -41,6 +41,7 @@ function Box:GetDT()
 end
 
 function Box:CreateDirectionBox()
+	--박스의 방향에 따른 감지 박스의 좌표값 기록
   self.dtBox[0] = self.x + BOX_WIDTH
   self.dtBox[1] = self.y
    --left
@@ -51,11 +52,11 @@ function Box:CreateDirectionBox()
 
   self.dtBox[4] = self.x
   self.dtBox[5] = self.y + BOX_WIDTH
-  	--top
+  	--bottom
 
   self.dtBox[6] = self.x
   self.dtBox[7] = self.y - BOX_WIDTH
- 	--bottom
+ 	--top
 end
 
 function Box:UpdateMove(dt) --tree key이벤트 
@@ -98,27 +99,6 @@ end
 function Box:draw()
 	love.graphics.setColor(255,255,255) -- 흰색 RGBA
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
-
-  	if DEBUG_SETTING then 
- 		drawDirectionBox(self,255,255,255)
- 	end
-
- 	if self.isCollisionRight then 
- 		self:DrawLine(self.x + BOX_WIDTH, self.y)
- 	end
-
- 	if self.isCollisionLeft then 
- 		self:DrawLine(self.x - BOX_WIDTH, self.y)
- 	end
-
- 	if self.isCollisionTop then 
- 		self:DrawLine(self.x, self.y + BOX_WIDTH)
- 	end
-
- 	if self.isCollisionBottom then 
- 		self:DrawLine(self.x, self.y - BOX_WIDTH)
- 	end
-
  	love.graphics.setColor(255,255,255) -- 흰색 RGBA
 end
 
@@ -129,21 +109,22 @@ function drawDirectionBox(box, r,g,b)
   love.graphics.rectangle("fill", box.x + BOX_WIDTH, box.y, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x + BOX_WIDTH, box.y, BOX_WIDTH, BOX_HEIGHT)
-
+  --right
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x - BOX_WIDTH, box.y, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x - BOX_WIDTH, box.y, BOX_WIDTH, BOX_HEIGHT)
-
+  --left
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x , box.y + BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x , box.y + BOX_WIDTH , BOX_WIDTH, BOX_HEIGHT)
-
+  --bottom
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x, box.y - BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x, box.y - BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
+  --top
 	love.graphics.setColor(darkcolor) -- 흰색 RGBA
 -- 	love.graphics.rectangle('fill', self:GetX(), self:GetY(), BOX_WIDTH, BOX_HEIGHT)
 end

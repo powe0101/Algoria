@@ -7,6 +7,9 @@ function CreateBox(x,y)
   boxCount = boxCount + 1
 end
 
+
+--FindCollision is Find Box for player
+--Using boxList for Side Box 
 function FindCollisionRightDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionLeft then
@@ -32,22 +35,23 @@ end
 function FindCollisionTopDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionTop then
-      
-      return 
+      collision_Top_Y = boxList[i].dtBox[7]
+      return true
     end
   end
-
+  collision_Top_Y = 0
+  return false
 end
 
 function FindCollisionBottomDirection()
   for i =0, boxCount-1 do
-    if boxList[i].isCollisionTop then
-      isCanJump = false
-      return 
+    if boxList[i].isCollisionBottom then
+      collision_Bottom_Y = boxList[i].dtBox[5]
+      return true
     end
   end
-
-  isCanJump = true
+  collision_Bottom_Y = 0
+  return false 
 end
 
 function BoxListUpdate(dt)
@@ -56,7 +60,7 @@ function BoxListUpdate(dt)
   end
 end 
 
-function DeleteBox()
+function BoxListDelete()
    for i=0, boxCount-1 do
     boxList[i]=nil
    end

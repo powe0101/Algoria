@@ -1,4 +1,4 @@
-  DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 function drawDebug(setting)  
   if setting == false then
@@ -57,6 +57,8 @@ function drawDebug(setting)
   local DEBUG_POPUPINFO_X = 200
   local DEBUG_POPUPINFO_Y = 53
   showPopupIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
+
+  showBoxDebug()
 end
 
 function showFps(x,y)
@@ -93,7 +95,7 @@ end
 
 function showBlockInfo(x,y)
   love.graphics.print("blockX : "..tostring(blockX).." blockY : "..tostring(blockY).." nowX : "..tostring(nowX).." nowY: "..tostring(nowY),x,y)
-  love.graphics.print("yspeed : "..tostring(pl.yspeed))
+  love.graphics.print("yspeed : "..tostring(pl.yspeed)..tostring(collision_Bottom_Y))
 end
 
 function showBooleanInfo(x,y)
@@ -115,4 +117,28 @@ end
 
 function showPopupIfno(x,y)
   love.graphics.print("popupCheck :"..tostring(popupCheck)..", nowLevel :"..tostring(nowLevel),x,y)
+end
+
+function showBoxDebug()
+if DEBUG_SETTING then 
+    
+    for i = 0, boxCount -1 do
+       drawDirectionBox(boxList[i],255,255,255)
+       if boxList[i].isCollisionRight then 
+          boxList[i]:DrawLine(boxList[i].x + BOX_WIDTH, boxList[i].y)
+        end
+
+        if boxList[i].isCollisionLeft then 
+            boxList[i]:DrawLine(boxList[i].x - BOX_WIDTH, boxList[i].y)
+        end
+
+        if boxList[i].isCollisionBottom then 
+           boxList[i]:DrawLine(boxList[i].x, boxList[i].y + BOX_WIDTH)
+        end
+
+        if boxList[i].isCollisionTop then 
+            boxList[i]:DrawLine(boxList[i].x, boxList[i].y - BOX_WIDTH)
+        end
+    end   
+end
 end
