@@ -150,11 +150,11 @@ function love.draw()
   drawGame() -- 게임 로드 
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 
-  if popupCheck then
+  if popupCheck then --0805HS
     DrawPopup()
   end
   
-  if questCheck then
+  if questCheck then --0805HS
     DrawQuest()
   end
 end
@@ -191,8 +191,8 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
-  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801
-  ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802
+  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
+  ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
@@ -307,9 +307,9 @@ function loadResources()
   imgTest = love.graphics.newImage("images/test_re.png")
   imgTest:setFilter("nearest","nearest") 
 
-  QuestLoad() --0803 테스트용
-  AnswerLoad()
-  FadeLoad() --정답과 관련된 이미지 호출. Answer.lua
+  QuestLoad() --0805HS
+  AnswerLoad() --0805HS
+  FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
 end
 
 function isEdge()

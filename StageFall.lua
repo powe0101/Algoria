@@ -1,6 +1,6 @@
 function CreateFall()
-	if stageLevel == 3 then
-    phase = 1 --계절이 생성될때 단계 초기화
+	if stageLevel == 3 then --0805HS
+    phase = 1 --계절이 생성될때 단계 초기화 
 
   	--CreateGround(-530,76) --쭉 이어져있는 경우.
     CreateGround(-736,76)
@@ -14,8 +14,8 @@ function CreateFall()
     CreateTree(-450,54)
 
   	CreateTree(150,54)
-		CreateTree(300,54)
- 		CreateTree(450,54)
+	CreateTree(300,54)
+ 	CreateTree(450,54)
 
     CreatePicket(370,146) --phase1
     CreatePicket(220,146) --phase2
@@ -40,7 +40,7 @@ function CreateFall()
     aniBridge2:CreateBridge(-70,158) --두번째 문제를 풀었다고 가정
     aniBridge3:CreateBridge(-134,158) --세번째 문제를 풀었다고 가정
 
- 		pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+ 	pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
     --pl.frame =
 	end
 end
