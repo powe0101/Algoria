@@ -14,7 +14,7 @@ require("cloudList")
 require("House")
 require("houseList")
 require("Portal")
-require("portalList")
+--require("portalList")
 require("Ground")
 require("groundList")
 require("River")
@@ -34,6 +34,7 @@ require("Quest")
 
 --Notice
 require("Notice")
+require("BlackSmith")
 
 --block
 WIDTH = 600--윈도우 폭 
@@ -57,6 +58,8 @@ levelCheck = 1 --팝업창에서 계절을 선택하고 그 값을 stageLevel에
 
 questCheck = false --표지판을 통해서 수행하는 퀘스트가 돌아가는 동안에는 메인 update를 막음.
 
+blacksmithCheck = false -- 대장간 팝업창용 변수 popupCheck와 같다
+menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N) 
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -132,12 +135,13 @@ function start()
 end
 
 function love.update(dt)
-  if popupCheck == false and questCheck == false then
+  if popupCheck == false and questCheck == false and blacksmithCheck == false then
     updateGame(dt)
   end
 
   CheckPortal()
   CheckQuest()
+  CheckBlackSmith()
 end
 
 
@@ -153,7 +157,10 @@ function love.draw()
   if popupCheck then
     DrawPopup()
   end
-  
+
+  if blacksmithCheck then
+    DrawBlackSmith()
+  end
 
   if questCheck then
     DrawQuest()
@@ -195,6 +202,7 @@ end
 function love.keypressed(key,scancode) -- 키입력
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802
+  ControlBlackSmith()
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
@@ -228,11 +236,15 @@ function updateGame(dt)
   BoxListUpdate(dt)
   CloudListUpdate(dt)
   HouseListUpdate(dt)
-  PortalListUpdate(dt)
+  --PortalListUpdate(dt)
   RiverListUpdate(dt)
   --BridgeListUpdate(dt)
   PicketListUpdate(dt)
  
+   if stageLevel == 0 then
+    PortalUpdate(dt)
+  end
+
   if stageLevel == 3 then --다리 애니메이션 업데이트 부분.
     CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수 
     aniBridge1:update(dt)
@@ -247,10 +259,14 @@ function drawGame()
   BoxListDraw()
   HouseListDraw()
   CloudListDraw()
-  PortalListDraw()
+  --PortalListDraw()
   RiverListDraw()
   --BridgeListDraw()
   PicketListDraw()
+
+  if stageLevel == 0 then
+    PortalDraw()
+  end
 
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
      aniBridge1:draw()--첫 문제를 풀었다고 가정
@@ -284,7 +300,7 @@ function loadResources()
   imgHouse = love.graphics.newImage("images/house.png")
   imgHouse:setFilter("nearest","nearest") 
 
-  imgPortal = love.graphics.newImage("images/portal03.png") 
+  imgPortal = love.graphics.newImage("images/portal07.png") 
   imgPortal:setFilter("nearest","nearest") 
 
   imgPicket = love.graphics.newImage("images/picket.png")

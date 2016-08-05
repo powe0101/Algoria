@@ -1,4 +1,4 @@
-DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 function drawDebug(setting)  
   if setting == false then
@@ -139,6 +139,6 @@ if DEBUG_SETTING then
         if boxList[i].isCollisionTop then 
             boxList[i]:DrawLine(boxList[i].x, boxList[i].y - BOX_WIDTH)
         end
-    end   
-end
+    end 
+  end  
 end

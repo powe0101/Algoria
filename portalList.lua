@@ -1,3 +1,4 @@
+--[[
 portalList = {}
 portalCount = 0
 
@@ -25,3 +26,4 @@ function PortalListDraw()
      portalList[i]:draw(dt)
    end
 end
+]]--

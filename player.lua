@@ -66,6 +66,7 @@ end
 
 function Player:UpdateMove(dt)
 		--Add by G 0729
+	
 	if love.keyboard.isDown('right') then
 		if self.x > 225 + BridegePassValue and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
@@ -83,6 +84,7 @@ function Player:UpdateMove(dt)
 end
 
 function Player:CheckSpaceBarDown(dt)
+	FindCollisionBottomDirection()
 	if love.keyboard.isDown('space') and self.onGround == true then
 		self.yspeed = JUMP_POWER + collision_Bottom_Y
 	end
@@ -179,6 +181,7 @@ function Player:CollisionByBox()
 
 		boxList[i].isCollisionTop =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
+
 	end
 end
 
@@ -194,9 +197,9 @@ function Player:collideWithPoint(x,y,_player)
 		w2 = pl.width
 		h2= pl.height
 
-		 if x1 + 30 > x2 + w2 or -- 플레이어 기준 왼쪽 
+		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
-       	x2 + 30 > x1 + w1 or -- 오른쪽
+       	x2 + 25 > x1 + w1 or -- 오른쪽
        	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면 
     	then
         	return false                -- 충돌 안함
