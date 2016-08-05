@@ -27,10 +27,14 @@ require("picketList")
 --이하 스테이지 관련
 require("village")
 require("Season")
+require("StageSpring")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
+
+--문제풀이 관련
 require("Quest")
+require("Answer")
 
 --Notice
 require("Notice")
@@ -50,7 +54,6 @@ isFullScreen = false --전체화면 설정
 stageLevel = 0 --맵 시작 값 --0721 근영 
 canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
 
-canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
 BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해서 총 3번째 문제를 풀면 위의 canPass가 true로 바뀌게 됨. by.현식 0729
 
 popupCheck = false --팝업을 만들때 다른 것들은 update시키지 않기 위한 bool형 변수. by.현식 0801
@@ -72,7 +75,7 @@ function love.load()
   updateScale()
   start() -- 시작 
 
-  audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
+  --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
 function audio()
@@ -131,7 +134,6 @@ end
 
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
- 
 end
 
 function love.update(dt)
@@ -142,11 +144,12 @@ function love.update(dt)
   CheckPortal()
   CheckQuest()
   CheckBlackSmith()
+  CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
 end
 
 
 function love.draw()
-  test_now_frame = love.graphics.newQuad(0,0,583,337,583,337)
+  test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
 
 
   love.graphics.scale(SCALE,SCALE) -- 크기 지정 
@@ -154,7 +157,7 @@ function love.draw()
   drawGame() -- 게임 로드 
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 
-  if popupCheck then
+  if popupCheck then --0805HS
     DrawPopup()
   end
 
@@ -162,9 +165,8 @@ function love.draw()
     DrawBlackSmith()
   end
 
-  if questCheck then
+  if questCheck then --0805HS
     DrawQuest()
-    love.graphics.draw(imgTest,test_now_frame,10,10 )
   end
 end
 
@@ -200,9 +202,9 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
-  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801
-  ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802
   ControlBlackSmith()
+  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
+  ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
@@ -241,11 +243,11 @@ function updateGame(dt)
   --BridgeListUpdate(dt)
   PicketListUpdate(dt)
  
-   if stageLevel == 0 then
+  if stageLevel == 0 then
     PortalUpdate(dt)
   end
 
-  if stageLevel == 3 then --다리 애니메이션 업데이트 부분.
+  if stageLevel == 3 then --가을
     CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수 
     aniBridge1:update(dt)
     aniBridge2:update(dt)
@@ -318,11 +320,15 @@ function loadResources()
   imgRiver = love.graphics.newImage("images/river01.png")
   imgRiver:setFilter("nearest","nearest")  
  
-  imgBridge = love.graphics.newImage("images/bridge04.png")
+  imgBridge = love.graphics.newImage("images/bridge07.png")
   imgBridge:setFilter("nearest","nearest") 
 
-  imgTest = love.graphics.newImage("images/test.png")
+  imgTest = love.graphics.newImage("images/test_re.png")
   imgTest:setFilter("nearest","nearest") 
+
+  QuestLoad() --0805HS
+  AnswerLoad() --0805HS
+  FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
 end
 
 
@@ -335,12 +341,13 @@ end
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 
 function CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수  
-  if 0 < BridegePassValue and BridegePassValue < 30  then --첫번째 문제를 출었다고 가정 
-      aniBridge1:play()
-    elseif BridegePassValue >= 60 and not canPass then
-      aniBridge2:play()--두번째 문제를 풀었다고 가정
-    end
-    if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
-      aniBridge3:play()
-    end
+  if 0 < BridegePassValue and BridegePassValue < 30 then --첫번째 문제를 출었다고 가정 
+    aniBridge1:play()
+  elseif BridegePassValue >= 60 and not canPass then
+    aniBridge2:play()--두번째 문제를 풀었다고 가정
+  end
+    
+  if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
+    aniBridge3:play()
+  end
 end

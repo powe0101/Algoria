@@ -56,9 +56,13 @@ function drawDebug(setting)
 
   local DEBUG_POPUPINFO_X = 200
   local DEBUG_POPUPINFO_Y = 53
+
   showPopupIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
 
   showBoxDebug()
+
+  showPopupAndPhaseIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
+
 end
 
 function showFps(x,y)
@@ -141,4 +145,8 @@ if DEBUG_SETTING then
         end
     end 
   end  
+end
+
+function showPopupAndPhaseIfno(x,y)
+  love.graphics.print("popupCheck :"..tostring(popupCheck)..", levelCheck :"..tostring(levelCheck)..", phase : "..tostring(phase),x,y)
 end

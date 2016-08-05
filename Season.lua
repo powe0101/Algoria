@@ -14,7 +14,7 @@ end
 
 function CheckSeason() --아직 가을까지밖에 적용이 안됨.
   if stageLevel == 1 then
-      --CreateSpring()
+      CreateSpring()
     elseif stageLevel == 2 then
       CreateSummer()
     elseif stageLevel == 3 then

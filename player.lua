@@ -56,9 +56,9 @@ function Player:UpdateMoveLeft(dt)
 	end
 
 	if love.keyboard.isDown('space')  then
-			player_now_frame = player_frames_jump
+		player_now_frame = player_frames_jump
 	else
-			player_now_frame = player_frames_right[math.floor(self.frame)]
+		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
 	player_now_frame = player_frames_right[math.floor(self.frame)]
 end
@@ -66,20 +66,25 @@ end
 
 function Player:UpdateMove(dt)
 		--Add by G 0729
-	
-	if love.keyboard.isDown('right') then
-		if self.x > 225 + BridegePassValue and stageLevel > 0 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
+	if love.keyboard.isDown('right') then --0805HS
+		if self.x > 225 + BridegePassValue and stageLevel == 1 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
 			if canPass then -- 이 사이에 있는 부분을 메서드로 빼면 좋을 것 같은데 방법이 없나? 계속 터지네.. by.현식 0728
 				self:UpdateMoveRight(dt)		
 			end -- canPass
-		else
+		else --마을일 경우.
 			self:UpdateMoveRight(dt)
 		end
 	end
 
-	if love.keyboard.isDown('left') then
-		self:UpdateMoveLeft(dt)
+	if love.keyboard.isDown('left') then --0805HS
+		if self.x < 290 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
+			if canPass then
+				self:UpdateMoveLeft(dt)
+			end
+		else --마을일 경우
+			self:UpdateMoveLeft(dt)
+		end
 	end
 end
 
@@ -163,7 +168,14 @@ function Player:GetOnGround()
 	return self.onGround
 end
 
-function Player:SetStartPosition() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+--0805HS
+function Player:StartSpringStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+	self.x = PLAYER_START_X
+	self.y = PLAYER_START_Y
+end
+
+--0805HS
+function Player:StartSummerStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
 end
@@ -181,7 +193,6 @@ function Player:CollisionByBox()
 
 		boxList[i].isCollisionTop =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
-
 	end
 end
 
@@ -208,6 +219,26 @@ function Player:collideWithPoint(x,y,_player)
    		end
 end
 
+
+--0805HS
+function Player:StartFallStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+	self:SetLeftDirection()
+	self.x = 520
+	self.y = PLAYER_START_Y
+end
+
+--0805HS
+function Player:StartWinterStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+	self.x = PLAYER_START_X
+	self.y = PLAYER_START_Y
+end
+
+--0805HS
+function Player:SetLeftDirection() --왼쪽을 바라보게끔 만듦.
+	player_now_frame = player_frames_right[0]
+end
+
+--0805HS
 function Player:IfQuest()
 	if love.keyboard.isDown('9') then
 		if stageLevel > 0 then
