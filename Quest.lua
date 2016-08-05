@@ -141,21 +141,7 @@ function ControlQuest()
 	      		BridegePassValue = BridegePassValue + 29
 	      	end
 	    elseif phase == 2 then --2번째 객관식 문제.
-	      	if love.keyboard.isDown("left") then
-	      		if multipleChoice == 1 then
-	      		   	--1번 선택지에서 왼쪽으로 가면 아무 동작도 안함.
-	        	else
-	        		multipleChoice = multipleChoice - 1
-	        	end
-	        end
-    			
-    		if love.keyboard.isDown("right") then
-     			if multipleChoice == 4 then
-        			--4번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
-      			else
-        			multipleChoice = multipleChoice + 1
-      			end
-    		end
+	    	ControlLeftRight()
 
     		if love.keyboard.isDown("return") then --enter키임. 
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
@@ -172,21 +158,7 @@ function ControlQuest()
 		      	end
 	      	end
 	    elseif phase == 3 then --3번째 객관식 문제
-	      	if love.keyboard.isDown("left") then
-	      		if multipleChoice == 1 then
-	      		   	--1번 선택지에서 왼쪽으로 가면 아무 동작도 안함.
-	        	else
-	        		multipleChoice = multipleChoice - 1
-	        	end
-	        end
-    			
-    		if love.keyboard.isDown("right") then
-     			if multipleChoice == 4 then
-        			--4번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
-      			else
-        			multipleChoice = multipleChoice + 1
-      			end
-    		end
+	      	ControlLeftRight()
 
     		if love.keyboard.isDown("return") then --enter키임. 
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
@@ -198,6 +170,7 @@ function ControlQuest()
 		      		multipleChoice = 1
 		      	else
 		      		--오답일 경우
+		      		--추후에 오답일 경우에는 체력 게이지가 닳도록 만들기.
 		      		fadeOn = true
 		      		fadeOnWrong = true
 		      	end
@@ -250,4 +223,22 @@ function GetQuestNum() --리스트에서 몇 번 문제인지 뽑아내기 위�
 	elseif stageLevel == 4 then
 		return phase + 9 
 	end
+end
+
+function ControlLeftRight()
+	if love.keyboard.isDown("left") then
+	   		if multipleChoice == 1 then
+		   	--1번 선택지에서 왼쪽으로 가면 아무 동작도 안함.
+	   	else
+	   		multipleChoice = multipleChoice - 1
+	   	end
+	end
+    			
+    if love.keyboard.isDown("right") then
+    		if multipleChoice == 4 then
+    		--4번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
+    	else
+    		multipleChoice = multipleChoice + 1
+    	end
+    end
 end
