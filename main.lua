@@ -307,8 +307,9 @@ function loadResources()
   imgTest = love.graphics.newImage("images/test_re.png")
   imgTest:setFilter("nearest","nearest") 
 
-  FallQuestAndAnswerLoad() --0803 테스트용
-  AnsewerLoad() --정답과 관련된 이미지 호출. Answer.lua
+  QuestLoad() --0803 테스트용
+  AnswerLoad()
+  FadeLoad() --정답과 관련된 이미지 호출. Answer.lua
 end
 
 function isEdge()

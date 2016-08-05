@@ -135,9 +135,19 @@ function Player:StartSpringStage() --스테이지가 변경됐을 때 캐릭터 
 	self.y = PLAYER_START_Y
 end
 
+function Player:StartSummerStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+	self.x = PLAYER_START_X
+	self.y = PLAYER_START_Y
+end
+
 function Player:StartFallStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self:SetLeftDirection()
 	self.x = 520
+	self.y = PLAYER_START_Y
+end
+
+function Player:StartWinterStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
 end
 
