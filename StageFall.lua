@@ -13,15 +13,15 @@ function CreateFall()
     CreateTree(-300,54)
     CreateTree(-450,54)
 
-  	CreateTree(150,54)
-	CreateTree(300,54)
- 	CreateTree(450,54)
+  	--CreateTree(150,54)
+	--CreateTree(300,54)
+ 	--CreateTree(450,54)
+
+    CreateQMark(370, 115) --1번 문제
 
     CreatePicket(370,146) --phase1
     CreatePicket(220,146) --phase2
     CreatePicket(70,146) --phase3
-
- 		--여기서부터 
 
     aniBridge1 = newAnimation(imgBridge,75,75,0.1,0)
     aniBridge2 = newAnimation(imgBridge,75,75,0.1,0)

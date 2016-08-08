@@ -23,6 +23,8 @@ require("Bridge")
 require("BridgeList")
 require("Picket")
 require("picketList")
+require("QMark")
+require("qMarkList")
 
 --이하 스테이지 관련
 require("village")
@@ -145,6 +147,7 @@ function love.update(dt)
   CheckQuest()
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
+  CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
 end
 
 
@@ -242,6 +245,7 @@ function updateGame(dt)
   RiverListUpdate(dt)
   --BridgeListUpdate(dt)
   PicketListUpdate(dt)
+  QMarkListUpdate(dt)
  
   if stageLevel == 0 then
     PortalUpdate(dt)
@@ -265,6 +269,7 @@ function drawGame()
   RiverListDraw()
   --BridgeListDraw()
   PicketListDraw()
+  QMarkListDraw()
 
   if stageLevel == 0 then
     PortalDraw()
@@ -305,7 +310,7 @@ function loadResources()
   imgPortal = love.graphics.newImage("images/portal07.png") 
   imgPortal:setFilter("nearest","nearest") 
 
-  imgPicket = love.graphics.newImage("images/picket.png")
+  imgPicket = love.graphics.newImage("images/picket02.png")
   imgPicket:setFilter("nearest", "nearest")
 
   imgGround = love.graphics.newImage("images/ground.png") 
@@ -323,8 +328,8 @@ function loadResources()
   imgBridge = love.graphics.newImage("images/bridge07.png")
   imgBridge:setFilter("nearest","nearest") 
 
-  imgTest = love.graphics.newImage("images/test_re.png")
-  imgTest:setFilter("nearest","nearest") 
+  imgQMark = love.graphics.newImage("images/questionMark02.png")
+  imgQMark:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
