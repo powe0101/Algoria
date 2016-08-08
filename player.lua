@@ -1,8 +1,7 @@
 Player = {}
 Player.__index = Player
 
-JUMP_POWER = -300
-GRAVITY = 1000
+
 PLAYER_MOVE_POWER = 1-- 이 값을 바꾸면 전체적인 x좌표에도 영향을 주는듯? ex.포탈 by.현식 0727
 
 PLAYER_WIDTH = 10
@@ -13,7 +12,7 @@ PLAYER_START_Y = 100
 player_frames_left = {}
 player_frames_right = {}
 
-PLAYER_GROUND_Y = 145
+
 
 isCanMoveLeft = true
 isCanMoveRight = true
@@ -90,12 +89,21 @@ end
 
 function Player:CheckSpaceBarDown(dt)
 	FindCollisionBottomDirection()
-	if love.keyboard.isDown('space') and self.onGround == true then
-		self.yspeed = JUMP_POWER + collision_Bottom_Y
-	end
+	if stageLevel~=2 then
+		if love.keyboard.isDown('space') and self.onGround == true then
+			self.yspeed = self.jump_power + collision_Bottom_Y
+		end
 
-	self.onGround = false
-	self.yspeed = self.yspeed + dt*GRAVITY
+		self.onGround = false
+		self.yspeed = self.yspeed + dt*self.gravity 
+	elseif stageLevel==2 then
+		if love.keyboard.isDown('space') and self.y>40 then
+			self.yspeed = self.jump_power + collision_Bottom_Y
+		end
+
+		self.onGround = false
+		self.yspeed = self.yspeed + dt*self.gravity+13
+	end
 end
 
 function Player:normal(dt)
@@ -107,8 +115,8 @@ function Player:normal(dt)
 				self.yspeed = 0
 				self.onGround = true
 			end
-		elseif self.y > PLAYER_GROUND_Y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
-			self.y = PLAYER_GROUND_Y
+		elseif self.y > self.player_ground_y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+			self.y = self.player_ground_y
 			self.yspeed = 0
 			self.onGround = true
 		end
@@ -128,6 +136,15 @@ function Player:update(dt)
 end
 
 function Player:reset()
+	if stageLevel==2 then --stageLevel 이 2일때 설정 값 
+		self.jump_power = -40
+		self.gravity = -470
+		self.player_ground_y = 366
+	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값 
+		self.jump_power = -300
+		self.gravity = 1000
+		self.player_ground_y = 145
+	end
 	self.frame = 1
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
@@ -138,11 +155,16 @@ function Player:reset()
 
 	--캐릭터 수정
 	self.width = 42
-	self.height = 42
-	self.top = self.y - (self.height * 2)
+	self.pHeight = 42
+	self.top = self.y - (self.pHeight * 2)
 	self.left = self.x - (self.width * 2)
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
+end
+
+function Player:JumpReset()
+
+  
 end
 
 function Player:draw()
@@ -176,8 +198,8 @@ end
 
 --0805HS
 function Player:StartSummerStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
-	self.x = PLAYER_START_X
-	self.y = PLAYER_START_Y
+	self.x = 100
+	self.y = 600
 end
 
 function Player:CollisionByBox()
@@ -206,7 +228,7 @@ function Player:collideWithPoint(x,y,_player)
 		x2 = pl:GetX()
 		y2 = pl:GetY() 
 		w2 = pl.width
-		h2= pl.height
+		h2= pl.pHeight
 
 		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
@@ -221,12 +243,17 @@ end
 
 
 --0805HS
-function Player:StartFallStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+function Player:SUMMERSCRNHEIGHT() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self:SetLeftDirection()
 	self.x = 520
 	self.y = PLAYER_START_Y
 end
 
+function Player:StartFallStage()
+	self:SetLeftDirection()
+	self.x = 520
+	self.y = PLAYER_START_Y
+end
 --0805HS
 function Player:StartWinterStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = PLAYER_START_X

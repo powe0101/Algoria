@@ -139,6 +139,7 @@ function ControlQuest()
 	      		questCheck = false
 	      		phase = phase + 1
 	      		BridegePassValue = BridegePassValue + 29
+	      		qmarkCheck = true
 	      	end
 	    elseif phase == 2 then --2번째 객관식 문제.
 	    	ControlLeftRight()
@@ -151,10 +152,13 @@ function ControlQuest()
 		      		phase = phase + 1
 		      		BridegePassValue = BridegePassValue + 35
 		      		multipleChoice = 1
+		      		qmarkCheck = true
 		      	else
 		      		--오답일 경우
 		      		fadeOn = true
 		      		fadeOnWrong = true
+
+		      		LifeMinus()
 		      	end
 	      	end
 	    elseif phase == 3 then --3번째 객관식 문제
@@ -168,11 +172,14 @@ function ControlQuest()
 		      		phase = 4
 		      		canPass = true
 		      		multipleChoice = 1
+		      		qmarkCheck = true
 		      	else
 		      		--오답일 경우
 		      		--추후에 오답일 경우에는 체력 게이지가 닳도록 만들기.
 		      		fadeOn = true
 		      		fadeOnWrong = true
+
+		      		LifeMinus()
 		      	end
 	      	end
 	    end

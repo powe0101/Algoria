@@ -42,6 +42,13 @@ require("Answer")
 require("Notice")
 require("BlackSmith")
 
+--라이프 관련
+require("Heart")
+require("heartList")
+require("Bheart")
+require("bheartList")
+require("ManageHeart")
+
 --block
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -148,6 +155,7 @@ function love.update(dt)
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
   CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
+  UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
 end
 
 
@@ -171,6 +179,9 @@ function love.draw()
   if questCheck then --0805HS
     DrawQuest()
   end
+
+  HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
+  BheartListDraw()
 end
 
 function SetScale(key,scancode)
@@ -246,6 +257,8 @@ function updateGame(dt)
   --BridgeListUpdate(dt)
   PicketListUpdate(dt)
   QMarkListUpdate(dt)
+  HeartListUpdate(dt) --라이프
+  BheartListUpdate(dt) --라이프 닳은거
  
   if stageLevel == 0 then
     PortalUpdate(dt)
@@ -310,7 +323,7 @@ function loadResources()
   imgPortal = love.graphics.newImage("images/portal07.png") 
   imgPortal:setFilter("nearest","nearest") 
 
-  imgPicket = love.graphics.newImage("images/picket02.png")
+  imgPicket = love.graphics.newImage("images/picket03.png")
   imgPicket:setFilter("nearest", "nearest")
 
   imgGround = love.graphics.newImage("images/ground.png") 
@@ -330,6 +343,12 @@ function loadResources()
 
   imgQMark = love.graphics.newImage("images/questionMark02.png")
   imgQMark:setFilter("nearest","nearest")
+
+  imgHeart = love.graphics.newImage("images/heart.png")
+  imgHeart:setFilter("nearest","nearest")
+
+  imgHeartBlank = love.graphics.newImage("images/heart_blank.png")
+  imgHeartBlank:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

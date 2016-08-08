@@ -4,24 +4,25 @@
 Notice = {}
 Notice.__index = Notice
 
-function Notice.Create()
+function Notice.Create(_text,_x,_y)
 	local self = {}
 	setmetatable(self,Notice)
 	
 	self:reset()
+	self:SetText(_text)
+	self:SetPosition(_x,_y)
 	
 	return self	
 end
 
 function Notice:reset() -- 초기값
-	self.alpha = 0
-	self.textColor = {255,255,255,255} --White RGB
-	self.backGroundColor = {0,0,0,70} --Black RGB
+	self.alpha = 1
+	self.textColor = {255,255,255,self.Alpha} --White RGB
+	self.backGroundColor = {0,0,0,self.Alpha} --Black RGB
 	self.width = 365
 	self.height = 48
 	self.x = 0
 	self.y = 0
-	self.time = love.timer.getTime() -- 보여지는 시간
 end
 
 function Notice:SetText(_text)
@@ -38,49 +39,22 @@ function Notice:SetSize(_width,_height)
 	self.height = _height
 end
 
-function Notice:DrawBackGround()
-	love.graphics.setColor(self.backGroundColor)
-
-	love.graphics.rectangle("fill", 0,HEIGHT / 2 - 30, WIDTH,self.height)
-	
-	love.graphics.setColor(255,255,255)
-
-	self.backGroundColor[4] = self.backGroundColor[4] - 0.7
-end
-
-function Notice:DrawText()
-	love.graphics.setColor(self.textColor)
-	love.graphics.print(self.text,WIDTH / 2 - 20,HEIGHT / 2 - 15)
-	love.graphics.setColor(255,255,255)
-end
-
 function Notice:Draw()
-	--노티스 그리기
-	if love.timer.getTime() - 2 > self.time then
-		self:Delete()
-		return 
-	end
-
-	self:DrawBackGround()
-	self:DrawText()
-end
-
-function NoticeDraw()
-	if notice then
-		notice:Draw()
-	end
+	--노티스 그리기 
 end
 
 function Notice:Delete()
-	if self then 
-		self = nil 
-	end
+	--노티스 삭제 (필요 없을 수도 있음 )
 end
 
 function Notice:SetTextColor(r,g,b)
-	self.textColor = {r,g,b,self.alpha}--노티스 텍스트 색 
+	self.textColor = {r,g,b}--노티스 텍스트 색 
 end
 
-function Notice:SetBackgroundColor(r,g,b,a)
-	self.backGroundColor = {r,g,b,self.alpha}--노티스 배경 색 
+function Notice:SetBackgroundColor(r,g,b)
+	self.backGroundColor = {r,g,b}--노티스 배경 색 
+end
+
+function Notice:SetBackgroundAlpha(_alpha)
+	self.alpha = _alpha--노티스 투명도
 end

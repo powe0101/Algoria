@@ -20,11 +20,16 @@ function Box:create()
 end
 
 function Box:reset(x,y)
+	--0808 근영 yfix yspeed 추가 
+	self.yfix=y
+	self.yspeed = 0
+	self.onGround = true
+	self.status = 0
+	self.frame = 1
 	self.x = x
 	self.y = y
-	self.frame = 1
-	self.onGround = true
 
+	self.onGround = true
 	self.isCollisionRight = false
 	self.isCollisionLeft = false
 	self.isCollisionTop = false
@@ -60,6 +65,10 @@ function Box:CreateDirectionBox()
 
 end
 
+function Box:SpaceJump(dt) --0808근영 점프함수  
+	self=SCheckSpaceBarDown(self,dt)
+end
+
 function Box:UpdateMove(dt) --tree key이벤트 
 	self=BackgroundMove(self,dt)
   end
@@ -74,6 +83,9 @@ function Box:normal(dt) --cloud 이동
 end
 
 function Box:update(dt)
+	if stageLevel==2 then-- 0808근영 여름 스테이지 에서 점프함수 호출
+		self:SpaceJump(dt)
+	end
 	self:UpdateMove(dt)
 	self:normal(dt)
 	self.x_distance = pl:GetX() - self:GetX()
