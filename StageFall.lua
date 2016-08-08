@@ -1,27 +1,31 @@
 function CreateFall()
-	DeleteBox()
-	if stageLevel == 3 then
-		CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
-  	CreateGround(622,76)
+	if stageLevel == 3 then --0805HS
+    phase = 1 --계절이 생성될때 단계 초기화 
 
-  	CreateRiver(346,150)
-  	CreateRiver(430,150)
-    CreateRiver(447,150)
+  	--CreateGround(-530,76) --쭉 이어져있는 경우.
+    CreateGround(-736,76)
+    CreateGround(63,76)
 
-  	CreateTree(150,54)
-		CreateTree(300,54)
- 
- 	
+  	CreateRiver(-112,150)
+  	CreateRiver(-150,150)
+    CreateRiver(-213,150)
 
-    CreatePicket(400,146)
- 	CreateHouse(650,54)
-    
+    CreateTree(-300,54)
+    CreateTree(-450,54)
 
- 		--여기서부터 
+  	--CreateTree(150,54)
+	--CreateTree(300,54)
+ 	--CreateTree(450,54)
 
-    aniBridge1 = newAnimation(imgBridge, 75, 61, 0.3, 0)
-    aniBridge2 = newAnimation(imgBridge, 75, 61, 0.3, 0)
-    aniBridge3 = newAnimation(imgBridge, 75, 61, 0.3, 0)
+    CreateQMark(370, 115) --1번 문제
+
+    CreatePicket(370,146) --phase1
+    CreatePicket(220,146) --phase2
+    CreatePicket(70,146) --phase3
+
+    aniBridge1 = newAnimation(imgBridge,75,75,0.1,0)
+    aniBridge2 = newAnimation(imgBridge,75,75,0.1,0)
+    aniBridge3 = newAnimation(imgBridge,75,75,0.1,0)
  
     aniBridge1:setMode("once")  
     aniBridge2:setMode("once") 
@@ -32,12 +36,11 @@ function CreateFall()
     --현재 문제가 없기 때문에 숫자키 '9'를 누르면 BridgePassValue값이 조금씩 증가해서
     --다리가 올라오게끔 구상함. by.현식 0802
 
-    aniBridge1:CreateBridge(425,155) --첫 문제를 풀었다고 가정
-    aniBridge2:CreateBridge(489,155) --두번째 문제를 풀었다고 가정
-    aniBridge3:CreateBridge(553,155)
-    
- 
+    aniBridge1:CreateBridge(-6,158) --첫 문제를 풀었다고 가정
+    aniBridge2:CreateBridge(-70,158) --두번째 문제를 풀었다고 가정
+    aniBridge3:CreateBridge(-134,158) --세번째 문제를 풀었다고 가정
 
- 		pl:SetStartPosition() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+ 	pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+    --pl.frame =
 	end
 end

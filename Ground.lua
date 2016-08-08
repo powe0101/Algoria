@@ -19,12 +19,12 @@ function Ground:reset(x,y)
 	Ground_now_frame = Ground_frames_x
 end
 
+function Ground:UpdateMove(dt) --tree key이벤트 
+	self=BackgroundMove(self,dt)
+  end
+
 function Ground:normal(dt) --Ground 이동 
 	self=BackgroundNormal(self,dt)
-end
-
-function Ground:UpdateMove(dt) --Ground key이벤트 
-	self=BackgroundMove(self,dt)
 end
 
 function Ground:update(dt)
