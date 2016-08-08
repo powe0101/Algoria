@@ -114,11 +114,11 @@ function Box:draw()
  	end
 
  	if self.isCollisionTop then 
- 		self:DrawLine(self.x, self.y + BOX_WIDTH)
+ 		self:DrawLine(self.x, self.y - BOX_WIDTH)
  	end
 
  	if self.isCollisionBottom then 
- 		self:DrawLine(self.x, self.y - BOX_WIDTH)
+ 		self:DrawLine(self.x, self.y + BOX_WIDTH)
  	end
 
  	love.graphics.setColor(255,255,255) -- 흰색 RGBA
