@@ -78,7 +78,7 @@ function Notice:Delete()
 	end
 end
 
-function Notice:SetTextColor(r,g,b)
+function Notice:SetTextColor(red,green,blue)
 	self.textColor[1] = r
 	self.textColor[2] = g
 	self.textColor[3] = b
