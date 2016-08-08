@@ -48,6 +48,7 @@ function Notice:DrawBackGround()
 	self.backGroundColor[4] = self.backGroundColor[4] - 0.7
 end
 
+
 function Notice:DrawText()
 	love.graphics.setColor(self.textColor)
 	love.graphics.print(self.text,WIDTH / 2 - 20,HEIGHT / 2 - 15)
@@ -78,9 +79,22 @@ function Notice:Delete()
 end
 
 function Notice:SetTextColor(r,g,b)
-	self.textColor = {r,g,b,self.alpha}--노티스 텍스트 색 
+	self.textColor[1] = r
+	self.textColor[2] = g
+	self.textColor[3] = b
 end
 
-function Notice:SetBackgroundColor(r,g,b,a)
-	self.backGroundColor = {r,g,b,self.alpha}--노티스 배경 색 
+function Notice:SetBackgroundColor(red,green,blue)
+	self.backGroundColor[1] = red--노티스 배경 색 
+	self.backGroundColor[2] = green
+	self.backGroundColor[3] = blue
+end
+
+function Notice:SetBackGroundAlpha(alpha)
+	self.backGroundColor[4] = alpha
+end
+
+
+function Notice:SetTextAlpha(alpha)
+	self.textColor[4] = alpha
 end

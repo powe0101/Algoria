@@ -282,6 +282,8 @@ function drawGame()
   end
 
   pl:draw() -- 플레이어 스프라이트 그리기 
+
+  NoticeDraw()
 end
 
 function loadResources()
