@@ -21,29 +21,27 @@ function Notice:reset() -- 초기값
 	self.height = 48
 	self.x = 0
 	self.y = 0
-	self.makeTime = love.timer.getTime() -- 보여지는 시간
-	self.reduceAlpha = 0.7
+	self.makeTime = love.timer.getTime() -- 노티스가 생성된 시간 
+	self.reduceAlpha = 0.7 --alpha값의 변화량
 end
 
-function Notice:SetText(_text)
-	self.text = _text
+function Notice:SetText(text)
+	self.text = text
 end
 
-function Notice:SetPosition(_x,_y)
-	self.x = _x
-	self.y = _y
+function Notice:SetPosition(x,y)
+	self.x = x
+	self.y = y
 end
 
-function Notice:SetSize(_width,_height)
-	self.width = _width
-	self.height = _height
+function Notice:SetSize(width,height)
+	self.width = width
+	self.height = height
 end
 
 function Notice:DrawBackGround()
 	love.graphics.setColor(self.backGroundColor)
-
 	love.graphics.rectangle("fill", 0,HEIGHT / 2 - 30, WIDTH,self.height)
-	
 	love.graphics.setColor(255,255,255)
 
 	self.backGroundColor[4] = self.backGroundColor[4] - self.reduceAlpha
@@ -96,7 +94,6 @@ end
 function Notice:SetBackGroundAlpha(alpha)
 	self.backGroundColor[4] = alpha
 end
-
 
 function Notice:SetTextAlpha(alpha)
 	self.textColor[4] = alpha
