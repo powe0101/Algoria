@@ -8,7 +8,7 @@ function CreateSummer()
     updateScale()
   
     pl = Player.create()
-    pl:JumpReset()     
+    
     pl:StartSummerStage()
 	  CreateCloud(100,200)
 	  CreateCloud(200,400)           

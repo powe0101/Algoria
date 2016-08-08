@@ -97,7 +97,7 @@ function Player:CheckSpaceBarDown(dt)
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity 
 	elseif stageLevel==2 then
-		if love.keyboard.isDown('space') and self.y>40 then
+		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 then
 			self.yspeed = self.jump_power + collision_Bottom_Y
 		end
 
@@ -139,15 +139,17 @@ function Player:reset()
 	if stageLevel==2 then --stageLevel 이 2일때 설정 값 
 		self.jump_power = -40
 		self.gravity = -470
-		self.player_ground_y = 366
+		self.player_ground_y = 350
+		self.y=300
 	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값 
 		self.jump_power = -300
 		self.gravity = 1000
 		self.player_ground_y = 145
+		self.y = PLAYER_START_Y
 	end
 	self.frame = 1
 	self.x = PLAYER_START_X
-	self.y = PLAYER_START_Y
+	
 	player_now_frame = player_frames_left[0]
 	self.yspeed = 0
 	self.onGround = true
@@ -160,11 +162,6 @@ function Player:reset()
 	self.left = self.x - (self.width * 2)
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
-end
-
-function Player:JumpReset()
-
-  
 end
 
 function Player:draw()
@@ -199,7 +196,7 @@ end
 --0805HS
 function Player:StartSummerStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = 100
-	self.y = 600
+	self.y = 200
 end
 
 function Player:CollisionByBox()

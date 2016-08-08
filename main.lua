@@ -25,6 +25,8 @@ require("Picket")
 require("picketList")
 require("QMark")
 require("qMarkList")
+require("Castle")
+require("castleList")
 
 --이하 스테이지 관련
 require("village")
@@ -259,6 +261,7 @@ function updateGame(dt)
   QMarkListUpdate(dt)
   HeartListUpdate(dt) --라이프
   BheartListUpdate(dt) --라이프 닳은거
+  CastleListUpdate(dt)
  
   if stageLevel == 0 then
     PortalUpdate(dt)
@@ -283,6 +286,7 @@ function drawGame()
   --BridgeListDraw()
   PicketListDraw()
   QMarkListDraw()
+  CastleListDraw()
 
   if stageLevel == 0 then
     PortalDraw()
@@ -350,6 +354,18 @@ function loadResources()
 
   imgHeartBlank = love.graphics.newImage("images/heart_blank.png")
   imgHeartBlank:setFilter("nearest","nearest")
+
+  imgCastle = love.graphics.newImage("images/castle.png")
+  imgCastle:setFilter("nearest","nearest")
+  
+  imgWing = love.graphics.newImage("images/wing.png") -- 용사 날개 아이템 이미지
+  imgWing:setFilter("nearest","nearest")
+
+  imgHorse = love.graphics.newImage("images/horse.png") -- 용사 말 아이템 이미지
+  imgHorse:setFilter("nearest","nearest")
+
+  imgEisen = love.graphics.newImage("images/eisen.png") -- 용사 아이젠 아이템 이미지
+  imgEisen:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
