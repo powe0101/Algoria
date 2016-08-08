@@ -57,6 +57,7 @@ function Box:CreateDirectionBox()
   self.dtBox[6] = self.x
   self.dtBox[7] = self.y - BOX_WIDTH
  	--top
+
 end
 
 function Box:UpdateMove(dt) --tree key이벤트 
@@ -99,6 +100,27 @@ end
 function Box:draw()
 	love.graphics.setColor(255,255,255) -- 흰색 RGBA
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
+
+  	if DEBUG_SETTING then 
+ 		drawDirectionBox(self,255,255,255)
+ 	end
+
+ 	if self.isCollisionRight then 
+ 		self:DrawLine(self.x + BOX_WIDTH, self.y)
+ 	end
+
+ 	if self.isCollisionLeft then 
+ 		self:DrawLine(self.x - BOX_WIDTH, self.y)
+ 	end
+
+ 	if self.isCollisionTop then 
+ 		self:DrawLine(self.x, self.y + BOX_WIDTH)
+ 	end
+
+ 	if self.isCollisionBottom then 
+ 		self:DrawLine(self.x, self.y - BOX_WIDTH)
+ 	end
+
  	love.graphics.setColor(255,255,255) -- 흰색 RGBA
 end
 
@@ -120,6 +142,7 @@ function drawDirectionBox(box, r,g,b)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x , box.y + BOX_WIDTH , BOX_WIDTH, BOX_HEIGHT)
   --bottom
+
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x, box.y - BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)
