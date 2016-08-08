@@ -1,5 +1,7 @@
 -- Made : 2016/08/04 - G
 -- Name : Notice.lua
+-- notice = Notice.Create 
+-- notice:SetText("STring")
 
 Notice = {}
 Notice.__index = Notice
