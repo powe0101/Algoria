@@ -2,6 +2,13 @@ function CreateFall()
 	if stageLevel == 3 then --0805HS
     phase = 1 --계절이 생성될때 단계 초기화 
 
+    CreateCloud(0,1)
+    CreateCloud(100,50)
+    CreateCloud(500,1)
+    CreateCloud(200,50)
+    CreateCloud(300,1)
+    CreateCloud(400,50)
+
   	--CreateGround(-530,76) --쭉 이어져있는 경우.
     CreateGround(-736,76)
     CreateGround(63,76)
@@ -13,15 +20,15 @@ function CreateFall()
     CreateTree(-300,54)
     CreateTree(-450,54)
 
-  	CreateTree(150,54)
-	CreateTree(300,54)
- 	CreateTree(450,54)
+  	--CreateTree(150,54)
+	--CreateTree(300,54)
+ 	--CreateTree(450,54)
+
+    CreateQMark(370, 115) --1번 문제
 
     CreatePicket(370,146) --phase1
     CreatePicket(220,146) --phase2
     CreatePicket(70,146) --phase3
-
- 		--여기서부터 
 
     aniBridge1 = newAnimation(imgBridge,75,75,0.1,0)
     aniBridge2 = newAnimation(imgBridge,75,75,0.1,0)

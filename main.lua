@@ -14,7 +14,7 @@ require("cloudList")
 require("House")
 require("houseList")
 require("Portal")
-require("portalList")
+--require("portalList")
 require("Ground")
 require("groundList")
 require("River")
@@ -23,6 +23,8 @@ require("Bridge")
 require("BridgeList")
 require("Picket")
 require("picketList")
+require("QMark")
+require("qMarkList")
 
 --이하 스테이지 관련
 require("village")
@@ -36,6 +38,18 @@ require("StageWinter")
 require("Quest")
 require("Answer")
 
+--Notice
+require("Notice")
+require("BlackSmith")
+
+--라이프 관련
+require("Heart")
+require("heartList")
+require("Bheart")
+require("bheartList")
+require("ManageHeart")
+
+--block
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
 SCALE = 2 -- 화면의 크기 
@@ -44,7 +58,7 @@ bgcolor = {236,243,201,255} -- 배경색 RGBA 순서
 darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
-isCanMove = true -- 움직일수 있는 경우 
+ 
 
 stageLevel = 0 --맵 시작 값 --0721 근영 
 canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
@@ -56,6 +70,8 @@ levelCheck = 1 --팝업창에서 계절을 선택하고 그 값을 stageLevel에
 
 questCheck = false --표지판을 통해서 수행하는 퀘스트가 돌아가는 동안에는 메인 update를 막음.
 
+blacksmithCheck = false -- 대장간 팝업창용 변수 popupCheck와 같다
+menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N) 
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -127,17 +143,19 @@ end
 
 function start()
   pl:reset() -- 플레이어 객체 새로고침 
-  BoxListReset()
 end
 
 function love.update(dt)
-  if popupCheck == false and questCheck == false then
+  if popupCheck == false and questCheck == false and blacksmithCheck == false then
     updateGame(dt)
   end
 
   CheckPortal()
   CheckQuest()
+  CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
+  CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
+  UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
 end
 
 
@@ -153,10 +171,17 @@ function love.draw()
   if popupCheck then --0805HS
     DrawPopup()
   end
-  
+
+  if blacksmithCheck then
+    DrawBlackSmith()
+  end
+
   if questCheck then --0805HS
     DrawQuest()
   end
+
+  HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
+  BheartListDraw()
 end
 
 function SetScale(key,scancode)
@@ -191,6 +216,7 @@ function SetScreen()
 end
 
 function love.keypressed(key,scancode) -- 키입력
+  ControlBlackSmith()
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
 
@@ -226,11 +252,18 @@ function updateGame(dt)
   BoxListUpdate(dt)
   CloudListUpdate(dt)
   HouseListUpdate(dt)
-  PortalListUpdate(dt)
+  --PortalListUpdate(dt)
   RiverListUpdate(dt)
   --BridgeListUpdate(dt)
   PicketListUpdate(dt)
+  QMarkListUpdate(dt)
+  HeartListUpdate(dt) --라이프
+  BheartListUpdate(dt) --라이프 닳은거
  
+  if stageLevel == 0 then
+    PortalUpdate(dt)
+  end
+
   if stageLevel == 3 then --가을
     CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수 
     aniBridge1:update(dt)
@@ -245,19 +278,23 @@ function drawGame()
   BoxListDraw()
   HouseListDraw()
   CloudListDraw()
-  PortalListDraw()
+  --PortalListDraw()
   RiverListDraw()
   --BridgeListDraw()
   PicketListDraw()
+  QMarkListDraw()
 
-   if stageLevel == 3 then --가을
+  if stageLevel == 0 then
+    PortalDraw()
+  end
+
+   if stageLevel == 3 then --다리 애니메이션 그리는 부분.
      aniBridge1:draw()--첫 문제를 풀었다고 가정
      aniBridge2:draw() --두번째 문제를 풀었다고 가정
      aniBridge3:draw()
   end
 
   pl:draw() -- 플레이어 스프라이트 그리기 
-  isCanMove = isEdge()
 end
 
 function loadResources()
@@ -283,10 +320,10 @@ function loadResources()
   imgHouse = love.graphics.newImage("images/house.png")
   imgHouse:setFilter("nearest","nearest") 
 
-  imgPortal = love.graphics.newImage("images/portal03.png") 
+  imgPortal = love.graphics.newImage("images/portal07.png") 
   imgPortal:setFilter("nearest","nearest") 
 
-  imgPicket = love.graphics.newImage("images/picket.png")
+  imgPicket = love.graphics.newImage("images/picket03.png")
   imgPicket:setFilter("nearest", "nearest")
 
   imgGround = love.graphics.newImage("images/ground.png") 
@@ -304,22 +341,20 @@ function loadResources()
   imgBridge = love.graphics.newImage("images/bridge07.png")
   imgBridge:setFilter("nearest","nearest") 
 
-  imgTest = love.graphics.newImage("images/test_re.png")
-  imgTest:setFilter("nearest","nearest") 
+  imgQMark = love.graphics.newImage("images/questionMark02.png")
+  imgQMark:setFilter("nearest","nearest")
+
+  imgHeart = love.graphics.newImage("images/heart.png")
+  imgHeart:setFilter("nearest","nearest")
+
+  imgHeartBlank = love.graphics.newImage("images/heart_blank.png")
+  imgHeartBlank:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
 end
 
-function isEdge()
-  for i = 0, boxCount-1 do 
-      if pl:GetX() - (boxList[i]:GetX()-11) == 0 then
-          return false
-      end
-  end
-  return true
-end
 
 function createStage() --0721 근영 맵 만드는 함수
   if stageLevel==0 then -- if문으로 stage설정 
@@ -330,12 +365,13 @@ end
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 
 function CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수  
-  if 0 < BridegePassValue and BridegePassValue < 30  then --첫번째 문제를 출었다고 가정 
-      aniBridge1:play()
-    elseif BridegePassValue >= 60 and not canPass then
-      aniBridge2:play()--두번째 문제를 풀었다고 가정
-    end
-    if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
-      aniBridge3:play()
-    end
+  if 0 < BridegePassValue and BridegePassValue < 30 then --첫번째 문제를 출었다고 가정 
+    aniBridge1:play()
+  elseif BridegePassValue >= 60 and not canPass then
+    aniBridge2:play()--두번째 문제를 풀었다고 가정
+  end
+    
+  if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
+    aniBridge3:play()
+  end
 end

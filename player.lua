@@ -1,8 +1,7 @@
 Player = {}
 Player.__index = Player
 
-JUMP_POWER = -300
-GRAVITY = 1000
+
 PLAYER_MOVE_POWER = 1-- 이 값을 바꾸면 전체적인 x좌표에도 영향을 주는듯? ex.포탈 by.현식 0727
 
 PLAYER_WIDTH = 10
@@ -13,7 +12,14 @@ PLAYER_START_Y = 100
 player_frames_left = {}
 player_frames_right = {}
 
-PLAYER_GROUND_Y = 145
+
+
+isCanMoveLeft = true
+isCanMoveRight = true
+isCanJump = true
+
+collision_Top_Y = 0
+collision_Bottom_Y = 0
 
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
@@ -30,29 +36,35 @@ function Player.create()
 	return self
 end
 
+
 function Player:UpdateMoveRight(dt)
+	FindCollisionRightDirection()
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 then
-		if isCanMove then
-			self.x = self.x + PLAYER_MOVE_POWER
-		end
+	if self.x < WIDTH - 10 and isCanMoveRight then
+		self.x = self.x + PLAYER_MOVE_POWER
 	end
 	player_now_frame = player_frames_left[math.floor(self.frame)]
 end
 --Add by G 0729
 
 function Player:UpdateMoveLeft(dt)
+	FindCollisionLeftDirection()
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0 then
-		if isCanMove then
-			self.x = self.x - PLAYER_MOVE_POWER
-		end
+	if self.x > 0  and isCanMoveLeft then
+		self.x = self.x - PLAYER_MOVE_POWER
+	end
+
+	if love.keyboard.isDown('space')  then
+		player_now_frame = player_frames_jump
+	else
+		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
 	player_now_frame = player_frames_right[math.floor(self.frame)]
 end
 --Add by G 0729
 
 function Player:UpdateMove(dt)
+		--Add by G 0729
 	if love.keyboard.isDown('right') then --0805HS
 		if self.x > 225 + BridegePassValue and stageLevel == 1 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
@@ -76,18 +88,35 @@ function Player:UpdateMove(dt)
 end
 
 function Player:CheckSpaceBarDown(dt)
-	if love.keyboard.isDown('space') and self.onGround == true then
-		self.yspeed = JUMP_POWER
+	FindCollisionBottomDirection()
+	if stageLevel~=2 then
+		if love.keyboard.isDown('space') and self.onGround == true then
+			self.yspeed = self.jump_power + collision_Bottom_Y
+		end
+
+		self.onGround = false
+		self.yspeed = self.yspeed + dt*self.gravity 
+	elseif stageLevel==2 then
+		if love.keyboard.isDown('space') and self.y>40 then
+			self.yspeed = self.jump_power + collision_Bottom_Y
+		end
+
+		self.onGround = false
+		self.yspeed = self.yspeed + dt*self.gravity+13
 	end
-	self.onGround = false
-	self.yspeed = self.yspeed + dt*GRAVITY
 end
 
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if self.y > PLAYER_GROUND_Y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
-			self.y = PLAYER_GROUND_Y
+		if collision_Top_Y > 0 and self.yspeed > 0 then
+			if self.isTop then 
+				self.y = collision_Top_Y - 10
+				self.yspeed = 0
+				self.onGround = true
+			end
+		elseif self.y > self.player_ground_y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+			self.y = self.player_ground_y
 			self.yspeed = 0
 			self.onGround = true
 		end
@@ -96,13 +125,26 @@ end
 
 function Player:update(dt)
 	-- Update walk frame
+	self.isTop = FindCollisionTopDirection()
+	self.isBottom = FindCollisionBottomDirection()
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
+	self:CollisionByBox()
+
 	self:IfQuest() --퀘스트 만들기 전까지 임시 대용. by.현식 0802
 end
 
 function Player:reset()
+	if stageLevel==2 then --stageLevel 이 2일때 설정 값 
+		self.jump_power = -40
+		self.gravity = -470
+		self.player_ground_y = 366
+	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값 
+		self.jump_power = -300
+		self.gravity = 1000
+		self.player_ground_y = 145
+	end
 	self.frame = 1
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
@@ -110,13 +152,31 @@ function Player:reset()
 	self.yspeed = 0
 	self.onGround = true
 	self.status = 0
+
+	--캐릭터 수정
+	self.width = 42
+	self.pHeight = 42
+	self.top = self.y - (self.pHeight * 2)
+	self.left = self.x - (self.width * 2)
+	self.right = self.x + (self.width * 2)
+	self.bottom = self.y
+end
+
+function Player:JumpReset()
+
+  
 end
 
 function Player:draw()
 	-- Update position
 	love.graphics.draw(imgSprites,player_now_frame,self.x,self.y)
+	if DEBUG_SETTING then
+		love.graphics.rectangle("line",self.x+8,self.y,25,42)
+	end
+
 	-- Check keyboard input
 end
+
 
 function Player:GetX()
 	return self.x
@@ -138,17 +198,62 @@ end
 
 --0805HS
 function Player:StartSummerStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
-	self.x = PLAYER_START_X
-	self.y = PLAYER_START_Y
+	self.x = 100
+	self.y = 600
 end
 
+function Player:CollisionByBox()
+	for i = 0 , boxCount - 1 do 
+		boxList[i].isCollisionRight = 
+		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH,boxList[i]:GetY(),self)
+		
+		boxList[i].isCollisionLeft =
+		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH,boxList[i]:GetY(),self)
+
+		boxList[i].isCollisionBottom = 
+		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
+
+		boxList[i].isCollisionTop =
+		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
+	end
+end
+
+function Player:collideWithPoint(x,y,_player)
+		x1 = x
+		y1 = y
+		
+		w1 = BOX_WIDTH 
+		h1 = BOX_HEIGHT
+
+		x2 = pl:GetX()
+		y2 = pl:GetY() 
+		w2 = pl.width
+		h2= pl.pHeight
+
+		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
+       	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
+       	x2 + 25 > x1 + w1 or -- 오른쪽
+       	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면 
+    	then
+        	return false                -- 충돌 안함
+   		else
+       		 return true                 -- 충돌
+   		end
+end
+
+
 --0805HS
-function Player:StartFallStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
+function Player:SUMMERSCRNHEIGHT() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self:SetLeftDirection()
 	self.x = 520
 	self.y = PLAYER_START_Y
 end
 
+function Player:StartFallStage()
+	self:SetLeftDirection()
+	self.x = 520
+	self.y = PLAYER_START_Y
+end
 --0805HS
 function Player:StartWinterStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = PLAYER_START_X
