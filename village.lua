@@ -1,5 +1,7 @@
 function createVillage()
-  CreateGround(-49,76) --마을에서의 땅과 스테이지에서의 땅은 다르기 때문에 얘도 생성방식으로 해야할 듯. by.현식 0727
+  LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 마을이 최초로 띄어지므로 여기에 생성함.
+  
+  CreateGround(-49,76) 
   CreateGround(541,76)
 
   CreateTree(150,54)
@@ -20,12 +22,7 @@ function createVillage()
   CreateHouse(450, 54)
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
-
-  CreateBox(300,50)
-  CreateBox(400,166)
-
-  CreateBox(600,130)
-  CreateBox(350,100)
+  CreateBox(200,155)
 end
 
 function deleteVillage()
@@ -33,4 +30,5 @@ function deleteVillage()
   TreeListDelete()
   HouseListDelete()
   GroundListDelete()
+  BoxListDelete()
 end
