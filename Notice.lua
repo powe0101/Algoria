@@ -21,7 +21,8 @@ function Notice:reset() -- 초기값
 	self.height = 48
 	self.x = 0
 	self.y = 0
-	self.time = love.timer.getTime() -- 보여지는 시간
+	self.makeTime = love.timer.getTime() -- 보여지는 시간
+	self.reduceAlpha = 0.7
 end
 
 function Notice:SetText(_text)
@@ -45,7 +46,7 @@ function Notice:DrawBackGround()
 	
 	love.graphics.setColor(255,255,255)
 
-	self.backGroundColor[4] = self.backGroundColor[4] - 0.7
+	self.backGroundColor[4] = self.backGroundColor[4] - self.reduceAlpha
 end
 
 
@@ -53,11 +54,13 @@ function Notice:DrawText()
 	love.graphics.setColor(self.textColor)
 	love.graphics.print(self.text,WIDTH / 2 - 20,HEIGHT / 2 - 15)
 	love.graphics.setColor(255,255,255)
+
+	self.textColor[4] = self.textColor[4] - self.reduceAlpha
 end
 
 function Notice:Draw()
 	--노티스 그리기
-	if love.timer.getTime() - 2 > self.time then
+	if love.timer.getTime() - 2 > self.makeTime then
 		self:Delete()
 		return 
 	end
