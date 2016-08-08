@@ -25,6 +25,7 @@ function Notice:reset() -- 초기값
 	self.y = 0
 	self.makeTime = love.timer.getTime() -- 노티스가 생성된 시간 
 	self.reduceAlpha = 0.7 --alpha값의 변화량
+	self.text = ""
 end
 
 function Notice:SetText(text)
