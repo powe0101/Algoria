@@ -18,8 +18,9 @@ function createVillage()
   CreateCloud(300,1)
   CreateCloud(400,1)
 
-  CreateHouse(17,54)
-  CreateHouse(450, 54)
+  CreateHouse(17,108)
+  CreateChiefHouse(380,77)
+  CreateBlackSmithHouse(550,108)
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
   CreateBox(200,155)
@@ -29,6 +30,8 @@ function deleteVillage()
   CloudListDelete()
   TreeListDelete()
   HouseListDelete()
+  ChiefHouseListDelete()
+  BlackSmithHouseListDelete()
   GroundListDelete()
   BoxListDelete()
 end

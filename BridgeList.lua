@@ -22,6 +22,6 @@ end
 
 function BridgeListDraw()
    for i=0, bridgeCount-1 do
-     bridgeList[i]:draw(dt)
+     bridgeList[i]:draw()
    end
 end

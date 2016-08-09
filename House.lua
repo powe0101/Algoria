@@ -2,9 +2,7 @@ House = {}
 House.__index = House
 
 house_frames_x = {}
-house_frames_y = {}
-house_frames_x[0]  = love.graphics.newQuad(0,0,128,128,128,128)
-house_frames_y[0] = love.graphics.newQuad(0,0,128,128,128,128)
+house_frames_x[0]  = love.graphics.newQuad(0,0,128,72,128,72)
 
 function House.create()
 	local self = {}
@@ -21,11 +19,11 @@ function House:reset(x,y)
 	house_now_frame = house_frames_x[0]
 end
 
-function House:normal(dt)  --tree 이동 
+function House:normal(dt)  
 	self=BackgroundNormal(self,dt)
 end
 
-function House:UpdateMove(dt) --tree key이벤트 
+function House:UpdateMove(dt) 
 	self=BackgroundMove(self,dt)
   end
 
