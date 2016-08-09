@@ -2,6 +2,9 @@
 -- Name : Notice.lua
 -- notice = Notice.Create 
 -- notice:SetText("STring")
+-- 이미 main lua 에서 DrawNotice가 호출 되고 있기때문에 
+-- 노티스가 띄워지고 싶은 부분에 상단 3,4번째 줄 코드만 기본적으로 추가하면 됨.
+-- 색변화 또는 기타 옵션 부여는 메서드 참조
 
 Notice = {}
 Notice.__index = Notice
@@ -50,7 +53,6 @@ function Notice:DrawBackGround()
 	self.backGroundColor[4] = self.backGroundColor[4] - self.reduceAlpha
 end
 
-
 function Notice:DrawText()
 	love.graphics.setColor(self.textColor)
 	love.graphics.print(self.text,WIDTH / 2 - 20,HEIGHT / 2 - 15)
@@ -68,12 +70,6 @@ function Notice:Draw()
 
 	self:DrawBackGround()
 	self:DrawText()
-end
-
-function NoticeDraw()
-	if notice then
-		notice:Draw()
-	end
 end
 
 function Notice:Delete()
@@ -100,4 +96,11 @@ end
 
 function Notice:SetTextAlpha(alpha)
 	self.textColor[4] = alpha
+end
+
+function NoticeDraw()
+	if notice then
+		notice:Draw()
+	end
+	-- using main.lua 
 end
