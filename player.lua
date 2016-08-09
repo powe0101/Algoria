@@ -109,11 +109,11 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if collision_Top_Y > 0 and self.yspeed > 0 then
+		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 then
 			if self.isTop then 
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
-				self.onGround = true
+				self.onGround = true	
 			end
 		elseif self.y > self.player_ground_y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
 			self.y = self.player_ground_y
@@ -226,8 +226,8 @@ function Player:collideWithPoint(x,y,_player)
 		y2 = pl:GetY() 
 		w2 = pl.width
 		h2= pl.pHeight
-
-		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
+	
+		if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
        	x2 + 25 > x1 + w1 or -- 오른쪽
        	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면 
