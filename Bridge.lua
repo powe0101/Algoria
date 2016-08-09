@@ -19,7 +19,7 @@ function Bridge:reset(x,y)
 	Bridge_now_frame = Bridge_frames_x
 end
 
-function Bridge:normal(dt) --Bridge 이동 
+function Ground:normal(dt) --Ground 이동 
 	self=BackgroundNormal(self,dt)
 end
 

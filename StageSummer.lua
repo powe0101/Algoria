@@ -1,18 +1,22 @@
 function CreateSummer()
 	if stageLevel == 2 then
     phase = 1
+    pl=nil
+
+  
+    HEIGHT=400
+    updateScale()
+  
+    pl = Player.create()
     
-		CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
-  	CreateGround(600,76)
+    pl:StartSummerStage()
+	  CreateCloud(100,200)
+	  CreateCloud(200,400)           
+    CreateCloud(300,0)
+    CreateCloud(350,100)  
+    CreateCloud(400,200)
 
-  	CreateRiver(346,150)
-  	CreateRiver(425,150)
-
-  	CreateTree(150,54)
-		CreateTree(300,54)
- 		CreateTree(600,54)
- 		CreateTree(750,54)
-
+  
  		--여기서부터 
  
         --bridge_frames = love.graphics.newQuad(0,0,128,128,128,128)
@@ -24,6 +28,6 @@ function CreateSummer()
         aniBridge:CreateBridge(100,100)
 
 
- 		pl:StartSummerStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+ 		--pl:StartSummerStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end
 end

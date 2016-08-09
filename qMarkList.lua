@@ -32,11 +32,11 @@ function CheckQMark()
   if qmarkCheck then
       if phase == 2 then
           QMarkListDelete()
-          CreateQMark(292, 115)
+          CreateQMark(289, 115)
           qmarkCheck = false
       elseif phase== 3 then
           QMarkListDelete()
-          CreateQMark(217, 115)
+          CreateQMark(214, 115)
           qmarkCheck = false
       elseif phase == 4 then
           QMarkListDelete()

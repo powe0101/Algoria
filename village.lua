@@ -1,4 +1,6 @@
 function createVillage()
+  LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 마을이 최초로 띄어지므로 여기에 생성함.
+  
   CreateGround(-49,76) 
   CreateGround(541,76)
 
@@ -21,10 +23,6 @@ function createVillage()
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
   CreateBox(200,155)
-
-
-  notice = Notice.Create()
-  notice:SetText("StageVillage")
 end
 
 function deleteVillage()

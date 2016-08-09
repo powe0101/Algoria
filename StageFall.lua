@@ -2,6 +2,13 @@ function CreateFall()
 	if stageLevel == 3 then --0805HS
     phase = 1 --계절이 생성될때 단계 초기화 
 
+    CreateCloud(0,1)
+    CreateCloud(100,50)
+    CreateCloud(500,1)
+    CreateCloud(200,50)
+    CreateCloud(300,1)
+    CreateCloud(400,50)
+
   	--CreateGround(-530,76) --쭉 이어져있는 경우.
     CreateGround(-736,76)
     CreateGround(63,76)
