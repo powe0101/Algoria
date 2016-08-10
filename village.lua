@@ -1,11 +1,19 @@
-function createVillage()
+function CreateVillage()
   if playerLife == 5 then 
     LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 단, 다른 스테이지 갔다가 라이프가 5개 밑일 경우 실행되지 않도록.
   end
 
   --가을 스테이지 갔다 올때를 대비해서 초기화시켜줌.
-  MOVE_POWER = 1 
-  GroundFullFrameChange()
+  if stageLevel ~= true then
+    stageLevel = 0
+    pl:ResetCoord()
+    MOVE_POWER = 1 
+    GroundFullFrameChange()
+
+    canPass = false
+    BridegePassValue = 0
+  end
+  --이상 초기화 부분.
   
   CreateGround(-49,76) 
   CreateGround(541,76)
@@ -32,11 +40,16 @@ function createVillage()
   CreateBox(200,155)
 end
 
-function deleteVillage()
+function DeleteVillage()
   CloudListDelete()
   TreeListDelete()
   HouseListDelete()
   ChiefHouseListDelete()
   GroundListDelete()
   BoxListDelete()
+  RiverListDelete()
+  QMarkListDelete()
+  BridgeListDelete()
+  PicketListDelete()
+  CastleListDelete()
 end

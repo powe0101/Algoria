@@ -32,5 +32,5 @@ function GroundHalfFrameChange()
 end
 
 function GroundFullFrameChange()
-    fallHalfGround = true
+    fallHalfGround = false
 end
