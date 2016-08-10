@@ -13,8 +13,11 @@ require("cloud")
 require("cloudList")
 require("House")
 require("houseList")
+require("ChiefHouse")
+require("chiefHouseList")
+require("BlackSmithHouse")
+require("blackSmithHouseList")
 require("Portal")
---require("portalList")
 require("Ground")
 require("groundList")
 require("River")
@@ -254,16 +257,16 @@ function updateGame(dt)
   BoxListUpdate(dt)
   CloudListUpdate(dt)
   HouseListUpdate(dt)
-  --PortalListUpdate(dt)
+  ChiefHouseListUpdate(dt)
+  BlackSmithHouseListUpdate(dt)
   RiverListUpdate(dt)
-  --BridgeListUpdate(dt)
   PicketListUpdate(dt)
   QMarkListUpdate(dt)
   HeartListUpdate(dt) --라이프
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
  
-  if stageLevel == 0 or stageLevel == 3 then
+  if stageLevel == 0 then
     PortalUpdate(dt)
   end
 
@@ -284,15 +287,17 @@ function drawGame()
   TreeListDraw()
   BoxListDraw()
   HouseListDraw()
+  CloudListDraw()
+  ChiefHouseListDraw()
+  BlackSmithHouseListDraw()
   
   --PortalListDraw()
   RiverListDraw()
-  --BridgeListDraw()
   PicketListDraw()
   QMarkListDraw()
   CastleListDraw()
 
-  if stageLevel == 0 or stageLevel == 3 then
+  if stageLevel == 0 then
     PortalDraw()
   end
 
@@ -331,11 +336,15 @@ function loadResources()
 
   imgHouse = love.graphics.newImage("images/house.png")
   imgHouse:setFilter("nearest","nearest") 
+  imgCHouse = love.graphics.newImage("images/chiefhouse.png")
+  imgCHouse:setFilter("nearest","nearest") 
+  imgBSHouse = love.graphics.newImage("images/blacksmithhouse.png")
+  imgBSHouse:setFilter("nearest","nearest") 
 
   imgPortal = love.graphics.newImage("images/portal07.png") 
   imgPortal:setFilter("nearest","nearest") 
 
-  imgPicket = love.graphics.newImage("images/picket03.png")
+  imgPicket = love.graphics.newImage("images/picket.png")
   imgPicket:setFilter("nearest", "nearest")
 
   imgGround = love.graphics.newImage("images/ground.png") 

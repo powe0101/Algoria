@@ -63,6 +63,8 @@ function drawDebug(setting)
 
   showPopupAndPhaseIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
 
+  love.graphics.setColor(255,255,255,255)  
+
 end
 
 function showFps(x,y)

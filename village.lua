@@ -1,7 +1,11 @@
 function createVillage()
-  LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 마을이 최초로 띄어지므로 여기에 생성함.
+  if playerLife == 5 then 
+    LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 단, 다른 스테이지 갔다가 라이프가 5개 밑일 경우 실행되지 않도록.
+  end
 
-  MOVE_POWER = 1
+  --가을 스테이지 갔다 올때를 대비해서 초기화시켜줌.
+  MOVE_POWER = 1 
+  GroundFullFrameChange()
   
   CreateGround(-49,76) 
   CreateGround(541,76)
@@ -20,8 +24,9 @@ function createVillage()
   CreateCloud(300,1)
   CreateCloud(400,1)
 
-  CreateHouse(17,54)
-  CreateHouse(450, 54)
+  CreateHouse(17,108)
+  CreateChiefHouse(380,77)
+  CreateBlackSmithHouse(550,108)
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
   CreateBox(200,155)
@@ -31,6 +36,8 @@ function deleteVillage()
   CloudListDelete()
   TreeListDelete()
   HouseListDelete()
+  ChiefHouseListDelete()
+  BlackSmithHouseListDelete()
   GroundListDelete()
   BoxListDelete()
 end

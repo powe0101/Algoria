@@ -23,14 +23,14 @@ end
 
 function GroundListDraw()
    for i=0, groundCount-1 do
-     groundList[i]:draw(dt)
+     groundList[i]:draw()
    end
 end
 
-function GroundFrameChange()
-  if fallHalfGround then
-    fallHalfGround = false
-  else
+function GroundHalfFrameChange()
     fallHalfGround = true
-  end
+end
+
+function GroundFullFrameChange()
+    fallHalfGround = true
 end

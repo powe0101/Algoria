@@ -22,6 +22,6 @@ end
 
 function HeartListDraw()
    for i=0, heartCount-1 do
-     heartList[i]:draw(dt)
+     heartList[i]:draw()
    end
 end

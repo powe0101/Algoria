@@ -4,10 +4,6 @@ function CreateFall()
 
     --말타는 상황을 가정.
     MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
-    --WIDTH = 680
-    --updateScale() --속도만으로도 맵이 길어지는 효과가 있어서 사이즈자체를 건드릴 필요는 없을듯.
-
-    CreatePortal(400,113)
 
     CreateCloud(0,1)
     CreateCloud(100,5)
@@ -16,7 +12,7 @@ function CreateFall()
     CreateCloud(300,1)
     --CreateCloud(400,50)
 
-    GroundFrameChange() --가을만 땅의 가로 프레임을 2/1배로 줄임. 다른 스테이지로 이동할때 원복시켜야함.
+    GroundHalfFrameChange() --가을만 땅의 가로 프레임을 2/1배로 줄임. 다른 스테이지로 이동할때 원복시켜야함.
 
     CreateGround(-1741,76) 
     CreateGround(-1437,76); 
