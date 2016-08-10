@@ -3,7 +3,6 @@ function CreateSummer()
     phase = 1
     pl=nil
 
-  
     HEIGHT=400
     updateScale()
   

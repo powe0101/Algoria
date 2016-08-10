@@ -77,7 +77,7 @@ function Player:UpdateMove(dt)
 	end
 
 	if love.keyboard.isDown('left') then --0805HS
-		if self.x < 290 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
+		if self.x < 460 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
 			if canPass then
 				self:UpdateMoveLeft(dt)
 			end
@@ -109,7 +109,7 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if collision_Top_Y > 0 and self.yspeed > 0 then
+		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 then
 			if self.isTop then 
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
@@ -248,7 +248,9 @@ end
 
 function Player:StartFallStage()
 	self:SetLeftDirection()
-	self.x = 520
+	--self.x = 520 --WIDTH 수정하기 전 값.
+	
+	self.x = 560
 	self.y = PLAYER_START_Y
 end
 --0805HS
