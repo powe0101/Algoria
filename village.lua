@@ -1,5 +1,7 @@
 function createVillage()
   LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 마을이 최초로 띄어지므로 여기에 생성함.
+
+  MOVE_POWER = 1
   
   CreateGround(-49,76) 
   CreateGround(541,76)

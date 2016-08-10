@@ -266,7 +266,7 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
  
-  if stageLevel == 0 then
+  if stageLevel == 0 or stageLevel == 3 then
     PortalUpdate(dt)
   end
 
@@ -275,23 +275,29 @@ function updateGame(dt)
     aniBridge1:update(dt)
     aniBridge2:update(dt)
     aniBridge3:update(dt)
+    aniBridge4:update(dt)
+    aniBridge5:update(dt)
+    aniBridge6:update(dt)
   end 
 end
 
 function drawGame()
   GroundListDraw()
+  CloudListDraw()
   TreeListDraw()
   BoxListDraw()
   HouseListDraw()
   CloudListDraw()
   ChiefHouseListDraw()
   BlackSmithHouseListDraw()
+  
+  --PortalListDraw()
   RiverListDraw()
   PicketListDraw()
   QMarkListDraw()
   CastleListDraw()
 
-  if stageLevel == 0 then
+  if stageLevel == 0 or stageLevel == 3 then
     PortalDraw()
   end
 
@@ -299,6 +305,9 @@ function drawGame()
      aniBridge1:draw()--첫 문제를 풀었다고 가정
      aniBridge2:draw() --두번째 문제를 풀었다고 가정
      aniBridge3:draw()
+     aniBridge4:draw()
+     aniBridge5:draw()
+     aniBridge6:draw()     
   end
 
   pl:draw() -- 플레이어 스프라이트 그리기 
@@ -316,7 +325,7 @@ function loadResources()
   imgSTree = love.graphics.newImage("images/summerTree.png")
   imgSTree:setFilter("nearest","nearest")  
 
-  imgFTree = love.graphics.newImage("images/FallTree01.png")
+  imgFTree = love.graphics.newImage("images/FallTree03.png")
   imgFTree:setFilter("nearest","nearest")
 
   imgWTree = love.graphics.newImage("images/winterTree.png")
@@ -340,6 +349,9 @@ function loadResources()
 
   imgGround = love.graphics.newImage("images/ground.png") 
   imgGround:setFilter("nearest","nearest") 
+
+  imgFGround = love.graphics.newImage("images/fallground.png") 
+  imgFGround:setFilter("nearest","nearest") 
 
   imgSGround = love.graphics.newImage("images/summerGround.png")
   imgSGround:setFilter("nearest","nearest") 
@@ -389,13 +401,16 @@ end
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 
 function CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수  
-  if 0 < BridegePassValue and BridegePassValue < 30 then --첫번째 문제를 출었다고 가정 
+  if 0 < BridegePassValue and BridegePassValue < 186 then --첫번째 문제를 출었다고 가정 
     aniBridge1:play()
-  elseif BridegePassValue >= 60 and not canPass then
     aniBridge2:play()--두번째 문제를 풀었다고 가정
+  elseif BridegePassValue >= 186 and not canPass then
+    aniBridge3:play()
+    aniBridge4:play()
   end
     
   if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
-    aniBridge3:play()
+    aniBridge5:play()
+    aniBridge6:play()
   end
 end

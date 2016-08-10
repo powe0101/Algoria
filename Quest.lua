@@ -13,11 +13,11 @@ function CheckQuest()
       		questCheck = true
     	end
   	elseif stageLevel == 3 then --가을
-    	if 290 < pl:GetX() and pl:GetX() < 330 and phase == 3 then --3단계
+    	if 215 < pl:GetX() and pl:GetX() < 225 and phase == 3 then --3단계
       		questCheck = true
-    	elseif 365 < pl:GetX() and pl:GetX() < 380 and phase == 2 then
+    	elseif 337 < pl:GetX() and pl:GetX() < 347 and phase == 2 then
     		questCheck = true
-    	elseif 440 < pl:GetX() and pl:GetX() < 455 and phase == 1 then
+    	elseif 520 < pl:GetX() and pl:GetX() < 530 and phase == 1 then
     		questCheck = true
     	end
     end
@@ -134,55 +134,7 @@ function ControlQuest()
 	    	FadeOut() --오답일 경우 메시지가 뜨고난 다음, 그 메시지를 없애는 페이드아웃.
 	    end
 
-	    if phase == 1 then --1번째는 Tip.
-	    	if love.keyboard.isDown("return") then --enter키임. 
-	      		questCheck = false
-	      		phase = phase + 1
-	      		BridegePassValue = BridegePassValue + 29
-	      		qmarkCheck = true
-	      	end
-	    elseif phase == 2 then --2번째 객관식 문제.
-	    	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임. 
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-		      		questCheck = false
-		      		phase = phase + 1
-		      		BridegePassValue = BridegePassValue + 35
-		      		multipleChoice = 1
-		      		qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		fadeOn = true
-		      		fadeOnWrong = true
-
-		      		LifeMinus()
-		      	end
-	      	end
-	    elseif phase == 3 then --3번째 객관식 문제
-	      	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임. 
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-		      		questCheck = false
-		      		phase = 4
-		      		canPass = true
-		      		multipleChoice = 1
-		      		qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		--추후에 오답일 경우에는 체력 게이지가 닳도록 만들기.
-		      		fadeOn = true
-		      		fadeOnWrong = true
-
-		      		LifeMinus()
-		      	end
-	      	end
-	    end
+	    FallQuest()
 
 	    if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 퀘스트창이 닫힘.
 	      questCheck = false
@@ -248,4 +200,56 @@ function ControlLeftRight()
     		multipleChoice = multipleChoice + 1
     	end
     end
+end
+
+function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 메서드
+	    if phase == 1 then --1번째는 Tip.
+	    	if love.keyboard.isDown("return") then --enter키임. 
+	      		questCheck = false
+	      		phase = phase + 1
+	      		BridegePassValue = BridegePassValue + 185
+	      		qmarkCheck = true
+	      	end
+	    elseif phase == 2 then --2번째 객관식 문제.
+	    	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임. 
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = phase + 1
+		      		BridegePassValue = BridegePassValue + 109
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		fadeOn = true
+		      		fadeOnWrong = true
+
+		      		LifeMinus()
+		      	end
+	      	end
+	    elseif phase == 3 then --3번째 객관식 문제
+	      	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임. 
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = 4
+		      		canPass = true
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		--추후에 오답일 경우에는 체력 게이지가 닳도록 만들기.
+		      		fadeOn = true
+		      		fadeOnWrong = true
+
+		      		LifeMinus()
+		      	end
+	      	end
+	    end
 end
