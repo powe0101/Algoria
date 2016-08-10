@@ -212,7 +212,6 @@ function Player:draw()
 	-- Check keyboard input
 end
 
-
 function Player:GetX()
 	return self.x
 end
