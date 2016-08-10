@@ -22,6 +22,6 @@ end
 
 function GroundListDraw()
    for i=0, groundCount-1 do
-     groundList[i]:draw(dt)
+     groundList[i]:draw()
    end
 end

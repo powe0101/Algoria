@@ -22,6 +22,6 @@ end
 
 function CloudListDraw()
    for i=0, cloudCount-1 do
-     cloudList[i]:draw(dt)
+     cloudList[i]:draw()
    end
 end

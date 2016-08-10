@@ -22,6 +22,6 @@ end
 
 function TreeListDraw()
 	for i = 0, treeCount-1 do
-  	  treeList[i]:draw(dt)
+  	  treeList[i]:draw()
   	end
 end

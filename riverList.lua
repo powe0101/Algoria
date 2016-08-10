@@ -22,6 +22,6 @@ end
 
 function RiverListDraw()
    for i=0, riverCount-1 do
-     riverList[i]:draw(dt)
+     riverList[i]:draw()
    end
 end
