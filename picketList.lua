@@ -13,7 +13,7 @@ function PicketListUpdate(dt)
 	end
 end
 
-function DeleteQuest()
+function PicketListDelete()
 	for i=0, picketCount-1 do
 		picketList[i]=nil
 	end

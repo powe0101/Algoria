@@ -31,12 +31,6 @@ function CreateSpring()
     --현재 문제가 없기 때문에 숫자키 '9'를 누르면 BridgePassValue값이 조금씩 증가해서
     --다리가 올라오게끔 구상함. by.현식 0802
 
-    aniBridge1:CreateBridge(425,155) --첫 문제를 풀었다고 가정
-    aniBridge2:CreateBridge(489,155) --두번째 문제를 풀었다고 가정
-    aniBridge3:CreateBridge(553,155)
-      
- 
-
- 		pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+ 	pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end
 end

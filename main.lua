@@ -42,6 +42,7 @@ require("StageWinter")
 --문제풀이 관련
 require("Quest")
 require("Answer")
+require("Boss") --중간보스
 
 --Notice
 require("Notice")
@@ -161,6 +162,7 @@ function love.update(dt)
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
   CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
+  CheckBossCastle() --중간보스 성으로 들어가는 메서드.
 end
 
 
@@ -390,7 +392,7 @@ end
 
 function createStage() --0721 근영 맵 만드는 함수
   if stageLevel==0 then -- if문으로 stage설정 
-    createVillage()
+    CreateVillage()
   end
 end
 
