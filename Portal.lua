@@ -1,7 +1,7 @@
 function CreatePortal(x, y)
 	Portal = newAnimation(imgPortal,64,64,0.3,0)
 	Portal:setMode("loop")
-	Portal:CreatePortal(x,y)
+	Portal:CreateBridge(x,y)
 	Portal:play()
 end
 
