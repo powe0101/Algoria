@@ -2,6 +2,8 @@ function CreateFall()
     if stageLevel == 3 then --0805HS
     phase = 1 --계절이 생성될때 단계 초기화 
 
+    p1=nil
+    pl=Player.create()
     --말타는 상황을 가정.
     MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
 

@@ -284,8 +284,6 @@ function drawGame()
   HouseListDraw()
   CloudListDraw()
   ChiefHouseListDraw()
-  
-  --PortalListDraw()
   RiverListDraw()
   PicketListDraw()
   QMarkListDraw()
