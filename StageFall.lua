@@ -35,12 +35,8 @@ function CreateFall()
     --1번 문제-------
     CreateQMark(420, 115) 
     CreatePicket(420,146) --phase1 
-    aniBridge1 = newAnimation(imgBridge,75,75,0.1,0)
-    aniBridge2 = newAnimation(imgBridge,75,75,0.1,0) --1문제 풀때마다 다리가 2개씩 올라옴.
-    aniBridge1:setMode("once") 
-    aniBridge2:setMode("once") 
-    aniBridge1:CreateBridge(93,158) --첫 문제를 풀었다고 가정
-    aniBridge2:CreateBridge(29,158) 
+    CreateBridge(93,158) --첫 문제를 풀었다고 가정
+    CreateBridge(29,158) 
 
     CreateRiver(-12,150)
     CreateRiver(-50,150) --다리랑 이 강물이랑 간격이 딱 맞음.
@@ -51,12 +47,8 @@ function CreateFall()
     --2번 문제의 느낌표 부터는 문제를 풀어가는 과정에서 바뀌므로 main의 update에서 감지하고 있다가 띄워줌.
     CreatePicket(-310,146) --phase2
 
-    aniBridge3 = newAnimation(imgBridge,75,75,0.1,0) 
-    aniBridge4 = newAnimation(imgBridge,75,75,0.1,0) 
-    aniBridge3:setMode("once")
-    aniBridge4:setMode("once")
-    aniBridge3:CreateBridge(-643,158) --두번째 문제를 풀었다고 가정
-    aniBridge4:CreateBridge(-707,158) --x 간격은 64
+    CreateBridge(-643,158) --두번째 문제를 풀었다고 가정
+    CreateBridge(-707,158) --x 간격은 64
 
     CreateRiver(-748,150)
     CreateRiver(-786,150)
@@ -64,12 +56,8 @@ function CreateFall()
 
     --3번 문제-------------
     CreatePicket(-800,146) --phase3
-    aniBridge5 = newAnimation(imgBridge,75,75,0.1,0) 
-    aniBridge6 = newAnimation(imgBridge,75,75,0.1,0) 
-    aniBridge5:setMode("once")
-    aniBridge6:setMode("once")
-    aniBridge5:CreateBridge(-1075,158) --두번째 문제를 풀었다고 가정
-    aniBridge6:CreateBridge(-1139,158) --x 간격은 64
+    CreateBridge(-1075,158) --두번째 문제를 풀었다고 가정
+    CreateBridge(-1139,158) --x 간격은 64
 
     CreateRiver(-1180,150)
     CreateRiver(-1218,150) 

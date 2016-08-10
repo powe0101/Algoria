@@ -69,7 +69,7 @@ function newAnimation(image, fw, fh, delay, frames)
 	return setmetatable(self, animation)
 end
 
-function animation:CreateBridge(x,y)--made by 근영 0801
+function animation:CreateObject(x,y)--made by 근영 0801 , 현식 0810 수정.
   self.x=x
   self.y=y
 end
