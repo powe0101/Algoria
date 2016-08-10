@@ -28,6 +28,8 @@ require("QMark")
 require("qMarkList")
 require("Castle")
 require("castleList")
+require("Bridge")
+require("bridgeList")
 
 --이하 스테이지 관련
 require("village")
@@ -269,13 +271,8 @@ function updateGame(dt)
   end
 
   if stageLevel == 3 then --가을
-    CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수 
-    aniBridge1:update(dt)
-    aniBridge2:update(dt)
-    aniBridge3:update(dt)
-    aniBridge4:update(dt)
-    aniBridge5:update(dt)
-    aniBridge6:update(dt)
+    CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
+    BridgeListUpdate(dt)
   end 
 end
 
@@ -300,12 +297,7 @@ function drawGame()
   end
 
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
-     aniBridge1:draw()--첫 문제를 풀었다고 가정
-     aniBridge2:draw() --두번째 문제를 풀었다고 가정
-     aniBridge3:draw()
-     aniBridge4:draw()
-     aniBridge5:draw()
-     aniBridge6:draw()     
+     BridgeListDraw()   
   end
 
   pl:draw() -- 플레이어 스프라이트 그리기 
@@ -405,18 +397,4 @@ function createStage() --0721 근영 맵 만드는 함수
 end
 
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
-
-function CheckPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수  
-  if 0 < BridegePassValue and BridegePassValue < 186 then --첫번째 문제를 출었다고 가정 
-    aniBridge1:play()
-    aniBridge2:play()--두번째 문제를 풀었다고 가정
-  elseif BridegePassValue >= 186 and not canPass then
-    aniBridge3:play()
-    aniBridge4:play()
-  end
-    
-  if canPass then --문제를 다 풀었을 때 마지막 다리가 올라옴
-    aniBridge5:play()
-    aniBridge6:play()
-  end
-end
+--CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
