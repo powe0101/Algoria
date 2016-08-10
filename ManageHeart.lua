@@ -22,7 +22,7 @@ end
 
 function LifeControl()
 	if playerLife == 5 then
-		LifeFive() --최초 1회 실행해야할 필요가 있음
+		LifeFive() --최초 1회 실행해야할 필요가 있음. Village에서 실행시킴.
 	elseif playerLife ==4 then
 		LifeFour()
 	elseif playerLife == 3 then

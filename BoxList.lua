@@ -69,7 +69,7 @@ end
 
 function BoxListDraw()
 	for i = 0, boxCount-1 do
-    	boxList[i]:draw(dt)
+    	boxList[i]:draw()
   	end
 end
 

@@ -77,7 +77,7 @@ function Player:UpdateMove(dt)
 	end
 
 	if love.keyboard.isDown('left') then --0805HS
-		if self.x < 290 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
+		if self.x < 460 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
 			if canPass then
 				self:UpdateMoveLeft(dt)
 			end
@@ -113,7 +113,7 @@ function Player:normal(dt)
 			if self.isTop then 
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
-				self.onGround = true	
+				self.onGround = true
 			end
 		elseif self.y > self.player_ground_y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
 			self.y = self.player_ground_y
@@ -226,8 +226,8 @@ function Player:collideWithPoint(x,y,_player)
 		y2 = pl:GetY() 
 		w2 = pl.width
 		h2= pl.pHeight
-	
-		if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
+
+		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
        	x2 + 25 > x1 + w1 or -- 오른쪽
        	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면 
@@ -248,7 +248,9 @@ end
 
 function Player:StartFallStage()
 	self:SetLeftDirection()
-	self.x = 520
+	--self.x = 520 --WIDTH 수정하기 전 값.
+	
+	self.x = 560
 	self.y = PLAYER_START_Y
 end
 --0805HS

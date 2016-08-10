@@ -22,6 +22,6 @@ end
 
 function PicketListDraw()
 	for i=0, picketCount-1 do
-		picketList[i]:draw(dt)
+		picketList[i]:draw()
 	end
 end

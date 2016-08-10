@@ -22,6 +22,6 @@ end
 
 function CastleListDraw()
    for i=0, castleCount-1 do
-     castleList[i]:draw(dt)
+     castleList[i]:draw()
    end
 end
