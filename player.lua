@@ -24,9 +24,29 @@ collision_Bottom_Y = 0
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
 end
-
 for i=0,2 do
 	player_frames_right[i] = love.graphics.newQuad(32*i,32,32,32,96,64)
+end
+
+for i=0,2 do
+	summerPlayer_frames_left[i] = love.graphics.newQuad(32*i,0,64,32,196,64)
+end
+for i=0,2 do
+	summerPlayer_frames_right[i] = love.graphics.newQuad(64*i,32,64,32,196,64)
+end
+
+for i=0,2 do
+	fallPlayer_frames_left[i] = love.graphics.newQuad(32*i,0,64,64,192,128)
+end
+for i=0,2 do
+	fallPlayer_frames_right[i] = love.graphics.newQuad(64*i,64,64,32,192,128)
+end
+
+for i=0,2 do
+	winterPlayer_frames_left[i] = love.graphics.newQuad(32*i,0,32,40,96,80)
+end
+for i=0,2 do
+	winterPlayer_frames_right[i] = love.graphics.newQuad(32*i,40,32,40,96,80)
 end
 
 function Player.create()
@@ -52,12 +72,6 @@ function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
 	if self.x > 0  and isCanMoveLeft then
 		self.x = self.x - PLAYER_MOVE_POWER
-	end
-
-	if love.keyboard.isDown('space')  then
-		player_now_frame = player_frames_jump
-	else
-		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
 	player_now_frame = player_frames_right[math.floor(self.frame)]
 end

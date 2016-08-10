@@ -316,6 +316,14 @@ function loadResources()
   -- Load images
   imgSprites = love.graphics.newImage("images/algolaChar.png") -- char.png 등록
   imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
+  imgSpringChar = love.graphics.newImage("images/maskChar.png") 
+  imgSpringChar:setFilter("nearest","nearest")
+  imgSummerChar = love.graphics.newImage("images/wingChar.png") 
+  imgSummerChar:setFilter("nearest","nearest")
+  imgFallChar = love.graphics.newImage("images/horseChar.png") 
+  imgFallChar:setFilter("nearest","nearest")
+  imgWinterChar = love.graphics.newImage("images/eisenChar.png")
+  imgWinterChar:setFilter("nearest","nearest")
 
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
