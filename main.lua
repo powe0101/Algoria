@@ -263,7 +263,7 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
  
-  if stageLevel == 0 then
+  if stageLevel == 0 or stageLevel == 3 then
     PortalUpdate(dt)
   end
 
@@ -292,7 +292,7 @@ function drawGame()
   QMarkListDraw()
   CastleListDraw()
 
-  if stageLevel == 0 then
+  if stageLevel == 0 or stageLevel == 3 then
     PortalDraw()
   end
 

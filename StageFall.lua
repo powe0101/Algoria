@@ -7,6 +7,8 @@ function CreateFall()
     --WIDTH = 680
     --updateScale() --속도만으로도 맵이 길어지는 효과가 있어서 사이즈자체를 건드릴 필요는 없을듯.
 
+    CreatePortal(400,113)
+
     CreateCloud(0,1)
     CreateCloud(100,5)
     CreateCloud(500,1)
@@ -19,7 +21,8 @@ function CreateFall()
     CreateGround(-1741,76) 
     CreateGround(-1437,76); 
     CreateGround(-1005,76) 
-    CreateGround(-573,76); CreateGround(-269,76)
+    CreateGround(-573,76); 
+    CreateGround(-269,76)
     CreateGround(163,76)  -- 432 --736/368 
     CreateGround(465,76) 
 
