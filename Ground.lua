@@ -2,6 +2,7 @@ Ground = {}
 Ground.__index = Ground
 
 Ground_frames_x  = love.graphics.newQuad(0,0,608,208,608,128) 
+Ground_half_frames  = love.graphics.newQuad(0,0,304,208,304,128) 
 
 function Ground.create()
 	local self = {}
@@ -38,7 +39,11 @@ function Ground:draw()
 	elseif stageLevel == 2 then 
 		love.graphics.draw(imgSGround,Ground_now_frame,self.x,self.y)
 	elseif stageLevel == 3 then --가을입니다. by.현식
-		love.graphics.draw(imgGround,Ground_now_frame,self.x,self.y)
+		if fallHalfGround then --땅을 절반만 그리고 싶을 때,
+			love.graphics.draw(imgFGround,Ground_half_frames,self.x,self.y)
+		else --정상적일 때,
+			love.graphics.draw(imgFGround,Ground_now_frame,self.x,self.y)
+		end
 	elseif stageLevel == 4 then
 		love.graphics.draw(imgWGround,Ground_now_frame,self.x,self.y)
 	end
