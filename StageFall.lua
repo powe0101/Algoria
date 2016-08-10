@@ -3,9 +3,11 @@ function CreateFall()
         pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
         phase = 1 --계절이 생성될때 단계 초기화 
 
-        --말타는 상황을 가정.
-        MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
-
+    p1=nil
+    pl=Player.create()
+    --말타는 상황을 가정.
+    MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
+    
         CreateCloud(0,1)
         CreateCloud(100,5)
         CreateCloud(500,1)
