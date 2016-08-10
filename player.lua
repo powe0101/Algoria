@@ -27,7 +27,7 @@ end
 for i=0,2 do
 	player_frames_right[i] = love.graphics.newQuad(32*i,32,32,32,96,64)
 end
-
+--[[
 for i=0,2 do
 	summerPlayer_frames_left[i] = love.graphics.newQuad(32*i,0,64,32,196,64)
 end
@@ -48,7 +48,7 @@ end
 for i=0,2 do
 	winterPlayer_frames_right[i] = love.graphics.newQuad(32*i,40,32,40,96,80)
 end
-
+]]--
 function Player.create()
 	local self = {}
 	setmetatable(self,Player)
