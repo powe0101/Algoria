@@ -27,10 +27,10 @@ function GroundListDraw()
    end
 end
 
-function GroundFrameChange()
-  if fallHalfGround then
-    fallHalfGround = false
-  else
+function GroundHalfFrameChange()
     fallHalfGround = true
-  end
+end
+
+function GroundFullFrameChange()
+    fallHalfGround = true
 end

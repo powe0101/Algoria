@@ -199,6 +199,11 @@ function Player:StartSummerStage() --스테이지가 변경됐을 때 캐릭터 
 	self.y = 200
 end
 
+function Player:ResetCoord()
+	self.x = PLAYER_START_X
+	self.y = PLAYER_START_Y
+end
+
 function Player:CollisionByBox()
 	for i = 0 , boxCount - 1 do 
 		boxList[i].isCollisionRight = 
