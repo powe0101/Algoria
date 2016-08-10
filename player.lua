@@ -109,7 +109,7 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if collision_Top_Y > 0 and self.yspeed > 0 then
+		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 then
 			if self.isTop then 
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
