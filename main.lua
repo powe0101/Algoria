@@ -7,8 +7,8 @@ require("AnAL") --애니메이션 관련
 --그래픽 관련
 require("Box")
 require("BoxList")
-require("tree") -- include tree.lua
-require ("treeList")
+require("tree") 
+require("treeList")
 require("cloud")
 require("cloudList")
 require("House")
@@ -16,14 +16,11 @@ require("houseList")
 require("ChiefHouse")
 require("chiefHouseList")
 require("BlackSmithHouse")
-require("blackSmithHouseList")
 require("Portal")
 require("Ground")
 require("groundList")
 require("River")
 require("riverList")
-require("Bridge")
-require("BridgeList")
 require("Picket")
 require("picketList")
 require("QMark")
@@ -258,7 +255,6 @@ function updateGame(dt)
   CloudListUpdate(dt)
   HouseListUpdate(dt)
   ChiefHouseListUpdate(dt)
-  BlackSmithHouseListUpdate(dt)
   RiverListUpdate(dt)
   PicketListUpdate(dt)
   QMarkListUpdate(dt)
@@ -268,6 +264,7 @@ function updateGame(dt)
  
   if stageLevel == 0 then
     PortalUpdate(dt)
+    BlackSmithHouseUpdate(dt)
   end
 
   if stageLevel == 3 then --가을
@@ -285,7 +282,6 @@ function drawGame()
   HouseListDraw()
   CloudListDraw()
   ChiefHouseListDraw()
-  BlackSmithHouseListDraw()
   RiverListDraw()
   PicketListDraw()
   QMarkListDraw()
@@ -293,6 +289,7 @@ function drawGame()
 
   if stageLevel == 0 then
     PortalDraw()
+    BlackSmithHouseDraw()
   end
 
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
@@ -365,13 +362,13 @@ function loadResources()
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
   
-  imgWing = love.graphics.newImage("images/wing.png") -- 용사 날개 아이템 이미지
+  imgMask = love.graphics.newImage("images/mask.png") 
+  imgMask:setFilter("nearest","nearest")
+  imgWing = love.graphics.newImage("images/wing.png") 
   imgWing:setFilter("nearest","nearest")
-
-  imgHorse = love.graphics.newImage("images/horse.png") -- 용사 말 아이템 이미지
+  imgHorse = love.graphics.newImage("images/horse.png") 
   imgHorse:setFilter("nearest","nearest")
-
-  imgEisen = love.graphics.newImage("images/eisen.png") -- 용사 아이젠 아이템 이미지
+  imgEisen = love.graphics.newImage("images/eisen.png") 
   imgEisen:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS

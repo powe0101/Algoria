@@ -31,7 +31,6 @@ function deleteVillage()
   TreeListDelete()
   HouseListDelete()
   ChiefHouseListDelete()
-  BlackSmithHouseListDelete()
   GroundListDelete()
   BoxListDelete()
 end

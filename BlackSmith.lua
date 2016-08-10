@@ -36,6 +36,7 @@ function DrawBlackSmith()
 	love.graphics.rectangle("line",385,120,itemBoxWidth,itemBoxHeight)
 	-- 아이템 획득 후 0805
 	love.graphics.setColor(255,255,255,255)
+	love.graphics.draw(imgMask,185,120)
 	love.graphics.draw(imgWing,235,120)
 	love.graphics.draw(imgHorse,285,120)
 	love.graphics.draw(imgEisen,335,120)
