@@ -1,7 +1,11 @@
 function createVillage()
-  LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 마을이 최초로 띄어지므로 여기에 생성함.
+  if playerLife == 5 then 
+    LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 단, 다른 스테이지 갔다가 라이프가 5개 밑일 경우 실행되지 않도록.
+  end
 
-  MOVE_POWER = 1
+  --가을 스테이지 갔다 올때를 대비해서 초기화시켜줌.
+  MOVE_POWER = 1 
+  GroundFullFrameChange()
   
   CreateGround(-49,76) 
   CreateGround(541,76)
@@ -33,7 +37,6 @@ function deleteVillage()
   TreeListDelete()
   HouseListDelete()
   ChiefHouseListDelete()
-  BlackSmithHouseListDelete()
   GroundListDelete()
   BoxListDelete()
 end
