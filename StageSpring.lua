@@ -20,17 +20,13 @@ function StageSpring:CreateDustWind()
 end
 
 function StageSpring:MakePuzzle(_count)
-  
-
-  for i = 1, _count do
-    --CreateBox(love.math.random(0,self.width),love.math.random(0,self.height))
-    --박스말고 긴 막대 
-  end
-
+  --for i = 1, _count do
+  --  박스말고 긴 막대 
+  --end
 end
 
 function StageSpring:DeletePuzzle()
-  BoxListDelete()
+  --긴 막대들 삭제 
 end
 
 function StageSpring:DustWindBlowing()
@@ -53,7 +49,7 @@ function CreateSpring()
   notice = Notice.Create()
   notice:SetText("Stage Spring")
   stageSpring:MakePuzzle(5)
-
+  pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 
 
   CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
@@ -91,5 +87,4 @@ end
  --    --현재 문제가 없기 때문에 숫자키 '9'를 누르면 BridgePassValue값이 조금씩 증가해서
  --    --다리가 올라오게끔 구상함. by.현식 0802
 
- --   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
   -- end
