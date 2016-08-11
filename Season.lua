@@ -12,13 +12,15 @@ function CheckPortal() --0725 마을에서 포탈같이 일정 좌표에서 ↑�
   end
 end
 
-function CheckSeason() --아직 가을까지밖에 적용이 안됨.
+function CheckSeason()
   if stageLevel == 1 then
-      CreateSpring()
+      CreateSpring() --원래코드
     elseif stageLevel == 2 then
       CreateSummer()
     elseif stageLevel == 3 then
-      CreateFall()
+      --CreateFall()
+      stageLevel = 7
+      CreateBossCastle()
     elseif stageLevel == 4 then
       CreateWinter()
   end

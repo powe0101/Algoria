@@ -3,15 +3,13 @@ function CreateVillage()
     LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 단, 다른 스테이지 갔다가 라이프가 5개 밑일 경우 실행되지 않도록.
   end
 
-  --가을 스테이지 갔다 올때를 대비해서 초기화시켜줌.
+  --다른 스테이지 갔다 올때를 대비해서 초기화시켜줌.
   if stageLevel ~= true then
     stageLevel = 0
-    pl:ResetCoord()
-    MOVE_POWER = 1 
-    GroundFullFrameChange()
 
-    canPass = false
-    BridegePassValue = 0
+    p1=nil
+    pl=Player.create() 
+    pl:ResetCoord()
   end
   --이상 초기화 부분.
   
@@ -52,4 +50,14 @@ function DeleteVillage()
   BridgeListDelete()
   PicketListDelete()
   CastleListDelete()
+
+  --초기화
+  if stageLevel == 3 then
+    GroundFullFrameChange()
+  end
+  MOVE_POWER = 1 
+
+  canPass = false
+  BridegePassValue = 0
+  phase = 0
 end

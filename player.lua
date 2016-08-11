@@ -187,18 +187,16 @@ function Player:reset()
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
 	
-	if stageLevel == 0 then
-		playerCurrentImage = imgSprites
-		player_now_frame = player_frames_left[0]
-	end
 	if stageLevel == 3 then
 		self.player_ground_y = 120
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
-	end
-	if stageLevel == 4 then
+	elseif stageLevel == 4 then
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
+	else
+		playerCurrentImage = imgSprites
+		player_now_frame = player_frames_left[0]
 	end
 end
 
