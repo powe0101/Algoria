@@ -358,6 +358,9 @@ function loadResources()
   imgSGround = love.graphics.newImage("images/summerGround.png")
   imgSGround:setFilter("nearest","nearest") 
 
+  imgSCreeper = love.graphics.newImage("images/creeper.png")
+  imgSCreeper:setFilter("nearest","nearest") 
+
   imgWGround = love.graphics.newImage("images/winterGround.png")
   imgWGround:setFilter("nearest","nearest") 
 

@@ -177,6 +177,10 @@ function Player:update(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
 	
+	if stageLevel==2 then -- 0811 근영 가시에 닿앗을때 점프 
+		self:SCheckHudle()
+	end
+
 
 	self:IfQuest() --퀘스트 만들기 전까지 임시 대용. by.현식 0802
 end
@@ -185,7 +189,7 @@ function Player:reset()
 	if stageLevel==2 then --stageLevel 이 2일때 설정 값 
 		self.jump_power = -40
 		self.gravity = -470
-		self.player_ground_y = 350
+		self.player_ground_y = 330
 		self.y=300
 	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값 
 		self.jump_power = -300
@@ -340,4 +344,13 @@ function Player:IfQuest()
 			end
 		end
 	end
+end
+
+function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
+
+	if self.y==330 then
+		self.yspeed =-100
+    	LifeMinus()
+	end
+
 end
