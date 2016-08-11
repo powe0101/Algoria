@@ -34,8 +34,8 @@ function Ground:update(dt)
 end
 
 function Ground:draw()
-	if stageLevel == 0 then
-	love.graphics.draw(imgGround,Ground_now_frame,self.x,self.y)
+	if stageLevel == 0 or stageLevel == 1 then
+		love.graphics.draw(imgGround,Ground_now_frame,self.x,self.y)
 	elseif stageLevel == 2 then 
 		love.graphics.draw(imgSGround,Ground_now_frame,self.x,self.y)
 	elseif stageLevel == 3 then --가을입니다. by.현식
