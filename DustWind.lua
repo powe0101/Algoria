@@ -28,9 +28,6 @@ end
 function DustWind:ChangeBlocks()
 	local seed = self:RandomSeed()
 	--Change Block x,y boxList
-	for i = 0, boxCount -1 do
-		-- SetX,SetY
-	end	
 end
 
 function DustWind:GetX()
