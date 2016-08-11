@@ -57,7 +57,6 @@ function Player.create()
 end
 
 function Player:UpdateMoveRight(dt)
-	FindCollisionRightDirection()
 	self.frame = (self.frame + 15*dt) % 3
 	if self.x < WIDTH - 10 and isCanMoveRight then
 		self.x = self.x + PLAYER_MOVE_POWER
@@ -73,7 +72,6 @@ end
 --Add by G 0729
 
 function Player:UpdateMoveLeft(dt)
-	FindCollisionLeftDirection()
 	self.frame = (self.frame + 15*dt) % 3
 	if self.x > 0  and isCanMoveLeft then
 		self.x = self.x - PLAYER_MOVE_POWER
@@ -89,7 +87,6 @@ end
 --Add by G 0729
 
 function Player:UpdateMove(dt)
-		--Add by G 0729
 	if love.keyboard.isDown('right') then --0805HS
 		if self.x > 225 + BridegePassValue and stageLevel == 1 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
@@ -112,8 +109,8 @@ function Player:UpdateMove(dt)
 	end
 end
 
+--Add by G 0729
 function Player:CheckSpaceBarDown(dt)
-	FindCollisionBottomDirection()
 	if stageLevel~=2 then
 		if love.keyboard.isDown('space') and self.onGround == true then
 			self.yspeed = self.jump_power + collision_Bottom_Y
@@ -135,12 +132,13 @@ function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
 		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 then
-			if self.isTop then 
+			if self.isTop then  -- on the box 
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
 				self.onGround = true
 			end
-		elseif self.y > self.player_ground_y then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+		elseif self.y > self.player_ground_y then
+		 --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
 			self.y = self.player_ground_y
 			self.yspeed = 0
 			self.onGround = true
@@ -148,14 +146,25 @@ function Player:normal(dt)
 	end
 end
 
-function Player:update(dt)
-	-- Update walk frame
+function Player:FindPlayerPosWithBox()
+	self:CollisionByBox() 
+	-- 상하좌우의 박스리스트에 있는 박스 각각 현재 위치와 플레이어 위치를 통한 일괄 판별
+
 	self.isTop = FindCollisionTopDirection()
 	self.isBottom = FindCollisionBottomDirection()
+	isCanMoveRight = FindCollisionRightDirection() 
+	isCanMoveLeft = FindCollisionLeftDirection()
+	-- 판별 된 박스 중에 True 에해당하는 값이 있는지 판별
+	-- 여러개의 박스를 검사하기 위해 CollisionByBox 와 Direction을 나눔
+end
+
+function Player:update(dt)
+	-- Update walk frame
+	self:FindPlayerPosWithBox()	--박스 찾는 알고리즘
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
-	self:CollisionByBox()
+	
 
 	self:IfQuest() --퀘스트 만들기 전까지 임시 대용. by.현식 0802
 end

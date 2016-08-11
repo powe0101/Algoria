@@ -16,7 +16,7 @@ end
 
 function StageSpring:CreateDustWind()
   _dw = DustWind.Create()
-  self:dustWind = _dw
+  --self:dustWind = _dw
 end
 
 function StageSpring:MakePuzzle(_count)
