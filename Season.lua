@@ -8,8 +8,6 @@ function CheckPortal() --0725 마을에서 포탈같이 일정 좌표에서 ↑�
     if 170 < pl:GetX() and pl:GetX() < 190 and stageLevel == 0 then --0722 스테이지 변경을 위한 테스트 진행중.. by.현식
       CheckPopup()
       --stageLevel = 3 -- 추후에는 이 부분을 팝업창에서 선택할 수 있도록..
-    elseif 543 < pl:GetX() and pl:GetX() < 554 and stageLevel == 3 then
-      --마을로 돌아가는 팝업창 만들기.
     end
   end
 end
@@ -100,7 +98,8 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
       stageLevel = levelCheck
       popupCheck = false
       
-      deleteVillage()
+      levelCheck = 1
+      DeleteVillage()
       CheckSeason()
     end
 

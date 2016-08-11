@@ -1,7 +1,6 @@
 Player = {}
 Player.__index = Player
 
-
 PLAYER_MOVE_POWER = 1-- 이 값을 바꾸면 전체적인 x좌표에도 영향을 주는듯? ex.포탈 by.현식 0727
 
 PLAYER_WIDTH = 10
@@ -11,8 +10,12 @@ PLAYER_START_Y = 100
 
 player_frames_left = {}
 player_frames_right = {}
-
-
+summerPlayer_frames_left = {}
+summerPlayer_frames_right = {}
+fallPlayer_frames_left = {}
+fallPlayer_frames_right = {}
+winterPlayer_frames_left = {}
+winterPlayer_frames_right = {}
 
 isCanMoveLeft = true
 isCanMoveRight = true
@@ -24,9 +27,26 @@ collision_Bottom_Y = 0
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
 end
-
 for i=0,2 do
 	player_frames_right[i] = love.graphics.newQuad(32*i,32,32,32,96,64)
+end
+for i=0,2 do
+	summerPlayer_frames_left[i] = love.graphics.newQuad(64*i,0,64,32,196,64)
+end
+for i=0,2 do
+	summerPlayer_frames_right[i] = love.graphics.newQuad(64*i,32,64,32,196,64)
+end
+for i=0,2 do
+	fallPlayer_frames_left[i] = love.graphics.newQuad(64*i,0,64,64,192,128)
+end
+for i=0,2 do
+	fallPlayer_frames_right[i] = love.graphics.newQuad(64*i,64,64,64,192,128)
+end
+for i=0,2 do
+	winterPlayer_frames_left[i] = love.graphics.newQuad(32*i,0,32,40,96,80)
+end
+for i=0,2 do
+	winterPlayer_frames_right[i] = love.graphics.newQuad(32*i,40,32,40,96,80)
 end
 
 function Player.create()
@@ -36,7 +56,6 @@ function Player.create()
 	return self
 end
 
-
 function Player:UpdateMoveRight(dt)
 	FindCollisionRightDirection()
 	self.frame = (self.frame + 15*dt) % 3
@@ -44,6 +63,12 @@ function Player:UpdateMoveRight(dt)
 		self.x = self.x + PLAYER_MOVE_POWER
 	end
 	player_now_frame = player_frames_left[math.floor(self.frame)]
+	if stageLevel == 3 then
+		player_now_frame = fallPlayer_frames_left[math.floor(self.frame)]
+	end
+	if stageLevel == 4 then
+		player_now_frame = winterPlayer_frames_left[math.floor(self.frame)]
+	end
 end
 --Add by G 0729
 
@@ -53,13 +78,13 @@ function Player:UpdateMoveLeft(dt)
 	if self.x > 0  and isCanMoveLeft then
 		self.x = self.x - PLAYER_MOVE_POWER
 	end
-
-	if love.keyboard.isDown('space')  then
-		player_now_frame = player_frames_jump
-	else
-		player_now_frame = player_frames_right[math.floor(self.frame)]
-	end
 	player_now_frame = player_frames_right[math.floor(self.frame)]
+	if stageLevel == 3 then
+		player_now_frame = fallPlayer_frames_right[math.floor(self.frame)]
+	end
+	if stageLevel == 4 then
+		player_now_frame = winterPlayer_frames_right[math.floor(self.frame)]
+	end
 end
 --Add by G 0729
 
@@ -150,7 +175,6 @@ function Player:reset()
 	self.frame = 1
 	self.x = PLAYER_START_X
 	
-	player_now_frame = player_frames_left[0]
 	self.yspeed = 0
 	self.onGround = true
 	self.status = 0
@@ -162,18 +186,31 @@ function Player:reset()
 	self.left = self.x - (self.width * 2)
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
+	
+	if stageLevel == 0 then
+		playerCurrentImage = imgSprites
+		player_now_frame = player_frames_left[0]
+	end
+	if stageLevel == 3 then
+		self.player_ground_y = 120
+		playerCurrentImage = imgFallChar
+		player_now_frame = fallPlayer_frames_right[0]
+	end
+	if stageLevel == 4 then
+		playerCurrentImage = imgWinterChar
+		player_now_frame = winterPlayer_frames_left[0]
+	end
 end
 
 function Player:draw()
 	-- Update position
-	love.graphics.draw(imgSprites,player_now_frame,self.x,self.y)
+	love.graphics.draw(playerCurrentImage,player_now_frame,self.x,self.y)
 	if DEBUG_SETTING then
 		love.graphics.rectangle("line",self.x+8,self.y,25,42)
 	end
 
 	-- Check keyboard input
 end
-
 
 function Player:GetX()
 	return self.x
@@ -252,9 +289,7 @@ function Player:SUMMERSCRNHEIGHT() --스테이지가 변경됐을 때 캐릭터 
 end
 
 function Player:StartFallStage()
-	self:SetLeftDirection()
 	--self.x = 520 --WIDTH 수정하기 전 값.
-	
 	self.x = 560
 	self.y = PLAYER_START_Y
 end
@@ -262,11 +297,6 @@ end
 function Player:StartWinterStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
-end
-
---0805HS
-function Player:SetLeftDirection() --왼쪽을 바라보게끔 만듦.
-	player_now_frame = player_frames_right[0]
 end
 
 --0805HS
