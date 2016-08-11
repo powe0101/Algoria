@@ -271,6 +271,10 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
  
+  if stageLevel == 1 then 
+    dustWind:Update(dt)
+  end
+
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
@@ -294,6 +298,8 @@ function drawGame()
   PicketListDraw()
   QMarkListDraw()
   CastleListDraw()
+  
+  DrawSpring()
 
   if stageLevel == 0 then
     PortalDraw()

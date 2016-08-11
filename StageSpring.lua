@@ -1,6 +1,8 @@
 StageSpring = {}
 StageSpring.__index = StageSpring
 
+dustWind = nil
+
 function StageSpring.Create()
   local self = {}
   setmetatable(self, StageSpring)
@@ -15,8 +17,7 @@ function StageSpring:Reset()
 end
 
 function StageSpring:CreateDustWind()
-  _dw = DustWind.Create()
-  --self:dustWind = _dw
+  dustWind = DustWind.Create()
 end
 
 function StageSpring:MakePuzzle(_count)
@@ -40,24 +41,29 @@ end
 
 function CreateSpring()
 	if stageLevel == 1 then
-    phase = 1
-    
+    phase = 1 
   end
-  stageSpring = StageSpring.Create()
 
+  stageSpring = StageSpring.Create()
   stageSpring:CreateDustWind()
+
   notice = Notice.Create()
   notice:SetText("Stage Spring")
   stageSpring:MakePuzzle(5)
   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
-
+  --stageSpring.dustWind:Update()
 
   CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
 
 end
 
-
+function DrawSpring()
+  if stageLevel ~= 1 then
+    return
+  end
+  dustWind:Draw()
+end
     --CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
  --   CreateGround(622,76)
 
