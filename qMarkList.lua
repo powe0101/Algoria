@@ -29,14 +29,14 @@ function QMarkListDraw()
 end
 
 function CheckQMark()
-  if qmarkCheck then
+  if qmarkCheck and stageLevel == 3 then --가을용
       if phase == 2 then
           QMarkListDelete()
-          CreateQMark(292, 115)
+          CreateQMark(-205, 115) --좌표가 자꾸 어긋남. 미치겠네
           qmarkCheck = false
       elseif phase== 3 then
           QMarkListDelete()
-          CreateQMark(217, 115)
+          CreateQMark(-150, 115)
           qmarkCheck = false
       elseif phase == 4 then
           QMarkListDelete()

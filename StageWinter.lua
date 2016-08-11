@@ -14,6 +14,7 @@ function CreateWinter()
  		CreateTree(750,54)
 
  		CreatePicket(400,146)
+ 		CreateCastle(400, 15)
 
  		pl:StartWinterStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end

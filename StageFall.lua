@@ -1,46 +1,70 @@
 function CreateFall()
-	if stageLevel == 3 then --0805HS
+    if stageLevel == 3 then --0805HS
     phase = 1 --계절이 생성될때 단계 초기화 
 
-  	--CreateGround(-530,76) --쭉 이어져있는 경우.
-    CreateGround(-736,76)
-    CreateGround(63,76)
+    --말타는 상황을 가정.
+    MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
 
-  	CreateRiver(-112,150)
-  	CreateRiver(-150,150)
-    CreateRiver(-213,150)
+    CreateCloud(0,1)
+    CreateCloud(100,5)
+    CreateCloud(500,1)
+    CreateCloud(200,5)
+    CreateCloud(300,1)
+    --CreateCloud(400,50)
 
-    CreateTree(-300,54)
-    CreateTree(-450,54)
+    GroundHalfFrameChange() --가을만 땅의 가로 프레임을 2/1배로 줄임. 다른 스테이지로 이동할때 원복시켜야함.
 
-  	--CreateTree(150,54)
-	--CreateTree(300,54)
- 	--CreateTree(450,54)
+    CreateGround(-1741,76) 
+    CreateGround(-1437,76); 
+    CreateGround(-1005,76) 
+    CreateGround(-573,76); 
+    CreateGround(-269,76)
+    CreateGround(163,76)  -- 432 --736/368 
+    CreateGround(465,76) 
 
-    CreateQMark(370, 115) --1번 문제
+    CreateTree(110,63)
+    CreateTree(400,63)
+    CreateTree(-500,63)
 
-    CreatePicket(370,146) --phase1
-    CreatePicket(220,146) --phase2
-    CreatePicket(70,146) --phase3
+    CreateCastle(-1600, 15) -- 중간보스 성
 
-    aniBridge1 = newAnimation(imgBridge,75,75,0.1,0)
-    aniBridge2 = newAnimation(imgBridge,75,75,0.1,0)
-    aniBridge3 = newAnimation(imgBridge,75,75,0.1,0)
- 
-    aniBridge1:setMode("once")  
-    aniBridge2:setMode("once") 
-    aniBridge3:setMode("once")
+    --CreateTree(150,54)
+    --CreateTree(300,54)
+    --CreateTree(450,54)
 
-    --위와 같이 애니메이션으로 사용할 다리 3개에 대한 생성과 설정값만 적용해놓고
-    --아래처럼 조건문을 줘서 총 3차례에 걸쳐서 다리가 나타나게 하려고 함.
-    --현재 문제가 없기 때문에 숫자키 '9'를 누르면 BridgePassValue값이 조금씩 증가해서
-    --다리가 올라오게끔 구상함. by.현식 0802
+    --1번 문제-------
+    CreateQMark(420, 115) 
+    CreatePicket(420,146) --phase1 
+    CreateBridge(93,158) --첫 문제를 풀었다고 가정
+    CreateBridge(29,158) 
 
-    aniBridge1:CreateBridge(-6,158) --첫 문제를 풀었다고 가정
-    aniBridge2:CreateBridge(-70,158) --두번째 문제를 풀었다고 가정
-    aniBridge3:CreateBridge(-134,158) --세번째 문제를 풀었다고 가정
+    CreateRiver(-12,150)
+    CreateRiver(-50,150) --다리랑 이 강물이랑 간격이 딱 맞음.
+    --CreateRiver(-213,150)
 
- 	pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+
+    --2번 문제------------
+    --2번 문제의 느낌표 부터는 문제를 풀어가는 과정에서 바뀌므로 main의 update에서 감지하고 있다가 띄워줌.
+    CreatePicket(-310,146) --phase2
+
+    CreateBridge(-643,158) --두번째 문제를 풀었다고 가정
+    CreateBridge(-707,158) --x 간격은 64
+
+    CreateRiver(-748,150)
+    CreateRiver(-786,150)
+
+
+    --3번 문제-------------
+    CreatePicket(-800,146) --phase3
+    CreateBridge(-1075,158) --두번째 문제를 풀었다고 가정
+    CreateBridge(-1139,158) --x 간격은 64
+
+    CreateRiver(-1180,150)
+    CreateRiver(-1218,150) 
+
+    --세번째 문제를 풀었다고 가정
+
+    pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
     --pl.frame =
-	end
+    end
 end

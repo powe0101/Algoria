@@ -77,7 +77,7 @@ function Player:UpdateMove(dt)
 	end
 
 	if love.keyboard.isDown('left') then --0805HS
-		if self.x < 290 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
+		if self.x < 460 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
 			if canPass then
 				self:UpdateMoveLeft(dt)
 			end
@@ -97,7 +97,7 @@ function Player:CheckSpaceBarDown(dt)
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity 
 	elseif stageLevel==2 then
-		if love.keyboard.isDown('space') and self.y>40 then
+		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 then
 			self.yspeed = self.jump_power + collision_Bottom_Y
 		end
 
@@ -109,7 +109,7 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if collision_Top_Y > 0 and self.yspeed > 0 then
+		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 then
 			if self.isTop then 
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
@@ -133,21 +133,27 @@ function Player:update(dt)
 	self:CollisionByBox()
 
 	self:IfQuest() --퀘스트 만들기 전까지 임시 대용. by.현식 0802
+	if stageLevel==2 then
+		self:SCheckHudle()
+	end
+
 end
 
 function Player:reset()
 	if stageLevel==2 then --stageLevel 이 2일때 설정 값 
 		self.jump_power = -40
 		self.gravity = -470
-		self.player_ground_y = 366
+		self.player_ground_y = 340
+		self.y=300
 	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값 
 		self.jump_power = -300
 		self.gravity = 1000
 		self.player_ground_y = 145
+		self.y = PLAYER_START_Y
 	end
 	self.frame = 1
 	self.x = PLAYER_START_X
-	self.y = PLAYER_START_Y
+	
 	player_now_frame = player_frames_left[0]
 	self.yspeed = 0
 	self.onGround = true
@@ -160,11 +166,6 @@ function Player:reset()
 	self.left = self.x - (self.width * 2)
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
-end
-
-function Player:JumpReset()
-
-  
 end
 
 function Player:draw()
@@ -186,6 +187,11 @@ function Player:GetY()
 	return self.y
 end
 
+function Player:SetY(_y)
+
+	self.y=_y
+end
+
 function Player:GetOnGround()
 	return self.onGround
 end
@@ -199,7 +205,12 @@ end
 --0805HS
 function Player:StartSummerStage() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
 	self.x = 100
-	self.y = 600
+	self.y = 200
+end
+
+function Player:ResetCoord()
+	self.x = PLAYER_START_X
+	self.y = PLAYER_START_Y
 end
 
 function Player:CollisionByBox()
@@ -251,7 +262,9 @@ end
 
 function Player:StartFallStage()
 	self:SetLeftDirection()
-	self.x = 520
+	--self.x = 520 --WIDTH 수정하기 전 값.
+	
+	self.x = 560
 	self.y = PLAYER_START_Y
 end
 --0805HS
@@ -276,4 +289,13 @@ function Player:IfQuest()
 			end
 		end
 	end
+end
+
+function Player:SCheckHudle()
+
+	if self.y==340 then
+		self.yspeed =-100
+    	LifeMinus()
+	end
+
 end

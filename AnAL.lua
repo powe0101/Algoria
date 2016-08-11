@@ -69,11 +69,7 @@ function newAnimation(image, fw, fh, delay, frames)
 	return setmetatable(self, animation)
 end
 
-function animation:CreateBridge(x,y)--made by 근영 0801
-  self.x=x
-  self.y=y
-end
-function animation:CreatePortal(x,y)--made by 근영 0801
+function animation:CreateObject(x,y)--made by 근영 0801 , 현식 0810 수정.
   self.x=x
   self.y=y
 end
@@ -85,8 +81,6 @@ end
 function animation:UpdateMove(dt) --cloud key이벤트 
 	self=BackgroundMove(self,dt)
 end
-
-
 
 --- Update the animation
 -- @param dt Time that has passed since last call

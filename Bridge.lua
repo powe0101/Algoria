@@ -1,37 +1,17 @@
-Bridge = {}
-Bridge.__index = Bridge
+function CreateBridge(x, y)
+  Bridge = newAnimation(imgBridge,75,75,0.1,0)
+  Bridge:setMode("once")
+  Bridge:CreateObject(x,y)
 
-Bridge_frames_x  = love.graphics.newQuad(0,0,128,128,128,128)
-
-function Bridge.create()
-	local self = {}
-	setmetatable(self, Bridge)
-	self:reset()	
-	return self
+  --생성하면서 동시에 리스트에 추가.
+  bridgeList[bridgeCount] = Bridge
+  bridgeCount = bridgeCount + 1
 end
 
-function Bridge:reset(x,y)
-	self.frame = 1
-	self.x = x
-	self.y = y
-
-	self.onBridge = true
-	Bridge_now_frame = Bridge_frames_x
+function BridgeDraw()
+  Bridge:draw()
 end
 
-function Ground:normal(dt) --Ground 이동 
-	self=BackgroundNormal(self,dt)
-end
-
-function Bridge:UpdateMove(dt) --Bridge key이벤트 
-	self=BackgroundMove(self,dt)
-end
-
-function Bridge:update(dt)
-	self:UpdateMove(dt)
-	self:normal(dt)
-end
-
-function Bridge:draw()
-	love.graphics.draw(imgBridge,Bridge_now_frame,self.x,self.y)
+function BridgeUpdate(dt)
+  Bridge:update(dt)
 end
