@@ -25,6 +25,15 @@ function StageSpring:AddObject(_object)
   table.insert(self.objectList,_object)
 end
 
+function StageSpring:MakePuzzle(_count)
+  local width = 1000
+  local height = 100
+  for i = 1, _count do
+    CreateBox(love.math.random(0,width),love.math.random(0,height))
+  end
+end
+
+
 function CreateSpring()
 	if stageLevel == 1 then
     phase = 1
@@ -34,7 +43,7 @@ function CreateSpring()
   stageSpring:CreateDustWind()
   notice = Notice.Create()
   notice:SetText("Stage Spring")
-
+  stageSpring:MakePuzzle(20)
   CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
 
