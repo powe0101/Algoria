@@ -11,12 +11,20 @@ function QMark.create()
 end
 
 function QMark:reset(x,y)
+	self.yfix=y
+	self.yspeed = 0
+	self.onGround = true
+	self.status = 0
 	self.frame = 1
 	self.x = x
 	self.y = y
 
 	self.onQMark = true
 	QMark_now_frame = QMark_frames_x
+end
+
+function QMark:SpaceJump(dt) --0808근영 점프함수  
+	self=SCheckSpaceBarDown(self,dt)
 end
 
 function QMark:normal(dt) --QMark 이동 
@@ -28,6 +36,9 @@ function QMark:UpdateMove(dt) --QMark key이벤트
 end
 
 function QMark:update(dt)
+	if stageLevel==2 then
+		self:SpaceJump(dt)
+	end
 	self:UpdateMove(dt)
 	self:normal(dt)
 end

@@ -1,26 +1,34 @@
 --Quest.lua 및 관련 함수 추가. by.현식 0802
-
+local self={}
+setmetatable(self,Control)
 phase = 0 --표지판을 통한 퀘스트 단계. 다리가 3번 열려야 하니 페이즈는 총 3단계가 존재. by.현식 0802
 multipleChoice = 1
 
 questList = {} --문제 이미지를 담기 위한 리스트.
 
-function CheckQuest()
+function CheckQuest(_s)
+	self=_s
   -- body
   if love.keyboard.isDown('up') then
   	if stageLevel == 1 then
-  		if 215 < pl:GetX() and pl:GetX() < 227 then --봄에서의 표지퐌 자표를 입력해주면 됨. by.현식 0803
+  		if self.x-8 < pl:GetX() and pl:GetX() < self.x+8  then --봄에서의 표지퐌 자표를 입력해주면 됨. by.현식 0803
       		questCheck = true
     	end
+    elseif stageLevl == 2 then --근영 여름 08 11
+    	if self.x-10< pl:GetX() and pl:GetX() < self.x+10  then 
+    		questCheck = true
+        end
   	elseif stageLevel == 3 then --가을
-    	if 215 < pl:GetX() and pl:GetX() < 225 and phase == 3 then --3단계
+    	if self.x-8< pl:GetX() and pl:GetX() < self.x+8 and phase == 3 then --3단계
       		questCheck = true
-    	elseif 337 < pl:GetX() and pl:GetX() < 347 and phase == 2 then
+    	elseif self.x-8 < pl:GetX() and pl:GetX() < self.x+8 and phase == 2 then
     		questCheck = true
-    	elseif 520 < pl:GetX() and pl:GetX() < 530 and phase == 1 then
+    	elseif self.x-8 < pl:GetX() and pl:GetX() < self.x+8 and phase == 1 then
     		questCheck = true
     	end
+
     end
+
   end
 end
 
