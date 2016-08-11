@@ -4,18 +4,35 @@ StageSpring.__index = StageSpring
 function StageSpring.Create()
   local self = {}
   setmetatable(self, StageSpring)
-  self.Reset()
+  self:Reset()
   return self
 end
 
 function StageSpring:Reset()
-  self.dustWind = DustWind.Create()
+  self.objectList = {} -- 봄에서 사용하는 오브젝트
+end
+
+function StageSpring:CreateDustWind()
+  local _dw = DustWind.Create()
+  self:AddObject(_dw)
+end
+
+function StageSpring:AddObject(_object)
+  if _object == nil then
+    love.print("Error!")
+    return
+  end
+  table.insert(self.objectList,_object)
 end
 
 function CreateSpring()
 	if stageLevel == 1 then
     phase = 1
   end
+  stageSpring = StageSpring.Create()
+
+  stageSpring:CreateDustWind()
+
   CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
 
