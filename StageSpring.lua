@@ -4,23 +4,61 @@ StageSpring.__index = StageSpring
 function StageSpring.Create()
   local self = {}
   setmetatable(self, StageSpring)
-  self.Reset()
+  self:Reset()
   return self
 end
 
 function StageSpring:Reset()
-  self.dustWind = DustWind.Create()
+  self.objectList = {} -- 봄에서 사용하는 오브젝트
+  self.width = 500
+  self.height = 200
+end
+
+function StageSpring:CreateDustWind()
+  _dw = DustWind.Create()
+  --self:dustWind = _dw
+end
+
+function StageSpring:MakePuzzle(_count)
+  
+
+  for i = 1, _count do
+    --CreateBox(love.math.random(0,self.width),love.math.random(0,self.height))
+    --박스말고 긴 막대 
+  end
+
+end
+
+function StageSpring:DeletePuzzle()
+  BoxListDelete()
+end
+
+function StageSpring:DustWindBlowing()
+  --바람이 분다 
+  --돌풍이 움직인다 
+  --퍼즐이 바뀐다
+  --점프대를 추가한다.
+  --퍼즐은 랜덤?
+  --
 end
 
 function CreateSpring()
 	if stageLevel == 1 then
     phase = 1
     
-    p1=nil
-    p1=Player.create()
   end
-    CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
-    CreateGround(600,76)
+  stageSpring = StageSpring.Create()
+
+  stageSpring:CreateDustWind()
+  notice = Notice.Create()
+  notice:SetText("Stage Spring")
+  stageSpring:MakePuzzle(5)
+
+
+
+  CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
+  CreateGround(600,76)
+
 end
 
 

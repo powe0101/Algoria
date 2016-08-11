@@ -55,6 +55,10 @@ require("Bheart")
 require("bheartList")
 require("ManageHeart")
 
+--봄 
+require("DustWind")
+
+
 --block
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 

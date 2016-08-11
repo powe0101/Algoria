@@ -13,23 +13,21 @@ end
 function FindCollisionRightDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionLeft then
-      isCanMoveRight = false
-      return 
+      return false
     end
   end
 
-  isCanMoveRight = true
+  return true
 end
 
 function FindCollisionLeftDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionRight then
-      isCanMoveLeft = false
-      return 
+      return false
     end
   end
 
-  isCanMoveLeft = true
+  return true
 end
 
 function FindCollisionTopDirection()
