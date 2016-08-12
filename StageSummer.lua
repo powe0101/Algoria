@@ -18,10 +18,12 @@ function CreateSummer()
     CreateGround(-49,430) 
     CreateGround(541,430)
 
-    CreateQMark(250, 100) 
-    CreatePicket(250,115)
-
-    CreateBox(250,150) 
+    CreateQMark(255, 100) 
+    CreatePicket(255,115)
+    
+    CreateCloud(243,120)
+    CreateBox(250,150)
+    CreateBox(270,150) 
 
 
    
