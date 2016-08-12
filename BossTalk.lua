@@ -87,12 +87,16 @@ function ControlTalkWithBoss()
 				talkCount = talkCount + 1
 			end
 
-			if talkCount >= 7 then
-				--초기화 및 대화종료
-				bossTalkCheck = false
-				talkCount = 1
-				pl.x = 200
+			if talkCount == 7 then
+				algoCheck = true
 			end
+    	end
+
+    	if love.keyboard.isDown("escape") then
+    		--초기화 및 대화종료
+    		bossTalkCheck = false
+			talkCount = 1
+			pl.x = 200
     	end
 	end
 end

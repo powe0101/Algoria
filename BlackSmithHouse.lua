@@ -2,7 +2,7 @@
 function CreateBlackSmithHouse(x, y)
 	BlackSmithHouse = newAnimation(imgBSHouse,128,72,0.3,0)
 	BlackSmithHouse:setMode("loop")
-	BlackSmithHouse:CreateObject(x,y)
+	BlackSmithHouse:SetAniPostion(x,y)
 	BlackSmithHouse:play()
 end
 
