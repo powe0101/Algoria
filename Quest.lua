@@ -6,8 +6,9 @@ multipleChoice = 1
 
 questList = {} --문제 이미지를 담기 위한 리스트.
 
-function CheckQuest(_s)
-	self=_s
+function CheckQuest(_x,_y)
+	self.x=_x
+	self.y=_y
   -- body
   if love.keyboard.isDown('up') then
   	if stageLevel == 1 then
@@ -19,24 +20,19 @@ function CheckQuest(_s)
     		questCheck = true
         end
   	elseif stageLevel == 3 then --가을
-    	if self.x-8< pl:GetX() and pl:GetX() < self.x+8 and phase == 3 then --3단계
+    	if self.x-15< pl:GetX() and pl:GetX() < self.x+10 and phase == 3 then --3단계
       		questCheck = true
-    	elseif self.x-8 < pl:GetX() and pl:GetX() < self.x+8 and phase == 2 then
+    	elseif self.x-15 < pl:GetX() and pl:GetX() < self.x+10 and phase == 2 then
     		questCheck = true
-    	elseif self.x-8 < pl:GetX() and pl:GetX() < self.x+8 and phase == 1 then
+    	elseif self.x-15 < pl:GetX() and pl:GetX() < self.x+10 and phase == 1 then
     		questCheck = true
     	end
-
     end
-
   end
 end
 
 function DrawQuest() -- phase별로 문제를 그리게 됨.
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-  	DrawRectangle(30, 5, 250, 85) --검은색 테두리
-  	love.graphics.setColor(255,255,255,255)
-  	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
+	DrawQuestBackground()
 
   	love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
 
@@ -260,4 +256,12 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
 		      	end
 	      	end
 	    end
+end
+
+function DrawQuestBackground()
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  	DrawRectangle(30, 5, 250, 85) --검은색 테두리
+  	love.graphics.setColor(255,255,255,255)
+  	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
+  	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end

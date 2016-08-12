@@ -39,12 +39,14 @@ function BackgroundNormal(_s,dt) --07 21 근영 background 이동
   self=_s
 
   if self.status == 0   then -- normal ourside
-    self.y = self.y - self.yspeed*dt
-  
-    if  pl:GetY()>290   then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+   self.y = self.y - self.yspeed*dt
+    if pl:GetIsTop()then
+      self.yspeed=0
+    elseif pl:GetY()>290   then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
       self.yspeed = 0
       self.onGround = true
     end
+
   end
 
   return self

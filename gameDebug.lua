@@ -57,14 +57,18 @@ function drawDebug(setting)
   local DEBUG_POPUPINFO_X = 200
   local DEBUG_POPUPINFO_Y = 53
 
-  showPopupIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
+  --showPopupIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
 
   showBoxDebug()
 
   showPopupAndPhaseIfno(DEBUG_POPUPINFO_X, DEBUG_POPUPINFO_Y)
 
-  love.graphics.setColor(255,255,255,255)  
+  local DEBUG_MOUSEINFO_X = 200
+  local DEBUG_MOUSEINFO_Y = 73
 
+  showMouseInfo(DEBUG_MOUSEINFO_X, DEBUG_MOUSEINFO_Y)
+
+  love.graphics.setColor(255,255,255,255)  
 end
 
 function showFps(x,y)
@@ -151,4 +155,8 @@ end
 
 function showPopupAndPhaseIfno(x,y)
   love.graphics.print("popupCheck :"..tostring(popupCheck)..", levelCheck :"..tostring(levelCheck)..", phase : "..tostring(phase),x,y)
+end
+
+function showMouseInfo(x,y)
+  love.graphics.print( "Mouse X: ".. mouse_x .. " Mouse Y: " .. mouse_y, x,y )
 end
