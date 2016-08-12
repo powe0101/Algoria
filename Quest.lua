@@ -263,4 +263,5 @@ function DrawQuestBackground()
   	DrawRectangle(30, 5, 250, 85) --검은색 테두리
   	love.graphics.setColor(255,255,255,255)
   	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
+  	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
