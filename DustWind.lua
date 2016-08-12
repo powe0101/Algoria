@@ -21,7 +21,7 @@ function DustWind:Reset()
 
   	AnimationDustWind = newAnimation(imgDustWind,64,64,0.3,0)
   	AnimationDustWind:setMode("loop")
-  	AnimationDustWind:CreateObject(PLAYER_START_X,PLAYER_START_Y)
+  	AnimationDustWind:SetAniPostion(PLAYER_START_X,PLAYER_START_Y)
   	self:Play()
 end
 
