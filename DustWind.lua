@@ -16,13 +16,21 @@ function DustWind:Reset()
 	self.x = 0
 	self.y = 0
 	self.frame = 0
-	imgDustWind = love.graphics.newImage("images/portal07.png") 
-  	imgDustWind:setFilter("nearest","nearest") 
+	self.isPlay = nil
 
-  	AnimationDustWind = newAnimation(imgDustWind,64,64,0.3,0)
-  	AnimationDustWind:setMode("loop")
-  	AnimationDustWind:SetAniPostion(PLAYER_START_X,PLAYER_START_Y)
-  	self:Play()
+	self:RegisterImageDustWind()
+	self:SettingAnimation()
+end
+
+function DustWind:RegisterImageDustWind()
+	imgDustWind = love.graphics.newImage("images/portal07.png")
+	imgDustWind:setFilter("nearest","nearest")
+end
+
+function DustWind:SettingAnimation()
+	AnimationDustWind = newAnimation(imgDustWind,64,64,0.3,0)
+	AnimationDustWind:setMode("loop")
+	AnimationDustWind:SetAniPostion(PLAYER_START_X,PLAYER_START_Y)
 end
 
 function DustWind:Draw()
@@ -38,11 +46,12 @@ function DustWind:Play()
 end
 
 function DustWind:Move()
-	-- 바람이 움직인다 
+	-- 바람이 움직인다
+	
 end
 
 function DustWind:Pause()
-
+	self.isPlay = false
 end
 
 function DustWind:GetX()
@@ -57,11 +66,11 @@ function DustWind:RandomSeed()
 	return love.math.setRandomSeed(os.time())
 end
 
-function DustWind:UpdateMove(dt) --tree key이벤트 
+function DustWind:UpdateMove(dt) --tree key이벤트
 	self=BackgroundMove(self,dt)
   end
 
-function DustWind:Normal(dt) --cloud 이동 
+function DustWind:Normal(dt) --cloud 이동
 	self=BackgroundNormal(self,dt)
 end
 
