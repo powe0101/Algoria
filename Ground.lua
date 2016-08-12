@@ -3,6 +3,7 @@ Ground.__index = Ground
 
 Ground_frames_x  = love.graphics.newQuad(0,0,608,208,608,128) 
 Ground_half_frames  = love.graphics.newQuad(0,0,304,208,304,128) 
+Ground_castle_frames  = love.graphics.newQuad(0,0,608,220,608,220)  
 
 function Ground.create()
 	local self = {}
@@ -45,6 +46,7 @@ function Ground:update(dt)
 end
 
 function Ground:draw()
+
 	if stageLevel == 0 or stageLevel == 1 then
 	love.graphics.draw(imgGround,Ground_now_frame,self.x,self.y)
 	elseif stageLevel == 2 then 
@@ -57,5 +59,7 @@ function Ground:draw()
 		end
 	elseif stageLevel == 4 then
 		love.graphics.draw(imgWGround,Ground_now_frame,self.x,self.y)
+	elseif stageLevel == 7 then
+		love.graphics.draw(imgFallCastle,Ground_castle_frames,self.x,self.y)
 	end
 end

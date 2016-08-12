@@ -27,17 +27,12 @@ function CheckQuest(_x,_y)
     	elseif self.x-15 < pl:GetX() and pl:GetX() < self.x+10 and phase == 1 then
     		questCheck = true
     	end
-
     end
-
   end
 end
 
 function DrawQuest() -- phase별로 문제를 그리게 됨.
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-  	DrawRectangle(30, 5, 250, 85) --검은색 테두리
-  	love.graphics.setColor(255,255,255,255)
-  	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
+	DrawQuestBackground()
 
   	love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
 
@@ -261,4 +256,11 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
 		      	end
 	      	end
 	    end
+end
+
+function DrawQuestBackground()
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  	DrawRectangle(30, 5, 250, 85) --검은색 테두리
+  	love.graphics.setColor(255,255,255,255)
+  	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
 end

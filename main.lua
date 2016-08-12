@@ -30,6 +30,9 @@ require("Castle")
 require("castleList")
 require("Bridge")
 require("bridgeList")
+require("Boss")
+require("bossList")
+
 
 --이하 스테이지 관련
 require("village")
@@ -38,11 +41,11 @@ require("StageSpring")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
+require("StageBoss") --중간보스 스테이지
 
 --문제풀이 관련
 require("Quest")
 require("Answer")
-require("Boss") --중간보스
 
 --Notice
 require("Notice")
@@ -55,9 +58,12 @@ require("Bheart")
 require("bheartList")
 require("ManageHeart")
 
+--보스 관련
+require("BossTalk")
+require("Algorithm")
+
 --봄 
 require("DustWind")
-
 
 --block
 WIDTH = 600--윈도우 폭 
@@ -82,6 +88,9 @@ questCheck = false --표지판을 통해서 수행하는 퀘스트가 돌아가�
 
 blacksmithCheck = false -- 대장간 팝업창용 변수 popupCheck와 같다
 menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N) 
+
+bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. 메인 update를 멈추게 만듬.
+algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -156,9 +165,14 @@ function start()
 end
 
 function love.update(dt)
-  if popupCheck == false and questCheck == false and blacksmithCheck == false then
+  if popupCheck == false and questCheck == false and blacksmithCheck == false 
+    and bossTalkCheck == false and algoCheck == false then
     updateGame(dt)
   end
+
+  --마우스 테스트용
+  mouse_x = love.mouse.getX()
+  mouse_y = love.mouse.getY()
 
   CheckPortal()
  
@@ -167,6 +181,7 @@ function love.update(dt)
   CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
+  CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
 end
 
 
@@ -189,6 +204,14 @@ function love.draw()
 
   if questCheck then --0805HS
     DrawQuest()
+  end
+
+  if bossTalkCheck then
+    BossTalk() --보스와의 대화 후 알고리즘 문제 푸는 부분으로 진입.
+  end
+
+  if algoCheck then
+    MakeAlgorithm()
   end
 
   HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
@@ -230,6 +253,7 @@ function love.keypressed(key,scancode) -- 키입력
   ControlBlackSmith()
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
+  ControlTalkWithBoss()
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
@@ -270,6 +294,7 @@ function updateGame(dt)
   HeartListUpdate(dt) --라이프
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
+  BossListUpdate(dt)
  
   if stageLevel == 1 then 
     dustWind:Update(dt)
@@ -298,6 +323,7 @@ function drawGame()
   PicketListDraw()
   QMarkListDraw()
   CastleListDraw()
+  BossListDraw()
   
   DrawSpring()
 
@@ -396,6 +422,12 @@ function loadResources()
   imgHorse:setFilter("nearest","nearest")
   imgEisen = love.graphics.newImage("images/eisen.png") 
   imgEisen:setFilter("nearest","nearest")
+
+  imgBoss = love.graphics.newImage("images/over_c.png")  --중간보스 이미지 임시용
+  imgBoss:setFilter("nearest","nearest")
+
+  imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
+  imgFallCastle:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
