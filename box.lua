@@ -75,11 +75,6 @@ function Box:UpdateMove(dt) --tree key이벤트
 
 function Box:normal(dt) --cloud 이동 
 	self=BackgroundNormal(self,dt)
-	
-	self.top = self:GetY() - (self.height * 2)
-	self.left = self:GetX() - (self.width * 2)
-	self.right = self:GetX() + (self.width * 2)
-	self.bottom = self:GetY()
 end
 
 function Box:update(dt)

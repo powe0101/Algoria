@@ -42,8 +42,7 @@ function BackgroundNormal(_s,dt) --07 21 근영 background 이동
   if self.status == 0   then -- normal ourside
     self.y = self.y - self.yspeed*dt
   
-    if  pl:GetY() >=350  then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
- 
+    if  pl:GetY()>290   then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
       self.yspeed = 0
       self.onGround = true
     end
@@ -54,7 +53,7 @@ end
 
 function SCheckSpaceBarDown(_s,dt) --0808근영 여름 스테이지 점프 함수 
   self=_s
-  if pl:GetY()~=350 then
+  if pl:GetY()<290 then
     if love.keyboard.isDown('space') and pl:GetY()>30  then
       self.yspeed = SJUMP_POWER 
     end
@@ -63,3 +62,6 @@ function SCheckSpaceBarDown(_s,dt) --0808근영 여름 스테이지 점프 함�
     return self
   end
 end
+
+
+

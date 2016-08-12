@@ -11,12 +11,20 @@ function Picket.create()
 end
 
 function Picket:reset(x, y)
+ 	self.yfix=y
+	self.yspeed = 0
+	self.onGround = true
+	self.status = 0
 	self.frame = 1
 	self.x = x
 	self.y = y
 
 	self.onGround = true
 	Picket_now_frame = Picket_frame_x
+end
+
+function Picket:SpaceJump(dt) --0808근영 점프함수  
+	self=SCheckSpaceBarDown(self,dt)
 end
 
 function Picket:normal(dt)
@@ -28,6 +36,10 @@ function Picket:UpdateMove(dt)
 end
 
 function Picket:update(dt)
+	if stageLevel==2 then -- 0808근영 여름 스테이지 에서 점프함수 호출 
+		self:SpaceJump(dt)
+	end
+	CheckQuest(self.x,self.y)--0811 퀘스트 이벤트 호출 
 	self:UpdateMove(dt)
 	self:normal(dt)
 end

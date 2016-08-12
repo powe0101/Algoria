@@ -43,31 +43,31 @@ function DrawPopup()
   love.graphics.print("Winter", 200, 105)
 
   if levelCheck == 1 then
-    DrawSpring() --처음 선택지는 봄.
+    DrawSpringMenu() --처음 선택지는 봄.
   elseif levelCheck ==2 then
-    DrawSummer()
+    DrawSummerMenu()
   elseif levelCheck == 3 then
-    DrawFall()
+    DrawFallMenu()
   elseif levelCheck == 4 then
-    DrawWinter()
+    DrawWinterMenu()
   end
 
   love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA
 end
 
-function DrawSpring() --팝업창에서 봄 선택
+function DrawSpringMenu() --팝업창에서 봄 선택
   love.graphics.rectangle("fill", 180,45,10,10)
 end
 
-function DrawSummer() --팝업창에서 여름 선택
+function DrawSummerMenu() --팝업창에서 여름 선택
   love.graphics.rectangle("fill", 180,65,10,10)
 end
 
-function DrawFall() --팝업창에서 겨울 선택
+function DrawFallMenu() --팝업창에서 겨울 선택
   love.graphics.rectangle("fill", 180,85,10,10)
 end
 
-function DrawWinter() --팝업창에서 겨울 선택
+function DrawWinterMenu() --팝업창에서 겨울 선택
   love.graphics.rectangle("fill", 180,105,10,10)
 
 end
@@ -88,6 +88,7 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
         levelCheck = levelCheck - 1
       end
     end
+
     if love.keyboard.isDown("down") then
       if levelCheck == 4 then
         --스테이지가 4보다 커지면 아무 동작도 안함

@@ -61,6 +61,9 @@ require("ManageHeart")
 --보스 관련
 require("BossTalk")
 
+--봄 
+require("DustWind")
+
 --block
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -170,7 +173,7 @@ function love.update(dt)
   mouse_y = love.mouse.getY()
 
   CheckPortal()
-  CheckQuest()
+ 
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
   CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
@@ -287,6 +290,10 @@ function updateGame(dt)
   CastleListUpdate(dt)
   BossListUpdate(dt)
  
+  if stageLevel == 1 then 
+    dustWind:Update(dt)
+  end
+
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
@@ -311,6 +318,8 @@ function drawGame()
   QMarkListDraw()
   CastleListDraw()
   BossListDraw()
+  
+  DrawSpring()
 
   if stageLevel == 0 then
     PortalDraw()
@@ -374,6 +383,9 @@ function loadResources()
 
   imgSGround = love.graphics.newImage("images/summerGround.png")
   imgSGround:setFilter("nearest","nearest") 
+
+  imgSCreeper = love.graphics.newImage("images/creeper.png")
+  imgSCreeper:setFilter("nearest","nearest") 
 
   imgWGround = love.graphics.newImage("images/winterGround.png")
   imgWGround:setFilter("nearest","nearest") 
