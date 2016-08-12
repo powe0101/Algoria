@@ -42,6 +42,7 @@ function DrawPopup()
   love.graphics.print("Fall", 200, 85)
   love.graphics.print("Winter", 200, 105)
 
+
   if levelCheck == 1 then
     DrawSpringMenu() --처음 선택지는 봄.
   elseif levelCheck ==2 then
