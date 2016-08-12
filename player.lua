@@ -58,9 +58,12 @@ end
 
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 and isCanMoveRight then
+	if self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
 		self.x = self.x + PLAYER_MOVE_POWER
-	end
+    elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과 
+		self.x = self.x + PLAYER_MOVE_POWER
+    
+    end
 	if stageLevel == 1 then
 		player_now_frame = player_frames_left[math.floor(self.frame)]
 	elseif stageLevel == 2 then
@@ -77,7 +80,9 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0  and isCanMoveLeft then
+	if self.x > 0  and isCanMoveLeft and stageLevel~=2 then
+		self.x = self.x - PLAYER_MOVE_POWER
+	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x - PLAYER_MOVE_POWER
 	end
 	if stageLevel == 1 then
@@ -128,7 +133,7 @@ function Player:CheckSpaceBarDown(dt)
 		self.yspeed = self.yspeed + dt*self.gravity 
 	elseif stageLevel==2 then
 		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 then
-			self.yspeed = self.jump_power + collision_Bottom_Y
+			self.yspeed = self.jump_power 
 		end
 
 		self.onGround = false
@@ -139,12 +144,16 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 then
+		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 and stageLevel~=2 then
 			if self.isTop then  -- on the box 
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
 				self.onGround = true
+				return
 			end
+        elseif self.isTop and stageLevel==2  then
+        	self.yspeed=0
+        	return
 		elseif self.y > self.player_ground_y then
 		 --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
 			self.y = self.player_ground_y
@@ -245,6 +254,10 @@ function Player:GetY()
 	return self.y
 end
 
+function Player:GetIsTop()
+	return self.isTop
+end
+
 function Player:GetOnGround()
 	return self.onGround
 end
@@ -339,7 +352,7 @@ end
 function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
 
 	if self.y==330 then
-		self.yspeed =-100
+		self.yspeed =-95
     	LifeMinus()
 	end
 
