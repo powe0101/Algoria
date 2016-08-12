@@ -1,13 +1,37 @@
--- 0810. 현식 추가. 
--- 최종 보스가 아니라 각 스테이지 별로 있는 중간보스에 관련된 파일임.
+Boss = {}
+Boss.__index = Boss
 
-function CheckBossCastle()
-	if stageLevel == 3 then
-		if love.keyboard.isDown('up') then
-			if 50 < pl:GetX() and pl:GetX() < 58 then
-				DeleteVillage()
-				CreateVillage()
-			end
-		end
-	end
+Boss_frames = {}
+Boss_frames[0]  = love.graphics.newQuad(0,0,182,141,91,70)
+
+function Boss.create()
+  local self = {}
+  setmetatable(self, Boss)
+  self:reset()
+  return self
+end
+
+function Boss:reset(x,y)
+  self.frame = 1
+  self.x = x
+  self.y = y
+
+  Boss_now_frame = Boss_frames[0]
+end
+
+function Boss:normal(dt)
+  self=BackgroundNormal(self,dt)
+end
+
+function Boss:UpdateMove(dt) 
+  self=BackgroundMove(self,dt)
+  end
+
+function Boss:update(dt)
+  self:UpdateMove(dt)
+  --self:normal(dt)
+end
+
+function Boss:draw()
+  love.graphics.draw(imgBoss,Boss_now_frame,self.x,self.y)
 end
