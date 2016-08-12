@@ -6,8 +6,9 @@ multipleChoice = 1
 
 questList = {} --문제 이미지를 담기 위한 리스트.
 
-function CheckQuest(_s)
-	self=_s
+function CheckQuest(_x,_y)
+	self.x=_x
+	self.y=_y
   -- body
   if love.keyboard.isDown('up') then
   	if stageLevel == 1 then
@@ -19,11 +20,11 @@ function CheckQuest(_s)
     		questCheck = true
         end
   	elseif stageLevel == 3 then --가을
-    	if self.x-8< pl:GetX() and pl:GetX() < self.x+8 and phase == 3 then --3단계
+    	if self.x-15< pl:GetX() and pl:GetX() < self.x+10 and phase == 3 then --3단계
       		questCheck = true
-    	elseif self.x-8 < pl:GetX() and pl:GetX() < self.x+8 and phase == 2 then
+    	elseif self.x-15 < pl:GetX() and pl:GetX() < self.x+10 and phase == 2 then
     		questCheck = true
-    	elseif self.x-8 < pl:GetX() and pl:GetX() < self.x+8 and phase == 1 then
+    	elseif self.x-15 < pl:GetX() and pl:GetX() < self.x+10 and phase == 1 then
     		questCheck = true
     	end
 

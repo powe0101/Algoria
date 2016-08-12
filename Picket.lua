@@ -39,7 +39,7 @@ function Picket:update(dt)
 	if stageLevel==2 then -- 0808근영 여름 스테이지 에서 점프함수 호출 
 		self:SpaceJump(dt)
 	end
-	CheckQuest(self)--0811 퀘스트 이벤트 호출 
+	CheckQuest(self.x,self.y)--0811 퀘스트 이벤트 호출 
 	self:UpdateMove(dt)
 	self:normal(dt)
 end
