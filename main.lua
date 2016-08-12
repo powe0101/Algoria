@@ -60,6 +60,7 @@ require("ManageHeart")
 
 --보스 관련
 require("BossTalk")
+require("Algorithm")
 
 --봄 
 require("DustWind")
@@ -89,6 +90,7 @@ blacksmithCheck = false -- 대장간 팝업창용 변수 popupCheck와 같다
 menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N) 
 
 bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. 메인 update를 멈추게 만듬.
+algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 function love.load()
   love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
@@ -164,7 +166,7 @@ end
 
 function love.update(dt)
   if popupCheck == false and questCheck == false and blacksmithCheck == false 
-    and bossTalkCheck == false then
+    and bossTalkCheck == false and algoCheck == false then
     updateGame(dt)
   end
 
@@ -179,7 +181,7 @@ function love.update(dt)
   CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
-  CheckBossMeeting()--중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
+  CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
 end
 
 
@@ -206,6 +208,10 @@ function love.draw()
 
   if bossTalkCheck then
     BossTalk() --보스와의 대화 후 알고리즘 문제 푸는 부분으로 진입.
+  end
+
+  if algoCheck then
+    MakeAlgorithm()
   end
 
   HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
@@ -420,7 +426,7 @@ function loadResources()
   imgBoss = love.graphics.newImage("images/over_c.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
 
-  imgFallCastle = love.graphics.newImage("images/fallInnerCastle4.png")
+  imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
