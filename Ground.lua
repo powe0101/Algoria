@@ -3,7 +3,7 @@ Ground.__index = Ground
 
 Ground_frames_x  = love.graphics.newQuad(0,0,608,208,608,128) 
 Ground_half_frames  = love.graphics.newQuad(0,0,304,208,304,128) 
-Ground_castle_frames  = love.graphics.newQuad(0,0,608,202,608,202)  
+Ground_castle_frames  = love.graphics.newQuad(0,0,608,220,608,220)  
 
 function Ground.create()
 	local self = {}

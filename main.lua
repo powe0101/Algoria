@@ -165,6 +165,10 @@ function love.update(dt)
     updateGame(dt)
   end
 
+  --마우스 테스트용
+  mouse_x = love.mouse.getX()
+  mouse_y = love.mouse.getY()
+
   CheckPortal()
   CheckQuest()
   CheckBlackSmith()

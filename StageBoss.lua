@@ -8,8 +8,8 @@ function CreateBossCastle()
 	p1=nil
     pl=Player.create()
 
-    CreateGround(-49,0) --이미지를 다시 조정하던지 보스성에서만 용사 y좌표를 바꾸던지 해야할 듯. 0811. 퇴근.
-  	CreateGround(541,0)
+    CreateGround(-49,4) --이미지를 다시 조정하던지 보스성에서만 용사 y좌표를 바꾸던지 해야할 듯. 0811. 퇴근.
+  	CreateGround(559,4)
 
   	CreateBoss(500,76)
 
