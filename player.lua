@@ -21,6 +21,9 @@ isCanMoveLeft = true
 isCanMoveRight = true
 isCanJump = true
 
+-- 플레이어의 왼쪽 오른쪽 상태 구분 변수, 오른쪽이 true
+isPlayerRight = true
+
 collision_Top_Y = 0
 collision_Bottom_Y = 0
 
@@ -60,10 +63,11 @@ function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
 	if self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
 		self.x = self.x + PLAYER_MOVE_POWER
-    elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과 
+  elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x + PLAYER_MOVE_POWER
-    
-    end
+  end
+
+	isPlayerRight = false
 	if stageLevel == 1 then
 		player_now_frame = player_frames_left[math.floor(self.frame)]
 	elseif stageLevel == 2 then
@@ -85,6 +89,8 @@ function Player:UpdateMoveLeft(dt)
 	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x - PLAYER_MOVE_POWER
 	end
+
+	isPlayerRight = true
 	if stageLevel == 1 then
 		player_now_frame = player_frames_right[math.floor(self.frame)]
 	elseif stageLevel == 2 then
@@ -104,7 +110,7 @@ function Player:UpdateMove(dt)
 		if self.x > 225 + BridegePassValue and stageLevel == 1 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
 			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
 			if canPass then -- 이 사이에 있는 부분을 메서드로 빼면 좋을 것 같은데 방법이 없나? 계속 터지네.. by.현식 0728
-				self:UpdateMoveRight(dt)		
+				self:UpdateMoveRight(dt)
 			end -- canPass
 		else --마을일 경우.
 			self:UpdateMoveRight(dt)
@@ -120,6 +126,15 @@ function Player:UpdateMove(dt)
 			self:UpdateMoveLeft(dt)
 		end
 	end
+
+	if love.keyboard.isDown('space') then
+		self.frame = (self.frame + 15*dt) % 3
+		if stageLevel==2 and isPlayerRight == true then
+			player_now_frame = summerPlayer_frames_right[math.floor(self.frame)]
+		elseif stageLevel==2 and isPlayerRight == false then
+			player_now_frame = summerPlayer_frames_left[math.floor(self.frame)]
+		end
+	end
 end
 
 --Add by G 0729
@@ -130,10 +145,10 @@ function Player:CheckSpaceBarDown(dt)
 		end
 
 		self.onGround = false
-		self.yspeed = self.yspeed + dt*self.gravity 
+		self.yspeed = self.yspeed + dt*self.gravity
 	elseif stageLevel==2 then
 		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 then
-			self.yspeed = self.jump_power 
+			self.yspeed = self.jump_power
 		end
 
 		self.onGround = false
@@ -145,7 +160,7 @@ function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
 		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 and stageLevel~=2 then
-			if self.isTop then  -- on the box 
+			if self.isTop then  -- on the box
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
 				self.onGround = true
@@ -164,12 +179,12 @@ function Player:normal(dt)
 end
 
 function Player:FindPlayerPosWithBox()
-	self:CollisionByBox() 
+	self:CollisionByBox()
 	-- 상하좌우의 박스리스트에 있는 박스 각각 현재 위치와 플레이어 위치를 통한 일괄 판별
 
 	self.isTop = FindCollisionTopDirection()
 	self.isBottom = FindCollisionBottomDirection()
-	isCanMoveRight = FindCollisionRightDirection() 
+	isCanMoveRight = FindCollisionRightDirection()
 	isCanMoveLeft = FindCollisionLeftDirection()
 	-- 판별 된 박스 중에 True 에해당하는 값이 있는지 판별
 	-- 여러개의 박스를 검사하기 위해 CollisionByBox 와 Direction을 나눔
@@ -181,8 +196,8 @@ function Player:update(dt)
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
-	
-	if stageLevel==2 then -- 0811 근영 가시에 닿앗을때 점프 
+
+	if stageLevel==2 then -- 0811 근영 가시에 닿앗을때 점프
 		self:SCheckHudle()
 	end
 
@@ -190,12 +205,12 @@ function Player:update(dt)
 end
 
 function Player:reset()
-	if stageLevel==2 then --stageLevel 이 2일때 설정 값 
+	if stageLevel==2 then --stageLevel 이 2일때 설정 값
 		self.jump_power = -40
 		self.gravity = -470
 		self.player_ground_y = 330
 		self.y=300
-	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값 
+	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값
 		self.jump_power = -300
 		self.gravity = 1000
 		self.player_ground_y = 145
@@ -203,7 +218,7 @@ function Player:reset()
 	end
 	self.frame = 1
 	self.x = PLAYER_START_X
-	
+
 	self.yspeed = 0
 	self.onGround = true
 	self.status = 0
@@ -215,7 +230,7 @@ function Player:reset()
 	self.left = self.x - (self.width * 2)
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
-	
+
 	if stageLevel == 1 then
 		playerCurrentImage = imgSpringChar
 		player_now_frame = player_frames_left[0]
@@ -227,7 +242,7 @@ function Player:reset()
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
 	elseif stageLevel == 4 then
-		self.player_ground_y = 120
+		self.player_ground_y = 140
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
 	else
@@ -242,7 +257,6 @@ function Player:draw()
 	if DEBUG_SETTING then
 		love.graphics.rectangle("line",self.x+8,self.y,25,42)
 	end
-
 	-- Check keyboard input
 end
 
@@ -280,14 +294,14 @@ function Player:ResetCoord()
 end
 
 function Player:CollisionByBox()
-	for i = 0 , boxCount - 1 do 
-		boxList[i].isCollisionRight = 
+	for i = 0 , boxCount - 1 do
+		boxList[i].isCollisionRight =
 		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH,boxList[i]:GetY(),self)
-		
+
 		boxList[i].isCollisionLeft =
 		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH,boxList[i]:GetY(),self)
 
-		boxList[i].isCollisionBottom = 
+		boxList[i].isCollisionBottom =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
 
 		boxList[i].isCollisionTop =
@@ -298,19 +312,19 @@ end
 function Player:collideWithPoint(x,y,_player)
 		x1 = x
 		y1 = y
-		
-		w1 = BOX_WIDTH 
+
+		w1 = BOX_WIDTH
 		h1 = BOX_HEIGHT
 
 		x2 = pl:GetX()
-		y2 = pl:GetY() 
+		y2 = pl:GetY()
 		w2 = pl.width
 		h2= pl.pHeight
 
-		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽 
-       	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면 
+		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽
+       	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면
        	x2 + 25 > x1 + w1 or -- 오른쪽
-       	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면 
+       	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면
     	then
         	return false                -- 충돌 안함
    		else
@@ -350,10 +364,8 @@ function Player:IfQuest()
 end
 
 function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
-
 	if self.y==330 then
 		self.yspeed =-95
     	LifeMinus()
 	end
-
 end
