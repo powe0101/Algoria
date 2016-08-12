@@ -41,7 +41,9 @@ end
 
 function CreateSpring()
 	if stageLevel == 1 then
-    phase = 1 
+    phase = 1
+    p1=nil
+    p1=Player.create()
   end
 
   stageSpring = StageSpring.Create()

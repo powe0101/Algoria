@@ -31,10 +31,10 @@ for i=0,2 do
 	player_frames_right[i] = love.graphics.newQuad(32*i,32,32,32,96,64)
 end
 for i=0,2 do
-	summerPlayer_frames_left[i] = love.graphics.newQuad(64*i,0,64,32,196,64)
+	summerPlayer_frames_left[i] = love.graphics.newQuad(64*i,0,64,32,192,64)
 end
 for i=0,2 do
-	summerPlayer_frames_right[i] = love.graphics.newQuad(64*i,32,64,32,196,64)
+	summerPlayer_frames_right[i] = love.graphics.newQuad(64*i,32,64,32,192,64)
 end
 for i=0,2 do
 	fallPlayer_frames_left[i] = love.graphics.newQuad(64*i,0,64,64,192,128)
@@ -61,18 +61,16 @@ function Player:UpdateMoveRight(dt)
 	if self.x < WIDTH - 10 and isCanMoveRight then
 		self.x = self.x + PLAYER_MOVE_POWER
 	end
-	player_now_frame = player_frames_left[math.floor(self.frame)]
 	if stageLevel == 1 then
 		player_now_frame = player_frames_left[math.floor(self.frame)]
-	end
-	if stageLevel == 2 then
-		player_now_frame = player_frames_left[math.floor(self.frame)]
-	end
-	if stageLevel == 3 then
+	elseif stageLevel == 2 then
+		player_now_frame = summerPlayer_frames_left[math.floor(self.frame)]
+	elseif stageLevel == 3 then
 		player_now_frame = fallPlayer_frames_left[math.floor(self.frame)]
-	end
-	if stageLevel == 4 then
+	elseif stageLevel == 4 then
 		player_now_frame = winterPlayer_frames_left[math.floor(self.frame)]
+	else
+		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
 end
 --Add by G 0729
@@ -82,18 +80,16 @@ function Player:UpdateMoveLeft(dt)
 	if self.x > 0  and isCanMoveLeft then
 		self.x = self.x - PLAYER_MOVE_POWER
 	end
-	player_now_frame = player_frames_right[math.floor(self.frame)]
 	if stageLevel == 1 then
 		player_now_frame = player_frames_right[math.floor(self.frame)]
-	end
-	if stageLevel == 2 then
-		player_now_frame = player_frames_right[math.floor(self.frame)]
-	end
-	if stageLevel == 3 then
+	elseif stageLevel == 2 then
+		player_now_frame = summerPlayer_frames_right[math.floor(self.frame)]
+	elseif stageLevel == 3 then
 		player_now_frame = fallPlayer_frames_right[math.floor(self.frame)]
-	end
-	if stageLevel == 4 then
+	elseif stageLevel == 4 then
 		player_now_frame = winterPlayer_frames_right[math.floor(self.frame)]
+	else
+		player_now_frame = player_frames_right[math.floor(self.frame)]
 	end
 end
 --Add by G 0729
@@ -181,7 +177,6 @@ function Player:update(dt)
 		self:SCheckHudle()
 	end
 
-
 	self:IfQuest() --퀘스트 만들기 전까지 임시 대용. by.현식 0802
 end
 
@@ -212,27 +207,23 @@ function Player:reset()
 	self.right = self.x + (self.width * 2)
 	self.bottom = self.y
 	
-
-	playerCurrentImage = imgSprites
-	player_now_frame = player_frames_left[0]
-
 	if stageLevel == 1 then
 		playerCurrentImage = imgSpringChar
 		player_now_frame = player_frames_left[0]
-	end
-	if stageLevel == 2 then
+	elseif stageLevel == 2 then
 		playerCurrentImage = imgSummerChar
 		player_now_frame = summerPlayer_frames_left[0]
-	end
-	if stageLevel == 3 then
+	elseif stageLevel == 3 then
 		self.player_ground_y = 120
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
-	end
-	if stageLevel == 4 then
+	elseif stageLevel == 4 then
 		self.player_ground_y = 120
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
+	else
+		playerCurrentImage = imgSprites
+		player_now_frame = player_frames_left[0]
 	end
 end
 
@@ -314,10 +305,9 @@ function Player:collideWithPoint(x,y,_player)
    		end
 end
 
-
 --0805HS
 function Player:SUMMERSCRNHEIGHT() --스테이지가 변경됐을 때 캐릭터 좌표를 초기화 시키기 위한 메서드. by.현식 0727
-	self:SetLeftDirection()
+	--self:SetLeftDirection()
 	self.x = 520
 	self.y = PLAYER_START_Y
 end
