@@ -161,7 +161,7 @@ function love.update(dt)
   end
 
   CheckPortal()
-  CheckQuest()
+ 
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
   CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
