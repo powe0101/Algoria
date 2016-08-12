@@ -55,6 +55,10 @@ require("Bheart")
 require("bheartList")
 require("ManageHeart")
 
+--봄 
+require("DustWind")
+
+
 --block
 WIDTH = 600--윈도우 폭 
 HEIGHT = 200-- 윈도우 높이 
@@ -267,6 +271,10 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
  
+  if stageLevel == 1 then 
+    dustWind:Update(dt)
+  end
+
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
@@ -290,6 +298,8 @@ function drawGame()
   PicketListDraw()
   QMarkListDraw()
   CastleListDraw()
+  
+  DrawSpring()
 
   if stageLevel == 0 then
     PortalDraw()
@@ -353,6 +363,9 @@ function loadResources()
 
   imgSGround = love.graphics.newImage("images/summerGround.png")
   imgSGround:setFilter("nearest","nearest") 
+
+  imgSCreeper = love.graphics.newImage("images/creeper.png")
+  imgSCreeper:setFilter("nearest","nearest") 
 
   imgWGround = love.graphics.newImage("images/winterGround.png")
   imgWGround:setFilter("nearest","nearest") 

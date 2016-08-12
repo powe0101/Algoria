@@ -1,29 +1,69 @@
 StageSpring = {}
 StageSpring.__index = StageSpring
 
+dustWind = nil
+
 function StageSpring.Create()
   local self = {}
   setmetatable(self, StageSpring)
-  self.Reset()
+  self:Reset()
   return self
 end
 
 function StageSpring:Reset()
-  self.dustWind = DustWind.Create()
+  self.objectList = {} -- 봄에서 사용하는 오브젝트
+  self.width = 500
+  self.height = 200
+end
+
+function StageSpring:CreateDustWind()
+  dustWind = DustWind.Create()
+end
+
+function StageSpring:MakePuzzle(_count)
+  --for i = 1, _count do
+  --  박스말고 긴 막대 
+  --end
+end
+
+function StageSpring:DeletePuzzle()
+  --긴 막대들 삭제 
+end
+
+function StageSpring:DustWindBlowing()
+  --바람이 분다 
+  --돌풍이 움직인다 
+  --퍼즐이 바뀐다
+  --점프대를 추가한다.
+  --퍼즐은 랜덤?
+  --
 end
 
 function CreateSpring()
 	if stageLevel == 1 then
-    phase = 1
-    
-    p1=nil
-    p1=Player.create()
+    phase = 1 
   end
-    CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
-    CreateGround(600,76)
+
+  stageSpring = StageSpring.Create()
+  stageSpring:CreateDustWind()
+
+  notice = Notice.Create()
+  notice:SetText("Stage Spring")
+  stageSpring:MakePuzzle(5)
+  pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+  --stageSpring.dustWind:Update()
+
+  CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
+  CreateGround(600,76)
+
 end
 
-
+function DrawSpring()
+  if stageLevel ~= 1 then
+    return
+  end
+  dustWind:Draw()
+end
     --CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
  --   CreateGround(622,76)
 
@@ -53,5 +93,4 @@ end
  --    --현재 문제가 없기 때문에 숫자키 '9'를 누르면 BridgePassValue값이 조금씩 증가해서
  --    --다리가 올라오게끔 구상함. by.현식 0802
 
- --   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
   -- end
