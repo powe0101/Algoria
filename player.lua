@@ -242,7 +242,7 @@ function Player:reset()
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
 	elseif stageLevel == 4 then
-		self.player_ground_y = 120
+		self.player_ground_y = 140
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
 	else
@@ -368,5 +368,4 @@ function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
 		self.yspeed =-95
     	LifeMinus()
 	end
-
 end
