@@ -1,4 +1,4 @@
-require("player") -- include player.lua 
+require("player") -- include player.lua
 require("gameDebug")
 require("Control")
 
@@ -7,7 +7,7 @@ require("AnAL") --애니메이션 관련
 --그래픽 관련
 require("Box")
 require("BoxList")
-require("tree") 
+require("tree")
 require("treeList")
 require("cloud")
 require("cloudList")
@@ -32,7 +32,6 @@ require("Bridge")
 require("bridgeList")
 require("Boss")
 require("bossList")
-
 
 --이하 스테이지 관련
 require("village")
@@ -62,21 +61,21 @@ require("ManageHeart")
 require("BossTalk")
 require("Algorithm")
 
---봄 
+--봄
 require("DustWind")
 
 --block
-WIDTH = 600--윈도우 폭 
-HEIGHT = 200-- 윈도우 높이 
-SCALE = 2 -- 화면의 크기 
+WIDTH = 600--윈도우 폭
+HEIGHT = 200-- 윈도우 높이
+SCALE = 2 -- 화면의 크기
 
-bgcolor = {236,243,201,255} -- 배경색 RGBA 순서 
+bgcolor = {236,243,201,255} -- 배경색 RGBA 순서
 darkcolor = {2,9,4,255} -- 검정색 RGBA
 
 isFullScreen = false --전체화면 설정
- 
 
-stageLevel = 0 --맵 시작 값 --0721 근영 
+
+stageLevel = 0 --맵 시작 값 --0721 근영
 canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
 
 BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해서 총 3번째 문제를 풀면 위의 canPass가 true로 바뀌게 됨. by.현식 0729
@@ -87,21 +86,21 @@ levelCheck = 1 --팝업창에서 계절을 선택하고 그 값을 stageLevel에
 questCheck = false --표지판을 통해서 수행하는 퀘스트가 돌아가는 동안에는 메인 update를 막음.
 
 blacksmithCheck = false -- 대장간 팝업창용 변수 popupCheck와 같다
-menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N) 
+menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N)
 
 bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. 메인 update를 멈추게 만듬.
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 function love.load()
-  love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함 
-  loadResources() -- 이미지 리소스 불러옴 
+  love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함
+  loadResources() -- 이미지 리소스 불러옴
 
-  pl = Player.create() -- 플레이어 객체 
+  pl = Player.create() -- 플레이어 객체
 
-  createStage() -- stage 만들기 근영 
+  createStage() -- stage 만들기 근영
 
   updateScale()
-  start() -- 시작 
+  start() -- 시작
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
@@ -117,14 +116,14 @@ function love.run()
   if love.math then
     love.math.setRandomSeed(os.time())
   end
- 
+
   if love.load then love.load(arg) end
- 
+
   -- We don't want the first frame's dt to include time taken by love.load.
   if love.timer then love.timer.step() end
- 
+
   local dt = 0
- 
+
   -- Main loop time.
   while true do
     -- Process events.
@@ -139,33 +138,33 @@ function love.run()
         love.handlers[name](a,b,c,d,e,f)
       end
     end
- 
+
     -- Update dt, as we'll be passing it to update
     if love.timer then
       love.timer.step()
       dt = love.timer.getDelta()
     end
- 
+
     -- Call update and draw
     if love.update then love.update(dt) end -- will pass 0 if love.timer is disabled
- 
+
     if love.graphics and love.graphics.isActive() then
       love.graphics.clear(love.graphics.getBackgroundColor())
       love.graphics.origin()
       if love.draw then love.draw() end
       love.graphics.present()
     end
- 
+
     if love.timer then love.timer.sleep(0.016) end
   end
 end
 
 function start()
-  pl:reset() -- 플레이어 객체 새로고침 
+  pl:reset() -- 플레이어 객체 새로고침
 end
 
 function love.update(dt)
-  if popupCheck == false and questCheck == false and blacksmithCheck == false 
+  if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false then
     updateGame(dt)
   end
@@ -175,7 +174,7 @@ function love.update(dt)
   mouse_y = love.mouse.getY()
 
   CheckPortal()
- 
+
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
   CheckQMark() --문제를 풀때마다 느낌표가 바뀌게 만드는 메서드. by.현식 0805
@@ -189,9 +188,9 @@ function love.draw()
   test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
 
 
-  love.graphics.scale(SCALE,SCALE) -- 크기 지정 
+  love.graphics.scale(SCALE,SCALE) -- 크기 지정
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
-  drawGame() -- 게임 로드 
+  drawGame() -- 게임 로드
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 
   if popupCheck then --0805HS
@@ -260,7 +259,7 @@ function love.keypressed(key,scancode) -- 키입력
     if bgCheck then
       love.audio.pause()
       bgCheck = false
-    else 
+    else
       love.audio.resume()
       bgCheck = true
     end
@@ -295,8 +294,8 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
   BossListUpdate(dt)
- 
-  if stageLevel == 1 then 
+
+  if stageLevel == 1 then
     dustWind:Update(dt)
   end
 
@@ -308,7 +307,7 @@ function updateGame(dt)
   if stageLevel == 3 then --가을
     CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     BridgeListUpdate(dt)
-  end 
+  end
 end
 
 function drawGame()
@@ -324,7 +323,7 @@ function drawGame()
   QMarkListDraw()
   CastleListDraw()
   BossListDraw()
-  
+
   DrawSpring()
 
   if stageLevel == 0 then
@@ -333,22 +332,22 @@ function drawGame()
   end
 
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
-     BridgeListDraw()   
+     BridgeListDraw()
   end
 
-  pl:draw() -- 플레이어 스프라이트 그리기 
+  pl:draw() -- 플레이어 스프라이트 그리기
   NoticeDraw()
 end
 
 function loadResources()
   -- Load images
   imgSprites = love.graphics.newImage("images/algolaChar.png") -- char.png 등록
-  imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상 
-  imgSpringChar = love.graphics.newImage("images/maskChar.png") 
+  imgSprites:setFilter("nearest","nearest") -- 0.9.0 이상
+  imgSpringChar = love.graphics.newImage("images/maskChar.png")
   imgSpringChar:setFilter("nearest","nearest")
-  imgSummerChar = love.graphics.newImage("images/wingChar.png") 
+  imgSummerChar = love.graphics.newImage("images/wingChar.png")
   imgSummerChar:setFilter("nearest","nearest")
-  imgFallChar = love.graphics.newImage("images/horseChar.png") 
+  imgFallChar = love.graphics.newImage("images/horseChar.png")
   imgFallChar:setFilter("nearest","nearest")
   imgWinterChar = love.graphics.newImage("images/eisenChar.png")
   imgWinterChar:setFilter("nearest","nearest")
@@ -357,50 +356,50 @@ function loadResources()
   imgTree:setFilter("nearest","nearest")
 
   imgSTree = love.graphics.newImage("images/summerTree.png")
-  imgSTree:setFilter("nearest","nearest")  
+  imgSTree:setFilter("nearest","nearest")
 
   imgFTree = love.graphics.newImage("images/FallTree03.png")
   imgFTree:setFilter("nearest","nearest")
 
   imgWTree = love.graphics.newImage("images/winterTree.png")
-  imgWTree:setFilter("nearest","nearest")  
+  imgWTree:setFilter("nearest","nearest")
 
   imgCloud = love.graphics.newImage("images/cloud04.png")
   imgCloud:setFilter("nearest","nearest")
 
   imgHouse = love.graphics.newImage("images/house.png")
-  imgHouse:setFilter("nearest","nearest") 
+  imgHouse:setFilter("nearest","nearest")
   imgCHouse = love.graphics.newImage("images/chiefhouse.png")
-  imgCHouse:setFilter("nearest","nearest") 
+  imgCHouse:setFilter("nearest","nearest")
   imgBSHouse = love.graphics.newImage("images/blacksmithhouse.png")
-  imgBSHouse:setFilter("nearest","nearest") 
+  imgBSHouse:setFilter("nearest","nearest")
 
-  imgPortal = love.graphics.newImage("images/portal07.png") 
-  imgPortal:setFilter("nearest","nearest") 
+  imgPortal = love.graphics.newImage("images/portal07.png")
+  imgPortal:setFilter("nearest","nearest")
 
   imgPicket = love.graphics.newImage("images/picket.png")
   imgPicket:setFilter("nearest", "nearest")
 
-  imgGround = love.graphics.newImage("images/ground.png") 
-  imgGround:setFilter("nearest","nearest") 
+  imgGround = love.graphics.newImage("images/ground.png")
+  imgGround:setFilter("nearest","nearest")
 
-  imgFGround = love.graphics.newImage("images/fallground.png") 
-  imgFGround:setFilter("nearest","nearest") 
+  imgFGround = love.graphics.newImage("images/fallground.png")
+  imgFGround:setFilter("nearest","nearest")
 
   imgSGround = love.graphics.newImage("images/summerGround.png")
-  imgSGround:setFilter("nearest","nearest") 
+  imgSGround:setFilter("nearest","nearest")
 
   imgSCreeper = love.graphics.newImage("images/creeper.png")
-  imgSCreeper:setFilter("nearest","nearest") 
+  imgSCreeper:setFilter("nearest","nearest")
 
   imgWGround = love.graphics.newImage("images/winterGround.png")
-  imgWGround:setFilter("nearest","nearest") 
+  imgWGround:setFilter("nearest","nearest")
 
   imgRiver = love.graphics.newImage("images/river01.png")
-  imgRiver:setFilter("nearest","nearest")  
- 
+  imgRiver:setFilter("nearest","nearest")
+
   imgBridge = love.graphics.newImage("images/bridge07.png")
-  imgBridge:setFilter("nearest","nearest") 
+  imgBridge:setFilter("nearest","nearest")
 
   imgQMark = love.graphics.newImage("images/questionMark02.png")
   imgQMark:setFilter("nearest","nearest")
@@ -413,14 +412,14 @@ function loadResources()
 
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
-  
-  imgMask = love.graphics.newImage("images/mask.png") 
+
+  imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
-  imgWing = love.graphics.newImage("images/wing.png") 
+  imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
-  imgHorse = love.graphics.newImage("images/horse.png") 
+  imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
-  imgEisen = love.graphics.newImage("images/eisen.png") 
+  imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
   imgBoss = love.graphics.newImage("images/over_c.png")  --중간보스 이미지 임시용
@@ -436,7 +435,7 @@ end
 
 
 function createStage() --0721 근영 맵 만드는 함수
-  if stageLevel==0 then -- if문으로 stage설정 
+  if stageLevel==0 then -- if문으로 stage설정
     CreateVillage()
   end
 end

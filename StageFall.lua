@@ -1,12 +1,11 @@
 function CreateFall()
     if stageLevel == 3 then --0805HS
-        phase = 1 --계절이 생성될때 단계 초기화 
+        phase = 1 --계절이 생성될때 단계 초기화
 
-        p1=nil
-        pl=Player.create()
+        pl:reset()
         --말타는 상황을 가정.
         MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
-    
+
         CreateCloud(0,1)
         CreateCloud(100,5)
         CreateCloud(500,1)
@@ -16,13 +15,13 @@ function CreateFall()
 
         GroundHalfFrameChange() --가을만 땅의 가로 프레임을 2/1배로 줄임. 다른 스테이지로 이동할때 원복시켜야함.
 
-        CreateGround(-1741,76) 
-        CreateGround(-1437,76); 
-        CreateGround(-1005,76) 
-        CreateGround(-573,76); 
+        CreateGround(-1741,76)
+        CreateGround(-1437,76);
+        CreateGround(-1005,76)
+        CreateGround(-573,76);
         CreateGround(-269,76)
-        CreateGround(163,76)  -- 432 --736/368 
-        CreateGround(465,76) 
+        CreateGround(163,76)  -- 432 --736/368
+        CreateGround(465,76)
 
         CreateTree(110,63)
         CreateTree(400,63)
@@ -35,10 +34,10 @@ function CreateFall()
         --CreateTree(450,54)
 
         --1번 문제-------
-        CreateQMark(420, 115) 
-        CreatePicket(420,146) --phase1 
+        CreateQMark(420, 115)
+        CreatePicket(420,146) --phase1
         CreateBridge(93,158) --첫 문제를 풀었다고 가정
-        CreateBridge(29,158) 
+        CreateBridge(29,158)
 
         CreateRiver(-12,150)
         CreateRiver(-50,150) --다리랑 이 강물이랑 간격이 딱 맞음.
@@ -62,7 +61,7 @@ function CreateFall()
         CreateBridge(-1139,158) --x 간격은 64
 
         CreateRiver(-1180,150)
-        CreateRiver(-1218,150) 
+        CreateRiver(-1218,150)
 
         pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
     end
