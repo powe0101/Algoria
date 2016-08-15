@@ -428,15 +428,6 @@ function loadResources()
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
 
-  imgTest1 = love.graphics.newImage("images/part1.png")
-  imgTest1:setFilter("nearest","nearest")
-
-  imgTest2 = love.graphics.newImage("images/part2.png")
-  imgTest2:setFilter("nearest","nearest")
-
-  imgTest3 = love.graphics.newImage("images/part3.png")
-  imgTest3:setFilter("nearest","nearest")
-
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
