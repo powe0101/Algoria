@@ -17,12 +17,13 @@ function DustWind:Reset()
 	self.y = 0
 	self.frame = 0
 	self.isPlay = nil
+	-- 사용할지 모르겠지만 임시 변수로 남김. G
 
-	self:RegisterImageDustWind()
+	self:RegisterImage()
 	self:SettingAnimation()
 end
 
-function DustWind:RegisterImageDustWind()
+function DustWind:RegisterImage()
 	imgDustWind = love.graphics.newImage("images/portal07.png")
 	imgDustWind:setFilter("nearest","nearest")
 end
@@ -30,7 +31,7 @@ end
 function DustWind:SettingAnimation()
 	AnimationDustWind = newAnimation(imgDustWind,64,64,0.3,0)
 	AnimationDustWind:setMode("loop")
-	AnimationDustWind:SetAniPostion(PLAYER_START_X,PLAYER_START_Y)
+	AnimationDustWind:SetAniPostion(300,PLAYER_START_Y)
 end
 
 function DustWind:Draw()
@@ -45,12 +46,12 @@ function DustWind:Play()
 	AnimationDustWind:play()
 end
 
-function DustWind:Move()
+function DustWind:Move(_distance)
 	-- 바람이 움직인다
 	local x = AnimationDustWind.x
 	local y = AnimationDustWind.y
-	for i=1,10 do
-		AnimationDustWind:SetAniPostion(x+i,y)
+	for i=1,_distance,0.1 do
+		AnimationDustWind:SetAniPostion(x-i,y)
 	end
 
 end
