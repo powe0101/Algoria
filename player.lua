@@ -156,6 +156,14 @@ function Player:CheckSpaceBarDown(dt)
 	end
 end
 
+function Player:HitbyTrampolin(dt)
+	if self.status == 1 then
+		self.y = self.y + self.yspeed*dt
+		self.x = self.x - dt*300
+	end
+	-- 45degree? 검증 필요
+end
+
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
@@ -196,7 +204,7 @@ function Player:update(dt)
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
-
+	self:HitbyTrampolin(dt)
 	if stageLevel==2 then -- 0811 근영 가시에 닿앗을때 점프
 		self:SCheckHudle()
 	end
