@@ -26,17 +26,22 @@ function StageSpring:MakePuzzle(_count)
   --end
 end
 
+function StageSpring:ReplacePuzzle()
+
+end
+
 function StageSpring:DeletePuzzle()
   --긴 막대들 삭제
 end
 
-function StageSpring:DustWindBlowing()
-  --바람이 분다
-  --돌풍이 움직인다
-  --퍼즐이 바뀐다
-  --점프대를 추가한다.
+function StageSpring:DustWindBlowing(_distance)
+  local seed = dustWind:RandomSeed()
   --퍼즐은 랜덤?
-  --
+  --경고?
+  dustWind:Move(_distance)
+  --돌풍이 움직인다
+  StageSpring:ReplacePuzzle()
+  --퍼즐이 바뀐다
 end
 
 function CreateSpring()
@@ -50,20 +55,21 @@ function CreateSpring()
 
   notice = Notice.Create()
   notice:SetText("Stage Spring")
+
   stageSpring:MakePuzzle(5)
   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
-  --stageSpring.dustWind:Update()
-
   CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
-
 end
 
-function DrawSpring()
-  if stageLevel ~= 1 then
-    return
-  end
+function UpdateSpring() -- 메인에서 Draw 하기 위한 메서드 여기서'만'이미지 출력이 가능.
+  NoticeDraw()
   dustWind:Draw()
+
+  if love.keyboard.isDown("return") then
+    stageSpring:DustWindBlowing(10)
+  end
+
 end
     --CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
  --   CreateGround(622,76)
