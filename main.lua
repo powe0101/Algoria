@@ -305,7 +305,7 @@ function updateGame(dt)
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
   end
-  if stageLevel == 2 then --여름 
+  if stageLevel == 2 then --여름
     CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     CreeperListUpdate(dt)
   end
@@ -316,6 +316,7 @@ function updateGame(dt)
 end
 
 function drawGame()
+
   GroundListDraw()
   CloudListDraw()
   TreeListDraw()
@@ -329,7 +330,9 @@ function drawGame()
   CastleListDraw()
   BossListDraw()
 
-  DrawSpring()
+  if stageLevel == 1 then
+    UpdateSpring()
+  end
 
   if stageLevel == 0 then
     PortalDraw()
@@ -343,7 +346,6 @@ function drawGame()
   end
 
   pl:draw() -- 플레이어 스프라이트 그리기
-  NoticeDraw()
 end
 
 function loadResources()
@@ -400,7 +402,7 @@ function loadResources()
   imgSCreeper:setFilter("nearest","nearest")
 
   imgCreeperFire = love.graphics.newImage("images/creeperfire.png")
-  imgCreeperFire:setFilter("nearest","nearest") 
+  imgCreeperFire:setFilter("nearest","nearest")
 
   imgWGround = love.graphics.newImage("images/winterGround.png")
   imgWGround:setFilter("nearest","nearest")

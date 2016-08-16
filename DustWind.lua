@@ -47,7 +47,12 @@ end
 
 function DustWind:Move()
 	-- 바람이 움직인다
-	
+	local x = AnimationDustWind.x
+	local y = AnimationDustWind.y
+	for i=1,10 do
+		AnimationDustWind:SetAniPostion(x+i,y)
+	end
+
 end
 
 function DustWind:Pause()
