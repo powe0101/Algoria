@@ -3,7 +3,7 @@ Tree.__index = Tree
 
 tree_frames_x = {}
 tree_frames_y = {}
-tree_frames_x[0]  = love.graphics.newQuad(0,0,108,212,128,128)
+tree_frames_x[0]  = love.graphics.newQuad(0,0,64,100,64,100)
 tree_frames_y[0] = love.graphics.newQuad(0,0,108,212,128,128)
 
 
@@ -21,11 +21,11 @@ function Tree:reset(x,y)
 	tree_now_frame = tree_frames_x[0]
 end
 
-function Tree:normal(dt)  --tree 이동 
+function Tree:normal(dt)  --tree 이동
 	self=BackgroundNormal(self,dt)
 end
 
-function Tree:UpdateMove(dt) --tree key이벤트 
+function Tree:UpdateMove(dt) --tree key이벤트
 	self=BackgroundMove(self,dt)
 end
 
@@ -38,7 +38,7 @@ function Tree:draw()
 	--나무가 생성될 때 계절,스테이지에 따라 다르게 생성되게끔 만듬. by.현식
 	if stageLevel == 0 then
 		love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
-	elseif stageLevel == 2 then 
+	elseif stageLevel == 2 then
 		love.graphics.draw(imgSTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 3 then --가을입니다. by.현식
 		fall_tree_frame = love.graphics.newQuad(0,0,120,120,120,120)
