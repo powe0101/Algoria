@@ -26,7 +26,7 @@ function StageSpring:MakePuzzle(_count)
   --end
 end
 
-function StageSpring:ReplacePuzzle()
+function StageSpring:ReplacePuzzle(_seed)
 
 end
 
@@ -40,7 +40,7 @@ function StageSpring:DustWindBlowing(_distance)
   --경고?
   dustWind:Move(_distance)
   --돌풍이 움직인다
-  StageSpring:ReplacePuzzle()
+  StageSpring:ReplacePuzzle(_seed)
   --퍼즐이 바뀐다
 end
 

@@ -56,7 +56,7 @@ end
 
 function Trampolin:UpdateMove(dt) --tree key이벤트
 	self=BackgroundMove(self,dt)
-  end
+end
 
 function Trampolin:Normal(dt) --cloud 이동
 	self=BackgroundNormal(self,dt)
@@ -66,4 +66,8 @@ function Trampolin:Update(dt)
 	self:UpdateMove(dt)
 	self:Normal(dt)
 	AnimationTrampolin:update(dt)
+end
+
+function Trampolin:CollideWithPlayer()
+  pl.status = 1 -- 플레이어의 상태를 튕겨진 상태로 만든다.
 end
