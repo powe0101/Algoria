@@ -22,7 +22,7 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 ]]
-
+checkPlaying=true
 local animation = {}
 animation.__index = animation
 
@@ -36,11 +36,15 @@ animation.__index = animation
 -- @return The created animation
 function newAnimation(image, fw, fh, delay, frames)
 	local self = {}
- 
-	self.x=nil
-	self.y=nil
-	self.onGround=true
-    self.frame = 1
+
+	self.yfix=nil
+	self.yspeed = 0
+	self.onGround = true
+	self.status = 0
+	self.frame = 1
+	self.x = nil
+	self.y = nil
+
 
 	self.img = image
 	self.frames = {}
@@ -72,6 +76,7 @@ end
 function animation:SetAniPostion(x,y)--made by 근영 0801 , 현식 0810 수정.
   self.x=x
   self.y=y
+  self.yfix=y
 end
 
 function animation:normal(dt) --cloud 이동 
@@ -82,13 +87,20 @@ function animation:UpdateMove(dt) --cloud key이벤트
 	self=BackgroundMove(self,dt)
 end
 
+function animation:SpaceJump(dt) --0808근영 점프함수  
+	self=SCheckSpaceBarDown(self,dt)
+end
 --- Update the animation
 -- @param dt Time that has passed since last call
 function animation:update(dt)
+
+	if stageLevel==2 then
+	self:SpaceJump(dt)
+end
     self:UpdateMove(dt)
 	self:normal(dt)
 
-
+ 
 	if not self.playing then return end
 	self.timer = self.timer + dt * self.speed
 	if self.timer > self.delays[self.position] then
@@ -102,6 +114,8 @@ function animation:update(dt)
 				self.position = self.position - 1
 		
 				self:stop()
+			
+
 			elseif self.mode == 3 then
 				self.direction = -1
 				self.position = self.position - 1
@@ -114,7 +128,7 @@ function animation:update(dt)
 		end
 	end
 
-  
+ 
 end
 
 --- Draw the animation
@@ -140,13 +154,18 @@ end
 -- Basically makes sure it uses the delays
 -- to switch to the next frame.
 function animation:play()
+	checkPlaying = true
 	self.playing = true
 end
 
 --- Stop the animation
 function animation:stop()
+	checkPlaying = false
 	self.playing = false
+
 end
+
+
 
 --- Reset
 -- Go back to the first frame.

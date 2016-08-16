@@ -9,16 +9,19 @@ function CreateSummer()
     pl = Player.create()
     
     pl:StartSummerStage()
-    CreateCreeper(-49,430)
-    CreateCreeper(541,430)
+   
+    
 	CreateCloud(100,200)
-	CreateCloud(200,400)           
+	CreateCloud(200,400)
+    CreatePicket(200,400)      
     CreateCloud(300,0)
     CreateCloud(350,100)  
     CreateCloud(400,200)
 
     CreateGround(-49,430) 
     CreateGround(541,430)
+    CreateCreeper(-49,430)
+    CreateCreeper(541,430)
 
 
     CreateQMark(255, 100) 

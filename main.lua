@@ -305,11 +305,15 @@ function updateGame(dt)
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
   end
-  if stageLevel == 2 then --여름 
-    CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
+  if stageLevel == 2 and checkPlaying then --여름 
+
+    CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수. 
     CreeperListUpdate(dt)
   end
-  if stageLevel == 3 then --가을
+  if checkPlaying==false then -- by.근영 0816 가시 애니메이션 'once'한번 실행 되고 나서 중지 되었을시 delete 시킴 
+    CreeperListDelete()
+  end
+  if stageLevel == 3  then --가을
     CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     BridgeListUpdate(dt)
   end
@@ -335,7 +339,7 @@ function drawGame()
     PortalDraw()
     BlackSmithHouseDraw()
   end
-   if stageLevel == 2 then --가시  애니메이션 그리는 부분.
+   if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
      CreeperListDraw()
   end
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
