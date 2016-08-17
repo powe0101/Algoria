@@ -15,10 +15,18 @@ function Tree.create()
 end
 
 function Tree:reset(x,y)
+	self.yfix=y
+	self.yspeed = 0
+	self.onGround = true
+	self.status = 0
 	self.frame = 1
 	self.x = x
 	self.y = y
 	tree_now_frame = tree_frames_x[0]
+end
+
+function Tree:SpaceJump(dt) --0808근영 점프함수  
+	self=SCheckSpaceBarDown(self,dt)
 end
 
 function Tree:normal(dt)  --tree 이동 
@@ -30,6 +38,9 @@ function Tree:UpdateMove(dt) --tree key이벤트
 end
 
 function Tree:update(dt)
+	if stageLevel==2 then -- 0808근영 여름 스테이지 에서 점프함수 호출 
+		self:SpaceJump(dt)
+	end
 	self:UpdateMove(dt)
 	self:normal(dt)
 end

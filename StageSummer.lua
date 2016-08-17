@@ -20,7 +20,7 @@ function CreateSummer()
     
     CreateGround(-100,430) 
     CreateGround(421,430)
-    CreateTree(100,200)
+    CreateTree(100,890)
    
 
 
