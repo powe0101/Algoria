@@ -25,11 +25,12 @@ function CreeperListDraw()
 end
 
 function CheckCreeperAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수  
-  if canPass then --첫번째 문제를 출었다고 가정 
-  
-    GroundListDelete()
+  if canPass then -- 문제를 풀었다고 가정 
+      groundList[0]:SetY(840) -- ground의 y 값을 변경 
+      groundList[1]:SetY(840)
     creeperList[0]:play()
     creeperList[1]:play()
+
   end
 
 end
