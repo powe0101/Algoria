@@ -44,6 +44,7 @@ function CreateVillage()
 end
 
 function DeleteVillage()
+  BackGroundListDelete()
   CloudListDelete()
   TreeListDelete()
   HouseListDelete()
