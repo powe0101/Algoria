@@ -101,7 +101,7 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
     if love.keyboard.isDown("return") then --enter키임
       stageLevel = levelCheck
       popupCheck = false
-      
+
       levelCheck = 1
       DeleteVillage()
       CheckSeason()
