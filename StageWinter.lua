@@ -10,5 +10,6 @@ function CreateWinter()
 		CreateGround(-177,76)
 		CreateGround(600,76)
 
-		CreateTree(220,80)
+		CreateBox(200,80)
+		CreateTree(180,80)
 end
