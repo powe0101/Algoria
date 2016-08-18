@@ -22,17 +22,17 @@ end
 
 function StageSpring:MakePuzzle(_count)
   --for i = 1, _count do
-  --  박스말고 긴 막대 
+  --  박스말고 긴 막대
   --end
 end
 
 function StageSpring:DeletePuzzle()
-  --긴 막대들 삭제 
+  --긴 막대들 삭제
 end
 
 function StageSpring:DustWindBlowing()
-  --바람이 분다 
-  --돌풍이 움직인다 
+  --바람이 분다
+  --돌풍이 움직인다
   --퍼즐이 바뀐다
   --점프대를 추가한다.
   --퍼즐은 랜덤?
@@ -42,8 +42,7 @@ end
 function CreateSpring()
 	if stageLevel == 1 then
     phase = 1
-    p1=nil
-    p1=Player.create()
+    pl:reset()
   end
 
   stageSpring = StageSpring.Create()
@@ -80,14 +79,14 @@ end
 
  --    CreatePicket(400,146)
 
- --     --여기서부터 
+ --     --여기서부터
 
  --    aniBridge1 = newAnimation(imgBridge, 75, 61, 0.1, 0)
  --    aniBridge2 = newAnimation(imgBridge, 75, 61, 0.1, 0)
  --    aniBridge3 = newAnimation(imgBridge, 75, 61, 0.1, 0)
- 
- --    aniBridge1:setMode("once")  
- --    aniBridge2:setMode("once") 
+
+ --    aniBridge1:setMode("once")
+ --    aniBridge2:setMode("once")
  --    aniBridge3:setMode("once")
 
  --    --위와 같이 애니메이션으로 사용할 다리 3개에 대한 생성과 설정값만 적용해놓고
