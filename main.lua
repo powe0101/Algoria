@@ -34,7 +34,8 @@ require("Boss")
 require("bossList")
 require("Creeper")
 require("CreeperList")
-
+require("background")
+require("backgroundList")
 --이하 스테이지 관련
 require("village")
 require("Season")
@@ -283,6 +284,7 @@ end
 
 function updateGame(dt)
   pl:update(dt)
+  BackGroundListUpdate(dt)
   GroundListUpdate(dt)
   TreeListUpdate(dt)
   BoxListUpdate(dt)
@@ -296,6 +298,7 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
   BossListUpdate(dt)
+
 
   if stageLevel == 1 then
     dustWind:Update(dt)
@@ -320,7 +323,7 @@ function updateGame(dt)
 end
 
 function drawGame()
-
+  BackGroundListDraw()
   GroundListDraw()
   CloudListDraw()
   TreeListDraw()
@@ -431,10 +434,13 @@ function loadResources()
 
   imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
+ 
   imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
+  
   imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
+ 
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
@@ -443,6 +449,12 @@ function loadResources()
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
+
+  imgVillageBackGround = love.graphics.newImage("images/village.png")
+  imgVillageBackGround:setFilter("nearest","nearest")
+
+  imgSpringBackGround = love.graphics.newImage("images/spring.png")
+  imgSpringBackGround:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

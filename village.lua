@@ -15,10 +15,18 @@ function CreateVillage()
 
   CreateGround(-49,76)
   CreateGround(541,76)
+  CreateBackGround(-40,0)
+  CreateBackGround(250,0)
+  CreateBackGround(540,0)
+  CreateBackGround(830,0)
+
 
   CreateTree(-50,80)
   CreateTree(220,80)
-  CreateTree(700,80)
+  CreateTree(580,80)
+  CreateTree(800,80)
+
+
 
   CreateCloud(-50,1)
   CreateCloud(100,1)
@@ -28,8 +36,8 @@ function CreateVillage()
   CreateCloud(900,1)
 
   CreateHouse(17,108)
-  CreateChiefHouse(380,77)
-  CreateBlackSmithHouse(550,108)
+  CreateChiefHouse(480,77)
+  CreateBlackSmithHouse(850,108)
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
   CreateBox(200,155)
