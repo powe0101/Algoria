@@ -34,7 +34,8 @@ require("Boss")
 require("bossList")
 require("Creeper")
 require("CreeperList")
-
+require("background")
+require("backgroundList")
 --이하 스테이지 관련
 require("village")
 require("Season")
@@ -283,6 +284,7 @@ end
 
 function updateGame(dt)
   pl:update(dt)
+  BackGroundListUpdate(dt)
   GroundListUpdate(dt)
   TreeListUpdate(dt)
   BoxListUpdate(dt)
@@ -297,6 +299,7 @@ function updateGame(dt)
   CastleListUpdate(dt)
   BossListUpdate(dt)
 
+
   if stageLevel == 1 then
     dustWind:Update(dt)
   end
@@ -305,18 +308,22 @@ function updateGame(dt)
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
   end
-  if stageLevel == 2 then --여름
-    CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
+  if stageLevel == 2 and checkPlaying then --여름
+
+    CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수.
     CreeperListUpdate(dt)
   end
-  if stageLevel == 3 then --가을
+  if checkPlaying==false then -- by.근영 0816 가시 애니메이션 'once'한번 실행 되고 나서 중지 되었을시 delete 시킴
+    CreeperListDelete()
+  end
+  if stageLevel == 3  then --가을
     CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     BridgeListUpdate(dt)
   end
 end
 
 function drawGame()
-
+  BackGroundListDraw()
   GroundListDraw()
   CloudListDraw()
   TreeListDraw()
@@ -338,7 +345,7 @@ function drawGame()
     PortalDraw()
     BlackSmithHouseDraw()
   end
-   if stageLevel == 2 then --가시  애니메이션 그리는 부분.
+   if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
      CreeperListDraw()
   end
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
@@ -367,13 +374,13 @@ function loadResources()
   imgSTree = love.graphics.newImage("images/summerTree.png")
   imgSTree:setFilter("nearest","nearest")
 
-  imgFTree = love.graphics.newImage("images/FallTree03.png")
+  imgFTree = love.graphics.newImage("images/fallTree.png")
   imgFTree:setFilter("nearest","nearest")
 
   imgWTree = love.graphics.newImage("images/winterTree.png")
   imgWTree:setFilter("nearest","nearest")
 
-  imgCloud = love.graphics.newImage("images/cloud04.png")
+  imgCloud = love.graphics.newImage("images/cloud.png")
   imgCloud:setFilter("nearest","nearest")
 
   imgHouse = love.graphics.newImage("images/house.png")
@@ -427,18 +434,30 @@ function loadResources()
 
   imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
+ 
   imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
+  
   imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
+ 
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
-  imgBoss = love.graphics.newImage("images/over_c.png")  --중간보스 이미지 임시용
+  imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
+
+  imgVillageBackGround = love.graphics.newImage("images/village.png")
+  imgVillageBackGround:setFilter("nearest","nearest")
+
+  imgSpringBackGround = love.graphics.newImage("images/spring.png")
+  imgSpringBackGround:setFilter("nearest","nearest")
+
+    imgWinterBackGround = love.graphics.newImage("images/winter.png")
+  imgWinterBackGround :setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

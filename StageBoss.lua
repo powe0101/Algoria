@@ -1,4 +1,4 @@
--- 0810. 현식 추가. 
+-- 0810. 현식 추가.
 -- 최종 보스가 아니라 각 스테이지 별로 있는 중간보스에 관련된 파일임.
 
 function CreateBossCastle()
@@ -11,7 +11,7 @@ function CreateBossCastle()
     CreateGround(-49,0) --이미지를 다시 조정하던지 보스성에서만 용사 y좌표를 바꾸던지 해야할 듯. 0811. 퇴근.
   	CreateGround(481,0)
 
-  	CreateBoss(500,76)
+  	CreateBoss(500,21)
 end
 
 function CheckBossCastle()

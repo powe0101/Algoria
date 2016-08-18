@@ -15,8 +15,8 @@ function CheckQuest(_x,_y)
   		if self.x-8 < pl:GetX() and pl:GetX() < self.x+8  then --봄에서의 표지퐌 자표를 입력해주면 됨. by.현식 0803
       		questCheck = true
     	end
-    elseif stageLevl == 2 then --근영 여름 08 11
-    	if self.x-10< pl:GetX() and pl:GetX() < self.x+10  then 
+    elseif stageLevel == 2 then --근영 여름 08 11
+    	if self.x-20< pl:GetX() and pl:GetX() < self.x+15 and self.y-10< pl:GetY() and pl:GetY() < self.y+10 then 
     		questCheck = true
         end
   	elseif stageLevel == 3 then --가을
