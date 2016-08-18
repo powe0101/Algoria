@@ -374,7 +374,7 @@ function loadResources()
   imgSTree = love.graphics.newImage("images/summerTree.png")
   imgSTree:setFilter("nearest","nearest")
 
-  imgFTree = love.graphics.newImage("images/FallTree03.png")
+  imgFTree = love.graphics.newImage("images/fallTree.png")
   imgFTree:setFilter("nearest","nearest")
 
   imgWTree = love.graphics.newImage("images/winterTree.png")
@@ -444,7 +444,7 @@ function loadResources()
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
-  imgBoss = love.graphics.newImage("images/over_c.png")  --중간보스 이미지 임시용
+  imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")

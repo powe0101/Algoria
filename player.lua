@@ -377,7 +377,7 @@ function Player:IfQuest()
 end
 
 function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
-	if self.y==330 and checkPlaying then --0816 근영 퀘스트 다 완료 했을시 그만 멈추여야 함 
+	if self.y==330 and checkPlaying then --0816 근영 퀘스트 다 완료 했을시 그만 멈추여야 함
 		self.yspeed =-95
     	LifeMinus()
 	end

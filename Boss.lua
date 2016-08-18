@@ -2,7 +2,7 @@ Boss = {}
 Boss.__index = Boss
 
 Boss_frames = {}
-Boss_frames[0]  = love.graphics.newQuad(0,0,182,141,91,70)
+Boss_frames[0]  = love.graphics.newQuad(0,0,160,160,160,160)
 
 function Boss.create()
   local self = {}
@@ -23,7 +23,7 @@ function Boss:normal(dt)
   self=BackgroundNormal(self,dt)
 end
 
-function Boss:UpdateMove(dt) 
+function Boss:UpdateMove(dt)
   self=BackgroundMove(self,dt)
   end
 

@@ -51,9 +51,8 @@ function Tree:draw()
 		love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 2 then
 		love.graphics.draw(imgSTree,tree_frames_x[0],self.x,self.y)
-	elseif stageLevel == 3 then --가을입니다. by.현식
-		fall_tree_frame = love.graphics.newQuad(0,0,120,120,120,120)
-		love.graphics.draw(imgFTree,fall_tree_frame,self.x,self.y)
+	elseif stageLevel == 3 then
+		love.graphics.draw(imgFTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 4 then
 		love.graphics.draw(imgWTree,tree_frames_x[0],self.x,self.y)
 	end
