@@ -25,6 +25,14 @@ function Ground:reset(x,y)
 	Ground_now_frame = Ground_frames_x
 end
 
+function Ground:GetY()
+	return self.y
+end
+
+function Ground:SetY(_y)
+	self.y=_y
+end
+
 function Ground:SpaceJump(dt) --0808근영 점프함수  
 	self=SCheckSpaceBarDown(self,dt)
 end
@@ -50,7 +58,11 @@ function Ground:draw()
 	if stageLevel == 0 or stageLevel == 1 then
 	love.graphics.draw(imgGround,Ground_now_frame,self.x,self.y)
 	elseif stageLevel == 2 then 
-		love.graphics.draw(imgSCreeper,Ground_now_frame,self.x,self.y)
+		if canPass==false then
+			love.graphics.draw(imgSCreeper,Ground_now_frame,self.x,self.y)
+	    elseif canPass then
+	    	love.graphics.draw(imgSGround,Ground_now_frame,self.x,self.y)
+	    end
 	elseif stageLevel == 3 then --가을입니다. by.현식
 		if fallHalfGround then --땅을 절반만 그리고 싶을 때,
 			love.graphics.draw(imgFGround,Ground_half_frames,self.x,self.y)

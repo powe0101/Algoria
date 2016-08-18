@@ -32,6 +32,8 @@ require("Bridge")
 require("bridgeList")
 require("Boss")
 require("bossList")
+require("Creeper")
+require("CreeperList")
 
 --이하 스테이지 관련
 require("village")
@@ -303,14 +305,22 @@ function updateGame(dt)
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
   end
+  if stageLevel == 2 and checkPlaying then --여름
 
-  if stageLevel == 3 then --가을
+    CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수.
+    CreeperListUpdate(dt)
+  end
+  if checkPlaying==false then -- by.근영 0816 가시 애니메이션 'once'한번 실행 되고 나서 중지 되었을시 delete 시킴
+    CreeperListDelete()
+  end
+  if stageLevel == 3  then --가을
     CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     BridgeListUpdate(dt)
   end
 end
 
 function drawGame()
+
   GroundListDraw()
   CloudListDraw()
   TreeListDraw()
@@ -324,19 +334,22 @@ function drawGame()
   CastleListDraw()
   BossListDraw()
 
-  DrawSpring()
+  if stageLevel == 1 then
+    UpdateSpring()
+  end
 
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
   end
-
+   if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
+     CreeperListDraw()
+  end
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
      BridgeListDraw()
   end
 
   pl:draw() -- 플레이어 스프라이트 그리기
-  NoticeDraw()
 end
 
 function loadResources()
@@ -391,6 +404,9 @@ function loadResources()
 
   imgSCreeper = love.graphics.newImage("images/creeper.png")
   imgSCreeper:setFilter("nearest","nearest")
+
+  imgCreeperFire = love.graphics.newImage("images/creeperfire.png")
+  imgCreeperFire:setFilter("nearest","nearest")
 
   imgWGround = love.graphics.newImage("images/winterGround.png")
   imgWGround:setFilter("nearest","nearest")
