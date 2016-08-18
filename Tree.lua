@@ -2,10 +2,7 @@ Tree = {}
 Tree.__index = Tree
 
 tree_frames_x = {}
-tree_frames_y = {}
 tree_frames_x[0]  = love.graphics.newQuad(0,0,64,100,64,100)
-tree_frames_y[0] = love.graphics.newQuad(0,0,108,212,128,128)
-
 
 function Tree.create()
 	local self = {}
