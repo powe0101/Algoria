@@ -377,7 +377,7 @@ function loadResources()
   imgWTree = love.graphics.newImage("images/winterTree.png")
   imgWTree:setFilter("nearest","nearest")
 
-  imgCloud = love.graphics.newImage("images/cloud04.png")
+  imgCloud = love.graphics.newImage("images/cloud.png")
   imgCloud:setFilter("nearest","nearest")
 
   imgHouse = love.graphics.newImage("images/house.png")
