@@ -2,7 +2,7 @@ BackGround = {}
 BackGround.__index = BackGround
 
 backGround_frames_x = {}
-
+sBackGroundCheck=true
 
 function BackGround.create()
 	local self = {}
@@ -47,11 +47,13 @@ end
 
 function BackGround:draw()
 	if stageLevel==0 then
-	backGround_frames_x[0]  = love.graphics.newQuad(0,0,300,200,300,200)
-	love.graphics.draw(imgVillageBackGround,backGround_frames_x[0],self.x,self.y)
+		backGround_frames_x[0]  = love.graphics.newQuad(0,0,300,200,300,200)
+		love.graphics.draw(imgVillageBackGround,backGround_frames_x[0],self.x,self.y)
 	elseif stageLevel==1 then 
+		backGround_frames_x[0]  = love.graphics.newQuad(0,0,600,200,600,200)
+			
 		love.graphics.draw(imgSpringBackGround,backGround_frames_x[0],self.x,self.y)
-	
+		
 	elseif stageLevel==3 then 
 		love.graphics.draw(imgFallBackGround,backGround_frames_x[0],self.x,self.y)
 	end

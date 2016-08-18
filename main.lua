@@ -453,6 +453,9 @@ function loadResources()
   imgVillageBackGround = love.graphics.newImage("images/village.png")
   imgVillageBackGround:setFilter("nearest","nearest")
 
+  imgSpringBackGround = love.graphics.newImage("images/spring.png")
+  imgSpringBackGround:setFilter("nearest","nearest")
+
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
