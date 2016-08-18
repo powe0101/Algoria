@@ -10,7 +10,6 @@ function MakeAlgorithm()
 		love.graphics.draw(imgTest1,test_frames,62, 12) --좌측 문제
 		love.graphics.draw(imgTest2,test_frames,263, 12) --우측 문제
 		love.graphics.draw(imgTest3,test_frames2,465, 12) --정답지 부분
-
 	end
 	--다 마치면 algoCheck는 다시 false로..
 end
