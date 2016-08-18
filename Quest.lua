@@ -15,8 +15,8 @@ function CheckQuest(_x,_y)
   		if self.x-8 < pl:GetX() and pl:GetX() < self.x+8  then --봄에서의 표지퐌 자표를 입력해주면 됨. by.현식 0803
       		questCheck = true
     	end
-    elseif stageLevl == 2 then --근영 여름 08 11
-    	if self.x-10< pl:GetX() and pl:GetX() < self.x+10  then 
+    elseif stageLevel == 2 then --근영 여름 08 11
+    	if self.x-20< pl:GetX() and pl:GetX() < self.x+15 and self.y-10< pl:GetY() and pl:GetY() < self.y+10 then 
     		questCheck = true
         end
   	elseif stageLevel == 3 then --가을
@@ -263,4 +263,5 @@ function DrawQuestBackground()
   	DrawRectangle(30, 5, 250, 85) --검은색 테두리
   	love.graphics.setColor(255,255,255,255)
   	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
+  	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
