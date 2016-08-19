@@ -69,6 +69,7 @@ function CortrolBubbleSort()
 
 				--초기화도 시켜줘야함.
 				secondCheck = false
+				checkedNum = 0
 				--sortControl = 1
 				--secondControl = 1
 			end
