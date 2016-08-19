@@ -139,7 +139,7 @@ end
 
 --Add by G 0729
 function Player:CheckSpaceBarDown(dt)
-	if stageLevel~=2 then
+	if stageLevel~=2 and stageLevel~=4 then
 		if love.keyboard.isDown('space') and self.onGround == true then
 			self.yspeed = self.jump_power + collision_Bottom_Y
 		end
