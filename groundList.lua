@@ -21,6 +21,8 @@ function GroundListDelete()
    groundCount=0
 end
 
+
+
 function GroundListDraw()
    for i=0, groundCount-1 do
      groundList[i]:draw()
