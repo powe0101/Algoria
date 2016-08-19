@@ -44,40 +44,40 @@ end
 
 function TalkOne() --Warrior Talk 1
 
- 	love.graphics.print("I'm a warrior. I'll kill you.", 45, 20)
- 	love.graphics.print("Yor're fucking idiot.", 45, 40)
- 	love.graphics.print("Agree? Yes~ Agree~", 45, 60)
+ 	love.graphics.print("Warrior Part1.", 45, 20)
+ 	love.graphics.print("Warrior Part1.", 45, 40)
+ 	love.graphics.print("Warrior Part1.", 45, 60)
 end
 
 function TalkTwo() --Boss Talk 2
 
- 	love.graphics.print("FUCKKKKKKKKKKKKKKKKK", 405, 22)
- 	love.graphics.print("YOUUUUUUUUUUUUUUUUUU", 405, 42)
- 	love.graphics.print("Agree? Yes~ Agree~", 405, 62)
+ 	love.graphics.print("Boss Talk 2", 405, 22)
+ 	love.graphics.print("Boss Talk 2", 405, 42)
+ 	love.graphics.print("Boss Talk 2", 405, 62)
 end
 
 function TalkThree() --Warrior Talk 2
- 	love.graphics.print("Threeeeeeeeeeeeeeeeee", 45, 20)
- 	love.graphics.print("Threeeeeeeeeeeeeeeeee", 45, 40)
- 	love.graphics.print("Threeeeeeeeeeeeeeeeee", 45, 60)
+ 	love.graphics.print("Warrior Talk 2", 45, 20)
+ 	love.graphics.print("Warrior Talk 2", 45, 40)
+ 	love.graphics.print("Warrior Talk 2", 45, 60)
 end
 
 function TalkFour() --Boss Talk 2
- 	love.graphics.print("FUCKKKKKKKKKKKKKKKKK", 405, 22)
- 	love.graphics.print("YOUUUUUUUUUUUUUUUUUU", 405, 42)
- 	love.graphics.print("Agree? Yes~ Agree~", 405, 62)
+ 	love.graphics.print("Boss Talk 2", 405, 22)
+ 	love.graphics.print("Boss Talk 2", 405, 42)
+ 	love.graphics.print("Boss Talk 2", 405, 62)
 end
 
-function TalkFive() --Boss Talk 2
- 	love.graphics.print("Fiveeeeeeeeeeeeee", 45, 20)
- 	love.graphics.print("Fiveeeeeeeeeeeeeee", 45, 40)
- 	love.graphics.print("Fiveeeeeeeeeeeeeeee", 45, 60)
+function TalkFive() --Warrior Talk 3
+ 	love.graphics.print("Warrior Talk 3", 45, 20)
+ 	love.graphics.print("Warrior Talk 3", 45, 40)
+ 	love.graphics.print("Warrior Talk 3", 45, 60)
 end
 
 function TalkSix() --Boss Talk 3
- 	love.graphics.print("FUCKKKKKKKKKKKKKKKKK", 405, 22)
- 	love.graphics.print("YOUUUUUUUUUUUUUUUUUU", 405, 42)
- 	love.graphics.print("sixsixsix", 405, 62)
+ 	love.graphics.print("Boss Talk 3", 405, 22)
+ 	love.graphics.print("Boss Talk 3", 405, 42)
+ 	love.graphics.print("Boss Talk 3", 405, 62)
 end
 
 function ControlTalkWithBoss()
