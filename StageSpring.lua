@@ -50,6 +50,16 @@ function CreateSpring()
     pl:reset()
   end
 
+  CreateBackGround(-50,0)
+
+  
+  CreateBackGround(550,0)
+
+
+  CreateTree(220,80)
+
+  CreateTree(820,80)
+
   stageSpring = StageSpring.Create()
   stageSpring:CreateDustWind()
 

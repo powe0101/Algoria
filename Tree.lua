@@ -2,10 +2,7 @@ Tree = {}
 Tree.__index = Tree
 
 tree_frames_x = {}
-tree_frames_y = {}
 tree_frames_x[0]  = love.graphics.newQuad(0,0,64,100,64,100)
-tree_frames_y[0] = love.graphics.newQuad(0,0,108,212,128,128)
-
 
 function Tree.create()
 	local self = {}
@@ -51,9 +48,8 @@ function Tree:draw()
 		love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 2 then
 		love.graphics.draw(imgSTree,tree_frames_x[0],self.x,self.y)
-	elseif stageLevel == 3 then --가을입니다. by.현식
-		fall_tree_frame = love.graphics.newQuad(0,0,120,120,120,120)
-		love.graphics.draw(imgFTree,fall_tree_frame,self.x,self.y)
+	elseif stageLevel == 3 then
+		love.graphics.draw(imgFTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 4 then
 		love.graphics.draw(imgWTree,tree_frames_x[0],self.x,self.y)
 	end

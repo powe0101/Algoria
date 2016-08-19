@@ -34,7 +34,8 @@ require("Boss")
 require("bossList")
 require("Creeper")
 require("CreeperList")
-
+require("background")
+require("backgroundList")
 --이하 스테이지 관련
 require("village")
 require("Season")
@@ -286,6 +287,7 @@ end
 
 function updateGame(dt)
   pl:update(dt)
+  BackGroundListUpdate(dt)
   GroundListUpdate(dt)
   TreeListUpdate(dt)
   BoxListUpdate(dt)
@@ -299,6 +301,7 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
   BossListUpdate(dt)
+
 
   if stageLevel == 1 then
     dustWind:Update(dt)
@@ -323,7 +326,7 @@ function updateGame(dt)
 end
 
 function drawGame()
-
+  BackGroundListDraw()
   GroundListDraw()
   CloudListDraw()
   TreeListDraw()
@@ -374,7 +377,7 @@ function loadResources()
   imgSTree = love.graphics.newImage("images/summerTree.png")
   imgSTree:setFilter("nearest","nearest")
 
-  imgFTree = love.graphics.newImage("images/FallTree03.png")
+  imgFTree = love.graphics.newImage("images/fallTree.png")
   imgFTree:setFilter("nearest","nearest")
 
   imgWTree = love.graphics.newImage("images/winterTree.png")
@@ -434,27 +437,30 @@ function loadResources()
 
   imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
+ 
   imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
+  
   imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
+ 
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
-  imgBoss = love.graphics.newImage("images/over_c.png")  --중간보스 이미지 임시용
+  imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
 
-  imgTest1 = love.graphics.newImage("images/part1.png")
-  imgTest1:setFilter("nearest","nearest")
+  imgVillageBackGround = love.graphics.newImage("images/village.png")
+  imgVillageBackGround:setFilter("nearest","nearest")
 
-  imgTest2 = love.graphics.newImage("images/part2.png")
-  imgTest2:setFilter("nearest","nearest")
+  imgSpringBackGround = love.graphics.newImage("images/spring.png")
+  imgSpringBackGround:setFilter("nearest","nearest")
 
-  imgTest3 = love.graphics.newImage("images/part3.png")
-  imgTest3:setFilter("nearest","nearest")
+  imgWinterBackGround = love.graphics.newImage("images/winter.png")
+  imgWinterBackGround :setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

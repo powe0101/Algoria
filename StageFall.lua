@@ -23,9 +23,9 @@ function CreateFall()
         CreateGround(163,76)  -- 432 --736/368
         CreateGround(465,76)
 
-        CreateTree(110,63)
-        CreateTree(400,63)
-        CreateTree(-500,63)
+        CreateTree(-50,80)
+        CreateTree(500,80)
+        CreateTree(-500,80)
 
         CreateCastle(-1600, 15) -- 중간보스 성
 
