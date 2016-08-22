@@ -470,7 +470,9 @@ end
 
 function createStage() --0721 근영 맵 만드는 함수
   if stageLevel==0 then -- if문으로 stage설정
-    CreateVillage()
+    --CreateVillage()
+    stageLevel = 7
+    CreateBossCastle()
   end
 end
 
