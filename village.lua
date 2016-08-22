@@ -40,10 +40,9 @@ function CreateVillage()
   CreateBlackSmithHouse(850,108)
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
+  CreateBox(200,155)
   CreateBox(220,155)
-   CreateBox(230,155)
-    CreateBox(240,155)
-  end
+end
 
 function DeleteVillage()
   BackGroundListDelete()

@@ -109,11 +109,11 @@ function showBlockInfo(x,y)
 end
 
 function showBooleanInfo(x,y)
-  love.graphics.print("isCanMoveRight :"..tostring(isCanMoveRight).."isCanMoveLeft : "..tostring(isCanMoveLeft),x,y)
+  love.graphics.print("isJump :"..tostring(isJump).."isCanMove : "..tostring(isCanMove),x,y)
 end
 
 function showStageIfno(x,y)
-  love.graphics.print("collision_Right_X :"..tostring(collision_Right_X),x,y)
+  love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
 end
 
 function showBoxInfo(x,y)
