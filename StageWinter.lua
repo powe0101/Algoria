@@ -17,8 +17,8 @@ function CreateWinter()
 		CreateTree(750,275)
 		CreateTree(1000,275)
 
-		CreateBox(0,350)
-		CreateBox(20,330)
+		CreateBox(50,350)
+		CreateBox(70,330)
 
 
 end
