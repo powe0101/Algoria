@@ -33,6 +33,7 @@ end
 
 function DrawQuest() -- phase별로 문제를 그리게 됨.
 	DrawQuestBackground()
+	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 
   	love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
 
@@ -263,5 +264,4 @@ function DrawQuestBackground()
   	DrawRectangle(30, 5, 250, 85) --검은색 테두리
   	love.graphics.setColor(255,255,255,255)
   	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
-  	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end

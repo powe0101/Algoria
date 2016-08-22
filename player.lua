@@ -250,7 +250,7 @@ function Player:reset()
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
 	elseif stageLevel == 4 then
-		self.player_ground_y = 140
+		self.player_ground_y = 330
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
 	else
