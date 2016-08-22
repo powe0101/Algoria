@@ -143,14 +143,12 @@ function Player:CheckSpaceBarDown(dt)
 		if love.keyboard.isDown('space') and self.onGround == true then
 			self.yspeed = self.jump_power + collision_Bottom_Y
 		end
-
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity
 	elseif stageLevel==2 then
 		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 then
 			self.yspeed = self.jump_power
 		end
-
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity+13
 	end
@@ -250,6 +248,8 @@ function Player:reset()
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
 	elseif stageLevel == 4 then
+		self.jump_power = -400
+		self.gravity = 500
 		self.player_ground_y = 140
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
@@ -279,7 +279,6 @@ end
 function Player:SetY(_y)
 	self.y=_y
 end
-
 
 function Player:GetIsTop()
 	return self.isTop
