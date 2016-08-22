@@ -26,6 +26,8 @@ isPlayerRight = true
 
 collision_Top_Y = 0
 collision_Bottom_Y = 0
+collision_Right_X =  0
+collisionCheck=true --0822 근영 오른쪽 벽에 플레이어가 부딪혔을때 true false로 판단하는 변수 이유는 플레이어와 박스 빈공간 없에기 위해 만듬  
 
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
@@ -61,9 +63,14 @@ end
 
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
+    if isCanMoveRight==false and isCanMoveLeft and collisionCheck then --0822 근영 오른쪽 벽에 플레이어가 부딪혔을때 플레이어와 박스 빈공간 없에기 위해 만듬 
+    	self.x=collision_Right_X-76
+    	collisionCheck=false
+	elseif self.isTop and stageLevel~=2 then-- 0822 근영 플레이어가 상자위에 올라가있을때 옆의 상자로 이동하기 위한 조건문 
+	 	self.x = self.x + PLAYER_MOVE_POWER
+	elseif self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
 		self.x = self.x + PLAYER_MOVE_POWER
-  elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
+    elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x + PLAYER_MOVE_POWER
   end
 
@@ -84,7 +91,12 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0  and isCanMoveLeft and stageLevel~=2 then
+	if self.isTop and stageLevel~=2 then  -- 0822 근영 플레이어가 상자위에 올라가있을때 옆의 상자로 이동하기 위한 조건문 
+	 self.x = self.x - PLAYER_MOVE_POWER
+	elseif isCanMoveRight==false and isCanMoveLeft==true and collisionCheck == false then --0822 근영 오른쪽 벽에 플레이어가 부딪혔을때 플레이어와 박스 빈공간 없에기 위해 만듬  
+    	self.x=self.x-PLAYER_MOVE_POWER-10
+    	collisionCheck=true
+	elseif self.x > 0  and isCanMoveLeft and stageLevel~=2 then
 		self.x = self.x - PLAYER_MOVE_POWER
 	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x - PLAYER_MOVE_POWER
@@ -142,6 +154,10 @@ function Player:CheckSpaceBarDown(dt)
 	if stageLevel~=2 then
 		if love.keyboard.isDown('space') and self.onGround == true then
 			self.yspeed = self.jump_power + collision_Bottom_Y
+			if collisionCheck == false then -- 0822 근영 벽에 부딪히고 x값이 변한 상태에서 왼쪽으로 이동한하고 점프 했을시 원래 좌표값을 돌려줘야해서 조건문 설정 결과적으로 빈공간 없애기 위해 조건문 만듬
+				collisionCheck=true 
+				self.x=self.x-10
+			end
 		end
 
 		self.onGround = false
