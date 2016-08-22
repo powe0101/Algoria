@@ -5,11 +5,6 @@ function CreateFall()
         pl:reset()
         --말타는 상황을 가정.
         MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
-        CreateBackGround(-1870,0)
-        CreateBackGround(-1286,0)
-        CreateBackGround(-700,0)
-        CreateBackGround(-486,0)
-        CreateBackGround(100,0)
 
         CreateCloud(0,1)
         CreateCloud(100,5)
