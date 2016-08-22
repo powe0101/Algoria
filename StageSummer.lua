@@ -1,13 +1,12 @@
 function CreateSummer()
 	if stageLevel == 2 then
     phase = 1
-    pl=nil
+    
 
     HEIGHT=400
     updateScale()
   
-    pl = Player.create()
-    
+    pl:reset()    
     pl:StartSummerStage()
    
     

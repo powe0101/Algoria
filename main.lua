@@ -437,13 +437,13 @@ function loadResources()
 
   imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
- 
+
   imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
-  
+
   imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
- 
+
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
@@ -455,10 +455,10 @@ function loadResources()
 
   imgVillageBackGround = love.graphics.newImage("images/village.png")
   imgVillageBackGround:setFilter("nearest","nearest")
-
   imgSpringBackGround = love.graphics.newImage("images/spring.png")
   imgSpringBackGround:setFilter("nearest","nearest")
-
+  imgFallBackGround = love.graphics.newImage("images/fallBackground.png")
+  imgFallBackGround:setFilter("nearest","nearest")
   imgWinterBackGround = love.graphics.newImage("images/winter.png")
   imgWinterBackGround :setFilter("nearest","nearest")
 
