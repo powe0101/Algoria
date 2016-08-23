@@ -478,15 +478,21 @@ function loadResources()
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
 
+  imgStone = love.graphics.newImage("images/springStone.png")
+  imgStone:setFilter("nearest","nearest")
+  imgSStone = love.graphics.newImage("images/summerStone.png")
+  imgSStone:setFilter("nearest","nearest")
+  imgFStone = love.graphics.newImage("images/fallStone.png")
+  imgFStone:setFilter("nearest","nearest")
+  imgWStone = love.graphics.newImage("images/winterStone.png")
+  imgWStone:setFilter("nearest","nearest")
+
   imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
-
   imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
-
   imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
-
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
