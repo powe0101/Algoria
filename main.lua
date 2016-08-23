@@ -63,6 +63,7 @@ require("ManageHeart")
 --보스 관련
 require("BossTalk")
 require("Algorithm")
+require("BubbleSort")
 
 --봄
 require("DustWind")
@@ -184,6 +185,7 @@ function love.update(dt)
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
+  --please()
 end
 
 
@@ -256,6 +258,7 @@ function love.keypressed(key,scancode) -- 키입력
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
+  CortrolBubbleSort()
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
@@ -434,13 +437,13 @@ function loadResources()
 
   imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
- 
+
   imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
-  
+
   imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
- 
+
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
@@ -452,11 +455,11 @@ function loadResources()
 
   imgVillageBackGround = love.graphics.newImage("images/village.png")
   imgVillageBackGround:setFilter("nearest","nearest")
-
   imgSpringBackGround = love.graphics.newImage("images/spring.png")
   imgSpringBackGround:setFilter("nearest","nearest")
-
-    imgWinterBackGround = love.graphics.newImage("images/winter.png")
+  imgFallBackGround = love.graphics.newImage("images/fallBackground.png")
+  imgFallBackGround:setFilter("nearest","nearest")
+  imgWinterBackGround = love.graphics.newImage("images/winter.png")
   imgWinterBackGround :setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
@@ -468,6 +471,8 @@ end
 function createStage() --0721 근영 맵 만드는 함수
   if stageLevel==0 then -- if문으로 stage설정
     CreateVillage()
+    --stageLevel = 7
+    --CreateBossCastle()
   end
 end
 

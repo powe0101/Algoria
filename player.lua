@@ -61,9 +61,13 @@ end
 
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
+	if self.isTop then 
+		if isCanMoveLeft~=false or isCanMoveRight~=false then 
 		self.x = self.x + PLAYER_MOVE_POWER
-  elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
+	end
+	elseif self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
+		self.x = self.x + PLAYER_MOVE_POWER
+    elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x + PLAYER_MOVE_POWER
   end
 
@@ -84,7 +88,11 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.x > 0  and isCanMoveLeft and stageLevel~=2 then
+	if self.isTop then 
+		if isCanMoveLeft~=false or isCanMoveRight~=true then 
+			self.x = self.x - PLAYER_MOVE_POWER
+		end
+	elseif self.x > 0  and isCanMoveLeft and stageLevel~=2 then
 		self.x = self.x - PLAYER_MOVE_POWER
 	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x - PLAYER_MOVE_POWER
@@ -250,7 +258,7 @@ function Player:reset()
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
 	elseif stageLevel == 4 then
-		self.player_ground_y = 140
+		self.player_ground_y = 330
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
 	else
