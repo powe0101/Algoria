@@ -5,16 +5,19 @@
 
 -- love.keypressed(key,scancode)
 -- main.lua -> update
-
-
 title = false
+
 min_dt = 1/30
 next_time = love.timer.getTime()
 
 function TitleRun() --main의 createStage 메서드에서 호출
-      PlayTitleAudio()
-      CreateTitleVillage(0)
-      title = true
+
+  if splash == false then
+    PlayTitleAudio()
+    love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함
+    CreateTitleVillage(0)
+    title = true
+  end
 end
 
 function StopTitleAudio()

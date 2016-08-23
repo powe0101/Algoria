@@ -100,16 +100,26 @@ menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N)
 bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. 메인 update를 멈추게 만듬.
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
+splashy = require 'splashy'
+splash = true
+
 function love.load()
-  love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함
+  love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
   loadResources() -- 이미지 리소스 불러옴
   createStage() -- stage 만들기 근영
-
+  loadSplash()
   updateScale()
   start() -- 시작
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
+
+function loadSplash()
+    splashy.addSplash(love.graphics.newImage("images/love.png"))
+    splashy.onComplete(function() TitleRun() end) -- Runs the argument once all splashes are done.
+    splash = false
+end
+
 
 function audio()
   bgCheck = true
@@ -173,6 +183,8 @@ function start()
 end
 
 function love.update(dt)
+  splashy.update(dt) -- Updates the fading of the splash images.
+
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false then
     updateGame(dt)
@@ -198,16 +210,17 @@ function love.draw()
   test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
 
 
+  splashy.draw() -- Draws the splashes to the screen.
+
   love.graphics.scale(SCALE,SCALE) -- 크기 지정
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 
-  if title == true then
+  if title == true and splash == false then
     love.graphics.setColor(0,0,0)
     love.graphics.print("Press Enter Key",250,100)
     love.graphics.setColor(255,255,255,255)
-
   end
 
   if popupCheck then --0805HS
@@ -284,7 +297,7 @@ function love.keypressed(key,scancode) -- 키입력
   ControlTalkWithBoss()
   CortrolBubbleSort()
 
-  CheckStartGameForTitle() -- 타이틀 키 입력 체크 
+  CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
 
   if love.keyboard.isDown("escape") then
