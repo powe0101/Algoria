@@ -20,7 +20,7 @@ function Box:create()
 end
 
 function Box:reset(x,y)
-	--0808 근영 yfix yspeed 추가 
+	--0808 근영 yfix yspeed 추가
 	self.yfix=y
 	self.yspeed = 0
 	self.onGround = true
@@ -65,15 +65,15 @@ function Box:CreateDirectionBox()
 
 end
 
-function Box:SpaceJump(dt) --0808근영 점프함수  
+function Box:SpaceJump(dt) --0808근영 점프함수
 	self=SCheckSpaceBarDown(self,dt)
 end
 
-function Box:UpdateMove(dt) --tree key이벤트 
+function Box:UpdateMove(dt) --tree key이벤트
 	self=BackgroundMove(self,dt)
   end
 
-function Box:normal(dt) --cloud 이동 
+function Box:normal(dt) --cloud 이동
 	self=BackgroundNormal(self,dt)
 end
 
@@ -83,16 +83,14 @@ function Box:update(dt)
 	end
 	self:UpdateMove(dt)
 	self:normal(dt)
-	self.x_distance = pl:GetX() - self:GetX()
-	self.y_distance = pl:GetY() - self:GetY()
-	--Debug
+
 end
 
 
 
 function Box:GetX()
 	return self.x
-end 
+end
 
 function Box:GetY()
 	return self.y
@@ -108,23 +106,23 @@ function Box:draw()
 	love.graphics.setColor(255,255,255) -- 흰색 RGBA
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
 
-  	if DEBUG_SETTING then 
+  	if DEBUG_SETTING then
  		drawDirectionBox(self,255,255,255)
  	end
 
- 	if self.isCollisionRight then 
+ 	if self.isCollisionRight then
  		self:DrawLine(self.x + BOX_WIDTH, self.y)
  	end
 
- 	if self.isCollisionLeft then 
+ 	if self.isCollisionLeft then
  		self:DrawLine(self.x - BOX_WIDTH, self.y)
  	end
 
- 	if self.isCollisionTop then 
+ 	if self.isCollisionTop then
  		self:DrawLine(self.x, self.y - BOX_WIDTH)
  	end
 
- 	if self.isCollisionBottom then 
+ 	if self.isCollisionBottom then
  		self:DrawLine(self.x, self.y + BOX_WIDTH)
  	end
 
