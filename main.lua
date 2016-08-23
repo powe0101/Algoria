@@ -74,6 +74,9 @@ require("DustWind")
 --Title
 require("Title")
 
+splashy = require 'splashy' -- 시작 로고를 위한 라이브러리
+splash = true
+
 WIDTH = 600--윈도우 폭
 HEIGHT = 200-- 윈도우 높이
 SCALE = 2 -- 화면의 크기
@@ -100,26 +103,23 @@ menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N)
 bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. 메인 update를 멈추게 만듬.
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
-splashy = require 'splashy'
-splash = true
-
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
   loadResources() -- 이미지 리소스 불러옴
   createStage() -- stage 만들기 근영
-  loadSplash()
+  loadSplash() -- 스플래시 로드
   updateScale()
-  start() -- 시작
+
+  --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
 end
 
-function loadSplash()
+function loadSplash() -- 스플래시가 끝나면 자동으로 타이틀을 불러온다
     splashy.addSplash(love.graphics.newImage("images/love.png"))
     splashy.onComplete(function() TitleRun() end) -- Runs the argument once all splashes are done.
     splash = false
 end
-
 
 function audio()
   bgCheck = true
@@ -208,7 +208,6 @@ end
 
 function love.draw()
   test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
-
 
   splashy.draw() -- Draws the splashes to the screen.
 
