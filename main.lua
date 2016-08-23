@@ -74,6 +74,7 @@ require("DustWind")
 --Title
 require("Title")
 
+--splash 0823 G
 splashy = require 'splashy' -- 시작 로고를 위한 라이브러리
 splash = true
 
@@ -205,7 +206,6 @@ function love.update(dt)
   --please()
 end
 
-
 function love.draw()
   test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
 
@@ -217,9 +217,7 @@ function love.draw()
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
 
   if title == true and splash == false then
-    love.graphics.setColor(0,0,0)
-    love.graphics.print("Press Enter Key",250,100)
-    love.graphics.setColor(255,255,255,255)
+    DrawTitleMenu()
   end
 
   if popupCheck then --0805HS
@@ -285,7 +283,6 @@ function CheckStartGameForTitle()
     pl = Player.create() -- 플레이어 객체
     pl:reset()
     CreateVillage() -- 실제 마을 스테이지 생성
-    StopTitleAudio() -- 타이틀 음악 정지
   end
 end
 

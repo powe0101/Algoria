@@ -10,6 +10,12 @@ title = false
 min_dt = 1/30
 next_time = love.timer.getTime()
 
+function DrawTitleMenu()
+  love.graphics.setColor(0,0,0)
+  love.graphics.print("Press Enter Key",250,100)
+  love.graphics.setColor(255,255,255,255)
+end
+
 function TitleRun() --main의 createStage 메서드에서 호출
 
   if splash == false then
@@ -36,6 +42,9 @@ function PlayTitleAudio()
     bgMusic = love.audio.newSource("audio/title.mp3")
     love.audio.setVolume(0.3)
     love.audio.play(bgMusic)
+    bgMusic:setLooping(true)
+    bgMusic:setPitch(2)
+    print(bgMusic:getPitch())
 end
 
 function CreateTitleVillage(_y)
