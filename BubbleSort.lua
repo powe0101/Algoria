@@ -49,11 +49,11 @@ function GetRandomHeight()
 	hPart7 = {80, 30, 50, 40, 90}
 	hPart8 = {110, 30, 50, 90, 70}
 	hPart9 = {30, 50, 70, 76, 25}
-	hPart10 = {77, 33, 22, 111, 55}
+	hPart10 = {150, 110, 10, 30, 80}
 
 	hList = {hPart1, hPart2, hPart3, hPart4, hPart5,
 				hPart6, hPart7, hPart8, hPart9, hPart10}
-	ranNum = love.math.random(5)
+	ranNum = love.math.random(10)
 
 	for k = 0, table.getn(hList[ranNum]) do
 		bubbleSortAnswerList[k] = hList[ranNum][k]

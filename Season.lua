@@ -37,10 +37,10 @@ function DrawPopup()
   love.graphics.rectangle("fill", 162, 12, 196, 156)
 
   love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-  love.graphics.print("Spring", 200, 45)
-  love.graphics.print("Summer", 200, 65)
-  love.graphics.print("Fall", 200, 85)
-  love.graphics.print("Winter", 200, 105)
+  love.graphics.print("봄", 200, 45)
+  love.graphics.print("여름", 200, 65)
+  love.graphics.print("가을", 200, 85)
+  love.graphics.print("겨울", 200, 105)
 
 
   if levelCheck == 1 then
@@ -57,19 +57,19 @@ function DrawPopup()
 end
 
 function DrawSpringMenu() --팝업창에서 봄 선택
-  love.graphics.rectangle("fill", 180,45,10,10)
+  love.graphics.rectangle("fill", 180,53,10,10)
 end
 
 function DrawSummerMenu() --팝업창에서 여름 선택
-  love.graphics.rectangle("fill", 180,65,10,10)
+  love.graphics.rectangle("fill", 180,73,10,10)
 end
 
 function DrawFallMenu() --팝업창에서 겨울 선택
-  love.graphics.rectangle("fill", 180,85,10,10)
+  love.graphics.rectangle("fill", 180,93,10,10)
 end
 
 function DrawWinterMenu() --팝업창에서 겨울 선택
-  love.graphics.rectangle("fill", 180,105,10,10)
+  love.graphics.rectangle("fill", 180,113,10,10)
 
 end
 
