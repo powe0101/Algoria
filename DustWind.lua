@@ -50,6 +50,7 @@ function DustWind:Move(_distance)
 	-- 바람이 움직인다
 	local x = AnimationDustWind.x
 	local y = AnimationDustWind.y
+	print("x : "..tostring(x).." y : "..tostring(y))
 	for i=1,_distance,0.1 do
 		AnimationDustWind:SetAniPostion(x-i,y)
 	end

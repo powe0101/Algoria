@@ -69,6 +69,14 @@ require("BubbleSort")
 require("DustWind")
 
 --block
+
+
+--Title
+require("Title")
+
+splashy = require 'splashy' -- 시작 로고를 위한 라이브러리
+splash = true
+
 WIDTH = 600--윈도우 폭
 HEIGHT = 200-- 윈도우 높이
 SCALE = 2 -- 화면의 크기
@@ -79,7 +87,7 @@ darkcolor = {2,9,4,255} -- 검정색 RGBA
 isFullScreen = false --전체화면 설정
 
 
-stageLevel = 0 --맵 시작 값 --0721 근영
+stageLevel = -1 --맵 시작 값 --0721 근영
 canPass = false --도개교가 열렸을 때 지나갈 수 있도록 boolean 변수 추가. by.현식 0728
 
 BridegePassValue = 0 --초기 값은 0. 문제를 풀때마다 30씩 증가해서 총 3번째 문제를 풀면 위의 canPass가 true로 바뀌게 됨. by.현식 0729
@@ -96,17 +104,21 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 function love.load()
-  love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함
+  love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
   loadResources() -- 이미지 리소스 불러옴
-
-  pl = Player.create() -- 플레이어 객체
-
   createStage() -- stage 만들기 근영
-
+  loadSplash() -- 스플래시 로드
   updateScale()
-  start() -- 시작
+
+  --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
+end
+
+function loadSplash() -- 스플래시가 끝나면 자동으로 타이틀을 불러온다
+    splashy.addSplash(love.graphics.newImage("images/love.png"))
+    splashy.onComplete(function() TitleRun() end) -- Runs the argument once all splashes are done.
+    splash = false
 end
 
 function audio()
@@ -164,10 +176,15 @@ function love.run()
 end
 
 function start()
-  pl:reset() -- 플레이어 객체 새로고침
+  if stageLevel ~= -1 then
+    pl = Player.create() -- 플레이어 객체
+    pl:reset() -- 플레이어 객체 새로고침
+  end
 end
 
 function love.update(dt)
+  splashy.update(dt) -- Updates the fading of the splash images.
+
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false then
     updateGame(dt)
@@ -192,11 +209,18 @@ end
 function love.draw()
   test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
 
+  splashy.draw() -- Draws the splashes to the screen.
 
   love.graphics.scale(SCALE,SCALE) -- 크기 지정
   love.graphics.setColor(255,255,255,255) -- 흰색 RGBA
   drawGame() -- 게임 로드
   drawDebug(DEBUG_SETTING) -- 디버깅 호출 (On Off 는 debug.lua)
+
+  if title == true and splash == false then
+    love.graphics.setColor(0,0,0)
+    love.graphics.print("Press Enter Key",250,100)
+    love.graphics.setColor(255,255,255,255)
+  end
 
   if popupCheck then --0805HS
     DrawPopup()
@@ -253,12 +277,27 @@ function SetScreen()
   success = love.window.setFullscreen(isFullScreen)
 end
 
+function CheckStartGameForTitle()
+  if title and love.keyboard.isDown("return") then -- 타이틀에서 게임을 시작함
+    DeleteVillage() -- 타이틀용 마을 삭제
+    stageLevel = 0 -- 마을 스테이지 번호 0
+    title = false -- 타이틀 조건 해제
+    pl = Player.create() -- 플레이어 객체
+    pl:reset()
+    CreateVillage() -- 실제 마을 스테이지 생성
+    StopTitleAudio() -- 타이틀 음악 정지
+  end
+end
+
 function love.keypressed(key,scancode) -- 키입력
   ControlBlackSmith()
   ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
+
+  CheckStartGameForTitle() -- 타이틀 키 입력 체크
+
 
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
@@ -286,7 +325,9 @@ function updateScale()
 end
 
 function updateGame(dt)
-  pl:update(dt)
+  if pl then
+    pl:update(dt)
+  end
   BackGroundListUpdate(dt)
   GroundListUpdate(dt)
   TreeListUpdate(dt)
@@ -355,7 +396,9 @@ function drawGame()
      BridgeListDraw()
   end
 
-  pl:draw() -- 플레이어 스프라이트 그리기
+  if pl then
+    pl:draw() -- 플레이어 스프라이트 그리기
+  end
 end
 
 function loadResources()
@@ -469,6 +512,9 @@ end
 
 
 function createStage() --0721 근영 맵 만드는 함수
+  if stageLevel == -1 then
+    TitleRun()
+  end
   if stageLevel==0 then -- if문으로 stage설정
     CreateVillage()
     --stageLevel = 7
