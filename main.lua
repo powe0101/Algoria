@@ -63,6 +63,7 @@ require("ManageHeart")
 --보스 관련
 require("BossTalk")
 require("Algorithm")
+require("BubbleSort")
 
 --봄
 require("DustWind")
@@ -184,8 +185,7 @@ function love.update(dt)
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
-
-  --UpdateRectSelect()
+  --please()
 end
 
 
@@ -471,6 +471,8 @@ end
 function createStage() --0721 근영 맵 만드는 함수
   if stageLevel==0 then -- if문으로 stage설정
     CreateVillage()
+    --stageLevel = 7
+    --CreateBossCastle()
   end
 end
 

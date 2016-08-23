@@ -1,4 +1,4 @@
-DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 function drawDebug(setting)  
   if setting == false then
@@ -109,7 +109,7 @@ function showBlockInfo(x,y)
 end
 
 function showBooleanInfo(x,y)
-  love.graphics.print("isJump :"..tostring(isJump).."isCanMove : "..tostring(isCanMove),x,y)
+  love.graphics.print("isCanMoveRight :"..tostring(isCanMoveRight).."isCanMoveLeft : "..tostring(isCanMoveLeft),x,y)
 end
 
 function showStageIfno(x,y)
