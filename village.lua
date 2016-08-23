@@ -11,8 +11,7 @@ function CreateVillage()
     pl=Player.create()
     pl:ResetCoord()
   end
-  --이상 초기화 부분.
-
+  SetVilliageBackgroundMusic()
   CreateGround(-49,76)
   CreateGround(541,76)
   CreateBackGround(-40,0)
@@ -46,16 +45,16 @@ function CreateVillage()
 
   CreateBox(240,135)
   CreateBox(250,135)
-  
+
   CreateBox(260,155)
-
-
   CreateBox(270,155)
-  
-
-  
 end
 
+function SetVilliageBackgroundMusic()
+  love.audio.rewind(bgMusic)
+  bgMusic:setPitch(1)
+  --이상 초기화 부분.
+end
 function DeleteVillage()
   BackGroundListDelete()
   CloudListDelete()
