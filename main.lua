@@ -309,12 +309,9 @@ function love.keypressed(key,scancode) -- 키입력
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
-  if love.keyboard.isDown("return") then
-      splashy.skipSplash()
-  end
+
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
-
     if bgCheck then
       love.audio.pause()
       bgCheck = false
