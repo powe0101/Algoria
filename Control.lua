@@ -45,7 +45,10 @@ function BackgroundNormal(_s,dt) --07 21 근영 background 이동
     if checkPlaying==false and groundList[0]:GetY()>260 and canPass then -- 여름 스테이지에서 문제를 다 풀고 가시애니메이션이 실행 후
     	return self
     elseif pl and pl:GetIsTop()then--상자 위에 올라 갔을때
-      self.yspeed=0
+      if collision_Top_Y+30<pl:GetY() then
+          self.yspeed=0
+        end
+     
     elseif pl and pl:GetY()>290 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
       self.yspeed = 0
       self.onGround = true
