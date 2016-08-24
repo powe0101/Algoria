@@ -12,6 +12,19 @@ function CreateBossCastle()
   	CreateGround(481,0)
 
   	CreateBoss(500,21)
+
+		PlayBossMusic()
+end
+
+function PlayBossMusic()
+	if bgMusic then
+		love.audio.stop(bgMusic)
+	end
+	bgCheck = true
+	bgMusic = love.audio.newSource("audio/Overworld.mp3")
+	love.audio.setVolume(0.3)
+	love.audio.play(bgMusic)
+	bgMusic:setLooping(true)
 end
 
 function CheckBossCastle()
