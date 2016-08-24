@@ -63,6 +63,16 @@ end
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
 
+	if self.x < WIDTH - 10  and stageLevel~=2 and isCanMoveRight then
+
+		self.x = self.x + PLAYER_MOVE_POWER
+
+	elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
+
+		self.x = self.x + PLAYER_MOVE_POWER
+  end
+
+
   	isPlayerRight = false
 	if stageLevel == 1 then
 		player_now_frame = player_frames_left[math.floor(self.frame)]
@@ -75,20 +85,6 @@ function Player:UpdateMoveRight(dt)
 	else
 		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
-
-
-
-	if self.x < WIDTH - 10  and stageLevel~=2 and isCanMoveRight then
-        
-		self.x = self.x + PLAYER_MOVE_POWER
-	elseif self.x < WIDTH - 10  and stageLevel~=2 and isCanMoveRight and self.onGround then
-			self.x = self.x + PLAYER_MOVE_POWER
-		
-    elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
-
-		self.x = self.x + PLAYER_MOVE_POWER
-  end
-
 
 end
 --Add by G 0729
@@ -325,25 +321,25 @@ end
 function Player:CollisionByBox()
 	for i = 0 , boxCount - 1 do
 		boxList[i].isCollisionRight =
-		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH-7,boxList[i]:GetY(),self)
+		self:collideWithPoint(boxList[i]:GetX() + BOX_WIDTH-7,boxList[i]:GetY()+20,self)
 
 		boxList[i].isCollisionLeft =
-		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH+7,boxList[i]:GetY(),self)
+		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH+7,boxList[i]:GetY()+20,self)
 
 		boxList[i].isCollisionBottom =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
 
 		boxList[i].isCollisionTop =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH-20,self)
-		
-		if boxList[i].isCollisionTop==false then --박스 위에 올라가는 판정 높이기 위하여 한번더 검사 0823 근영 
-			boxList[i].isCollisionTop =
-			self:CheckIsTop(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
+		if boxList[i].isCollisionTop==false then
+
+		boxList[i].isCollisionTop =
+		self:collideWithPoint2(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
 		end
 
 	end
 end
-function Player:CheckIsTop(x,y,_player)--박스 위에 올라가는 판정 높이기 위하여 한번더 검사 0823 근영
+function Player:collideWithPoint2(x,y,_player)
  		if 
          pl:GetX()-4<x and x<pl:GetX()+22 then
              if pl:GetY()<y then
@@ -369,7 +365,7 @@ function Player:collideWithPoint(x,y,_player)
 			return false
 		end
  
-		if x1 + 30 > x2 + w2 or -- 플레이어 기준 왼쪽
+		if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면
        	x2 + 25 > x1 + w1 or -- 오른쪽
        	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면
@@ -417,6 +413,19 @@ function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
     	LifeMinus()
 	end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
