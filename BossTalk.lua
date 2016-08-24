@@ -89,6 +89,7 @@ function ControlTalkWithBoss()
 
 			if talkCount == 7 then
 				algoCheck = true
+				love.timer.sleep(0.3)
 			end
     	end
 

@@ -1,9 +1,11 @@
-DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 function drawDebug(setting)  
   if setting == false then
     return 
   end
+
+  love.graphics.setFont(love.graphics.newFont("font/nanumBold.ttf", 10))
 
   love.graphics.setColor(darkcolor)  
 
@@ -100,12 +102,12 @@ function showKeyInfo(x,y)
 end
 
 function showPlayerInfo(x,y)
-  love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",x, y)
+  --love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",x, y)
 end
 
 function showBlockInfo(x,y)
   love.graphics.print("blockX : "..tostring(blockX).." blockY : "..tostring(blockY).." nowX : "..tostring(nowX).." nowY: "..tostring(nowY),x,y)
-  love.graphics.print("yspeed : "..tostring(pl.yspeed)..tostring(collision_Bottom_Y))
+  --love.graphics.print("yspeed : "..tostring(pl.yspeed)..tostring(collision_Bottom_Y))
 end
 
 function showBooleanInfo(x,y)

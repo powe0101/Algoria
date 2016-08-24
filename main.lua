@@ -104,6 +104,8 @@ menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N)
 bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. 메인 update를 멈추게 만듬.
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
+bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
   loadResources() -- 이미지 리소스 불러옴
@@ -111,9 +113,18 @@ function love.load()
   loadSplash() -- 스플래시 로드
   updateScale()
 
+  SetGoyangFont() --폰트설정. BY.현식 0823.
+  start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
+end
+
+
+function SetGoyangFont()
+    --고양시에서 무료로 배포하는 폰트. 추가적으로 저작권 표시해야할 수 있음.
+    mainFont = love.graphics.newFont("font/Goyang.ttf", 20);
+    love.graphics.setFont(mainFont)
 end
 
 function loadSplash() -- 스플래시가 끝나면 자동으로 타이틀을 불러온다
@@ -187,7 +198,7 @@ function love.update(dt)
   splashy.update(dt) -- Updates the fading of the splash images.
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
-    and bossTalkCheck == false and algoCheck == false then
+    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false then
     updateGame(dt)
   end
 
@@ -203,7 +214,6 @@ function love.update(dt)
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
-  --please()
 end
 
 function love.draw()
@@ -238,6 +248,10 @@ function love.draw()
 
   if algoCheck then
     MakeAlgorithm()
+  end
+
+  if bubbleTipCheck then
+    DrawBubbleSortTip()
   end
 
   HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.

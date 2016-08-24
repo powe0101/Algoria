@@ -51,7 +51,7 @@ function AnswerLoad()
 	exampleList = {springPhase2List, springPhase3List, summerPhase2List, summerPhase3List,
 				   fallPhase2List, fallPhase3List, winterPhase2List, winterPhase3List}
 
-	answer_now_frame = love.graphics.newQuad(0,0, 60, 30, 60, 30) --정답 부분의 픽셀은 조금 늘려도 됨
+	answer_now_frame = love.graphics.newQuad(0,0, 80, 30, 80, 30) --정답 부분의 픽셀은 조금 늘려도 됨
 end
 
 function SpringAnswerLoad()
