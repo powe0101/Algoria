@@ -505,14 +505,14 @@ function loadResources()
 
   imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
-  imgSBoss = love.graphics.newImage("images/summerDevil.png")
+  imgSBoss = love.graphics.newImage("imges/summerDevil.png")
   imgSBoss:setFilter("nearest","nearest")
-  imgFBoss = love.graphics.newImage("images/fallDevil.png")
+  imgFBoss = love.graphics.newImage("imges/fallDevil.png")
   imgFBoss:setFilter("nearest","nearest")
-  imgWBoss = love.graphics.newImage("images/winterDevil.png")
+  imgWBoss = love.graphics.newImage("imges/winterDevil.png")
   imgWBoss:setFilter("nearest","nearest")
-  imgFinalBoss = love.graphics.newImage("images/finalDevil.png")
-  imgFinalBoss:setFilter("nearest","nearest")
+  imgFBoss = love.graphics.newImage("imges/finalDevil.png")
+  imgFBoss:setFilter("nearest","nearest")
 
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
