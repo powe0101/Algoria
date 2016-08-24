@@ -19,11 +19,11 @@ function House:reset(x,y)
 	house_now_frame = house_frames_x[0]
 end
 
-function House:normal(dt)  
+function House:normal(dt)
 	self=BackgroundNormal(self,dt)
 end
 
-function House:UpdateMove(dt) 
+function House:UpdateMove(dt)
 	self=BackgroundMove(self,dt)
   end
 
