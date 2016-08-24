@@ -36,6 +36,9 @@ require("Creeper")
 require("CreeperList")
 require("background")
 require("backgroundList")
+
+require("Font")
+
 --이하 스테이지 관련
 require("village")
 require("Season")
@@ -113,18 +116,12 @@ function love.load()
   loadSplash() -- 스플래시 로드
   updateScale()
 
-  SetGoyangFont() --폰트설정. BY.현식 0823.
+  --SetGoyangFont() --폰트설정. BY.현식 0823.
+  SetNanumFont()
   start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
-end
-
-
-function SetGoyangFont()
-    --고양시에서 무료로 배포하는 폰트. 추가적으로 저작권 표시해야할 수 있음.
-    mainFont = love.graphics.newFont("font/Goyang.ttf", 20);
-    love.graphics.setFont(mainFont)
 end
 
 function loadSplash() -- 스플래시가 끝나면 자동으로 타이틀을 불러온다
@@ -545,9 +542,9 @@ function createStage() --0721 근영 맵 만드는 함수
     TitleRun()
   end
   if stageLevel==0 then -- if문으로 stage설정
-    CreateVillage()
-    --stageLevel = 7
-    --CreateBossCastle()
+    --CreateVillage()
+    stageLevel = 7
+    CreateBossCastle()
   end
 end
 

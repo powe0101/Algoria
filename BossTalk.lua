@@ -98,6 +98,7 @@ function ControlTalkWithBoss()
     		bossTalkCheck = false
 			talkCount = 1
 			pl.x = 200
+			
     	end
 	end
 end
