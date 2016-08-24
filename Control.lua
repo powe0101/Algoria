@@ -14,10 +14,7 @@ function BackgroundMove(_s,dt) --07 21 근영 key 입력 받았을시
            self.frame = (self.frame + 15*dt) % 3
               self.x = self.x - MOVE_POWER
         end -- canPass
-      elseif pl and pl:GetIsTop() and stageLevel ~=2 then
-        if isCanMoveLeft~=false or isCanMoveRight~=false then
-          self.x = self.x - PLAYER_MOVE_POWER
-        end
+ 
       elseif pl and pl:GetX()~=WIDTH-10 and pl:GetX()~=0 and isCanMoveRight then
           self.frame = (self.frame + 15*dt) % 3
           self.x = self.x - MOVE_POWER
@@ -31,10 +28,7 @@ function BackgroundMove(_s,dt) --07 21 근영 key 입력 받았을시
           self.frame = (self.frame + 15*dt) % 3
           self.x = self.x + MOVE_POWER
         end -- canPass
-      elseif pl and pl:GetIsTop() and stageLevel ~=2 then
-        if isCanMoveLeft~=false or isCanMoveRight~=true then
-          self.x = self.x + PLAYER_MOVE_POWER
-        end
+ 
       elseif pl and pl:GetX()~=WIDTH-10 and pl:GetX()~=0 and isCanMoveLeft then
         self.frame = (self.frame + 15*dt) % 3
         self.x = self.x + MOVE_POWER

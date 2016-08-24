@@ -11,7 +11,7 @@ end
 --FindCollision is Find Box for player
 --Using boxList for Side Box 
 function FindCollisionRightDirection()
-  for i =1, boxCount-1 do
+  for i =0, boxCount-1 do
     if boxList[i].isCollisionLeft then
       return false
     end
