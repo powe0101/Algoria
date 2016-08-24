@@ -89,6 +89,7 @@ function ControlTalkWithBoss()
 
 			if talkCount == 7 then
 				algoCheck = true
+				love.timer.sleep(0.3)
 			end
     	end
 
@@ -97,6 +98,7 @@ function ControlTalkWithBoss()
     		bossTalkCheck = false
 			talkCount = 1
 			pl.x = 200
+			
     	end
 	end
 end

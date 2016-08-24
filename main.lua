@@ -36,6 +36,9 @@ require("Creeper")
 require("CreeperList")
 require("background")
 require("backgroundList")
+
+require("Font")
+
 --이하 스테이지 관련
 require("village")
 require("Season")
@@ -104,6 +107,8 @@ menuSelector = 1 -- 팝업창 선택 관리 변수 (1~N)
 bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. 메인 update를 멈추게 만듬.
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
+bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
   loadResources() -- 이미지 리소스 불러옴
@@ -111,6 +116,9 @@ function love.load()
   loadSplash() -- 스플래시 로드
   updateScale()
 
+  --SetGoyangFont() --폰트설정. BY.현식 0823.
+  SetNanumFont()
+  start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
@@ -187,7 +195,7 @@ function love.update(dt)
   splashy.update(dt) -- Updates the fading of the splash images.
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
-    and bossTalkCheck == false and algoCheck == false then
+    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false then
     updateGame(dt)
   end
 
@@ -203,7 +211,6 @@ function love.update(dt)
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
-  --please()
 end
 
 function love.draw()
@@ -238,6 +245,10 @@ function love.draw()
 
   if algoCheck then
     MakeAlgorithm()
+  end
+
+  if bubbleTipCheck then
+    DrawBubbleSortTip()
   end
 
   HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
@@ -295,9 +306,12 @@ function love.keypressed(key,scancode) -- 키입력
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
-
+  if love.keyboard.isDown("return") then
+      splashy.skipSplash()
+  end
   if love.keyboard.isDown("escape") then
     --esc 테스트, 일단은 넣어볼 것이 없어서 음악을 멈추고 다시틀고 하는거 만듬.
+
     if bgCheck then
       love.audio.pause()
       bgCheck = false
@@ -475,20 +489,35 @@ function loadResources()
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
 
+  imgStone = love.graphics.newImage("images/springStone.png")
+  imgStone:setFilter("nearest","nearest")
+  imgSStone = love.graphics.newImage("images/summerStone.png")
+  imgSStone:setFilter("nearest","nearest")
+  imgFStone = love.graphics.newImage("images/fallStone.png")
+  imgFStone:setFilter("nearest","nearest")
+  imgWStone = love.graphics.newImage("images/winterStone.png")
+  imgWStone:setFilter("nearest","nearest")
+
   imgMask = love.graphics.newImage("images/mask.png")
   imgMask:setFilter("nearest","nearest")
-
   imgWing = love.graphics.newImage("images/wing.png")
   imgWing:setFilter("nearest","nearest")
-
   imgHorse = love.graphics.newImage("images/horse.png")
   imgHorse:setFilter("nearest","nearest")
-
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
   imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
+  imgSBoss = love.graphics.newImage("images/summerDevil.png")
+  imgSBoss:setFilter("nearest","nearest")
+  imgFBoss = love.graphics.newImage("images/fallDevil.png")
+  imgFBoss:setFilter("nearest","nearest")
+  imgWBoss = love.graphics.newImage("images/winterDevil.png")
+  imgWBoss:setFilter("nearest","nearest")
+  imgFinalBoss = love.graphics.newImage("images/finalDevil.png")
+  imgFinalBoss:setFilter("nearest","nearest")
+
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
@@ -513,9 +542,9 @@ function createStage() --0721 근영 맵 만드는 함수
     TitleRun()
   end
   if stageLevel==0 then -- if문으로 stage설정
-    CreateVillage()
-    --stageLevel = 7
-    --CreateBossCastle()
+    --CreateVillage()
+    stageLevel = 7
+    CreateBossCastle()
   end
 end
 
