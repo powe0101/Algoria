@@ -20,7 +20,9 @@ function BackgroundMove(_s,dt) --07 21 근영 key 입력 받았을시
           self.frame = (self.frame + 15*dt) % 3
           
           self.x = self.x - MOVE_POWER
-       end
+
+      end
+
     end
 
     if love.keyboard.isDown('left')  then
@@ -47,9 +49,9 @@ function BackgroundNormal(_s,dt) --07 21 근영 background 이동
    self.y = self.y - self.yspeed*dt
     if checkPlaying==false and groundList[0]:GetY()>260 and canPass then -- 여름 스테이지에서 문제를 다 풀고 가시애니메이션이 실행 후
     	return self
-    elseif pl:GetIsTop()then--상자 위에 올라 갔을때
+    elseif pl and pl:GetIsTop()then--상자 위에 올라 갔을때
       self.yspeed=0
-    elseif pl:GetY()>290 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
+    elseif pl and pl:GetY()>290 then --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
       self.yspeed = 0
       self.onGround = true
     end
@@ -62,7 +64,7 @@ function SCheckSpaceBarDown(_s,dt) --0808근영 여름 스테이지 점프 함�
   self=_s
   if pl:GetY()<290 then
     if love.keyboard.isDown('space') and pl:GetY()>30  then
-      self.yspeed = SJUMP_POWER*1.1+collision_Bottom_Y
+      self.yspeed = SJUMP_POWER
     end
 
     self.yspeed = self.yspeed + dt*SGRAVITY+13
