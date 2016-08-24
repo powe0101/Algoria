@@ -33,5 +33,5 @@ function Boss:update(dt)
 end
 
 function Boss:draw()
-  love.graphics.draw(imgBoss,Boss_now_frame,self.x,self.y)
+  love.graphics.draw(imgFBoss,Boss_now_frame,self.x,self.y)
 end
