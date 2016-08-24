@@ -27,7 +27,6 @@ isPlayerRight = true
 collision_Top_Y = 0
 collision_Bottom_Y = 0
 
-
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
 end
@@ -63,17 +62,13 @@ end
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
 
-	if self.x < WIDTH - 10  and stageLevel~=2 and isCanMoveRight then
-
+	if self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
 		self.x = self.x + PLAYER_MOVE_POWER
-
-	elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
-
+    elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x + PLAYER_MOVE_POWER
   end
 
-
-  	isPlayerRight = false
+	isPlayerRight = false
 	if stageLevel == 1 then
 		player_now_frame = player_frames_left[math.floor(self.frame)]
 	elseif stageLevel == 2 then
@@ -85,20 +80,16 @@ function Player:UpdateMoveRight(dt)
 	else
 		player_now_frame = player_frames_left[math.floor(self.frame)]
 	end
-
 end
 --Add by G 0729
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-
-	if self.x > 0  and stageLevel~=2 and isCanMoveLeft then
-
+	
+	if self.x > 0  and isCanMoveLeft and stageLevel~=2 then
 		self.x = self.x - PLAYER_MOVE_POWER
 	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
-
 		self.x = self.x - PLAYER_MOVE_POWER
-
 	end
 
 	isPlayerRight = true
@@ -181,7 +172,6 @@ function Player:normal(dt)
 		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 and stageLevel~=2 then
 			if self.isTop then  -- on the box
 				self.y = collision_Top_Y - 10
-
 				self.yspeed = 0
 				self.onGround = true
 				return
@@ -244,8 +234,8 @@ function Player:reset()
 	self.status = 0
 
 	--캐릭터 수정
-	self.width = 40
-	self.pHeight = 40
+	self.width = 42
+	self.pHeight = 42
 	self.top = self.y - (self.pHeight * 2)
 	self.left = self.x - (self.width * 2)
 	self.right = self.x + (self.width * 2)
@@ -321,7 +311,7 @@ end
 function Player:CollisionByBox()
 	for i = 0 , boxCount - 1 do
 		boxList[i].isCollisionRight =
-		self:collideWithPoint(boxList[i]:GetX() + BOX_WIDTH-7,boxList[i]:GetY()+20,self)
+		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH+7,boxList[i]:GetY()+20,self)
 
 		boxList[i].isCollisionLeft =
 		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH+7,boxList[i]:GetY()+20,self)
@@ -330,16 +320,15 @@ function Player:CollisionByBox()
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
 
 		boxList[i].isCollisionTop =
-		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH-20,self)
-		if boxList[i].isCollisionTop==false then
-
-		boxList[i].isCollisionTop =
-		self:collideWithPoint2(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
+		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
+		
+		if boxList[i].isCollisionTop==false then--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
+			boxList[i].isCollisionTop =
+			self:CheckIsTop(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
 		end
-
 	end
 end
-function Player:collideWithPoint2(x,y,_player)
+function Player:CheckIsTop(x,y,_player)--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
  		if 
          pl:GetX()-4<x and x<pl:GetX()+22 then
              if pl:GetY()<y then
@@ -364,8 +353,8 @@ function Player:collideWithPoint(x,y,_player)
 		if y2==self.player_ground_y then
 			return false
 		end
- 
-		if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽
+
+		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면
        	x2 + 25 > x1 + w1 or -- 오른쪽
        	y2 > y1 + h1   --플레이어 기준으로 플레이어가 박스 밑에 있으면
@@ -413,26 +402,3 @@ function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
     	LifeMinus()
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
