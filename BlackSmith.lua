@@ -3,7 +3,7 @@ itemBoxHeight = 30
 
 function CheckBlackSmith()
 	if love.keyboard.isDown('up') and stageLevel == 0 then
-		if 460 < pl:GetX() and pl:GetX() < 480 then --300 320
+		if 450 < pl:GetX() and pl:GetX() < 470 then --300 320
 			CheckBlackSmithIn()
 		end
 	end
@@ -28,10 +28,22 @@ function DrawBlackSmith()
 	love.graphics.rectangle("line",385,40,itemBoxWidth,itemBoxHeight)
 
   love.graphics.setColor(255,255,255,255)
-	love.graphics.draw(imgStone,185,40)
-	love.graphics.draw(imgSStone,235,40)
-	love.graphics.draw(imgFStone,285,40)
-	love.graphics.draw(imgWStone,335,40)
+	if isTutorialClear == true then
+		love.graphics.draw(imgSavePaper,185,40)
+	end
+	if isSpringClear == true then
+		love.graphics.draw(imgStone,235,40)
+	end
+	if isSummerClear == true then
+		love.graphics.draw(imgSStone,285,40)
+	end
+	if isFallClear == true then
+		love.graphics.draw(imgFStone,335,40)
+	end
+	if isWinterClear == true then
+		love.graphics.draw(imgWStone,385,40)
+	end
+
   love.graphics.setColor(0,0,0,255)
 
 	love.graphics.print("Equipment",185,100)

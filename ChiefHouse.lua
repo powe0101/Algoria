@@ -19,11 +19,11 @@ function ChiefHouse:reset(x,y)
 	chiefHouse_now_frames = chiefHouse_frames[0]
 end
 
-function ChiefHouse:normal(dt)  
+function ChiefHouse:normal(dt)
 	self=BackgroundNormal(self,dt)
 end
 
-function ChiefHouse:UpdateMove(dt)  
+function ChiefHouse:UpdateMove(dt)
 	self=BackgroundMove(self,dt)
   end
 

@@ -42,6 +42,7 @@ require("Font")
 --이하 스테이지 관련
 require("village")
 require("Season")
+require("Stage")
 require("StageSpring")
 require("StageFall")
 require("StageSummer")
@@ -180,7 +181,7 @@ function love.run()
       love.graphics.present()
     end
 
-    if love.timer then love.timer.sleep(0.016) end
+    if love.timer then love.timer.sleep(0.001) end
   end
 end
 
@@ -489,6 +490,8 @@ function loadResources()
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
 
+  imgSavePaper = love.graphics.newImage("images/savePaper.png")
+  imgSavePaper:setFilter("nearest","nearest")
   imgStone = love.graphics.newImage("images/springStone.png")
   imgStone:setFilter("nearest","nearest")
   imgSStone = love.graphics.newImage("images/summerStone.png")
