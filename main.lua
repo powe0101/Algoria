@@ -116,8 +116,8 @@ function love.load()
   loadSplash() -- 스플래시 로드
   updateScale()
 
-  --SetGoyangFont() --폰트설정. BY.현식 0823.
-  SetNanumFont()
+  SetGoyangFont() --폰트설정. BY.현식 0823.
+  --SetNanumFont()
   start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
@@ -213,9 +213,7 @@ function love.update(dt)
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
 end
 
-function love.draw()
-  test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
-
+function love.draw()  
   splashy.draw() -- Draws the splashes to the screen.
 
   love.graphics.scale(SCALE,SCALE) -- 크기 지정
@@ -534,6 +532,7 @@ function loadResources()
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
+  BubbleTipLoad()
 end
 
 
