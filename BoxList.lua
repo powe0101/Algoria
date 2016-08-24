@@ -13,6 +13,7 @@ end
 function FindCollisionRightDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionLeft then
+   
       return false
     end
   end
@@ -23,10 +24,11 @@ end
 function FindCollisionLeftDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionRight then
+         collision_Left_Y = boxList[i].dtBox[7]
       return false
     end
   end
-
+collision_Left_Y = 0
   return true
 end
 

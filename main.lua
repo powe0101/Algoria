@@ -42,6 +42,7 @@ require("Font")
 --이하 스테이지 관련
 require("village")
 require("Season")
+require("Stage")
 require("StageSpring")
 require("StageFall")
 require("StageSummer")
@@ -180,7 +181,7 @@ function love.run()
       love.graphics.present()
     end
 
-    if love.timer then love.timer.sleep(0.016) end
+    if love.timer then love.timer.sleep(0.001) end
   end
 end
 
@@ -425,13 +426,10 @@ function loadResources()
 
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
-
   imgSTree = love.graphics.newImage("images/summerTree.png")
   imgSTree:setFilter("nearest","nearest")
-
   imgFTree = love.graphics.newImage("images/fallTree.png")
   imgFTree:setFilter("nearest","nearest")
-
   imgWTree = love.graphics.newImage("images/winterTree.png")
   imgWTree:setFilter("nearest","nearest")
 
@@ -445,7 +443,7 @@ function loadResources()
   imgBSHouse = love.graphics.newImage("images/blacksmithhouse.png")
   imgBSHouse:setFilter("nearest","nearest")
 
-  imgPortal = love.graphics.newImage("images/portal07.png")
+  imgPortal = love.graphics.newImage("images/portal.png")
   imgPortal:setFilter("nearest","nearest")
 
   imgPicket = love.graphics.newImage("images/picket.png")
@@ -453,12 +451,12 @@ function loadResources()
 
   imgGround = love.graphics.newImage("images/ground.png")
   imgGround:setFilter("nearest","nearest")
-
-  imgFGround = love.graphics.newImage("images/fallground.png")
-  imgFGround:setFilter("nearest","nearest")
-
   imgSGround = love.graphics.newImage("images/summerGround.png")
   imgSGround:setFilter("nearest","nearest")
+  imgFGround = love.graphics.newImage("images/fallground.png")
+  imgFGround:setFilter("nearest","nearest")
+  imgWGround = love.graphics.newImage("images/winterGround.png")
+  imgWGround:setFilter("nearest","nearest")
 
   imgSCreeper = love.graphics.newImage("images/creeper.png")
   imgSCreeper:setFilter("nearest","nearest")
@@ -466,27 +464,25 @@ function loadResources()
   imgCreeperFire = love.graphics.newImage("images/creeperfire.png")
   imgCreeperFire:setFilter("nearest","nearest")
 
-  imgWGround = love.graphics.newImage("images/winterGround.png")
-  imgWGround:setFilter("nearest","nearest")
-
-  imgRiver = love.graphics.newImage("images/river01.png")
+  imgRiver = love.graphics.newImage("images/river.png")
   imgRiver:setFilter("nearest","nearest")
 
-  imgBridge = love.graphics.newImage("images/bridge07.png")
+  imgBridge = love.graphics.newImage("images/bridge.png")
   imgBridge:setFilter("nearest","nearest")
 
-  imgQMark = love.graphics.newImage("images/questionMark02.png")
+  imgQMark = love.graphics.newImage("images/questionMark.png")
   imgQMark:setFilter("nearest","nearest")
 
   imgHeart = love.graphics.newImage("images/heart.png")
   imgHeart:setFilter("nearest","nearest")
-
   imgHeartBlank = love.graphics.newImage("images/heart_blank.png")
   imgHeartBlank:setFilter("nearest","nearest")
 
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
 
+  imgSavePaper = love.graphics.newImage("images/savePaper.png")
+  imgSavePaper:setFilter("nearest","nearest")
   imgStone = love.graphics.newImage("images/springStone.png")
   imgStone:setFilter("nearest","nearest")
   imgSStone = love.graphics.newImage("images/summerStone.png")
@@ -507,14 +503,14 @@ function loadResources()
 
   imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
-  imgSBoss = love.graphics.newImage("images/summerDevil.png")
+  imgSBoss = love.graphics.newImage("imges/summerDevil.png")
   imgSBoss:setFilter("nearest","nearest")
-  imgFBoss = love.graphics.newImage("images/fallDevil.png")
+  imgFBoss = love.graphics.newImage("imges/fallDevil.png")
   imgFBoss:setFilter("nearest","nearest")
-  imgWBoss = love.graphics.newImage("images/winterDevil.png")
+  imgWBoss = love.graphics.newImage("imges/winterDevil.png")
   imgWBoss:setFilter("nearest","nearest")
-  imgFinalBoss = love.graphics.newImage("images/finalDevil.png")
-  imgFinalBoss:setFilter("nearest","nearest")
+  imgFBoss = love.graphics.newImage("imges/finalDevil.png")
+  imgFBoss:setFilter("nearest","nearest")
 
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
