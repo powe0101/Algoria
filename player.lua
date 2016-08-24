@@ -61,11 +61,8 @@ end
 
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.isTop then 
-		if isCanMoveLeft~=false or isCanMoveRight~=false then 
-		self.x = self.x + PLAYER_MOVE_POWER
-	end
-	elseif self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
+
+	if self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
 		self.x = self.x + PLAYER_MOVE_POWER
     elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x + PLAYER_MOVE_POWER
@@ -88,11 +85,8 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	if self.isTop then 
-		if isCanMoveLeft~=false or isCanMoveRight~=true then 
-			self.x = self.x - PLAYER_MOVE_POWER
-		end
-	elseif self.x > 0  and isCanMoveLeft and stageLevel~=2 then
+	
+	if self.x > 0  and isCanMoveLeft and stageLevel~=2 then
 		self.x = self.x - PLAYER_MOVE_POWER
 	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x - PLAYER_MOVE_POWER
@@ -317,19 +311,33 @@ end
 function Player:CollisionByBox()
 	for i = 0 , boxCount - 1 do
 		boxList[i].isCollisionRight =
-		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH,boxList[i]:GetY(),self)
+		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH+7,boxList[i]:GetY()+20,self)
 
 		boxList[i].isCollisionLeft =
-		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH,boxList[i]:GetY(),self)
+		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH+7,boxList[i]:GetY()+20,self)
 
 		boxList[i].isCollisionBottom =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
 
 		boxList[i].isCollisionTop =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
+		
+		if boxList[i].isCollisionTop==false then--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
+			boxList[i].isCollisionTop =
+			self:CheckIsTop(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH,self)
+		end
 	end
 end
-
+function Player:CheckIsTop(x,y,_player)--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
+ 		if 
+         pl:GetX()-4<x and x<pl:GetX()+22 then
+             if pl:GetY()<y then
+        	return true         
+        	end     
+   		else
+       		 return false                 
+   		end
+end
 function Player:collideWithPoint(x,y,_player)
 		x1 = x
 		y1 = y
@@ -341,6 +349,10 @@ function Player:collideWithPoint(x,y,_player)
 		y2 = pl:GetY()
 		w2 = pl.width
 		h2= pl.pHeight
+
+		if y2==self.player_ground_y then
+			return false
+		end
 
 		 if x1 + 25 > x2 + w2 or -- 플레이어 기준 왼쪽
        	y1 > y2 + h2 or -- 플레이어가 박스 위에 있으면
