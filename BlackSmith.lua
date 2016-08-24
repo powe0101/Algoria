@@ -3,7 +3,7 @@ itemBoxHeight = 30
 
 function CheckBlackSmith()
 	if love.keyboard.isDown('up') and stageLevel == 0 then
-		if 300 < pl:GetX() and pl:GetX() < 320 then --300 320
+		if 460 < pl:GetX() and pl:GetX() < 480 then --300 320
 			CheckBlackSmithIn()
 		end
 	end
