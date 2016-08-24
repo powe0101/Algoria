@@ -510,7 +510,8 @@ function loadResources()
   imgWBoss = love.graphics.newImage("images/winterDevil.png")
   imgWBoss:setFilter("nearest","nearest")
   imgFinalBoss = love.graphics.newImage("images/finalDevil.png")
-  imgFBoss:setFilter("nearest","nearest")
+  imgFinalBoss:setFilter("nearest","nearest")
+
 
 
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")

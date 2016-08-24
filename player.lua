@@ -177,10 +177,10 @@ function Player:normal(dt)
 				self.onGround = true
 				return
 			end
-        elseif self.isTop and self.isBottom and stageLevel==2  then
-        
+        elseif self.isTop and stageLevel==2  then
+        	if collision_Top_Y+30<self.y then
         	self.yspeed=0
- 
+        end
         	return
 		elseif self.y > self.player_ground_y then
 		 --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
@@ -288,11 +288,6 @@ end
 
 function Player:GetIsTop()
 	return self.isTop
-end
-
-
-function Player:GetIsBottom()
-	return self.isBottom
 end
 
 function Player:GetOnGround()
