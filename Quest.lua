@@ -66,14 +66,6 @@ function DrawTip() --단순히 읽고 넘어갈 수 있는 팁방식.
 end
 
 function DrawBubbleSortTip()
-	--문제를 풀고나서 기본적인 초기화 작업
-	questCheck = false
-	phase = 3
-	BridegePassValue = BridegePassValue + 109
-	multipleChoice = 1
-	qmarkCheck = true
-	--여기까지
-
 	DrawQuestBackground()
 	DrawTip()
 
@@ -260,13 +252,11 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
     					--가을은 2번째 퀘스트를 해결했을 경우, 바로 다음으로 넘어가지 않고 버블소트에 대한 팁을 제공한다.
     					bubbleTipCheck = true
 
-    					--[[
     					questCheck = false
 			      		phase = phase + 1
 			      		BridegePassValue = BridegePassValue + 109
 			      		multipleChoice = 1
-			      		]]--
-
+			      		qmarkCheck = true
 		      	else
 		      		--오답일 경우
 		      		fadeOn = true
