@@ -5,8 +5,6 @@ function drawDebug(setting)
     return 
   end
 
-  love.graphics.setFont(love.graphics.newFont("font/nanumBold.ttf", 10))
-
   love.graphics.setColor(darkcolor)  
 
   local DEBUG_FPS_X = 10
