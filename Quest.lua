@@ -6,6 +6,8 @@ multipleChoice = 1
 
 questList = {} --문제 이미지를 담기 위한 리스트.
 
+bubbleTipCount = 1
+
 function CheckQuest(_x,_y)
 	self.x=_x
 	self.y=_y
@@ -35,7 +37,7 @@ function DrawQuest() -- phase별로 문제를 그리게 됨.
 	DrawQuestBackground()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 
-  	love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
+	love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
 
   	if phase == 1 then
   		DrawTip()
@@ -59,8 +61,19 @@ end
 
 function DrawTip() --단순히 읽고 넘어갈 수 있는 팁방식.
 	love.graphics.setColor(0,0,0,255)
+	love.graphics.print("이해하셨다면, 'Enter'키를 눌러주세요!", 165, 150) -- 한글깨짐. 폰트추가해야됨.
+	love.graphics.setColor(255,255,255,255)
+end
 
-	love.graphics.print("If you understand, press enter", 165, 150) -- 한글깨짐. 폰트추가해야됨.
+function DrawBubbleSortTip()
+	DrawQuestBackground()
+	DrawTip()
+
+	if bubbleTipCount == 1 then
+		--첫번째 팁
+	else
+		--두번째 팁
+	end
 end
 
 function DrawMultipleChoice() --문제를 풀고 넘어가야 하는 객관식 방식. -- ~258 / 168
@@ -86,7 +99,7 @@ function DrawChocieOne()
 	--리스트 안에 리스트 테스트 성공. by.현식 0804
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 107, 158, 8, 8, 100) -- 정답을 체크하는 원 그리기. ※0805. 후에 정답 이미지가 변경되면 좌표값이나 사이즈값을 수정할 필요가 있음.
+	love.graphics.ellipse("line", 114, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기. ※0805. 후에 정답 이미지가 변경되면 좌표값이나 사이즈값을 수정할 필요가 있음.
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
@@ -99,7 +112,7 @@ function DrawChocieTwo()
 	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145)
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 207, 158, 8, 8, 100) -- 정답을 체크하는 원 그리기
+	love.graphics.ellipse("line", 214, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
@@ -112,7 +125,7 @@ function DrawChocieThree()
 	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145)
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 307, 158, 7, 7, 100) -- 정답을 체크하는 원 그리기
+	love.graphics.ellipse("line", 314, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
@@ -125,21 +138,24 @@ function DrawChocieFour()
 	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145)
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 407, 158, 7, 7, 100) -- 정답을 체크하는 원 그리기
+	love.graphics.ellipse("line", 414, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
 
 
+
 function ControlQuest() 
-	if questCheck then
+	if questCheck or bubbleTipCheck then
 		if phase > 1 and love.keyboard.isDown("tab") then
 	    	--아무키나 누르시오를 구현하기 위함.
 	    else
 	    	FadeOut() --오답일 경우 메시지가 뜨고난 다음, 그 메시지를 없애는 페이드아웃.
 	    end
 
-	    FallQuest()
+	    if stageLevel == 3 then
+	    	FallQuest()
+	    end
 
 	    if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 퀘스트창이 닫힘.
 	      questCheck = false
@@ -208,7 +224,17 @@ function ControlLeftRight()
 end
 
 function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 메서드
-	    if phase == 1 then --1번째는 Tip.
+		if bubbleTipCheck then --가을에만 있는 버블소트를 위한 팁 제공
+			if love.keyboard.isDown("return") then --enter키임. 
+	      		if bubbleTipCount == 1 then
+	      			bubbleTipCount = bubbleTipCount + 1
+	      			love.timer.sleep(0.3)
+	      		else
+	      			bubbleTipCount = 1
+	      			bubbleTipCheck = false
+	      		end
+	      	end
+	    elseif phase == 1 then --1번째는 Tip.
 	    	if love.keyboard.isDown("return") then --enter키임. 
 	      		questCheck = false
 	      		phase = phase + 1
@@ -222,11 +248,15 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
     			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
     				--정답을 맞췄을 경우
-		      		questCheck = false
-		      		phase = phase + 1
-		      		BridegePassValue = BridegePassValue + 109
-		      		multipleChoice = 1
-		      		qmarkCheck = true
+
+    					--가을은 2번째 퀘스트를 해결했을 경우, 바로 다음으로 넘어가지 않고 버블소트에 대한 팁을 제공한다.
+    					bubbleTipCheck = true
+
+    					questCheck = false
+			      		phase = phase + 1
+			      		BridegePassValue = BridegePassValue + 109
+			      		multipleChoice = 1
+			      		qmarkCheck = true
 		      	else
 		      		--오답일 경우
 		      		fadeOn = true
@@ -234,8 +264,9 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
 
 		      		LifeMinus()
 		      	end
+		      	love.timer.sleep(0.3) --enter키 연속눌림 방지.
 	      	end
-	    elseif phase == 3 then --3번째 객관식 문제
+	    elseif phase == 3 and bubbleTipCheck == false then --3번째 객관식 문제
 	      	ControlLeftRight()
 
     		if love.keyboard.isDown("return") then --enter키임. 
