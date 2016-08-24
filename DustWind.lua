@@ -24,7 +24,7 @@ function DustWind:Reset()
 end
 
 function DustWind:RegisterImage()
-	imgDustWind = love.graphics.newImage("images/portal07.png")
+	imgDustWind = love.graphics.newImage("images/portal.png")
 	imgDustWind:setFilter("nearest","nearest")
 end
 
