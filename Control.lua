@@ -34,6 +34,13 @@ function BackgroundMove(_s,dt) --07 21 근영 key 입력 받았을시
         self.x = self.x + MOVE_POWER
       end
     end
+
+    if love.keyboard.isDown("escape") then --보스 스테이지에서만 쓰이는 부분.
+      --esc누를때 용사 좌표가 -1 됨에 따라 배경도 같이 -1 시키기 위함. by.현식, 0824
+      if bossTalkCheck and stageLevel == 7 then
+        self.x = self.x -100
+      end
+    end
   return self --다시 self를 tree cloud에게 return해준다
 end
 

@@ -22,11 +22,11 @@ function CheckQuest(_x,_y)
     		questCheck = true
         end
   	elseif stageLevel == 3 then --가을
-    	if self.x-15< pl:GetX() and pl:GetX() < self.x+10 and phase == 3 then --3단계
+    	if 215 < pl:GetX() and pl:GetX() < 225 and phase == 3 then --3단계
       		questCheck = true
-    	elseif self.x-15 < pl:GetX() and pl:GetX() < self.x+10 and phase == 2 then
+    	elseif 337 < pl:GetX() and pl:GetX() < 347 and phase == 2 then
     		questCheck = true
-    	elseif self.x-15 < pl:GetX() and pl:GetX() < self.x+10 and phase == 1 then
+    	elseif 520 < pl:GetX() and pl:GetX() < 530 and phase == 1 then
     		questCheck = true
     	end
     end
@@ -61,18 +61,23 @@ end
 
 function DrawTip() --단순히 읽고 넘어갈 수 있는 팁방식.
 	love.graphics.setColor(0,0,0,255)
-	love.graphics.print("이해하셨다면, 'Enter'키를 눌러주세요!", 165, 150) -- 한글깨짐. 폰트추가해야됨.
+	love.graphics.print("이해하셨다면, 'Enter'키를 눌러주세요!", 165, 152)
 	love.graphics.setColor(255,255,255,255)
 end
 
 function DrawBubbleSortTip()
-	DrawQuestBackground()
+	DrawTipBackground()
 	DrawTip()
 
 	if bubbleTipCount == 1 then
-		--첫번째 팁
+		--텍스트는 쓰는걸로 ??	
+		love.graphics.draw(bubbleTip1,tip_now_frame,40,12)
+	elseif bubbleTipCount == 2 then
+		love.graphics.draw(bubbleTip2,tip_now_frame,40,12)
+	elseif bubbleTipCount == 3 then
+		love.graphics.draw(bubbleTip3,tip_now_frame,40,12)
 	else
-		--두번째 팁
+		love.graphics.draw(bubbleTip4,tip_now_frame,40,12)
 	end
 end
 
@@ -153,7 +158,9 @@ function ControlQuest()
 	    	FadeOut() --오답일 경우 메시지가 뜨고난 다음, 그 메시지를 없애는 페이드아웃.
 	    end
 
-	    if stageLevel == 3 then
+	    if stageLevel == 2 then
+	    	SummerQuest()
+	    elseif stageLevel == 3 then
 	    	FallQuest()
 	    end
 
@@ -193,6 +200,22 @@ function QuestLoad() --틀은 만들어놨으니 나중에 이미지만 바꾸�
 				winterPhase1Quest, winterPhase2Quest, winterPhase3Quest}
 end
 
+function BubbleTipLoad()
+	bubbleTip1 = love.graphics.newImage("images/quest/Tip/fall_bubble_tip1.png")
+	bubbleTip1:setFilter("nearest","nearest")
+
+	bubbleTip2 = love.graphics.newImage("images/quest/Tip/fall_bubble_tip2.png")
+	bubbleTip2:setFilter("nearest","nearest")
+
+	bubbleTip3 = love.graphics.newImage("images/quest/Tip/fall_bubble_tip3.png")
+	bubbleTip3:setFilter("nearest","nearest")
+
+	bubbleTip4 = love.graphics.newImage("images/quest/Tip/fall_bubble_tip4.png")
+	bubbleTip4:setFilter("nearest","nearest")
+
+	tip_now_frame = love.graphics.newQuad(0,0, 528, 136, 528, 136)
+end
+
 function GetQuestNum() --리스트에서 몇 번 문제인지 뽑아내기 위한 함수. by.현식 0805
 	if stageLevel == 1 then
 		return phase
@@ -223,10 +246,65 @@ function ControlLeftRight()
     end
 end
 
+function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
+		if phase == 1 then --1번째는 Tip.
+	    	if love.keyboard.isDown("return") then --enter키임. 
+	      		questCheck = false
+	      		phase = phase + 1
+	      		qmarkCheck = true
+	      	end
+	    elseif phase == 2 then --2번째 객관식 문제.
+	    	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임. 
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+    				questCheck = false
+			      	phase = phase + 1
+			      	multipleChoice = 1
+			      	qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		fadeOn = true
+		      		fadeOnWrong = true
+		      		LifeMinus()
+		      	end
+		      	love.timer.sleep(0.3) --enter키 연속눌림 방지.
+	      	end
+	    elseif phase == 3 then --3번째 객관식 문제
+	      	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임. 
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = 4
+		      		canPass = true
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		fadeOn = true
+		      		fadeOnWrong = true
+
+		      		LifeMinus()
+		      	end
+	      	end
+	    end
+end
+
 function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 메서드
 		if bubbleTipCheck then --가을에만 있는 버블소트를 위한 팁 제공
 			if love.keyboard.isDown("return") then --enter키임. 
 	      		if bubbleTipCount == 1 then
+	      			bubbleTipCount = bubbleTipCount + 1
+	      			love.timer.sleep(0.3)
+	      		elseif bubbleTipCount == 2 then
+	      			bubbleTipCount = bubbleTipCount + 1
+	      			love.timer.sleep(0.3)
+	      		elseif bubbleTipCount == 3 then
 	      			bubbleTipCount = bubbleTipCount + 1
 	      			love.timer.sleep(0.3)
 	      		else
@@ -295,4 +373,11 @@ function DrawQuestBackground()
   	DrawRectangle(30, 5, 250, 85) --검은색 테두리
   	love.graphics.setColor(255,255,255,255)
   	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
+end
+
+function DrawTipBackground()
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  	DrawRectangle(15, 5, 271, 85) --검은색 테두리
+  	love.graphics.setColor(255,255,255,255)
+  	love.graphics.rectangle("fill", 32, 12, 538, 166) --테두리 안에 흰색 도화지?
 end

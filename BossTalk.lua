@@ -98,7 +98,7 @@ function ControlTalkWithBoss()
     		bossTalkCheck = false
 			talkCount = 1
 			pl.x = 200
-			
+			--컨트롤 좌표 수정하는 부분은 컨트롤에서 작업함.
     	end
 	end
 end
