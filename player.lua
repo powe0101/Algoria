@@ -63,9 +63,9 @@ end
 function Player:UpdateMoveRight(dt)
 	self.frame = (self.frame + 15*dt) % 3
 
-	if self.x < WIDTH - 10 and isCanMoveRight and stageLevel~=2  then
+	if self.x < WIDTH - 30 and isCanMoveRight and stageLevel~=2  then
 		self.x = self.x + PLAYER_MOVE_POWER
-    elseif self.x < WIDTH - 10 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
+    elseif self.x < WIDTH - 30 and stageLevel==2  then --0812 여름 스테이지 일때 벽 통과
 		self.x = self.x + PLAYER_MOVE_POWER
   end
 

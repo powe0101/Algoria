@@ -1,6 +1,6 @@
 function CreateSummer()
 	if stageLevel == 2 then
-    phase = 1
+    phase = 1  
 
 
     HEIGHT=400
