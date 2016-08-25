@@ -52,6 +52,9 @@ function BackGround:draw()
 	elseif stageLevel==1 then
 		backGround_frames_x[0]  = love.graphics.newQuad(0,0,600,200,600,200)
 		love.graphics.draw(imgSpringBackGround,backGround_frames_x[0],self.x,self.y)
+	elseif stageLevel==2 then
+		backGround_frames_x[0]  = love.graphics.newQuad(0,0,3600,1200,3600,1200)
+		love.graphics.draw(imgSummerBackGround,backGround_frames_x[0],self.x,self.y)
 	elseif stageLevel==3 then
 		backGround_frames_x[0] = love.graphics.newQuad(0,0,600,200,600,200)
 		love.graphics.draw(imgFallBackGround,backGround_frames_x[0],self.x,self.y)

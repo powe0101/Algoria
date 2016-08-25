@@ -9,7 +9,7 @@ function CreateWinter()
 		pl:reset()
 		pl:StartWinterStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end
-		CreateBackGround(-50,170)
+		CreateBackGround(-50,0)
 		CreateBackGround(550,170)
 		CreateGround(-100,270)
 		CreateGround(421,270)
