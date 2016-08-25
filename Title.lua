@@ -19,7 +19,7 @@ end
 function TitleRun() --main의 createStage 메서드에서 호출
 
   if splash == false then
-    PlayTitleAudio()
+    PlayAudio("audio/363489.Opening.mp3",2,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
     love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함
     CreateTitleVillage(0)
     title = true
@@ -37,15 +37,6 @@ function StopTitleAudio()
   end
 end
 
-function PlayTitleAudio()
-    bgCheck = true
-    bgMusic = love.audio.newSource("audio/title.mp3")
-    love.audio.setVolume(0.3)
-    love.audio.play(bgMusic)
-    bgMusic:setLooping(true)
-    bgMusic:setPitch(2)
-    print(bgMusic:getPitch())
-end
 
 function CreateTitleVillage(_y)
 

@@ -3,10 +3,13 @@ function CreateWinter()
 	    phase = 1
 		HEIGHT=400
     	updateScale()
+
+		PlayAudio("audio/363535.Winter.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
+		
 		pl:reset()
 		pl:StartWinterStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end
-		CreateBackGround(-50,170)
+		CreateBackGround(-50,0)
 		CreateBackGround(550,170)
 		CreateGround(-100,270)
 		CreateGround(421,270)
@@ -19,6 +22,4 @@ function CreateWinter()
 
 		CreateBox(0,350)
 		CreateBox(20,330)
-
-
 end

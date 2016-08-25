@@ -4,27 +4,14 @@
 function CreateBossCastle()
 	stageLevel = 7 --챕터별 보스 스테이지. 파이널은 6으로.
 	love.graphics.setBackgroundColor(128,128,128,255)
+	PlayAudio("audio/Overworld.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
 
-	p1=nil
-    pl=Player.create()
+    pl:reset()
 
     CreateGround(-49,0) --이미지를 다시 조정하던지 보스성에서만 용사 y좌표를 바꾸던지 해야할 듯. 0811. 퇴근.
   	CreateGround(481,0)
 
   	CreateBoss(500,21)
-
-		PlayBossMusic()
-end
-
-function PlayBossMusic()
-	if bgMusic then
-		love.audio.stop(bgMusic)
-	end
-	bgCheck = true
-	bgMusic = love.audio.newSource("audio/Overworld.mp3")
-	love.audio.setVolume(0.3)
-	love.audio.play(bgMusic)
-	bgMusic:setLooping(true)
 end
 
 function CheckBossCastle()
