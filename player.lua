@@ -86,7 +86,7 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-
+	
 	if self.x > 0  and isCanMoveLeft and stageLevel~=2 then
 		self.x = self.x - PLAYER_MOVE_POWER
 	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
@@ -177,10 +177,10 @@ function Player:normal(dt)
 				self.onGround = true
 				return
 			end
-        elseif self.isTop and stageLevel==2  then
-        	if collision_Top_Y+30<self.y then
+        elseif self.isTop and self.isBottom and stageLevel==2  then
+        
         	self.yspeed=0
-        end
+ 
         	return
 		elseif self.y > self.player_ground_y then
 		 --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
@@ -255,7 +255,7 @@ function Player:reset()
 		playerCurrentImage = imgFallChar
 		player_now_frame = fallPlayer_frames_right[0]
 	elseif stageLevel == 4 then
-		self.player_ground_y = 333
+		self.player_ground_y = 330
 		playerCurrentImage = imgWinterChar
 		player_now_frame = winterPlayer_frames_left[0]
 	else
@@ -290,6 +290,11 @@ function Player:GetIsTop()
 	return self.isTop
 end
 
+
+function Player:GetIsBottom()
+	return self.isBottom
+end
+
 function Player:GetOnGround()
 	return self.onGround
 end
@@ -315,12 +320,12 @@ function Player:CollisionByBox()
 	for i = 0 , boxCount - 1 do
 		boxList[i].isCollisionRight =
 		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH+3,boxList[i]:GetY()+20,self)
-
+   	      
 		if boxList[i].isCollisionRight==true then--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
 			boxList[i].isCollisionRight =
 			self:CheckIsLeft(boxList[i]:GetX()+BOX_WIDTH,boxList[i]:GetY())
 		end
-
+		
 		boxList[i].isCollisionLeft =
 		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH+6,boxList[i]:GetY()+20,self)
 
@@ -332,10 +337,10 @@ function Player:CollisionByBox()
 		boxList[i].isCollisionBottom =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
 
-
+		
 		boxList[i].isCollisionTop =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH-10,self)
-
+		
 		if boxList[i].isCollisionTop==false then--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
 			boxList[i].isCollisionTop =
 			self:CheckIsTop(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH)
@@ -343,21 +348,21 @@ function Player:CollisionByBox()
 	end
 end
 function Player:CheckIsTop(x,y)--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
- 		if
+ 		if 
          pl:GetX()-4<x and x<pl:GetX()+20 then
              if pl:GetY()<y then
-        	return true
-        	end
+        	return true         
+        	end     
    		else
-       		 return false
+       		 return false                 
    		end
 end
 function Player:CheckIsLeft(x,y)--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
 
 	if collision_Top_Y>0 and collision_Left_Y>0 and collision_Top_Y-collision_Left_Y~=20 then
-
+		
 	return false
-
+	
 else
 	return true
 end
