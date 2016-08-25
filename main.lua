@@ -109,6 +109,7 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+qmarkTest = 0
 
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
@@ -512,8 +513,6 @@ function loadResources()
   imgFinalBoss = love.graphics.newImage("images/finalDevil.png")
   imgFinalBoss:setFilter("nearest","nearest")
 
-
-
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
 
@@ -538,9 +537,9 @@ function createStage() --0721 근영 맵 만드는 함수
     TitleRun()
   end
   if stageLevel==0 then -- if문으로 stage설정
-    --CreateVillage()
-    stageLevel = 7
-    CreateBossCastle()
+    CreateVillage()
+    --stageLevel = 7
+    --CreateBossCastle()
   end
 end
 

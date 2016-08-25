@@ -4,6 +4,7 @@ hList = {} --y측 좌표 랜덤으로 부여하기.
 wList = {82, 133, 183, 233, 283} --x측 좌표 
 
 bubbleSortAnswerList = {} --정답 비교를 위한 리스트.
+sortInitList = {} --초기화에 필요할지도 모르는 리스트.
 
 sortControl = 1
 
@@ -11,21 +12,43 @@ checkedNum = 0
 secondCheck = false
 secondControl = 1
 
+bubbleSortAniCheckCount = 1
+
 firstMakeRandomSort = true --최초 1회에만 동작하도록. 일부로 boolean형 사용 안함.
+animationCheck = 0
+test_i = 1
+test_j = 1
+
+testtt = 0
 
 function MakeBubbleSort()
 	--처음 버블소트 만들때 길이를 조정하면 가능할 것 같기도 함. hList를 사용해서.
 	-- number = love.math.random( min, max ) 표본.
 	if firstMakeRandomSort then
 		GetRandomHeight()
-		BubbleSort()
+		GetBubbleSortAnswer()
+	end
+
+	if animationCheck ~= 0 then
+		if animationCheck > 1 then
+			BubbleSortAnimation(hList[ranNum],5)
+		end
+		if bubbleSortAniCheckCount == 2 then
+			InitSort(hList[ranNum])
+		end
 	end
 
 	DrawBubbleSort()
 	UpdateRectSelect()
 	UpdateSecondRectSelect()
 
+	
+		--정답일 경우 애니메이션으로 처음부터 보여줌.
+		
+
 	love.graphics.setColor(255,255,255,255)
+
+	love.graphics.print(testtt.."  "..bubbleSortAniCheckCount,10,10)
 
 	love.graphics.print(sortControl.."\n"..checkedNum.."\n"..secondControl,
 	10,30)
@@ -53,16 +76,20 @@ function GetRandomHeight()
 
 	hList = {hPart1, hPart2, hPart3, hPart4, hPart5,
 				hPart6, hPart7, hPart8, hPart9, hPart10}
-	ranNum = love.math.random(10)
+	ranNum = 5--love.math.random(10)
 
 	for k = 0, table.getn(hList[ranNum]) do
 		bubbleSortAnswerList[k] = hList[ranNum][k]
 	end
 
+	for l = 0, table.getn(hList[ranNum]) do
+		sortInitList[l] = hList[ranNum][l]
+	end	
+
 	firstMakeRandomSort = false
 end
 
-function BubbleSort()
+function GetBubbleSortAnswer()
 	sortLeng = table.getn(hList[ranNum])
 
 	for i = 1, 2 do --5회?4회?만 반복시키면 됨. 몇 회전을 의미.
@@ -72,6 +99,59 @@ function BubbleSort()
 			end
 		end
 	end
+end
+
+function InitSort(list)
+	for l = 0, table.getn(sortInitList) do
+		list[l] = sortInitList[l]
+	end	
+	bubbleSortAniCheckCount = 1
+	animationCheck = 2
+	testtt = testtt + 100
+end
+
+function BubbleSortAnimation(list, count) --for문을 if문으로.
+	if test_i == 1 and test_j == 1 then
+		love.timer.sleep(2)
+	end
+	sortLeng = table.getn(hList[ranNum])
+	sortControl = 6
+	secondCheck = true
+
+	if test_i < count then
+		if test_j < sortLeng - test_i + 1 then
+			sortControl = test_j
+			secondControl = test_j + 1
+
+			--여기서 컬러지정
+			if list[test_j] > list[test_j+1] then
+				list[test_j], list[test_j+1] = list[test_j+1], list[test_j]				
+			end	
+			love.timer.sleep(2)
+			--원래는 슬립을 여기서 걸어줘야함.
+			test_j = test_j + 1
+		else 
+			test_j = 1
+			test_i = test_i + 1
+		end
+	else
+		--초기화는 임시로 해놓고 여기서는 이제 스테이지가 종료되어야함!
+		test_i = 1
+		test_j = 1
+		animationCheck = 0
+		sortControl = 1
+		secondCheck = false
+	end
+	--[[
+	for i = 1, count do --5회?4회?만 반복시키면 됨. 몇 회전을 의미.
+		for j = 1, sortLeng - i do
+			if list[j] > list[j+1] then
+				list[j], list[j+1] = list[j+1], list[j]
+				love.timer.sleep(0.3)
+			end
+		end
+	end
+	]]--
 end
 
 function CheckSameTable(firstList, secondList)
@@ -91,9 +171,11 @@ function CortrolBubbleSort()
 		if secondCheck == false then
 			ContorlLeftRight()
 
-			if love.keyboard.isDown("return") then
+			if love.keyboard.isDown("up") then
 				if CheckSameTable(bubbleSortAnswerList,hList[ranNum]) then
 					--정답일 경우
+					bubbleSortAniCheckCount = 2
+					animationCheck = 1
 				else
 					--오답일 경우 -> quest.lua의 ControlQuest()참고.
 			      	LifeMinus()
@@ -110,6 +192,12 @@ function CortrolBubbleSort()
 		    		secondControl = 1
 		    	end
 	    	end	
+
+	    	if love.keyboard.isDown("escape") then
+   				algoCheck = false
+				pl.x = 200
+				firstMakeRandomSort = true
+	    	end
    		else --첫번째 버블소트를 선택했을 경우..
    			ContorlSecondLeftRight()
 
@@ -132,17 +220,13 @@ function CortrolBubbleSort()
    		end
 
    		if love.keyboard.isDown("escape") then
-   			if secondCheck then
-   				secondCheck = false
-   			else
-   				algoCheck = false
-				pl.x = 200
-			end
-			firstMakeRandomSort = true
+   			secondCheck = false
    		end
 --------
 	end
 end
+
+------------------------ 이 아래로는 거의 볼 필요가 없음.
 
 function ContorlLeftRight()
 	if love.keyboard.isDown("left") then

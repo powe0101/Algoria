@@ -22,11 +22,11 @@ function CheckQuest(_x,_y)
     		questCheck = true
         end
   	elseif stageLevel == 3 then --가을
-    	if 215 < pl:GetX() and pl:GetX() < 225 and phase == 3 then --3단계
+    	if 210 < pl:GetX() and pl:GetX() < 220 and phase == 3 then --3단계
       		questCheck = true
-    	elseif 337 < pl:GetX() and pl:GetX() < 347 and phase == 2 then
+    	elseif 335 < pl:GetX() and pl:GetX() < 342 and phase == 2 then
     		questCheck = true
-    	elseif 520 < pl:GetX() and pl:GetX() < 530 and phase == 1 then
+    	elseif 519 < pl:GetX() and pl:GetX() < 524 and phase == 1 then
     		questCheck = true
     	end
     end
@@ -270,7 +270,6 @@ function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 		      		fadeOnWrong = true
 		      		LifeMinus()
 		      	end
-		      	love.timer.sleep(0.3) --enter키 연속눌림 방지.
 	      	end
 	    elseif phase == 3 then --3번째 객관식 문제
 	      	ControlLeftRight()

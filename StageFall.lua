@@ -69,5 +69,7 @@ function CreateFall()
         CreateRiver(-1218,150)
 
         pl:StartFallStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+
+        love.timer.sleep(0.1)
     end
 end
