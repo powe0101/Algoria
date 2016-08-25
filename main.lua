@@ -78,6 +78,8 @@ require("DustWind")
 --Title
 require("Title")
 
+--Music
+require("Audio")
 --splash 0823 G
 splashy = require 'splashy' -- 시작 로고를 위한 라이브러리
 splash = true
@@ -181,7 +183,7 @@ function love.run()
       love.graphics.present()
     end
 
-    if love.timer then love.timer.sleep(0.001) end
+    if love.timer then love.timer.sleep(0.016) end
   end
 end
 
@@ -214,7 +216,7 @@ function love.update(dt)
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
 end
 
-function love.draw()  
+function love.draw()
   splashy.draw() -- Draws the splashes to the screen.
 
   love.graphics.scale(SCALE,SCALE) -- 크기 지정

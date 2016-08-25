@@ -1,7 +1,7 @@
 function CreateFall()
     if stageLevel == 3 then --0805HS
         phase = 1 --계절이 생성될때 단계 초기화
-
+        PlayAudio("audio/363536.Fall.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
         pl:reset()
         --말타는 상황을 가정.
         MOVE_POWER = 3 -- 다른 스테이지,마을로 이동할때 다시 초기화해줘야됨.
