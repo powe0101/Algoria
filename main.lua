@@ -78,6 +78,8 @@ require("DustWind")
 --Title
 require("Title")
 
+--Music
+require("Audio")
 --splash 0823 G
 splashy = require 'splashy' -- 시작 로고를 위한 라이브러리
 splash = true
@@ -117,8 +119,8 @@ function love.load()
   loadSplash() -- 스플래시 로드
   updateScale()
 
-  --SetGoyangFont() --폰트설정. BY.현식 0823.
-  SetNanumFont()
+  SetGoyangFont() --폰트설정. BY.현식 0823.
+  --SetNanumFont()
   start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
@@ -181,7 +183,7 @@ function love.run()
       love.graphics.present()
     end
 
-    if love.timer then love.timer.sleep(0.001) end
+    if love.timer then love.timer.sleep(0.016) end
   end
 end
 
@@ -215,8 +217,6 @@ function love.update(dt)
 end
 
 function love.draw()
-  test_now_frame = love.graphics.newQuad(0,0,200,115,200,115)
-
   splashy.draw() -- Draws the splashes to the screen.
 
   love.graphics.scale(SCALE,SCALE) -- 크기 지정
@@ -515,6 +515,7 @@ function loadResources()
   imgFinalBoss:setFilter("nearest","nearest")
 
 
+
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
 
@@ -532,6 +533,7 @@ function loadResources()
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
+  BubbleTipLoad()
 end
 
 
