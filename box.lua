@@ -103,7 +103,11 @@ function Box:DrawLine(_x,_y)
 end
 
 function Box:draw()
-	love.graphics.setColor(255,255,255) -- 흰색 RGBA
+	if stageLevel==2 then
+		love.graphics.setColor(236,243,201) -- 배경 .by근영  RGBA
+    else
+		love.graphics.setColor(255,255,255) -- 흰색 RGBA
+    end
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
 
   	if DEBUG_SETTING then
