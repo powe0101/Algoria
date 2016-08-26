@@ -59,10 +59,9 @@ function CreateSummer()
     CreateBox(290,356)
     CreateBox(300,356)
 
-    CreateGround(-100,430)
-    CreateGround(421,430)
-    CreateBackGround(0,750)
-    --pl:StartSummerStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
+		CreateBackGround(-210,950)
+    CreateGround(-210,435)
+    CreateGround(390,435)
     CreateCloud(100,460)
     CreateCloud(100,500)
     CreateCloud(100,600)
