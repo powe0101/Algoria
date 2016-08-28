@@ -107,6 +107,7 @@ function InitSort(list)
 	end	
 	bubbleSortAniCheckCount = 1
 	animationCheck = 2
+	sortControl = 6
 	testtt = testtt + 100
 end
 
@@ -115,7 +116,6 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		love.timer.sleep(2)
 	end
 	sortLeng = table.getn(hList[ranNum])
-	sortControl = 6
 	secondCheck = true
 
 	if test_i < count then
