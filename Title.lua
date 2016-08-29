@@ -67,4 +67,6 @@ function CreateTitleVillage(_y)
   CreateBlackSmithHouse(850,108 - _y)
 
   CreatePortal(300,113 - _y) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
+
+  --CreateQMark(Chief.x, 115) --장로위에 느낌표.
 end
