@@ -469,7 +469,7 @@ function loadResources()
   imgRiver = love.graphics.newImage("images/river.png")
   imgRiver:setFilter("nearest","nearest")
 
-  imgBridge = love.graphics.newImage("images/bridge.png")
+  imgBridge = love.graphics.newImage("images/BridgeAnimation.png")
   imgBridge:setFilter("nearest","nearest")
 
   imgQMark = love.graphics.newImage("images/questionMark.png")
