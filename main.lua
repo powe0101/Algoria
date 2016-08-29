@@ -410,11 +410,11 @@ function drawGame()
      BridgeListDraw()
   end
 
-  if pl then
-    pl:draw() -- 플레이어 스프라이트 그리기
-  end
   if chiefChar and stageLevel == 0 then
     chiefChar:draw()
+  end
+  if pl then
+    pl:draw() -- 플레이어 스프라이트 그리기
   end
 end
 
