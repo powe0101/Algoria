@@ -45,7 +45,7 @@ function BackgroundNormal(_s,dt) --07 21 근영 background 이동
     if checkPlaying==false and groundList[0]:GetY()>260 and canPass and stageLevel==2 then -- 여름 스테이지에서 문제를 다 풀고 가시애니메이션이 실행 후
     	
       return self
-    elseif stageLevel==4 and canPass and groundList[0]:GetY()<260  then
+    elseif stageLevel==4 and canPass and groundList[0]:GetY()<271  then
         self.yspeed=-300
 
       return self

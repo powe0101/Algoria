@@ -459,6 +459,8 @@ function loadResources()
   imgFGround:setFilter("nearest","nearest")
   imgWGround = love.graphics.newImage("images/winterGround.png")
   imgWGround:setFilter("nearest","nearest")
+  imgWGround2 = love.graphics.newImage("images/winterGround2.png")
+  imgWGround2:setFilter("nearest","nearest")
 
   imgSCreeper = love.graphics.newImage("images/creeper.png")
   imgSCreeper:setFilter("nearest","nearest")
@@ -533,6 +535,9 @@ function loadResources()
   imgFallBackGround:setFilter("nearest","nearest")
   imgWinterBackGround = love.graphics.newImage("images/winter.png")
   imgWinterBackGround :setFilter("nearest","nearest")
+  imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
+  imgWinterBackGround2 :setFilter("nearest","nearest")
+
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
