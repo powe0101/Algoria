@@ -12,6 +12,10 @@ function Castle.create()
 end
 
 function Castle:reset(x,y)
+	self.yfix=y
+	self.yspeed = 0
+	self.onGround = true
+	self.status = 0
 	self.frame = 1
 	self.x = x
 	self.y = y
@@ -19,15 +23,23 @@ function Castle:reset(x,y)
 	castle_now_frame = castle_frames[0]
 end
 
-function Castle:normal(dt)
-	self=BackgroundNormal(self,dt)
+
+
+function Castle:SpaceJump(dt) --0808근영 점프함수  
+	self=SCheckSpaceBarDown(self,dt)
 end
 
 function Castle:UpdateMove(dt) 
 	self=BackgroundMove(self,dt)
   end
 
+function Castle:normal(dt)
+	self=BackgroundNormal(self,dt)
+end
 function Castle:update(dt)
+	 if stageLevel==2 then
+		self:SpaceJump(dt)
+	end
 	self:UpdateMove(dt)
 	self:normal(dt)
 end

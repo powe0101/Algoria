@@ -42,15 +42,15 @@ function BackgroundNormal(_s,dt) --07 21 근영 background 이동
 
   if self.status == 0   then -- normal ourside
    self.y = self.y - self.yspeed*dt
-    if checkPlaying==false and groundList[0]:GetY()>260 and canPass and stageLevel==2 then -- 여름 스테이지에서 문제를 다 풀고 가시애니메이션이 실행 후
-    	
+    if checkPlaying==false and groundList[0]:GetY()>270 and canPass and stageLevel==2 then -- 여름 스테이지에서 문제를 다 풀고 가시애니메이션이 실행 후
+    	self.yspeed=200
       return self
     elseif stageLevel==4 and canPass and groundList[0]:GetY()<271  then
         self.yspeed=-300
 
       return self
 
-    elseif stageLevel==2 and pl:GetIsTop() and pl:GetIsBottom() then--상자 위에 올라 갔을때
+    elseif stageLevel==2 and pl:GetIsTop() and pl:GetIsBottom() and canPass==false then--상자 위에 올라 갔을때
     
           self.yspeed=0
           return self
@@ -68,7 +68,7 @@ end
 function SCheckSpaceBarDown(_s,dt) --0808근영 여름 스테이지 점프 함수
   self=_s
   if pl:GetY()<290 then
-    if love.keyboard.isDown('space') and pl:GetY()>30  then
+    if love.keyboard.isDown('space') and pl:GetY()>30 and canPass==false then
       self.yspeed = SJUMP_POWER
     end
 
