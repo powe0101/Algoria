@@ -18,9 +18,17 @@ function CheckQuest(_x,_y)
       		questCheck = true
     	end
     elseif stageLevel == 2 then --근영 여름 08 11
-    	if self.x-20< pl:GetX() and pl:GetX() < self.x+15 and self.y-10< pl:GetY() and pl:GetY() < self.y+10 then 
+
+        	if picketList[2].x-20 < pl:GetX() and pl:GetX() < picketList[2].x+15 and phase == 3 
+        		and picketList[2].y-10< pl:GetY() and pl:GetY() < picketList[2].y+10 then --3단계
+      		questCheck = true
+    	elseif picketList[1].x-20 < pl:GetX() and pl:GetX() < picketList[1].x+15 and phase == 2
+    			and picketList[1].y-10< pl:GetY() and pl:GetY() < picketList[1].y+10  then
     		questCheck = true
-        end
+    	elseif picketList[0].x-20 < pl:GetX() and pl:GetX() < picketList[0].x+15 and phase == 1
+    			and picketList[0].y-10< pl:GetY() and pl:GetY() < picketList[0].y+10 then
+    		questCheck = true
+    	end
   	elseif stageLevel == 3 then --가을
     	if 210 < pl:GetX() and pl:GetX() < 220 and phase == 3 then --3단계
       		questCheck = true
