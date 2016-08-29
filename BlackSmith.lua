@@ -46,6 +46,7 @@ function DrawBlackSmith()
 	end
 	if isWinterClear == true then
 		love.graphics.draw(imgWStone,385,40)
+		love.graphics.draw(imgSword,385-1,120-1)
 	end
 
   love.graphics.setColor(0,0,0,255)

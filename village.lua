@@ -11,6 +11,10 @@ function CreateVillage()
     pl=Player.create()
     pl:ResetCoord()
   end
+
+  chiefChar = Chief.create()
+  chiefChar:reset(550,145)
+
   SetVilliageBackgroundMusic()
   CreateGround(-49,76)
   CreateGround(541,76)
