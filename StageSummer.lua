@@ -8,7 +8,8 @@ function CreateSummer()
 
     pl:reset()
     pl:StartSummerStage()
-
+	
+	CreateCastle(710, 810) -- 중간보스 성
     CreateCreeper(-79,430)
     CreateCreeper(500,430)
 
@@ -145,7 +146,7 @@ function CreateSummer()
 
     
 
-	CreateBackGround(-210,950)
+	CreateBackGround(-210,850)
     CreateGround(-210,435)
     CreateGround(390,435)
     CreateCloud(100,460)
