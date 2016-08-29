@@ -33,5 +33,14 @@ function Boss:update(dt)
 end
 
 function Boss:draw()
-  love.graphics.draw(imgFBoss,Boss_now_frame,self.x,self.y)
+  if stageLevel == 5 then
+    love.graphics.draw(imgBoss,Boss_now_frame,self.x,self.y)
+  elseif stageLevel == 6 then
+    love.graphics.draw(imgSBoss,Boss_now_frame,self.x,self.y)
+  elseif stageLevel == 7 then
+    love.graphics.draw(imgFBoss,Boss_now_frame,self.x,self.y)
+  elseif stageLevel == 8 then
+    love.graphics.draw(imgWBoss,Boss_now_frame,self.x,self.y)
+  --파이널보스도 추가.
+  end
 end
