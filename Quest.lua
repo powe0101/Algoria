@@ -17,7 +17,7 @@ function CheckQuest(_x,_y)
   		if self.x-8 < pl:GetX() and pl:GetX() < self.x+8  then --봄에서의 표지퐌 자표를 입력해주면 됨. by.현식 0803
       		questCheck = true
     	end
-    elseif stageLevel == 2 then --근영 여름 08 11
+    elseif stageLevel == 2 or stageLevel==4 then --근영 여름 08 11
 
         	if picketList[2].x-20 < pl:GetX() and pl:GetX() < picketList[2].x+15 and phase == 3 
         		and picketList[2].y-10< pl:GetY() and pl:GetY() < picketList[2].y+10 then --3단계
@@ -38,6 +38,8 @@ function CheckQuest(_x,_y)
     		questCheck = true
     	end
     end
+    
+
   end
 end
 
@@ -170,6 +172,9 @@ function ControlQuest()
 	    	SummerQuest()
 	    elseif stageLevel == 3 then
 	    	FallQuest()
+	   
+	    elseif stageLevel == 4 then
+	    	WinterQuest()
 	    end
 
 	    if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 퀘스트창이 닫힘.
@@ -292,6 +297,57 @@ function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 		      		canPass = true
 		      		multipleChoice = 1
 		      		qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		fadeOn = true
+		      		fadeOnWrong = true
+
+		      		LifeMinus()
+		      	end
+	      	end
+	    end
+end
+
+function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
+		if phase == 1 then --1번째는 Tip.
+	    	if love.keyboard.isDown("return") then --enter키임. 
+	      		questCheck = false
+	      		phase = phase + 1
+	      		qmarkCheck = true
+	      	end
+	    elseif phase == 2 then --2번째 객관식 문제.
+	    	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임. 
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+    				questCheck = false
+			      	phase = phase + 1
+			      	multipleChoice = 1
+			      	qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		fadeOn = true
+		      		fadeOnWrong = true
+		      		LifeMinus()
+		      	end
+		
+	      	end
+	    elseif phase == 3 then --3번째 객관식 문제
+	      	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임. 
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = 4
+		      		canPass = true
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      		groundList[0]:SetY(-300) -- ground의 y 값을 변경
+		      		BoxListDelete()
 		      	else
 		      		--오답일 경우
 		      		fadeOn = true
