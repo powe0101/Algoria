@@ -73,11 +73,11 @@ function GetRandomHeight()
 	hPart7 = {80, 30, 50, 40, 90}
 	hPart8 = {110, 30, 50, 90, 70}
 	hPart9 = {30, 50, 70, 76, 25}
-	hPart10 = {150, 110, 10, 30, 80}
+	hPart10 = {130, 110, 10, 30, 80}
 
 	hList = {hPart1, hPart2, hPart3, hPart4, hPart5,
 				hPart6, hPart7, hPart8, hPart9, hPart10}
-	ranNum = love.math.random(10)
+	ranNum = 10--love.math.random(10)
 
 	for k = 0, table.getn(hList[ranNum]) do
 		bubbleSortAnswerList[k] = hList[ranNum][k]
@@ -114,7 +114,8 @@ end
 
 function BubbleSortAnimation(list, count) --for문을 if문으로.
 	if test_i == 1 and test_j == 1 then
-		love.timer.sleep(2)
+		love.timer.sleep(0.5)
+		--여기서 안내창을 바꿔주면 될듯.
 	end
 	sortLeng = table.getn(hList[ranNum])
 	secondCheck = true
@@ -128,7 +129,7 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 			if list[test_j] > list[test_j+1] then
 				list[test_j], list[test_j+1] = list[test_j+1], list[test_j]				
 			end	
-			love.timer.sleep(2)
+			love.timer.sleep(1)
 			--원래는 슬립을 여기서 걸어줘야함.
 			test_j = test_j + 1
 		else 
@@ -140,8 +141,9 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		test_i = 1
 		test_j = 1
 		animationCheck = 0
-		sortControl = 1
+		sortControl = 6
 		secondCheck = false
+		--fallCorrectAnswer = false --어자피 스테이지가 깨지는 부분이기 떄문에 굳이 초기화할 필요는 없을듯.
 	end
 	--[[
 	for i = 1, count do --5회?4회?만 반복시키면 됨. 몇 회전을 의미.
@@ -177,6 +179,7 @@ function CortrolBubbleSort()
 					--정답일 경우
 					bubbleSortAniCheckCount = 2
 					animationCheck = 1
+					fallCorrectAnswer = true
 				else
 					--오답일 경우 -> quest.lua의 ControlQuest()참고.
 			      	LifeMinus()
