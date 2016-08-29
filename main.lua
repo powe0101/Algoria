@@ -16,7 +16,7 @@ require("houseList")
 require("ChiefHouse")
 require("chiefHouseList")
 require("BlackSmithHouse")
-
+require("chief")
 require("Portal")
 require("Ground")
 require("groundList")
@@ -340,6 +340,9 @@ function updateGame(dt)
   if pl then
     pl:update(dt)
   end
+  if chiefChar and stageLevel == 0 then
+    chiefChar:update(dt)
+  end
   BackGroundListUpdate(dt)
   GroundListUpdate(dt)
   TreeListUpdate(dt)
@@ -354,7 +357,6 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
   BossListUpdate(dt)
-
 
   if stageLevel == 1 then
     dustWind:Update(dt)
@@ -411,6 +413,9 @@ function drawGame()
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
+  if chiefChar and stageLevel == 0 then
+    chiefChar:draw()
+  end
 end
 
 function loadResources()
@@ -426,6 +431,8 @@ function loadResources()
   imgWinterChar = love.graphics.newImage("images/eisenChar.png")
   imgWinterChar:setFilter("nearest","nearest")
 
+  imgChief = love.graphics.newImage("images/chief.png")
+  imgChief:setFilter("nearest","nearest")
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
   imgSTree = love.graphics.newImage("images/summerTree.png")
@@ -504,6 +511,9 @@ function loadResources()
   imgHorse:setFilter("nearest","nearest")
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
+
+  imgSword = love.graphics.newImage("images/swordMax.png")
+  imgSword:setFilter("nearest","nearest")
 
   imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
