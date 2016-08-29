@@ -19,7 +19,7 @@ animationCheck = 0
 test_i = 1
 test_j = 1
 
-testtt = 0
+completeCount = 0
 
 function MakeBubbleSort()
 	--처음 버블소트 만들때 길이를 조정하면 가능할 것 같기도 함. hList를 사용해서.
@@ -43,13 +43,7 @@ function MakeBubbleSort()
 	UpdateSecondRectSelect()
 	UpdateRectValue()
 
-	
-		--정답일 경우 애니메이션으로 처음부터 보여줌.
-		
-
 	love.graphics.setColor(255,255,255,255)
-
-	love.graphics.print(testtt.."  "..bubbleSortAniCheckCount,10,10)
 
 	love.graphics.print(sortControl.."\n"..checkedNum.."\n"..secondControl,
 	10,30)
@@ -77,7 +71,7 @@ function GetRandomHeight()
 
 	hList = {hPart1, hPart2, hPart3, hPart4, hPart5,
 				hPart6, hPart7, hPart8, hPart9, hPart10}
-	ranNum = 10--love.math.random(10)
+	ranNum = 5--love.math.random(10)
 
 	for k = 0, table.getn(hList[ranNum]) do
 		bubbleSortAnswerList[k] = hList[ranNum][k]
@@ -109,7 +103,6 @@ function InitSort(list)
 	bubbleSortAniCheckCount = 1
 	animationCheck = 2
 	sortControl = 6
-	testtt = testtt + 100
 end
 
 function BubbleSortAnimation(list, count) --for문을 if문으로.
@@ -135,6 +128,7 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		else 
 			test_j = 1
 			test_i = test_i + 1
+			completeCount = completeCount + 1
 		end
 	else
 		--초기화는 임시로 해놓고 여기서는 이제 스테이지가 종료되어야함!
@@ -143,6 +137,7 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		animationCheck = 0
 		sortControl = 6
 		secondCheck = false
+		completeCount = completeCount + 1
 		--fallCorrectAnswer = false --어자피 스테이지가 깨지는 부분이기 떄문에 굳이 초기화할 필요는 없을듯.
 	end
 	--[[
@@ -345,7 +340,9 @@ function UpdateRectValue()
 	end
 end
 
------------------
+
+
+---------------------------------------------------
 
 function PrintRectA(xPosition)
 	love.graphics.setColor(0,0,0,255) 
@@ -402,55 +399,75 @@ end
 ------------
 
 function SelectRectA(xPosition)
-	love.graphics.setColor(255,0,0,255) -- 검은색 RGBA
+	love.graphics.setColor(255,0,0,255)
 	--love.graphics.rectangle("fill", xPosition, 50, 30, 128) --178까지
 	--										   └>178-길이	 └>길이
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][1], 30, hList[ranNum][1]) --178까지
 end
 
 function SelectRectB(xPosition)
-	love.graphics.setColor(255,0,0,255) -- 검은색 RGBA
+	love.graphics.setColor(255,0,0,255) 
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][2], 30, hList[ranNum][2]) --178까지
 end
 
 function SelectRectC(xPosition)
-	love.graphics.setColor(255,0,0,255) -- 검은색 RGBA
+	love.graphics.setColor(255,0,0,255)
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][3], 30, hList[ranNum][3]) --178까지
 end
 
 function SelectRectD(xPosition)
-	love.graphics.setColor(255,0,0,255) -- 검은색 RGBA
+	love.graphics.setColor(255,0,0,255)
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][4], 30, hList[ranNum][4]) --178까지
 end
 
 function SelectRectE(xPosition)
-	love.graphics.setColor(255,0,0,255) -- 검은색 RGBA
+	love.graphics.setColor(255,0,0,255) 
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][5], 30, hList[ranNum][5]) --178까지
 end
 
 -----------------
 
 function DrawRectA(xPosition)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	if 4 < completeCount then
+		love.graphics.setColor(0,255,0,255)
+	else
+		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	end
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][1], 30, hList[ranNum][1])
 end
 
 function DrawRectB(xPosition)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	if 3 < completeCount then
+		love.graphics.setColor(0,255,0,255)
+	else
+		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	end
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][2], 30, hList[ranNum][2])
 end
 
 function DrawRectC(xPosition)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	if 2 < completeCount then
+		love.graphics.setColor(0,255,0,255)
+	else
+		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	end
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][3], 30, hList[ranNum][3])
 end
 
 function DrawRectD(xPosition)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	if 1 < completeCount then
+		love.graphics.setColor(0,255,0,255)
+	else
+		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	end
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][4], 30, hList[ranNum][4])
 end
 
 function DrawRectE(xPosition)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	if 0 < completeCount then
+		love.graphics.setColor(0,255,0,255)
+	else
+		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	end
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][5], 30, hList[ranNum][5])
 end
