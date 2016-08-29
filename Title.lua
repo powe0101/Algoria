@@ -17,7 +17,7 @@ function DrawTitleMenu()
 end
 
 function TitleRun() --main의 createStage 메서드에서 호출
-
+  --w
   if splash == false then
     PlayTitleAudio()
     love.graphics.setBackgroundColor(bgcolor) --배경 색을 지정함
