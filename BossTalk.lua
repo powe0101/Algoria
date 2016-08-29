@@ -44,22 +44,22 @@ end
 
 function TalkOne() --Warrior Talk 1
 
- 	love.graphics.print("Warrior Part1.", 45, 20)
- 	love.graphics.print("Warrior Part1.", 45, 40)
- 	love.graphics.print("Warrior Part1.", 45, 60)
+ 	love.graphics.print("Warrior Part1.", 45, 12)
+ 	love.graphics.print("Warrior Part1.", 45, 32)
+ 	love.graphics.print("Warrior Part1.", 45, 52)
 end
 
-function TalkTwo() --Boss Talk 2
+function TalkTwo() --Boss Talk 1
 
- 	love.graphics.print("Boss Talk 2", 405, 22)
- 	love.graphics.print("Boss Talk 2", 405, 42)
- 	love.graphics.print("Boss Talk 2", 405, 62)
+ 	love.graphics.print("Boss Talk 1", 405, 22)
+ 	love.graphics.print("Boss Talk 1", 405, 42)
+ 	love.graphics.print("Boss Talk 1", 405, 62)
 end
 
 function TalkThree() --Warrior Talk 2
- 	love.graphics.print("Warrior Talk 2", 45, 20)
- 	love.graphics.print("Warrior Talk 2", 45, 40)
- 	love.graphics.print("Warrior Talk 2", 45, 60)
+ 	love.graphics.print("Warrior Talk 2", 45, 12)
+ 	love.graphics.print("Warrior Talk 2", 45, 32)
+ 	love.graphics.print("Warrior Talk 2", 45, 52)
 end
 
 function TalkFour() --Boss Talk 2
@@ -69,9 +69,9 @@ function TalkFour() --Boss Talk 2
 end
 
 function TalkFive() --Warrior Talk 3
- 	love.graphics.print("Warrior Talk 3", 45, 20)
- 	love.graphics.print("Warrior Talk 3", 45, 40)
- 	love.graphics.print("Warrior Talk 3", 45, 60)
+ 	love.graphics.print("Warrior Talk 3", 45, 12)
+ 	love.graphics.print("Warrior Talk 3", 45, 32)
+ 	love.graphics.print("Warrior Talk 3", 45, 52)
 end
 
 function TalkSix() --Boss Talk 3
@@ -89,12 +89,12 @@ function ControlTalkWithBoss()
 
 			if talkCount == 7 then
 				algoCheck = true
-				love.timer.sleep(0.3)
+				love.timer.sleep(0.5)
 			end
     	end
 
     	if love.keyboard.isDown("escape") then
-    		--초기화 및 대화종료
+    		--초기화 및 대화종료 여기서 폰트설정.
     		bossTalkCheck = false
 			talkCount = 1
 			pl.x = 200

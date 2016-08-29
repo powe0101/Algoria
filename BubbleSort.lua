@@ -77,7 +77,7 @@ function GetRandomHeight()
 
 	hList = {hPart1, hPart2, hPart3, hPart4, hPart5,
 				hPart6, hPart7, hPart8, hPart9, hPart10}
-	ranNum = 5--love.math.random(10)
+	ranNum = love.math.random(10)
 
 	for k = 0, table.getn(hList[ranNum]) do
 		bubbleSortAnswerList[k] = hList[ranNum][k]
@@ -187,9 +187,11 @@ function CortrolBubbleSort()
 		    	secondCheck = true
 		    	checkedNum = sortControl
 
-		    	if sortControl == 1 then
+		    	if checkedNum == 1 then
 		    		secondControl = 2
-		    	elseif sortControl == 2 then
+		    	elseif checkedNum == 2 then
+		    		secondControl = 1
+		    	else
 		    		secondControl = 1
 		    	end
 	    	end	
