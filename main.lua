@@ -40,6 +40,7 @@ require("backgroundList")
 require("Font")
 
 --이하 스테이지 관련
+require("Tutorial")
 require("village")
 require("Season")
 require("Stage")
@@ -111,6 +112,8 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+
+tempForMainXCoord = false
 
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
@@ -198,7 +201,8 @@ function love.update(dt)
   splashy.update(dt) -- Updates the fading of the splash images.
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
-    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false then
+    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false 
+    and tutorialStart == false then
     updateGame(dt)
   end
 
@@ -252,6 +256,16 @@ function love.draw()
     DrawBubbleSortTip()
   end
 
+  if tutorialStart then
+    StartTutorial()
+  end
+
+  if tempForMainXCoord then --메인에서 용사 좌표 보려고
+    love.graphics.setColor(255,0,0,255)
+    love.graphics.print(pl:GetX(),20,30)
+    love.graphics.setColor(255,255,255,255)
+  end
+
   HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
   BheartListDraw()
 end
@@ -295,6 +309,7 @@ function CheckStartGameForTitle()
     pl = Player.create() -- 플레이어 객체
     pl:reset()
     CreateVillage() -- 실제 마을 스테이지 생성
+    tempForMainXCoord = true
   end
 end
 
@@ -304,6 +319,7 @@ function love.keypressed(key,scancode) -- 키입력
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
+  ControlTutorial()
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 

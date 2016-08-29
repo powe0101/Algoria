@@ -20,7 +20,7 @@ function BossTalk()
 	 	else --용사가 말할 때
 	 		WarriorTalkBackground()
 	 	end
-	 		talkList[talkCount]()
+	 	talkList[talkCount]()
 	 end
 
  	love.graphics.setColor(255,255,255,255)

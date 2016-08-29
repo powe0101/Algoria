@@ -71,7 +71,7 @@ function GetRandomHeight()
 
 	hList = {hPart1, hPart2, hPart3, hPart4, hPart5,
 				hPart6, hPart7, hPart8, hPart9, hPart10}
-	ranNum = 5--love.math.random(10)
+	ranNum = love.math.random(10)
 
 	for k = 0, table.getn(hList[ranNum]) do
 		bubbleSortAnswerList[k] = hList[ranNum][k]
@@ -346,27 +346,27 @@ end
 
 function PrintRectA(xPosition)
 	love.graphics.setColor(0,0,0,255) 
-	love.graphics.print(hList[ranNum][1], xPosition+2, 150-hList[ranNum][1])
+	love.graphics.print(hList[ranNum][1], xPosition+3, 160-hList[ranNum][1])
 end
 
 function PrintRectB(xPosition)
 	love.graphics.setColor(0,0,0,255) 
-	love.graphics.print(hList[ranNum][2], xPosition+2, 150-hList[ranNum][2])
+	love.graphics.print(hList[ranNum][2], xPosition+3, 160-hList[ranNum][2])
 end
 
 function PrintRectC(xPosition)
 	love.graphics.setColor(0,0,0,255) 
-	love.graphics.print(hList[ranNum][3], xPosition+2, 150-hList[ranNum][3])
+	love.graphics.print(hList[ranNum][3], xPosition+3, 160-hList[ranNum][3])
 end
 
 function PrintRectD(xPosition)
 	love.graphics.setColor(0,0,0,255) 
-	love.graphics.print(hList[ranNum][4], xPosition+2, 150-hList[ranNum][4])
+	love.graphics.print(hList[ranNum][4], xPosition+3, 160-hList[ranNum][4])
 end
 
 function PrintRectE(xPosition)
 	love.graphics.setColor(0,0,0,255) 
-	love.graphics.print(hList[ranNum][5], xPosition+2, 150-hList[ranNum][5])
+	love.graphics.print(hList[ranNum][5], xPosition+3, 160-hList[ranNum][5])
 end
 
 -----------------------------------
