@@ -503,6 +503,9 @@ function loadResources()
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
+  imgSword = love.graphics.newImage("images/swordMax.png")
+  imgSword:setFilter("nearest","nearest")
+
   imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
   imgSBoss = love.graphics.newImage("images/summerDevil.png")
