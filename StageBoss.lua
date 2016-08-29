@@ -4,6 +4,7 @@
 function CreateBossCastle()
 	stageLevel = 7 --챕터별 보스 스테이지. 파이널은 6으로.
 	love.graphics.setBackgroundColor(128,128,128,255)
+	PlayAudio("audio/Overworld.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
 
     pl:reset()
 

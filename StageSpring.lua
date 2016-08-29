@@ -49,10 +49,10 @@ function CreateSpring()
     phase = 1
     pl:reset()
   end
-
+  PlayAudio("audio/363533.Spring.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
   CreateBackGround(-50,0)
 
-  
+
   CreateBackGround(550,0)
 
 

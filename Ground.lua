@@ -1,9 +1,10 @@
 Ground = {}
 Ground.__index = Ground
 
-Ground_frames_x  = love.graphics.newQuad(0,0,608,208,608,128) 
-Ground_half_frames  = love.graphics.newQuad(0,0,304,208,304,128) 
-Ground_castle_frames  = love.graphics.newQuad(0,0,608,220,608,220)  
+Ground_frames_x  = love.graphics.newQuad(0,0,608,208,608,128)
+summerGround_frames  = love.graphics.newQuad(0,0,608,400,608,400)
+Ground_half_frames  = love.graphics.newQuad(0,0,304,208,304,128)
+Ground_castle_frames  = love.graphics.newQuad(0,0,608,220,608,220)
 
 function Ground.create()
 	local self = {}
@@ -33,15 +34,15 @@ function Ground:SetY(_y)
 	self.y=_y
 end
 
-function Ground:SpaceJump(dt) --0808근영 점프함수  
+function Ground:SpaceJump(dt) --0808근영 점프함수
 	self=SCheckSpaceBarDown(self,dt)
 end
 
-function Ground:UpdateMove(dt) --tree key이벤트 
+function Ground:UpdateMove(dt) --tree key이벤트
 	self=BackgroundMove(self,dt)
   end
 
-function Ground:normal(dt) --Ground 이동 
+function Ground:normal(dt) --Ground 이동
 	self=BackgroundNormal(self,dt)
 end
 
@@ -57,11 +58,11 @@ function Ground:draw()
 
 	if stageLevel == 0 or stageLevel == 1 then
 	love.graphics.draw(imgGround,Ground_now_frame,self.x,self.y)
-	elseif stageLevel == 2 then 
+	elseif stageLevel == 2 then
 		if canPass==false then
 			love.graphics.draw(imgSCreeper,Ground_now_frame,self.x,self.y)
 	    elseif canPass then
-	    	love.graphics.draw(imgSGround,Ground_now_frame,self.x,self.y)
+	    	love.graphics.draw(imgSGround,Ground_frames_x,self.x,self.y)
 	    end
 	elseif stageLevel == 3 then --가을입니다. by.현식
 		if fallHalfGround then --땅을 절반만 그리고 싶을 때,
