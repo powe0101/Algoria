@@ -14,6 +14,8 @@ function CreateVillage()
 
   chiefChar = Chief.create()
   chiefChar:reset(550,145)
+  blacksmithChar = BlackSmith.create()
+  blacksmithChar:reset(880,137)
 
   SetVilliageBackgroundMusic()
   CreateGround(-49,76)

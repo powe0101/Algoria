@@ -1,9 +1,47 @@
 itemBoxWidth = 30
 itemBoxHeight = 30
 
+BlackSmith = {}
+BlackSmith.__index = BlackSmith
+
+blacksmith_frames = {}
+blacksmith_frames[0] = love.graphics.newQuad(0,0,50,40,50,40)
+
+function BlackSmith.create()
+	local self = {}
+	setmetatable(self, BlackSmith)
+	self:reset()
+	return self
+end
+
+function BlackSmith:reset(x,y)
+	self.frame = 1
+	self.x = x
+	self.y = y
+
+	blacksmith_now_frames = blacksmith_frames[0]
+end
+
+function BlackSmith:normal(dt)
+	self=BackgroundNormal(self,dt)
+end
+
+function BlackSmith:UpdateMove(dt)
+	self=BackgroundMove(self,dt)
+  end
+
+function BlackSmith:update(dt)
+	self:UpdateMove(dt)
+	self:normal(dt)
+end
+
+function BlackSmith:draw()
+	love.graphics.draw(imgblacksmith,blacksmith_now_frames,self.x,self.y)
+end
+
 function CheckBlackSmith()
 	if love.keyboard.isDown('up') and stageLevel == 0 then
-		if 450 < pl:GetX() and pl:GetX() < 470 then --300 320
+		if 450 < pl:GetX() and pl:GetX() < 470 then
 			CheckBlackSmithIn()
 		end
 	end
