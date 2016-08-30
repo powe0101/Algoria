@@ -149,8 +149,8 @@ function Player:CheckSpaceBarDown(dt)
 
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity
-	elseif stageLevel==2 then
-		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 then
+		elseif stageLevel==2 then
+		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 and canPass==false then
 			self.yspeed = self.jump_power
 		end
 
@@ -170,14 +170,21 @@ end
 function Player:normal(dt)
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
-		if collision_Top_Y > 0 and self.y > collision_Top_Y - 10 and self.yspeed > 0 and stageLevel~=2 then
+		if collision_Top_Y > 0 and self.y > collision_Top_Y-10  and self.yspeed > 0 and stageLevel~=2 and stageLevel~=4 then
 			if self.isTop then  -- on the box
 				self.y = collision_Top_Y - 10
 				self.yspeed = 0
 				self.onGround = true
 				return
 			end
-        elseif self.isTop and self.isBottom and stageLevel==2  then
+		elseif collision_Top_Y > 0 and self.y > collision_Top_Y-17  and self.yspeed > 0 and stageLevel==4  then
+			if self.isTop then  -- on the box
+				self.y = collision_Top_Y - 17
+				self.yspeed = 0
+				self.onGround = true
+				return
+			end
+        elseif self.isTop and self.isBottom and stageLevel==2 and canPass==false then
         
         	self.yspeed=0
  
