@@ -218,6 +218,7 @@ function love.update(dt)
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
+  CheckTutorial()
 end
 
 function love.draw()
@@ -262,7 +263,7 @@ function love.draw()
 
   if tempForMainXCoord then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX(),20,30)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
     love.graphics.setColor(255,255,255,255)
   end
 
@@ -419,8 +420,8 @@ function drawGame()
     PortalDraw()
     BlackSmithHouseDraw()
   end
-   if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
-     CreeperListDraw()
+     if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
+       CreeperListDraw()
   end
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
      BridgeListDraw()
