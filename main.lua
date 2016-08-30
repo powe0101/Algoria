@@ -219,6 +219,7 @@ function love.update(dt)
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
   CheckTutorial()
+  CheckQmarkAtViilage() --마을에서 느낌표 띄우기.
 end
 
 function love.draw()
@@ -427,11 +428,12 @@ function drawGame()
      BridgeListDraw()
   end
 
-  if pl then
-    pl:draw() -- 플레이어 스프라이트 그리기
-  end
   if chiefChar and stageLevel == 0 then
     chiefChar:draw()
+  end
+
+  if pl then
+    pl:draw() -- 플레이어 스프라이트 그리기
   end
 end
 
