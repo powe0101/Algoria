@@ -343,6 +343,9 @@ function updateGame(dt)
   if chiefChar and stageLevel == 0 then
     chiefChar:update(dt)
   end
+  if blacksmithChar and stageLevel == 0 then
+    blacksmithChar:update(dt)
+  end
   BackGroundListUpdate(dt)
   GroundListUpdate(dt)
   TreeListUpdate(dt)
@@ -413,6 +416,9 @@ function drawGame()
   if chiefChar and stageLevel == 0 then
     chiefChar:draw()
   end
+  if blacksmithChar and stageLevel == 0 then
+    blacksmithChar:draw()
+  end
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
@@ -433,6 +439,9 @@ function loadResources()
 
   imgChief = love.graphics.newImage("images/chief.png")
   imgChief:setFilter("nearest","nearest")
+  imgblacksmith = love.graphics.newImage("images/blacksmith.png")
+  imgblacksmith:setFilter("nearest","nearest")
+
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
   imgSTree = love.graphics.newImage("images/summerTree.png")
