@@ -65,6 +65,7 @@ function StartTutorial()
 	else --대화가 끝난 후.
 		tutorialStart = false
 		tutorialProgressLevel = tutorialProgressLevel + 1
+		qmarkCheckAtVillage = true
 	end
 	
 	love.graphics.setColor(255,255,255,255)
@@ -110,46 +111,51 @@ function ElderTalk1()
 end
 
 function WarriorTalk2()
- 	love.graphics.print("응, 아니요.", 115, 32)
+ 	love.graphics.print("네. 장로님 덕분에요!", 115, 32)
 end
 
 function ElderTalk2()
- 	love.graphics.print("썩을놈의 새끼..", 365, 32)
+ 	love.graphics.print("그래. 마침 잘왔구나", 365, 32)
+ 	love.graphics.print("너에게 할말이 있단다", 365, 52)
 end
 
 function WarriorTalk3()
- 	love.graphics.print("3", 115, 32)
+ 	love.graphics.print("뭔데요??", 115, 32)
  	--love.graphics.print("Warrior Part1.", 115, 52)
  	--love.graphics.print("Warrior Part1.", 115, 72)
 end
 
 function ElderTalk3()
- 	love.graphics.print("33", 365, 32)
- 	--love.graphics.print("Elder Talk 1", 365, 52)
+ 	love.graphics.print("음.. 지난번에 내가 줬던 ", 365, 32)
+ 	love.graphics.print("종이를 기억하니??", 365, 52)
  	--love.graphics.print("Elder Talk 1", 365, 72)
 end
 
 function WarriorTalk4()
- 	love.graphics.print("4", 115, 32)
- 	--love.graphics.print("Warrior Part1.", 115, 52)
- 	--love.graphics.print("Warrior Part1.", 115, 72)
+ 	love.graphics.print("네?? 음...", 115, 32)
+ 	love.graphics.print("글쎄요..", 115, 52)
+ 	love.graphics.print("잘 기억이 나지 않아요.", 115, 72)
 end
 
 function ElderTalk4()
- 	love.graphics.print("44", 365, 32)
- 	--love.graphics.print("Elder Talk 1", 365, 52)
- 	--love.graphics.print("Elder Talk 1", 365, 72)
+ 	love.graphics.print("뭐라고!? ", 365, 32)
+ 	love.graphics.print("그 종이는 굉장히 중요한", 365, 52)
+ 	love.graphics.print("종이란다!!", 365, 72)
 end
 
 function WarriorTalk5()
- 	love.graphics.print("55", 115, 32)
+ 	love.graphics.print("무슨 종이인데요 ??", 115, 32)
  	--love.graphics.print("Warrior Part1.", 115, 52)
  	--love.graphics.print("Warrior Part1.", 115, 72)
 end
 
 function ElderTalk5()
- 	love.graphics.print("자! 파란지붕인 너의 집으로", 365, 32)
- 	love.graphics.print("가서 확인해보거라", 365, 52)
+	love.graphics.print("그 종이는 니가 앞으로", 365, 32)
+	love.graphics.print("헤쳐나갈 모험을 기록할 수", 365, 52)
+	love.graphics.print("있는 물건이란다!", 365, 72)
+
+ 	love.graphics.print("자! 파란지붕인 너의 집으로", 365, 92)
+ 	love.graphics.print("가서 찾아보거라", 365, 112)
  	--love.graphics.print("Elder Talk 1", 365, 72)
 end
 
