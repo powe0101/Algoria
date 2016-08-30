@@ -52,15 +52,17 @@ function CheckQmarkAtViilage()
           QMarkListDelete()
           CreateQMark(houseList[0].x+50, 115)
           qmarkCheck = false
-      elseif tutorialProgressLevel == 3 then --대장장이 위에 느낌표
+      elseif tutorialProgressLevel == 3 then --포탈 위에 느낌표
           QMarkListDelete()
+          CreateQMark(Portal.x+15, Portal.y-35) --180
           qmarkCheck = false
-      elseif tutorialProgressLevel == 4 then --다시 장로 위에 느낌표
+      elseif tutorialProgressLevel == 4 then --대장장이 위에 느낌표
           QMarkListDelete()
-          CreateQMark(chiefChar.x, 115)
+          CreateQMark(blacksmithChar.x+12, 110)
           qmarkCheck = false
-      else --포탈도 필요하나?
+      elseif tutorialProgressLevel == 5 then --다시 장로 위에 느낌표
         QMarkListDelete()
+        CreateQMark(chiefChar.x, 115)
         qmarkCheck = false
       end
   end
