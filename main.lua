@@ -412,7 +412,6 @@ function drawGame()
   ChiefHouseListDraw()
   RiverListDraw()
   PicketListDraw()
-  QMarkListDraw()
   CastleListDraw()
   BossListDraw()
 
@@ -438,7 +437,8 @@ function drawGame()
   if blacksmithChar and stageLevel == 0 then
     blacksmithChar:draw()
   end
-
+  
+  QMarkListDraw()
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
