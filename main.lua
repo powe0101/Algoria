@@ -57,6 +57,8 @@ require("Answer")
 
 --Notice
 require("Notice")
+require("DirectionArrow")
+
 require("BlackSmith")
 
 --라이프 관련
@@ -440,6 +442,11 @@ function drawGame()
   end
 
   QMarkListDraw()
+
+  if directionArrow then
+    directionArrow:Draw()
+  end
+
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
