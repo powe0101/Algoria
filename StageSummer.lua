@@ -147,8 +147,8 @@ function CreateSummer()
     
     CreateCastle(710, 870) -- 중간보스 성
 	CreateBackGround(-210,910)
-    CreateGround(-210,435)
-    CreateGround(390,435)
+    CreateGround(-180,435)
+    CreateGround(410,435)
     CreateCloud(100,460)
     CreateCloud(100,500)
     CreateCloud(100,600)
