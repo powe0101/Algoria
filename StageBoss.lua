@@ -2,7 +2,6 @@
 -- 최종 보스가 아니라 각 스테이지 별로 있는 중간보스에 관련된 파일임.
 
 function CreateBossCastle()
-	stageLevel = 7 --챕터별 보스 스테이지. 파이널은 6으로.
 	love.graphics.setBackgroundColor(128,128,128,255)
 	PlayAudio("audio/Overworld.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
 
@@ -16,10 +15,24 @@ end
 
 function CheckBossCastle()
 	if love.keyboard.isDown('up') then
-		if stageLevel == 3 and 43 < pl:GetX() and pl:GetX() < 56 then --가을에서 보스성 이동하기.
+		if stageLevel == 2 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
+			stageLevel = 6 --가을 보스스테이 레벨은 7.
+			DeleteVillage()
+			CreateBossCastle()
+		    HEIGHT=200
+    		updateScale()
+		end
+	    if stageLevel == 3 and 43 < pl:GetX() and pl:GetX() < 56 then --가을에서 보스성 이동하기.
 			stageLevel = 7 --가을 보스스테이 레벨은 7.
 			DeleteVillage()
 			CreateBossCastle()
+		end
+		if stageLevel == 4 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
+			stageLevel = 7 --가을 보스스테이 레벨은 7.
+			DeleteVillage()
+			CreateBossCastle()
+		    HEIGHT=200
+    		updateScale()
 		end
 	end
 end

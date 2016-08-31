@@ -16,7 +16,7 @@ require("houseList")
 require("ChiefHouse")
 require("chiefHouseList")
 require("BlackSmithHouse")
-
+require("chief")
 require("Portal")
 require("Ground")
 require("groundList")
@@ -40,6 +40,8 @@ require("backgroundList")
 require("Font")
 
 --이하 스테이지 관련
+require("Tutorial")
+require("tutorialTalkList")
 require("village")
 require("Season")
 require("Stage")
@@ -111,6 +113,8 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+
+tempForMainXCoord = false
 
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
@@ -198,7 +202,8 @@ function love.update(dt)
   splashy.update(dt) -- Updates the fading of the splash images.
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
-    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false then
+    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
+    and tutorialStart == false then
     updateGame(dt)
   end
 
@@ -214,6 +219,8 @@ function love.update(dt)
   UpdateLife() --라이프 관리를 플레이어에서 해버리면 문제풀때 플레이어의 업데이트가 멈추기 때문에 따로 뺐음. by.현식 0808
   CheckBossCastle() --중간보스 성으로 들어가는 메서드.
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
+  CheckTutorial()
+  CheckQmarkAtViilage() --마을에서 느낌표 띄우기.
 end
 
 function love.draw()
@@ -250,6 +257,16 @@ function love.draw()
 
   if bubbleTipCheck then
     DrawBubbleSortTip()
+  end
+
+  if tutorialStart then
+    StartTutorial()
+  end
+
+  if tempForMainXCoord then --메인에서 용사 좌표 보려고
+    love.graphics.setColor(255,0,0,255)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.setColor(255,255,255,255)
   end
 
   HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
@@ -295,6 +312,7 @@ function CheckStartGameForTitle()
     pl = Player.create() -- 플레이어 객체
     pl:reset()
     CreateVillage() -- 실제 마을 스테이지 생성
+    tempForMainXCoord = true
   end
 end
 
@@ -304,6 +322,7 @@ function love.keypressed(key,scancode) -- 키입력
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
+  ControlTutorial()
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
@@ -340,6 +359,12 @@ function updateGame(dt)
   if pl then
     pl:update(dt)
   end
+  if chiefChar and stageLevel == 0 then
+    chiefChar:update(dt)
+  end
+  if blacksmithChar and stageLevel == 0 then
+    blacksmithChar:update(dt)
+  end
   BackGroundListUpdate(dt)
   GroundListUpdate(dt)
   TreeListUpdate(dt)
@@ -354,7 +379,6 @@ function updateGame(dt)
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
   BossListUpdate(dt)
-
 
   if stageLevel == 1 then
     dustWind:Update(dt)
@@ -389,7 +413,6 @@ function drawGame()
   ChiefHouseListDraw()
   RiverListDraw()
   PicketListDraw()
-  QMarkListDraw()
   CastleListDraw()
   BossListDraw()
 
@@ -401,13 +424,22 @@ function drawGame()
     PortalDraw()
     BlackSmithHouseDraw()
   end
-   if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
-     CreeperListDraw()
+     if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
+       CreeperListDraw()
   end
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
      BridgeListDraw()
   end
 
+  if chiefChar and stageLevel == 0 then
+    chiefChar:draw()
+  end
+
+  if blacksmithChar and stageLevel == 0 then
+    blacksmithChar:draw()
+  end
+
+  QMarkListDraw()
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
@@ -425,6 +457,11 @@ function loadResources()
   imgFallChar:setFilter("nearest","nearest")
   imgWinterChar = love.graphics.newImage("images/eisenChar.png")
   imgWinterChar:setFilter("nearest","nearest")
+
+  imgChief = love.graphics.newImage("images/chief.png")
+  imgChief:setFilter("nearest","nearest")
+  imgblacksmith = love.graphics.newImage("images/blacksmith.png")
+  imgblacksmith:setFilter("nearest","nearest")
 
   imgTree = love.graphics.newImage("images/tree.png")
   imgTree:setFilter("nearest","nearest")
@@ -459,6 +496,8 @@ function loadResources()
   imgFGround:setFilter("nearest","nearest")
   imgWGround = love.graphics.newImage("images/winterGround.png")
   imgWGround:setFilter("nearest","nearest")
+  imgWGround2 = love.graphics.newImage("images/winterGround2.png")
+  imgWGround2:setFilter("nearest","nearest")
 
   imgSCreeper = love.graphics.newImage("images/creeper.png")
   imgSCreeper:setFilter("nearest","nearest")
@@ -469,7 +508,7 @@ function loadResources()
   imgRiver = love.graphics.newImage("images/river.png")
   imgRiver:setFilter("nearest","nearest")
 
-  imgBridge = love.graphics.newImage("images/bridge.png")
+  imgBridge = love.graphics.newImage("images/BridgeAnimation.png")
   imgBridge:setFilter("nearest","nearest")
 
   imgQMark = love.graphics.newImage("images/questionMark.png")
@@ -503,6 +542,9 @@ function loadResources()
   imgEisen = love.graphics.newImage("images/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
+  imgSword = love.graphics.newImage("images/swordMax.png")
+  imgSword:setFilter("nearest","nearest")
+
   imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
   imgSBoss = love.graphics.newImage("images/summerDevil.png")
@@ -514,10 +556,14 @@ function loadResources()
   imgFinalBoss = love.graphics.newImage("images/finalDevil.png")
   imgFinalBoss:setFilter("nearest","nearest")
 
-
-
+  imgSpringCastle = love.graphics.newImage("images/springInnerCastle.png")
+  imgSpringCastle:setFilter("nearest","nearest")
+  imgSummerCastle = love.graphics.newImage("images/summerInnerCastle.png")
+  imgSummerCastle:setFilter("nearest","nearest")
   imgFallCastle = love.graphics.newImage("images/fallInnerCastle.png")
   imgFallCastle:setFilter("nearest","nearest")
+  imgWinterCastle = love.graphics.newImage("images/winterInnerCastle.png")
+  imgWinterCastle:setFilter("nearest","nearest")
 
   imgVillageBackGround = love.graphics.newImage("images/village.png")
   imgVillageBackGround:setFilter("nearest","nearest")
@@ -529,6 +575,9 @@ function loadResources()
   imgFallBackGround:setFilter("nearest","nearest")
   imgWinterBackGround = love.graphics.newImage("images/winter.png")
   imgWinterBackGround :setFilter("nearest","nearest")
+  imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
+  imgWinterBackGround2 :setFilter("nearest","nearest")
+
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

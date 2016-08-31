@@ -30,6 +30,7 @@ function CheckCreeperAniPassValue()--by.근영 0802  다리의 애니메이션 �
       groundList[1]:SetY(840)
     creeperList[0]:play()
     creeperList[1]:play()
+    pl.player_ground_y = 340
 
   end
 

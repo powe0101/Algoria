@@ -17,10 +17,18 @@ function CheckQuest(_x,_y)
   		if self.x-8 < pl:GetX() and pl:GetX() < self.x+8  then --봄에서의 표지퐌 자표를 입력해주면 됨. by.현식 0803
       		questCheck = true
     	end
-    elseif stageLevel == 2 then --근영 여름 08 11
-    	if self.x-20< pl:GetX() and pl:GetX() < self.x+15 and self.y-10< pl:GetY() and pl:GetY() < self.y+10 then 
+    elseif stageLevel == 2 or stageLevel==4 then --근영 여름 08 11
+
+        	if picketList[2].x-20 < pl:GetX() and pl:GetX() < picketList[2].x+15 and phase == 3
+        		and picketList[2].y-10< pl:GetY() and pl:GetY() < picketList[2].y+10 then --3단계
+      		questCheck = true
+    	elseif picketList[1].x-20 < pl:GetX() and pl:GetX() < picketList[1].x+15 and phase == 2
+    			and picketList[1].y-10< pl:GetY() and pl:GetY() < picketList[1].y+10  then
     		questCheck = true
-        end
+    	elseif picketList[0].x-20 < pl:GetX() and pl:GetX() < picketList[0].x+15 and phase == 1
+    			and picketList[0].y-10< pl:GetY() and pl:GetY() < picketList[0].y+10 then
+    		questCheck = true
+    	end
   	elseif stageLevel == 3 then --가을
     	if 215 < pl:GetX() and pl:GetX() < 225 and phase == 3 then --3단계
       		questCheck = true
@@ -30,6 +38,8 @@ function CheckQuest(_x,_y)
     		questCheck = true
     	end
     end
+
+
   end
 end
 
@@ -42,18 +52,18 @@ function DrawQuest() -- phase별로 문제를 그리게 됨.
   	if phase == 1 then
   		DrawTip()
   	elseif phase ==2 or phase ==3 then
-  		--조건문을 걸어서 계절별/단계별로 문제를 어떻게 다르게 출력할 것인지 생각해봐야 할 듯. 
+  		--조건문을 걸어서 계절별/단계별로 문제를 어떻게 다르게 출력할 것인지 생각해봐야 할 듯.
   		DrawMultipleChoice()
   	end
 
-  	if fadeOn then --오답일 경우 오답이란 메시지를 페이드인으로 띄워줌. 
+  	if fadeOn then --오답일 경우 오답이란 메시지를 페이드인으로 띄워줌.
   		if fadeOnRight then --정답일 때도 만들수 있는데 구현은 안함. 딱히 필요 없을듯. by.0804 현식.
 	  		love.graphics.setColor(255, 255, 255, fadeLight)
 			love.graphics.draw(imgRightAnswer, wrong_now_frame, 50,50) --정답은 안쓰임
 		elseif fadeOnWrong then --오답일 때 오답이라고 창 뜨는 것 외에도 라이프가 깍이면 좋겠음.
 	  		love.graphics.setColor(255, 255, 255, fadeLight)
-			love.graphics.draw(imgWrongAnswer, wrong_now_frame, 200,25)	
-		end	
+			love.graphics.draw(imgWrongAnswer, wrong_now_frame, 200,25)
+		end
 	end
 
   	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
@@ -70,7 +80,7 @@ function DrawBubbleSortTip()
 	DrawTip()
 
 	if bubbleTipCount == 1 then
-		--텍스트는 쓰는걸로 ??	
+		--텍스트는 쓰는걸로 ??
 		love.graphics.draw(bubbleTip1,tip_now_frame,40,12)
 	elseif bubbleTipCount == 2 then
 		love.graphics.draw(bubbleTip2,tip_now_frame,40,12)
@@ -100,7 +110,7 @@ function DrawChocieOne()
 	love.graphics.draw(exampleList[GetAnswerNum()][1],answer_now_frame,100,145)
 	love.graphics.draw(exampleList[GetAnswerNum()][2],answer_now_frame,200,145)
 	love.graphics.draw(exampleList[GetAnswerNum()][3],answer_now_frame,300,145)
-	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145) 
+	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145)
 	--리스트 안에 리스트 테스트 성공. by.현식 0804
 
 	love.graphics.setColor(255,0,0,255)
@@ -150,7 +160,7 @@ end
 
 
 
-function ControlQuest() 
+function ControlQuest()
 	if questCheck or bubbleTipCheck then
 		if phase > 1 and love.keyboard.isDown("tab") then
 	    	--아무키나 누르시오를 구현하기 위함.
@@ -162,6 +172,9 @@ function ControlQuest()
 	    	SummerQuest()
 	    elseif stageLevel == 3 then
 	    	FallQuest()
+
+	    elseif stageLevel == 4 then
+	    	WinterQuest()
 	    end
 
 	    if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 퀘스트창이 닫힘.
@@ -224,7 +237,7 @@ function GetQuestNum() --리스트에서 몇 번 문제인지 뽑아내기 위�
 	elseif stageLevel == 3 then
 		return phase + 6
 	elseif stageLevel == 4 then
-		return phase + 9 
+		return phase + 9
 	end
 end
 
@@ -236,7 +249,7 @@ function ControlLeftRight()
 	   		multipleChoice = multipleChoice - 1
 	   	end
 	end
-    			
+
     if love.keyboard.isDown("right") then
     		if multipleChoice == 4 then
     		--4번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
@@ -248,7 +261,7 @@ end
 
 function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
 		if phase == 1 then --1번째는 Tip.
-	    	if love.keyboard.isDown("return") then --enter키임. 
+	    	if love.keyboard.isDown("return") then --enter키임.
 	      		questCheck = false
 	      		phase = phase + 1
 	      		qmarkCheck = true
@@ -256,7 +269,7 @@ function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 	    elseif phase == 2 then --2번째 객관식 문제.
 	    	ControlLeftRight()
 
-    		if love.keyboard.isDown("return") then --enter키임. 
+    		if love.keyboard.isDown("return") then --enter키임.
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
     			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
     				--정답을 맞췄을 경우
@@ -270,12 +283,12 @@ function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 		      		fadeOnWrong = true
 		      		LifeMinus()
 		      	end
-		      	love.timer.sleep(0.3) --enter키 연속눌림 방지.
+
 	      	end
 	    elseif phase == 3 then --3번째 객관식 문제
 	      	ControlLeftRight()
 
-    		if love.keyboard.isDown("return") then --enter키임. 
+    		if love.keyboard.isDown("return") then --enter키임.
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
     			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
     				--정답을 맞췄을 경우
@@ -295,9 +308,66 @@ function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 	    end
 end
 
+function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
+		if phase == 1 then --1번째는 Tip.
+	    	if love.keyboard.isDown("return") then --enter키임.
+	      		questCheck = false
+	      		phase = phase + 1
+	      		qmarkCheck = true
+	      	end
+	    elseif phase == 2 then --2번째 객관식 문제.
+	    	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+    				questCheck = false
+			      	phase = phase + 1
+			      	multipleChoice = 1
+			      	qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		fadeOn = true
+		      		fadeOnWrong = true
+		      		LifeMinus()
+		      	end
+
+	      	end
+	    elseif phase == 3 then --3번째 객관식 문제
+	      	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = 4
+		      		canPass = true
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      		groundList[0]:SetY(-300) -- ground의 y 값을 변경
+		      		groundList[1]:SetY(-300) -- ground의 y 값을 변경
+		      		BoxListDelete()
+		      		CreateBackGround(-50,200)
+							CreateBackGround(550,200)
+							CreateBackGround(-50,-200)
+							CreateBackGround(550,-200)
+		      		pl.player_ground_y = 335
+		      	else
+		      		--오답일 경우
+		      		fadeOn = true
+		      		fadeOnWrong = true
+
+		      		LifeMinus()
+		      	end
+	      	end
+	    end
+end
+
 function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 메서드
 		if bubbleTipCheck then --가을에만 있는 버블소트를 위한 팁 제공
-			if love.keyboard.isDown("return") then --enter키임. 
+			if love.keyboard.isDown("return") then --enter키임.
 	      		if bubbleTipCount == 1 then
 	      			bubbleTipCount = bubbleTipCount + 1
 	      			love.timer.sleep(0.3)
@@ -313,7 +383,7 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
 	      		end
 	      	end
 	    elseif phase == 1 then --1번째는 Tip.
-	    	if love.keyboard.isDown("return") then --enter키임. 
+	    	if love.keyboard.isDown("return") then --enter키임.
 	      		questCheck = false
 	      		phase = phase + 1
 	      		BridegePassValue = BridegePassValue + 185
@@ -322,7 +392,7 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
 	    elseif phase == 2 then --2번째 객관식 문제.
 	    	ControlLeftRight()
 
-    		if love.keyboard.isDown("return") then --enter키임. 
+    		if love.keyboard.isDown("return") then --enter키임.
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
     			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
     				--정답을 맞췄을 경우
@@ -347,7 +417,7 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
 	    elseif phase == 3 and bubbleTipCheck == false then --3번째 객관식 문제
 	      	ControlLeftRight()
 
-    		if love.keyboard.isDown("return") then --enter키임. 
+    		if love.keyboard.isDown("return") then --enter키임.
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
     			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
     				--정답을 맞췄을 경우
