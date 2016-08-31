@@ -5,37 +5,37 @@ function CreateWinter()
     	updateScale()
 
 		PlayAudio("audio/363535.Winter.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
-		
+
 		pl:reset()
 		pl:StartWinterStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end
-		--CreatePicket(-20,200)  --진짜 피켓 위치 
+		--CreatePicket(-20,200)  --진짜 피켓 위치
 		--CreatePicket(1040,155)
 		--CreatePicket(65,45)
-		CreatePicket(-20,330) -- 임시 피켓 위치 
+		CreatePicket(-20,330) -- 임시 피켓 위치
 		CreatePicket(40,335)
 		CreatePicket(65,335)
 		CreateCastle(310, -360) -- 중간보스 성
-		CreateBackGround(-50,170)
-		CreateBackGround(550,170)
+		CreateBackGround(-50,0)
+		CreateBackGround(550,0)
 		CreateBackGround(-50,-400)
 		CreateBackGround(550,-400)
 		CreateBackGround(-50,-600)
 		CreateBackGround(550,-600)
-		
+
 		CreateGround(-100,270)
 		CreateGround(421,270)
 		CreateGround(900,270)
-		
+
 		CreateTree(0,275)
 		CreateTree(250,275)
 		CreateTree(500,275)
 		CreateTree(750,275)
 		CreateTree(1000,275)
-        
-		CreateQMark(-20, 170) 
-    	
-    	--첫번째 문제 
+
+		CreateQMark(-20, 170)
+
+    	--첫번째 문제
 		CreateBox(-20,230)
 		CreateBox(0,230)
 		CreateBox(20,230)
@@ -57,16 +57,16 @@ function CreateWinter()
 		CreateBox(280,270)
 		CreateBox(300,290)
 		CreateBox(310,330)
-	     		
-  		CreateBox(340,155)--3
+
+  	CreateBox(340,155)--3
 		CreateBox(360,135)--3
-	    CreateBox(380,115)--3
-	    CreateBox(400,95)--3
-	     --두번째 문제 
-	    CreateBox(440,70)--3
+	  CreateBox(380,115)--3
+	  CreateBox(400,95)--3
+	  --두번째 문제
+	  CreateBox(440,70)--3
 		CreateBox(440,350)
 		CreateBox(460,50)--3
-	    CreateBox(460,70)--3
+	  CreateBox(460,70)--3
 		CreateBox(460,350)
 		CreateBox(480,70)--3
 		CreateBox(480,330)
@@ -93,11 +93,11 @@ function CreateWinter()
  		CreateBox(880,120)--3
  		CreateBox(880,290)
 		CreateBox(950,140)--3
-  		CreateBox(950,270)
-  		CreateBox(970,140)--3
-  		CreateBox(990,140)--3
+  	CreateBox(950,270)
+  	CreateBox(970,140)--3
+  	CreateBox(990,140)--3
  		CreateBox(990,230)
- 	
+
  		CreateBox(1040,185)
 		CreateBox(1060,185)
 
