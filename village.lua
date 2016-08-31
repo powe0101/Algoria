@@ -17,6 +17,8 @@ function CreateVillage()
   blacksmithChar = BlackSmith.create()
   blacksmithChar:reset(880,137)
 
+  directionArrow = DirectionArrow.Create()
+
   SetVilliageBackgroundMusic()
   CreateGround(-49,76)
   CreateGround(541,76)
@@ -68,7 +70,7 @@ function CreateVillage()
   CreateBox(500,50)
   CreateBox(540,30)
 
-  CreateQMark(chiefChar.x, 115) --장로위에 느낌표. 
+  CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
 end
 
 function SetVilliageBackgroundMusic()
