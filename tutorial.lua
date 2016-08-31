@@ -1,5 +1,5 @@
 tutorialStart = false
-tutorialProgressLevel = 1 --1은 기본. 2는 용사집. 3은 대장간. 4는 다시 장로와 대화.
+tutorialProgressLevel = 5 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
 
 talkCountWithElder = 1
 talkCountAtHome = 1
@@ -74,7 +74,8 @@ function StartTutorial()
 	elseif tutorialProgressLevel == 5 and talkInit then
 		talkCountWithElder = 1
 		tutorialTalkList = {}
-		tutorialTalkList = {AfterElderTalk1,AfterWarroirTalkAtVillage1}
+		tutorialTalkList = {AfterElderTalk1,AfterWarroirTalkAtVillage1,AfterElderTalk2,
+		AfterElderTalk3, AfterElderTalk4}
 		talkInit = false
 	end
 
@@ -111,12 +112,16 @@ function StartTutorial()
 			BlacksmtihTalk3()
 		end
 	elseif tutorialProgressLevel == 5 then
-		if talkCountWithElder % 2 == 0 then--짝수, 즉 용사가 말할 때
+		if talkCountWithElder > 5 then
+			DrawTipBackground()
+		elseif talkCountWithElder == 2 then -- 용사가 말할 때
 		 	WarriorTalkBackgroundAtVillage()
+		 	tutorialTalkList[talkCountWithElder]()
 		else --장로가 말할 때
 		 	ElderTalkBackground()
+		 	tutorialTalkList[talkCountWithElder]()
 		end
-		tutorialTalkList[talkCountWithElder]()
+		
 	else --대화가 끝난 후.
 		tutorialStart = false
 		tutorialProgressLevel = tutorialProgressLevel + 1
