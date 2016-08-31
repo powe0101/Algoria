@@ -202,7 +202,7 @@ function love.update(dt)
   splashy.update(dt) -- Updates the fading of the splash images.
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
-    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false 
+    and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
     and tutorialStart == false then
     updateGame(dt)
   end
@@ -438,7 +438,7 @@ function drawGame()
   if blacksmithChar and stageLevel == 0 then
     blacksmithChar:draw()
   end
-  
+
   QMarkListDraw()
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
