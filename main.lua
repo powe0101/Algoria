@@ -41,6 +41,7 @@ require("Font")
 
 --이하 스테이지 관련
 require("Tutorial")
+require("tutorialTalkList")
 require("village")
 require("Season")
 require("Stage")
