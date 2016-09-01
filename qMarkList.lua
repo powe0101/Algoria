@@ -64,6 +64,9 @@ function CheckQmarkAtViilage()
         QMarkListDelete()
         CreateQMark(chiefChar.x, 115)
         qmarkCheck = false
+      else
+        QMarkListDelete()
+        qmarkCheck = false
       end
   end
 end

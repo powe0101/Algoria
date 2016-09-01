@@ -41,6 +41,7 @@ require("Font")
 
 --이하 스테이지 관련
 require("Tutorial")
+require("tutorialTalkList")
 require("village")
 require("Season")
 require("Stage")
@@ -56,6 +57,8 @@ require("Answer")
 
 --Notice
 require("Notice")
+require("DirectionArrow")
+
 require("BlackSmith")
 
 --라이프 관련
@@ -439,6 +442,11 @@ function drawGame()
   end
 
   QMarkListDraw()
+
+  if directionArrow then
+    directionArrow:Draw()
+  end
+
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
@@ -582,6 +590,7 @@ function loadResources()
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
   BubbleTipLoad()
+  TutorialLoad() --튜토리얼과 관련된 문제/정답 이미지 호출. Tutorial.lua
 end
 
 

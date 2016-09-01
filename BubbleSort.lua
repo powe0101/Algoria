@@ -58,15 +58,15 @@ function MakeBubbleSort()
 end
 
 function GetRandomHeight()
-	hPart1 = {90, 100, 30, 120, 70}
-	hPart2 = {20, 35, 70, 50 , 90}
-	hPart3 = {120, 30, 44, 70, 100}
+	hPart1 = {90, 100, 120, 30, 70}
+	hPart2 = {50, 10, 40, 30 , 80}
+	hPart3 = {90, 44, 55, 110, 85}
 	hPart4 = {67, 88, 120, 23, 59}
 	hPart5 = {110, 90, 70, 50, 30}
 	hPart6 = {70, 40, 110, 90, 20}
-	hPart7 = {80, 30, 50, 40, 90}
-	hPart8 = {110, 30, 50, 90, 70}
-	hPart9 = {30, 50, 70, 76, 25}
+	hPart7 = {80, 30, 40, 90, 70}
+	hPart8 = {90, 60, 70, 50, 30}
+	hPart9 = {50, 70, 30, 76, 25}
 	hPart10 = {130, 110, 10, 30, 80}
 
 	hList = {hPart1, hPart2, hPart3, hPart4, hPart5,
