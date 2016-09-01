@@ -590,6 +590,7 @@ function loadResources()
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
   BubbleTipLoad()
+  TutorialLoad() --튜토리얼과 관련된 문제/정답 이미지 호출. Tutorial.lua
 end
 
 
