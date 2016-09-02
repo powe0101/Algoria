@@ -6,7 +6,7 @@ height = 50 --사각형을 만들기 위한 변수들. 마리오에서 따옴
 
 function CheckSeason()
   if stageLevel == 1 then
-    CreateSpring() --원래코드
+    CreateSpring() 
     --stageLevel = 5
     --CreateBossCastle()
   elseif stageLevel == 2 then
