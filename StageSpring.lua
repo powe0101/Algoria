@@ -14,6 +14,7 @@ function StageSpring:Reset()
   self.objectList = {} -- 봄에서 사용하는 오브젝트
   self.width = 500
   self.height = 200
+  randomSeed = love.math.newRandomGenerator()
 end
 
 function StageSpring:CreateDustWind()
@@ -21,13 +22,10 @@ function StageSpring:CreateDustWind()
 end
 
 function StageSpring:MakePuzzle(_count)
-  --for i = 1, _count do
-  --  박스말고 긴 막대
-  --end
-end
-
-function StageSpring:ReplacePuzzle(_seed)
-
+  for i = 1, _count do
+    --local x = randomSeed:random(100,50)
+    CreateBox(randomSeed:random(300,500),100)
+  end
 end
 
 function StageSpring:DeletePuzzle()
@@ -35,12 +33,11 @@ function StageSpring:DeletePuzzle()
 end
 
 function StageSpring:DustWindBlowing(_distance)
-  local seed = dustWind:RandomSeed()
+
   --퍼즐은 랜덤?
   --경고?
   dustWind:Move(_distance)
   --돌풍이 움직인다
-  StageSpring:ReplacePuzzle(_seed)
   --퍼즐이 바뀐다
 end
 
@@ -62,7 +59,7 @@ function CreateSpring()
 
   stageSpring = StageSpring.Create()
   stageSpring:CreateDustWind()
-
+  stageSpring:MakePuzzle(5)
   notice = Notice.Create()
   notice:SetText("Stage Spring")
 
