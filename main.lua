@@ -44,12 +44,14 @@ require("Tutorial")
 require("tutorialTalkList")
 require("village")
 require("Season")
+require("PortalAdmin")
 require("Stage")
 require("StageSpring")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
 require("StageBoss") --중간보스 스테이지
+require("Clear") --클리어
 
 --문제풀이 관련
 require("Quest")
@@ -116,6 +118,8 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수.
+portalAdmin = false --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 
 tempForMainXCoord = false
 
@@ -238,8 +242,11 @@ function love.draw()
     DrawTitleMenu()
   end
 
-  if popupCheck then --0805HS
+  --관리자 모드일 경우, 계절을 선택해서 이동할 수 있음. 아니면 그냥 다음 스테이지로 이동.
+  if popupCheck and portalAdmin then --0805HS
     DrawPopup()
+  elseif popupCheck then
+    DrawNextStage() --0901
   end
 
   if blacksmithCheck then
@@ -269,6 +276,7 @@ function love.draw()
   if tempForMainXCoord then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
     love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
     love.graphics.setColor(255,255,255,255)
   end
 
@@ -321,11 +329,14 @@ end
 
 function love.keypressed(key,scancode) -- 키입력
   ControlBlackSmith()
-  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
   ControlTutorial()
+
+  --Portal&Season
+  ControlPopup() --그냥 사용자가 이동할 경우.
+  ControlAdminPopup() --관리자모드일 경우
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
