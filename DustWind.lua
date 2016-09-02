@@ -19,42 +19,45 @@ function DustWind:Reset()
 	self.isPlay = nil
 	-- 사용할지 모르겠지만 임시 변수로 남김. G
 
-	self:RegisterImage()
 	self:SettingAnimation()
 end
 
-function DustWind:RegisterImage()
-	imgDustWind = love.graphics.newImage("images/portal.png")
-	imgDustWind:setFilter("nearest","nearest")
-end
-
 function DustWind:SettingAnimation()
-	AnimationDustWind = newAnimation(imgDustWind,64,64,0.3,0)
-	AnimationDustWind:setMode("loop")
-	AnimationDustWind:SetAniPostion(300,PLAYER_START_Y)
+	CreateSandStorm(300,PLAYER_START_Y)
 end
 
 function DustWind:Draw()
-	if AnimationDustWind == nil then
+	if SandStorm == nil then
 		return
 	end
 
-	AnimationDustWind:draw()
+	SandStorm:draw()
 end
 
 function DustWind:Play()
-	AnimationDustWind:play()
+	SandStorm:play()
+end
+
+function DustWind:CheckCollideBoxForDustWind(x,y)
+	for i =0, boxCount-1 do
+		if x - boxList[i].x < 64 and x - boxList[i].x > -64 then
+			boxList[i].x = randomSeed:random(300,500)
+		end
+	end
 end
 
 function DustWind:Move(_distance)
 	-- 바람이 움직인다
-	local x = AnimationDustWind.x
-	local y = AnimationDustWind.y
+	local x = self.x
+	local y = self.y
 	print("x : "..tostring(x).." y : "..tostring(y))
 	for i=1,_distance,0.1 do
-		AnimationDustWind:SetAniPostion(x-i,y)
-	end
 
+		SandStorm:SetAniPostion(x+i,y)
+		self.x = x+i
+
+	end
+	self:CheckCollideBoxForDustWind(self.x,self.y)
 end
 
 function DustWind:Pause()
@@ -69,10 +72,6 @@ function DustWind:GetY()
 	return self.y
 end
 
-function DustWind:RandomSeed()
-	return love.math.setRandomSeed(os.time())
-end
-
 function DustWind:UpdateMove(dt) --tree key이벤트
 	self=BackgroundMove(self,dt)
   end
@@ -84,12 +83,12 @@ end
 function DustWind:Update(dt)
 	self:UpdateMove(dt)
 	self:Normal(dt)
-	AnimationDustWind:update(dt)
+	SandStorm:update(dt)
 end
 
 function DustWindDraw()
-	if dustwind == nil then
+	if SandStorm == nil then
 		return
 	end
-	dustwind:Draw()
+	SandStorm:Draw()
 end
