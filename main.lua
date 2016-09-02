@@ -75,6 +75,7 @@ require("BubbleSort")
 
 --봄
 require("DustWind")
+require("SandStorm")
 
 --block
 
@@ -389,6 +390,7 @@ function updateGame(dt)
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
+    SandStormUpdate(dt)
   end
   if stageLevel == 2 and checkPlaying then --여름
 
@@ -425,6 +427,7 @@ function drawGame()
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
+    SandStormDraw()
   end
      if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
        CreeperListDraw()
@@ -585,11 +588,14 @@ function loadResources()
   imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
   imgWinterBackGround2 :setFilter("nearest","nearest")
 
+  imgSandStorm = love.graphics.newImage("images/sandstorm.png")
+  imgSandStorm:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
   BubbleTipLoad()
+  TutorialLoad() --튜토리얼과 관련된 문제/정답 이미지 호출. Tutorial.lua
 end
 
 

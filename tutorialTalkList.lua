@@ -1,13 +1,41 @@
 ----------------------이하 대화내용
+function FinalElderTalk()
+ 	love.graphics.print("잘했다 알!", 365, 32)
+ 	love.graphics.print("이정도면 너를 믿고 맡겨도", 365, 52)
+ 	love.graphics.print("되겠구나!", 365, 72)
+ 	love.graphics.print("자, 그럼 이제 마왕을", 365, 92)
+ 	love.graphics.print("무찌르러 떠나거라!", 365, 112)
+end
 
-function AfterElderTalk1()
- 	love.graphics.print("그래 알, 잘 다녀왔니?", 365, 32)
- 	--love.graphics.print("종이를 기억하니??", 365, 52)
+
+function AfterElderTalk4()
+ 	love.graphics.print("55", 365, 32)
+ 	love.graphics.print("55", 365, 52)
+ 	love.graphics.print("55", 365, 72)
+end
+
+function AfterElderTalk3()
+ 	love.graphics.print("44", 365, 32)
+ 	love.graphics.print("44", 365, 52)
+ 	love.graphics.print("44", 365, 72)
+end
+
+function AfterElderTalk2()
+ 	love.graphics.print("이제 때가 됐단다, 알.", 365, 32)
+ 	love.graphics.print("비로소 지금에야 말로 마왕", 365, 52)
+ 	love.graphics.print("을 무찌를 기회가 왔단다.", 365, 72)
+ 	love.graphics.print("우리가 마왕에 대항할 무기", 365, 92)
+ 	love.graphics.print("우리가 마왕에 대항할 물건.", 365, 92)
 end
 
 function AfterWarroirTalkAtVillage1()
  	love.graphics.print("네 장로님.", 115, 32)
  	--love.graphics.print("안녕하세요?", 115, 52)
+end
+
+function AfterElderTalk1()
+ 	love.graphics.print("그래 알, 잘 다녀왔니?", 365, 32)
+ 	--love.graphics.print("종이를 기억하니??", 365, 52)
 end
 
 function BlacksmtihTalk1()

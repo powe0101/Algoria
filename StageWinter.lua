@@ -23,15 +23,15 @@ function CreateWinter()
 		CreateBackGround(-50,-600)
 		CreateBackGround(550,-600)
 
-		CreateGround(-100,270)
-		CreateGround(421,270)
-		CreateGround(900,270)
+		CreateGround(-100,245)
+		CreateGround(421,245)
+		CreateGround(900,245)
 
-		CreateTree(0,275)
-		CreateTree(250,275)
-		CreateTree(500,275)
-		CreateTree(750,275)
-		CreateTree(1000,275)
+		CreateTree(0,272)
+		CreateTree(250,272)
+		CreateTree(500,272)
+		CreateTree(750,272)
+		CreateTree(1000,272)
 
 		CreateQMark(-20, 170)
 

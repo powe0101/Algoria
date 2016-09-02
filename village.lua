@@ -71,6 +71,8 @@ function CreateVillage()
   CreateBox(540,30)
 
   CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
+
+  CreateSandStorm(650,-10)
 end
 
 function SetVilliageBackgroundMusic()
