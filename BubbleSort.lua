@@ -138,19 +138,10 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		sortControl = 6
 		secondCheck = false
 		completeCount = completeCount + 1
-		StageClear()
+
 		--fallCorrectAnswer = false --어자피 스테이지가 깨지는 부분이기 떄문에 굳이 초기화할 필요는 없을듯.
+		ClearFallBoss()
 	end
-	--[[
-	for i = 1, count do --5회?4회?만 반복시키면 됨. 몇 회전을 의미.
-		for j = 1, sortLeng - i do
-			if list[j] > list[j+1] then
-				list[j], list[j+1] = list[j+1], list[j]
-				love.timer.sleep(0.3)
-			end
-		end
-	end
-	]]--
 end
 
 function CheckSameTable(firstList, secondList)
@@ -195,7 +186,7 @@ function CortrolBubbleSort()
 		    	end
 	    	end	
 
-	    	if love.keyboard.isDown("escape") then
+	    	if love.keyboard.isDown("escape") and bossClearCheck == false then
    				algoCheck = false
 				pl.x = 200
 				firstMakeRandomSort = true
@@ -223,6 +214,12 @@ function CortrolBubbleSort()
 
    		if love.keyboard.isDown("escape") then
    			secondCheck = false
+   		end
+
+   		if love.keyboard.isDown("return") then
+   			if bossClearCheck then
+				SkipFallBoss()
+   			end
    		end
 --------
 	end
@@ -271,7 +268,7 @@ function ContorlSecondLeftRight()
     	else
     		secondControl = secondControl + 1
     	end
-    end	
+    end	DrawBackToVillage()
 end
 
 function UpdateRectSelect()
