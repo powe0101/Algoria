@@ -138,6 +138,7 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		sortControl = 6
 		secondCheck = false
 		completeCount = completeCount + 1
+		StageClear()
 		--fallCorrectAnswer = false --어자피 스테이지가 깨지는 부분이기 떄문에 굳이 초기화할 필요는 없을듯.
 	end
 	--[[
