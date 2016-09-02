@@ -13,9 +13,9 @@ end
 
 function CheckSeason()
   if stageLevel == 1 then
-    --CreateSpring() --원래코드
-    stageLevel = 5
-    CreateBossCastle()
+    CreateSpring() --원래코드
+    -- stageLevel = 5
+    -- CreateBossCastle()
   elseif stageLevel == 2 then
     --CreateSummer()
     stageLevel = 6
