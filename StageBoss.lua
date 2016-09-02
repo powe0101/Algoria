@@ -10,7 +10,7 @@ function CreateBossCastle()
     CreateGround(-49,0) --이미지를 다시 조정하던지 보스성에서만 용사 y좌표를 바꾸던지 해야할 듯. 0811. 퇴근.
   	CreateGround(481,0)
 
-  	CreatePortal(560,113)
+  	CreatePortal(535,113)
   	CreateBoss(500,21)
 end
 
@@ -29,7 +29,7 @@ function CheckBossCastle()
 			CreateBossCastle()
 		end
 		if stageLevel == 4 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
-			stageLevel = 7 --가을 보스스테이 레벨은 7.
+			stageLevel = 8 --가을 보스스테이 레벨은 7.
 			DeleteVillage()
 			CreateBossCastle()
 		    HEIGHT=200
