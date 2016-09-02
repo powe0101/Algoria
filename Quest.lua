@@ -93,17 +93,17 @@ end
 
 function DrawMultipleChoice() --문제를 풀고 넘어가야 하는 객관식 방식. -- ~258 / 168
 	if multipleChoice == 1 then
-		DrawChocieOne()
+		DrawChoiceOne()
 	elseif multipleChoice == 2 then
-		DrawChocieTwo()
+		DrawChoiceTwo()
 	elseif multipleChoice == 3 then
-		DrawChocieThree()
+		DrawChoiceThree()
 	elseif multipleChoice == 4 then
-		DrawChocieFour()
+		DrawChoiceFour()
 	end
 end
 
-function DrawChocieOne()
+function DrawChoiceOne()
 	--love.graphics.rectangle("line", 100,150,50, 30) --정답을 사각형으로 체크할 경우
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
@@ -119,7 +119,7 @@ function DrawChocieOne()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
 
-function DrawChocieTwo()
+function DrawChoiceTwo()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 	love.graphics.draw(exampleList[GetAnswerNum()][1],answer_now_frame,100,145)
 	love.graphics.draw(exampleList[GetAnswerNum()][2],answer_now_frame,200,145)
@@ -132,7 +132,7 @@ function DrawChocieTwo()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
 
-function DrawChocieThree()
+function DrawChoiceThree()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 	love.graphics.draw(exampleList[GetAnswerNum()][1],answer_now_frame,100,145)
 	love.graphics.draw(exampleList[GetAnswerNum()][2],answer_now_frame,200,145)
@@ -145,7 +145,7 @@ function DrawChocieThree()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
 
-function DrawChocieFour()
+function DrawChoiceFour()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 	love.graphics.draw(exampleList[GetAnswerNum()][1],answer_now_frame,100,145)
 	love.graphics.draw(exampleList[GetAnswerNum()][2],answer_now_frame,200,145)
@@ -187,23 +187,35 @@ end
 function QuestLoad() --틀은 만들어놨으니 나중에 이미지만 바꾸면 그대로 적용할 수 있음.
 	--봄 퀘스트
 	springPhase1Quest = love.graphics.newImage("images/quest/spring_phase1_quest.png") --그림판으로 작업한 임시 문제
+	springPhase1Quest:setFilter("nearest","nearest")
 	springPhase2Quest = love.graphics.newImage("images/quest/spring_phase2_quest.png") --그림판으로 작업한 임시 문제
+	springPhase2Quest:setFilter("nearest","nearest")
 	springPhase3Quest = love.graphics.newImage("images/quest/spring_phase3_quest.png") --그림판으로 작업한 임시 문제
+	springPhase3Quest:setFilter("nearest","nearest")
 
 	--여름 퀘스트
 	summerPhase1Quest = love.graphics.newImage("images/quest/summer_phase1_quest.png") --그림판으로 작업한 임시 문제
+	summerPhase1Quest:setFilter("nearest","nearest")
 	summerPhase2Quest = love.graphics.newImage("images/quest/summer_phase2_quest.png") --그림판으로 작업한 임시 문제
+	summerPhase2Quest:setFilter("nearest","nearest")
 	summerPhase3Quest = love.graphics.newImage("images/quest/summer_phase3_quest.png") --그림판으로 작업한 임시 문제
+	summerPhase3Quest:setFilter("nearest","nearest")
 
 	--가을 퀘스트
-	fallPhase1Quest = love.graphics.newImage("images/quest/fall_phase1_quest.png") --그림판으로 작업한 임시 문제
-	fallPhase2Quest = love.graphics.newImage("images/quest/fall_phase2_quest.png") --그림판으로 작업한 임시 문제
-	fallPhase3Quest = love.graphics.newImage("images/quest/fall_phase3_quest.png") --그림판으로 작업한 임시 문제
+	fallPhase1Quest = love.graphics.newImage("images/quest/fall_phase1_quest.png") 
+	fallPhase1Quest:setFilter("nearest","nearest")
+	fallPhase2Quest = love.graphics.newImage("images/quest/fall_phase2_quest.png") 
+	fallPhase2Quest:setFilter("nearest","nearest")
+	fallPhase3Quest = love.graphics.newImage("images/quest/fall_phase3_quest.png") 
+	fallPhase3Quest:setFilter("nearest","nearest")
 
 	--겨울 퀘스트
 	winterPhase1Quest = love.graphics.newImage("images/quest/winter_phase1_quest.png") --그림판으로 작업한 임시 문제
+	winterPhase1Quest:setFilter("nearest","nearest")
 	winterPhase2Quest = love.graphics.newImage("images/quest/winter_phase2_quest.png") --그림판으로 작업한 임시 문제
+	winterPhase2Quest:setFilter("nearest","nearest")
 	winterPhase3Quest = love.graphics.newImage("images/quest/winter_phase3_quest.png") --그림판으로 작업한 임시 문제
+	winterPhase3Quest:setFilter("nearest","nearest")
 
 	quest_now_frame =  love.graphics.newQuad(0,0, 481, 121, 481, 121) --이 사이즈가 딱 맞음.
 

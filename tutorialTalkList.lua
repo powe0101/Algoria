@@ -1,15 +1,23 @@
 ----------------------이하 대화내용
+function FinalElderTalk()
+ 	love.graphics.print("잘했다 알!", 365, 32)
+ 	love.graphics.print("이정도면 너를 믿고 맡겨도", 365, 52)
+ 	love.graphics.print("되겠구나!", 365, 72)
+ 	love.graphics.print("자, 그럼 이제 마왕을", 365, 92)
+ 	love.graphics.print("무찌르러 떠나거라!", 365, 112)
+end
+
 
 function AfterElderTalk4()
- 	love.graphics.print("4444", 365, 32)
- 	love.graphics.print("4444", 365, 52)
- 	love.graphics.print("4444", 365, 72)
+ 	love.graphics.print("55", 365, 32)
+ 	love.graphics.print("55", 365, 52)
+ 	love.graphics.print("55", 365, 72)
 end
 
 function AfterElderTalk3()
- 	love.graphics.print("3333", 365, 32)
- 	love.graphics.print("3333", 365, 52)
- 	love.graphics.print("3333", 365, 72)
+ 	love.graphics.print("44", 365, 32)
+ 	love.graphics.print("44", 365, 52)
+ 	love.graphics.print("44", 365, 72)
 end
 
 function AfterElderTalk2()
