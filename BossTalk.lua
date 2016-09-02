@@ -6,7 +6,7 @@ talkList = {}
 
 function CheckBossMeeting()
 	--가을 보스스테이지.
-	if stageLevel == 7 and 200 < pl:GetX() then --일정 좌표 넘어가서 대화 이벤트 발생.
+	if stageLevel == 7 and 200 < pl:GetX() and bossClearCheck == false then --일정 좌표 넘어가서 대화 이벤트 발생.
 		bossTalkCheck = true -- main에서의 update 중지.
 	end
 end
