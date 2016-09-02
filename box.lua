@@ -1,7 +1,7 @@
 Box = {}
 Box.__index = Box
 
-box_frame = love.graphics.newQuad(0, 0, 20, 20, 128, 128)
+box_frame = love.graphics.newQuad(0, 0, 22, 22, 22, 22)
 
 BOX_WIDTH = 20
 BOX_HEIGHT = 20
@@ -62,7 +62,6 @@ function Box:CreateDirectionBox()
   self.dtBox[6] = self.x
   self.dtBox[7] = self.y - BOX_WIDTH
  	--top
-
 end
 
 function Box:SpaceJump(dt) --0808근영 점프함수
@@ -83,10 +82,7 @@ function Box:update(dt)
 	end
 	self:UpdateMove(dt)
 	self:normal(dt)
-
 end
-
-
 
 function Box:GetX()
 	return self.x
@@ -114,6 +110,13 @@ function Box:draw()
  		drawDirectionBox(self,255,255,255)
  	end
 
+	if stageLevel==0 or stageLevel==1 then
+		love.graphics.draw(imgSpringBlock,box_frame,self.x-1,self.y-1)
+	end
+	if stageLevel==4 then
+		love.graphics.draw(imgWinterBlock,box_frame,self.x-1,self.y-1)
+	end
+
  	if self.isCollisionRight then
  		self:DrawLine(self.x + BOX_WIDTH, self.y)
  	end
@@ -133,8 +136,6 @@ function Box:draw()
  	love.graphics.setColor(255,255,255) -- 흰색 RGBA
 end
 
-
-
 function drawDirectionBox(box, r,g,b)
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x + BOX_WIDTH, box.y, BOX_WIDTH, BOX_HEIGHT)
@@ -151,7 +152,6 @@ function drawDirectionBox(box, r,g,b)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x , box.y + BOX_WIDTH , BOX_WIDTH, BOX_HEIGHT)
   --bottom
-
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x, box.y - BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)
