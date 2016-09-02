@@ -402,7 +402,7 @@ function updateGame(dt)
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
-    SandStormUpdate(dt)
+    --SandStormUpdate(dt)
   end
   if stageLevel == 2 and checkPlaying then --여름
 
@@ -439,7 +439,7 @@ function drawGame()
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
-    SandStormDraw()
+    --SandStormDraw()
   end
      if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
        CreeperListDraw()
