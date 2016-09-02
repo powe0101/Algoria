@@ -6,9 +6,8 @@ function StageClear()
 	clearLevel = stageLevel - 3
 	stageLevel = 0 --마을로 가니까.
 
-	algoCheck = false
-	bubbleTipCheck = false
-	--테스팅
+	--스테이지를 초기화하면서 모든 것들을 다 false로 만들어줌. 그래야 멈추지 않음.
+	algoCheck = false; 	bubbleTipCheck = false; 
 	popupCheck = false; questCheck = false; blacksmithCheck = false; 
 	bossTalkCheck = false; tutorialStart = false;
 
