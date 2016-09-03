@@ -1,5 +1,7 @@
 fontOnceCheck = true
 fallCorrectAnswer = false
+bossClearCheck = false
+printBossClear = false
 
 function MakeAlgorithm()
 	if stageLevel > 4 and algoCheck then
@@ -51,4 +53,11 @@ function PrintWhenCorrectAnswer()
 	love.graphics.setColor(0, 0, 0, 255)
 	--love.graphics.print("\n※조작법※\n\n'↑' : 정답여부를 확인할 수 있다.\n'Space' : 데이터를 교환한다.\n'←,→' : 선택한 막대기를 좌우로\n변경할 수 있다.' " ,62+285, 80)
 	--정답을 맞추면 이부분에 '정답!' 이라고 메시지를 바뀌게 하고 스킵할수있는 기능도 추가. 또한 스테이지 종료도.
+end
+
+function DrawBossClear()
+	--보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
+	love.graphics.setColor(255, 0, 0, 255)
+	love.graphics.print("정렬이 끝났습니다! \n 확인하셨다면 'Enter'를 눌러주세요.",62+285, 120)	
+	love.graphics.setColor(0, 0, 0, 255)
 end

@@ -30,7 +30,8 @@ function ControlTutorial()
 			end
 		end
 
-	if tutorialStart then --튜토리얼이 동작할때 사용되는 것들.
+		--※중요, 맨 처음 clearLevel을 1값을 줬고 그 이후로 스테이지 레벨에 따라 증가하므로 최초 1회에만 실행시키는 튜토리얼을 위해서는 clearLevel은 1이라는 조건문이 필요. by.현식 0902
+	if tutorialStart and clearLevel == 1 then --튜토리얼이 동작할때 사용되는 것들.
 		if love.keyboard.isDown('return') then
 			if tutorialProgressLevel == 1 then
 				talkCountWithElder = talkCountWithElder + 1

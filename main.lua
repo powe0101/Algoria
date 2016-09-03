@@ -44,12 +44,14 @@ require("Tutorial")
 require("tutorialTalkList")
 require("village")
 require("Season")
+require("PortalAdmin")
 require("Stage")
 require("StageSpring")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
 require("StageBoss") --중간보스 스테이지
+require("Clear") --클리어
 
 --문제풀이 관련
 require("Quest")
@@ -116,6 +118,8 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
+portalAdmin = false --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 
 tempForMainXCoord = false
 
@@ -206,8 +210,8 @@ function love.update(dt)
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
-    and tutorialStart == false then
-    updateGame(dt)
+    and tutorialStart == false and returnToVillage == false then
+      updateGame(dt)
   end
 
   --마우스 테스트용
@@ -238,8 +242,11 @@ function love.draw()
     DrawTitleMenu()
   end
 
-  if popupCheck then --0805HS
+  --관리자 모드일 경우, 계절을 선택해서 이동할 수 있음. 아니면 그냥 다음 스테이지로 이동.
+  if popupCheck and portalAdmin then --0805HS
     DrawPopup()
+  elseif popupCheck then
+    DrawNextStage() --0901
   end
 
   if blacksmithCheck then
@@ -266,9 +273,18 @@ function love.draw()
     StartTutorial()
   end
 
+  if bossClearCheck and printBossClear then --보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
+    DrawBossClear()
+  end
+
+  if returnToVillage then
+    DrawBackToVillage()
+  end
+
   if tempForMainXCoord then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
     love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
     love.graphics.setColor(255,255,255,255)
   end
 
@@ -321,11 +337,15 @@ end
 
 function love.keypressed(key,scancode) -- 키입력
   ControlBlackSmith()
-  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
   ControlTutorial()
+  ControlBackToVillage()
+
+  --Portal&Season
+  ControlPopup() --그냥 사용자가 이동할 경우.
+  ControlAdminPopup() --관리자모드일 경우
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
@@ -378,10 +398,10 @@ function updateGame(dt)
   RiverListUpdate(dt)
   PicketListUpdate(dt)
   QMarkListUpdate(dt)
+  BossListUpdate(dt)
   HeartListUpdate(dt) --라이프
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
-  BossListUpdate(dt)
 
   if stageLevel == 1 then
     dustWind:Update(dt)
@@ -391,7 +411,11 @@ function updateGame(dt)
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
     SandStormUpdate(dt)
+  elseif stageLevel > 4 then
+    PortalUpdate(dt)
   end
+
+
   if stageLevel == 2 and checkPlaying then --여름
 
     CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수.
@@ -418,7 +442,6 @@ function drawGame()
   RiverListDraw()
   PicketListDraw()
   CastleListDraw()
-  BossListDraw()
 
   if stageLevel == 1 then
     UpdateSpring()
@@ -428,8 +451,12 @@ function drawGame()
     PortalDraw()
     BlackSmithHouseDraw()
     SandStormDraw()
+  elseif stageLevel > 4 then
+    PortalDraw()
   end
-     if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
+  BossListDraw() --보스가 포탈보다 뒤에 그려져야함.
+
+  if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
        CreeperListDraw()
   end
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
