@@ -1,7 +1,11 @@
 --라이프를 관리하는 메서드
 
+playerDeadCheck = false
+
 lifeCheck = false
 playerLife = 5
+
+dead_frame = love.graphics.newQuad(0,0,100,100,100,100)
 
 function UpdateLife()
 	if lifeCheck then
@@ -16,11 +20,27 @@ end
 function LifeMinus()
 	TurnOnFadeOut()
 	lifeCheck = true --라이프를 닳게하기 위해
-	if 0 < playerLife then
+	if 1 < playerLife and playerLife < 6 then
 		playerLife = playerLife -1
-	--else 
-		--여기서는 게임 종료를 구현해야함.
+	else
+		--라이프 0, 게임종료. 게임종료 때 띄워주는 이미지를 간단히 만드는 것도 나쁘지 않을 듯.
+		playerLife = playerLife -1
+		PlayerDie()
 	end
+end
+
+function PlayerDie() --라이프가 다 닳아서 죽는 부분.
+	DeleteVillage()
+	AllMakeFalse()
+	--플레이어도 사라지게
+	pl = nil
+	fadeOn = false
+	playerDeadCheck = true --타이틀로 넘어가는 부분에서 다시 false로 만들면 될 듯.
+end
+
+function BadEnding()
+	--추후에 용사가 죽은 이미지로 변경할 것.
+	love.graphics.draw(imgWarrorDead, dead_frame, 300, 60)
 end
 
 function LifeControl()

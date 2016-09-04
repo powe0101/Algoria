@@ -283,7 +283,7 @@ function love.draw()
 
   ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
 
-  if tempForMainXCoord then --메인에서 용사 좌표 보려고
+  if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
     love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
     love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
@@ -291,8 +291,10 @@ function love.draw()
     love.graphics.setColor(255,255,255,255)
   end
 
-  HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
-  BheartListDraw()
+  if playerDeadCheck == false then --플레이어가 죽으면 라이프도 안보이게.
+    HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
+    BheartListDraw()
+  end
 end
 
 function SetScale(key,scancode)
@@ -478,6 +480,10 @@ function drawGame()
     blacksmithChar:draw()
   end
 
+  if playerDeadCheck then
+    BadEnding()
+  end
+
   QMarkListDraw()
 
   if directionArrow then
@@ -624,6 +630,9 @@ function loadResources()
 
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")
+
+  imgWarrorDead = love.graphics.newImage("images/finalDevil.png")
+  imgWarrorDead:setFilter("nearest","nearest")  
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
