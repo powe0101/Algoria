@@ -14,9 +14,12 @@ function UpdateLife()
 end
 
 function LifeMinus()
+	TurnOnFadeOut()
 	lifeCheck = true --라이프를 닳게하기 위해
 	if 0 < playerLife then
 		playerLife = playerLife -1
+	--else 
+		--여기서는 게임 종료를 구현해야함.
 	end
 end
 

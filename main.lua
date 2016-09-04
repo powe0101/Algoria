@@ -281,10 +281,13 @@ function love.draw()
     DrawBackToVillage()
   end
 
+  ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
+
   if tempForMainXCoord then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
     love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
     love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
+    love.graphics.print("phase  : "..phase,20,80)
     love.graphics.setColor(255,255,255,255)
   end
 
@@ -337,6 +340,7 @@ end
 
 function love.keypressed(key,scancode) -- 키입력
   ControlBlackSmith()
+  ControlFadeOut() --어디서든 오답 메시지를 띄울 수 있도록
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
@@ -348,6 +352,9 @@ function love.keypressed(key,scancode) -- 키입력
   ControlAdminPopup() --관리자모드일 경우
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
+
+  --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
+
 
   if love.keyboard.isDown("return") then
       splashy.skipSplash()
