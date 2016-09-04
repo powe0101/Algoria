@@ -73,6 +73,7 @@ function CreateVillage()
   CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
 
   CreateSandStorm(650,-10)
+  phase = 0
 end
 
 function SetVilliageBackgroundMusic()
@@ -103,5 +104,4 @@ function DeleteVillage()
 
   canPass = false
   BridegePassValue = 0
-  phase = 0
 end

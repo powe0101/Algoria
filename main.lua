@@ -281,15 +281,20 @@ function love.draw()
     DrawBackToVillage()
   end
 
-  if tempForMainXCoord then --메인에서 용사 좌표 보려고
+  ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
+
+  if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
     love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
     love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
+    love.graphics.print("phase  : "..phase,20,80)
     love.graphics.setColor(255,255,255,255)
   end
 
-  HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
-  BheartListDraw()
+  if playerDeadCheck == false then --플레이어가 죽으면 라이프도 안보이게.
+    HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
+    BheartListDraw()
+  end
 end
 
 function SetScale(key,scancode)
@@ -337,6 +342,7 @@ end
 
 function love.keypressed(key,scancode) -- 키입력
   ControlBlackSmith()
+  ControlFadeOut() --어디서든 오답 메시지를 띄울 수 있도록
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
@@ -348,6 +354,9 @@ function love.keypressed(key,scancode) -- 키입력
   ControlAdminPopup() --관리자모드일 경우
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
+
+  --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
+
 
   if love.keyboard.isDown("return") then
       splashy.skipSplash()
@@ -469,6 +478,10 @@ function drawGame()
 
   if blacksmithChar and stageLevel == 0 then
     blacksmithChar:draw()
+  end
+
+  if playerDeadCheck then
+    BadEnding()
   end
 
   QMarkListDraw()
@@ -617,6 +630,9 @@ function loadResources()
 
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")
+
+  imgWarrorDead = love.graphics.newImage("images/finalDevil.png")
+  imgWarrorDead:setFilter("nearest","nearest")  
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

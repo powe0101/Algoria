@@ -1,5 +1,5 @@
 tutorialStart = false
-tutorialProgressLevel = 5 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
+tutorialProgressLevel = 1 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
 
 talkCountWithElder = 1
 talkCountAtHome = 1
