@@ -33,7 +33,7 @@ function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 	DeleteVillage()
 	AllMakeFalse()
 	--플레이어도 사라지게
-	pl = nil
+	--pl = nil
 	fadeOn = false
 	playerDeadCheck = true --타이틀로 넘어가는 부분에서 다시 false로 만들면 될 듯.
 end
