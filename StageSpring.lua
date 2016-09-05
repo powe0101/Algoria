@@ -3,6 +3,11 @@ StageSpring.__index = StageSpring
 
 dustWind = nil
 
+STORM_MOVE_POWER = 1
+
+COLLIDE_MIN_X = 300
+COLLIDE_MAX_X = 500
+
 function StageSpring.Create()
   local self = {}
   setmetatable(self, StageSpring)
@@ -24,7 +29,7 @@ end
 function StageSpring:MakePuzzle(_count)
   for i = 1, _count do
     --local x = randomSeed:random(100,50)
-    CreateBox(randomSeed:random(300,500),randomSeed:random(0,135))
+    CreateBox(randomSeed:random(COLLIDE_MIN_X,COLLIDE_MAX_X),randomSeed:random(0,135))
   end
 end
 
@@ -73,7 +78,7 @@ function UpdateSpring() -- 메인에서 Draw 하기 위한 메서드 여기서'�
   NoticeDraw()
   dustWind:Draw()
 
-  stageSpring:DustWindBlowing(1)
+  stageSpring:DustWindBlowing(STORM_MOVE_POWER)
 end
     --CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
  --   CreateGround(622,76)
