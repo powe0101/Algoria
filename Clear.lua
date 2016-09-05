@@ -28,9 +28,7 @@ function BackToVillageAfterClear()
 	stageLevel = 0 --마을로 가니까.
 
 	--스테이지를 초기화하면서 모든 것들을 다 false로 만들어줌. 그래야 멈추지 않음.
-	algoCheck = false; 	bubbleTipCheck = false; 
-	popupCheck = false; questCheck = false; blacksmithCheck = false; 
-	bossTalkCheck = false; tutorialStart = false;
+	AllMakeFalse()
 
 	bossClearCheck = false
 	returnToVillage = false
@@ -60,4 +58,10 @@ function DrawBackToVillage()
   love.graphics.print("마을로 이동하시겠습니까?", 170, 25)
 
   love.graphics.print("이동하시려면 'enter'키를 눌러주세요.",168, 90)
+end
+
+function AllMakeFalse()
+	algoCheck = false; 	bubbleTipCheck = false; 
+	popupCheck = false; questCheck = false; blacksmithCheck = false; 
+	bossTalkCheck = false; tutorialStart = false;
 end
