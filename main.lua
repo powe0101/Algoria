@@ -78,7 +78,7 @@ require("BubbleSort")
 --봄
 require("DustWind")
 require("SandStorm")
-
+require("Coin")
 --block
 
 
@@ -632,7 +632,7 @@ function loadResources()
   imgSandStorm:setFilter("nearest","nearest")
 
   imgWarrorDead = love.graphics.newImage("images/finalDevil.png")
-  imgWarrorDead:setFilter("nearest","nearest")  
+  imgWarrorDead:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

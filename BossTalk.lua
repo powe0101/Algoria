@@ -1,4 +1,4 @@
--- 0811. 현식 추가. 
+-- 0811. 현식 추가.
 -- 보스와 대화하는 기능과 관련된 루아파일.
 
 talkCount = 1 --대화 진행을 위한 변수.
@@ -6,7 +6,7 @@ talkList = {}
 
 function CheckBossMeeting()
 	--가을 보스스테이지.
-	if stageLevel == 7 and 200 < pl:GetX() and bossClearCheck == false then --일정 좌표 넘어가서 대화 이벤트 발생.
+	if stageLevel > 4  and 200 < pl:GetX() and bossClearCheck == false then --일정 좌표 넘어가서 대화 이벤트 발생.
 		bossTalkCheck = true -- main에서의 update 중지.
 	end
 end
@@ -30,7 +30,7 @@ function BossTalkBackground()
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 	DrawRectangle(200, 10, 80, 60)
 	love.graphics.setColor(255,255,255,255)
-	love.graphics.rectangle("fill", 402, 22, 156, 116) 
+	love.graphics.rectangle("fill", 402, 22, 156, 116)
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
 
@@ -39,7 +39,7 @@ function WarriorTalkBackground()
 	DrawRectangle(20, 5, 80, 60)
   	love.graphics.setColor(255,255,255,255)
 	love.graphics.rectangle("fill", 42, 12, 156, 116)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA	
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
 
 function TalkOne() --Warrior Talk 1
@@ -81,7 +81,7 @@ function TalkSix() --Boss Talk 3
 end
 
 function ControlTalkWithBoss()
-	if bossTalkCheck and stageLevel == 7 then
+	if bossTalkCheck and stageLevel > 4 then
 		if love.keyboard.isDown("return") then --enter키임
 			if talkCount < 7 then
 				talkCount = talkCount + 1

@@ -8,7 +8,9 @@ function MakeAlgorithm()
 		DrawQuestBackground() --배경그리기.(496*166)
 		SplitBackground() --4:4:2 비율로 쪼개기.
 
-		if stageLevel == 7 then 
+		StageSpringAlgorithm()
+
+		if stageLevel == 7 then
 			MakeBubbleSort() --가을스테이지에서만 돌아가도록 태스팅.
 			if fontOnceCheck then
 				SetNanumFont()
@@ -24,6 +26,27 @@ function MakeAlgorithm()
 	end
 	--다 마치면 algoCheck는 다시 false로..
 	love.graphics.setColor(255,255,255,255) -- 원상복구
+end
+
+function StageSpringAlgorithm()
+	if stageLevel ~= 5 then
+		return
+	end
+
+	SpringExplainAlgorithm()
+	if testCoin == nil then
+		testCoin = Coin.Create()
+	end
+
+	if testCoin then
+	    testCoin:Draw()
+			testCoin:Update()
+	end
+end
+
+function SpringExplainAlgorithm()
+	love.graphics.setColor(255, 0, 0, 255)
+	love.graphics.print("하늘에서 동전이 저금통으로 들어가요! \n다 떨어지고 난 후에 저금통에 얼마가 있을까요?",62+285, 13)
 end
 
 function SplitBackground()
@@ -58,6 +81,6 @@ end
 function DrawBossClear()
 	--보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
 	love.graphics.setColor(255, 0, 0, 255)
-	love.graphics.print("정렬이 끝났습니다! \n 확인하셨다면 'Enter'를 눌러주세요.",62+285, 120)	
+	love.graphics.print("정렬이 끝났습니다! \n 확인하셨다면 'Enter'를 눌러주세요.",62+285, 120)
 	love.graphics.setColor(0, 0, 0, 255)
 end
