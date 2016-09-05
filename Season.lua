@@ -35,7 +35,7 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
       -- if clearLevel < 4 then
       --   clearLevel = 3
       -- end
-      DeleteVillage()
+      DeleteStage()
       MoveNextStage()
       popupCheck = false
     end

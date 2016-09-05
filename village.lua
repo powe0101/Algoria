@@ -1,7 +1,5 @@
 function CreateVillage()
-  if playerLife == 5 then
-    LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 단, 다른 스테이지 갔다가 라이프가 5개 밑일 경우 실행되지 않도록.
-  end
+  InitLife()
 
   --다른 스테이지 갔다 올때를 대비해서 초기화시켜줌.
   if stageLevel ~= true then
@@ -82,7 +80,7 @@ function SetVilliageBackgroundMusic()
   --이상 초기화 부분.
 end
 
-function DeleteVillage()
+function DeleteStage()
   BackGroundListDelete()
   CloudListDelete()
   TreeListDelete()
@@ -95,6 +93,7 @@ function DeleteVillage()
   BridgeListDelete()
   PicketListDelete()
   CastleListDelete()
+  BossListDelete()
 
   --초기화
   if stageLevel == 3 then
