@@ -110,15 +110,8 @@ end
 
 function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then --0805HS
-		if self.x > 225 + BridegePassValue and stageLevel == 1 then --스테이지에서 도개교가 열리지 않는 한 넘어갈 수 없도록 함. by.현식 0727
-			--앞으로 갈 수 없다는 어떤 액션을 취하면 좋을 듯. by.현식 0727
-			if canPass then -- 이 사이에 있는 부분을 메서드로 빼면 좋을 것 같은데 방법이 없나? 계속 터지네.. by.현식 0728
-				self:UpdateMoveRight(dt)
-			end -- canPass
-		else --마을일 경우.
-			self:UpdateMoveRight(dt)
-		end
-	end
+		self:UpdateMoveRight(dt)
+	end 
 
 	if love.keyboard.isDown('left') then --0805HS
 		if self.x < 460 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
