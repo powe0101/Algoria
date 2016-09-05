@@ -95,7 +95,7 @@ function ControlAdminPopup() --계절을 선택하는 팝업창이 떴을 때, �
       popupCheck = false
 
       levelCheck = 1
-      DeleteVillage()
+      DeleteStage()
       CheckSeason()
     end
 

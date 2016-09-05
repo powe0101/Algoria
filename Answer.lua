@@ -39,6 +39,7 @@ function ActivateFadeOut()
 			love.graphics.draw(imgWrongAnswer, wrong_now_frame, 200,25)
 		end
 	end	
+	ResetColor()
 end
 
 function TurnOnFadeOut()

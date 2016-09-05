@@ -18,19 +18,19 @@ function CheckBossCastle()
 	if love.keyboard.isDown('up') then
 		if stageLevel == 2 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
 			stageLevel = 6 --가을 보스스테이 레벨은 7.
-			DeleteVillage()
+			DeleteStage()
 			CreateBossCastle()
 		    HEIGHT=200
     		updateScale()
 		end
 	    if stageLevel == 3 and 43 < pl:GetX() and pl:GetX() < 56 then --가을에서 보스성 이동하기.
 			stageLevel = 7 --가을 보스스테이 레벨은 7.
-			DeleteVillage()
+			DeleteStage()
 			CreateBossCastle()
 		end
 		if stageLevel == 4 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
 			stageLevel = 7 --가을 보스스테이 레벨은 7.
-			DeleteVillage()
+			DeleteStage()
 			CreateBossCastle()
 		    HEIGHT=200
     		updateScale()
