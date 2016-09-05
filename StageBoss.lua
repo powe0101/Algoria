@@ -23,7 +23,7 @@ function CheckBossCastle()
 		    HEIGHT=200
     		updateScale()
 		end
-	    if stageLevel == 3 and 43 < pl:GetX() and pl:GetX() < 56 then --가을에서 보스성 이동하기.
+	  if stageLevel == 3 and 43 < pl:GetX() and pl:GetX() < 56 then --가을에서 보스성 이동하기.
 			stageLevel = 7 --가을 보스스테이 레벨은 7.
 			DeleteVillage()
 			CreateBossCastle()
