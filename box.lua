@@ -97,20 +97,22 @@ function Box:GetY()
 end
 
 function Box:DrawLine(_x,_y)
-	love.graphics.setColor(0,255,0)
+	love.graphics.setColor(100,100,100)
 	love.graphics.rectangle('line', _x,_y, BOX_WIDTH, BOX_HEIGHT)
 	love.graphics.setColor(255,255,255)
 end
 
 function Box:draw()
-	if stageLevel==2 then
-		love.graphics.setColor(236,243,201) -- 배경 .by근영  RGBA
-    else
-		love.graphics.setColor(255,255,255) -- 흰색 RGBA
-    end
+	
+	love.graphics.setColor(236,243,201) -- 배경 .by근영  RGBA
+  
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
 
-  	if DEBUG_SETTING then
+	if MazeCheck then--여름 보스 미로 에서 박스 테두리 
+  		self:DrawLine(self.x,self.y)
+  	end
+	
+	if DEBUG_SETTING then
  		drawDirectionBox(self,255,255,255)
  	end
 
