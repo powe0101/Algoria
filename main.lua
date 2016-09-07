@@ -286,7 +286,9 @@ function love.draw()
 
   if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print("playerLife  : "..playerLife,20,80)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
+    love.graphics.print("phase  : "..phase,20,80)
     love.graphics.setColor(255,255,255,255)
   end
 
