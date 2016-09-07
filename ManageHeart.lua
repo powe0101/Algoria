@@ -32,7 +32,19 @@ function UpdateLife()
 end
 
 function LifeMinus()
+	--가시일때 조건문을 줘서 막으면 됨.
 	TurnOnFadeOut()
+	lifeCheck = true --라이프를 닳게하기 위해
+	if 1 < playerLife and playerLife < 6 then
+		playerLife = playerLife -1
+	else
+		--라이프 0, 게임종료. 게임종료 때 띄워주는 이미지를 간단히 만드는 것도 나쁘지 않을 듯.
+		playerLife = playerLife -1
+		PlayerDie()
+	end
+end
+
+function LifeMinusAtCreeper()
 	lifeCheck = true --라이프를 닳게하기 위해
 	if 1 < playerLife and playerLife < 6 then
 		playerLife = playerLife -1
