@@ -1,6 +1,3 @@
-itemBoxWidth = 30
-itemBoxHeight = 30
-
 BlackSmith = {}
 BlackSmith.__index = BlackSmith
 
@@ -39,6 +36,9 @@ function BlackSmith:draw()
 	love.graphics.draw(imgblacksmith,blacksmith_now_frames,self.x,self.y)
 end
 
+itemBoxWidth = 30
+itemBoxHeight = 30
+
 function CheckBlackSmith()
 	if love.keyboard.isDown('up') and stageLevel == 0 then
 		if 450 < pl:GetX() and pl:GetX() < 470 then
@@ -46,6 +46,9 @@ function CheckBlackSmith()
 		end
 	end
 end
+
+itemBoxWidth = 30
+itemBoxHeight = 30
 
 function CheckBlackSmithIn()
 	blacksmithCheck = true
