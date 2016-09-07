@@ -77,6 +77,7 @@ require("BubbleSort")
 require("maze")
 require("ShortestPath")
 require("ShortestPathHouse")
+require("ShortestPathHouseList")
 --봄
 require("DustWind")
 require("SandStorm")
