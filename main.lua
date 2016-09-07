@@ -118,6 +118,7 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 
@@ -348,7 +349,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-  
+
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
@@ -456,7 +457,7 @@ function drawGame()
     UpdateSpring()
   end
 
-  if stageLevel == 0 then 
+  if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
     SandStormDraw()
@@ -631,8 +632,13 @@ function loadResources()
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")
 
+  imgSpringBlock = love.graphics.newImage("images/springBlock.png")
+  imgSpringBlock:setFilter("nearest","nearest")
+  imgWinterBlock = love.graphics.newImage("images/winterBlock.png")
+  imgWinterBlock:setFilter("nearest","nearest")
+
   imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
-  imgWarrorDead:setFilter("nearest","nearest")  
+  imgWarrorDead:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

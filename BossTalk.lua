@@ -1,4 +1,4 @@
--- 0811. 현식 추가. 
+-- 0811. 현식 추가.
 -- 보스와 대화하는 기능과 관련된 루아파일.
 
 talkCount = 1 --대화 진행을 위한 변수.
@@ -7,6 +7,10 @@ talkList = {}
 function CheckBossMeeting()
 	--가을 보스스테이지.
 	if stageLevel == 7 or stageLevel==6 and 200 < pl:GetX() and bossClearCheck == false then --일정 좌표 넘어가서 대화 이벤트 발생.
+		bossTalkCheck = true -- main에서의 update 중지.
+	end
+
+	if stageLevel == 8 and 200 < pl:GetX() and bossClearCheck == false then --일정 좌표 넘어가서 대화 이벤트 발생.
 		bossTalkCheck = true -- main에서의 update 중지.
 	end
 end
@@ -30,7 +34,7 @@ function BossTalkBackground()
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 	DrawRectangle(200, 10, 80, 60)
 	love.graphics.setColor(255,255,255,255)
-	love.graphics.rectangle("fill", 402, 22, 156, 116) 
+	love.graphics.rectangle("fill", 402, 22, 156, 116)
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
 
@@ -39,7 +43,7 @@ function WarriorTalkBackground()
 	DrawRectangle(20, 5, 80, 60)
   	love.graphics.setColor(255,255,255,255)
 	love.graphics.rectangle("fill", 42, 12, 156, 116)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA	
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
 
 function TalkOne() --Warrior Talk 1
@@ -86,7 +90,6 @@ function ControlTalkWithBoss()
 			if talkCount < 7 then
 				talkCount = talkCount + 1
 			end
-
 			if talkCount == 7 then
 				if stageLevel==6 then--미로 시작시 플레이어 좌표값 이동 
 					pl:StartMaze()
@@ -94,14 +97,32 @@ function ControlTalkWithBoss()
 				algoCheck = true
 				love.timer.sleep(0.5)
 			end
-    	end
-
-    	if love.keyboard.isDown("escape") then
+    end
+    if love.keyboard.isDown("escape") then
     		--초기화 및 대화종료 여기서 폰트설정.
-    		bossTalkCheck = false
+    	bossTalkCheck = false
 			talkCount = 1
 			pl.x = 200
 			--컨트롤 좌표 수정하는 부분은 컨트롤에서 작업함.
     	end
+	end
+
+	if bossTalkCheck and stageLevel == 8 then
+		if love.keyboard.isDown("return") then --enter키임
+			if talkCount < 7 then
+				talkCount = talkCount + 1
+			end
+			if talkCount == 7 then
+				algoCheck = true
+				love.timer.sleep(0.5)
+			end
+		end
+		if love.keyboard.isDown("escape") then
+				--초기화 및 대화종료 여기서 폰트설정.
+			bossTalkCheck = false
+			talkCount = 1
+			pl.x = 200
+			--컨트롤 좌표 수정하는 부분은 컨트롤에서 작업함.
+			end
 	end
 end
