@@ -78,7 +78,7 @@ require("maze")
 --봄
 require("DustWind")
 require("SandStorm")
-
+require("Coin")
 --block
 
 
@@ -130,7 +130,7 @@ function love.load()
   createStage() -- stage 만들기 근영
   loadSplash() -- 스플래시 로드
   updateScale()
-
+  SetCoinAlgorithmDefault()
   SetGoyangFont() --폰트설정. BY.현식 0823.
   --SetNanumFont()
   start() -- 시작
@@ -665,6 +665,6 @@ end
 
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
-function love.mousepressed(x,y) --근영 마우스 클릭 됬을시 
-  ButtonClick(x,y)--maze루아의 buttonClick함수  
+function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
+  ButtonClick(x,y)--maze루아의 buttonClick함수
 end
