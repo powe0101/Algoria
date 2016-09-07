@@ -69,7 +69,6 @@ function ExplainShortestPath()
 end
 
 function StageWinterAlgorithm()
-
   ExplainShortestPath()
-
+  
 end

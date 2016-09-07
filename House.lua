@@ -36,7 +36,6 @@ end
 
 function House:draw()
 	love.graphics.draw(imgHouse,house_frames_x[0],self.x,self.y)
-	
 end
 
 function House:GetX()
