@@ -643,6 +643,13 @@ function loadResources()
   imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
   imgWarrorDead:setFilter("nearest","nearest")
 
+  imgShortestPathStartHouse = love.graphics.newImage("images/startHouse.png")
+  imgShortestPathStartHouse:setFilter("nearest","nearest")
+  imgShortestPathCheckHouse = love.graphics.newImage("images/checkHouse.png")
+  imgShortestPathCheckHouse:setFilter("nearest","nearest")
+  imgShortestPathEndHouse = love.graphics.newImage("images/endHouse.png")
+  imgShortestPathEndHouse:setFilter("nearest","nearest")
+
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS

@@ -13,6 +13,10 @@ a[6][7] = 5
 ]]
 
 INFINITE = 999
+STARTHOUSE = 1
+CHECKHOUSE = 2
+ENDHOUSE = 3
+
 -- 최단 경로 저장 배열
 dist = {0, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE, INFINITE}
 -- 방문 여부 표현
@@ -57,18 +61,35 @@ function ShortestPath()
   end
 end
 
-function DrawShortestPath()
+function InitShortestPath()
+  CreateShortestPathtHouse(70, 25, STARTHOUSE)
+  CreateShortestPathtHouse(70, 75, CHECKHOUSE)
+  CreateShortestPathtHouse(70, 125, CHECKHOUSE)
 
+  CreateShortestPathtHouse(160, 25, CHECKHOUSE)
+  CreateShortestPathtHouse(160, 75, CHECKHOUSE)
+
+  CreateShortestPathtHouse(250, 25, CHECKHOUSE)
+  CreateShortestPathtHouse(250, 75, CHECKHOUSE)
+  CreateShortestPathtHouse(250, 125, ENDHOUSE)
+
+  --CreateShortestPathtHouse(140, 25, CHECKHOUSE)
+end
+
+function DrawShortestPath()
+  ShortestPathHouseListDraw()
 end
 
 function ExplainShortestPath()
   love.graphics.setColor(255, 0, 0, 255)
   love.graphics.print("※조작법※\n 'Up','Dwon','Left','Right'",62+285, 13)
-  love.graphics.print("",62+285,50)
-  love.graphics.print("",62+285,100)
+  love.graphics.print("\n두 번째 줄",62+285,50)
+  love.graphics.print("\n세 번째 줄",62+285,100)
+  love.graphics.setColor(255, 255, 255, 255)
 end
 
 function StageWinterAlgorithm()
   ExplainShortestPath()
-  
+  InitShortestPath()
+  ShortestPathHouseListDraw()
 end

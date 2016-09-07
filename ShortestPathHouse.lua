@@ -1,7 +1,7 @@
-ShortestPathtouse = {}
+ShortestPathHouse = {}
 ShortestPathHouse.__index = ShortestPathHouse
 
-ShortestPathHouse_frame = love.graphics.newQuad(0,0,32,32,32,32)
+shortestPathHouse_frame = love.graphics.newQuad(0,0,32,32,32,32)
 
 function ShortestPathHouse.create()
 	local self = {}
@@ -11,24 +11,17 @@ function ShortestPathHouse.create()
 end
 
 function ShortestPathHouse:reset(x,y,_type)
-	self.width = 32
-	self.height = 32
-	self.type = _type
 	self.x = x
 	self.y = y
-	self:RegistImage(self.point)
+	self.type = _type
 end
 
-function ShortestPathHouse:RegistImage()
-	if _type == 1 then
-		imgShortestPathHouse = love.graphics.newImage("images/startHouse.png")
-	elseif _type == 2 then
-		imgShortestPathHouse = love.graphics.newImage("images/CheckHouse.png")
-	elseif _type == 3 then
-		imgShortestPathHouse = love.graphics.newImage("images/EndHouse.png")
+function ShortestPathHouse:draw()
+	if self.type == 1 then
+		love.graphics.draw(imgShortestPathStartHouse,shortestPathHouse_frame,self.x,self.y)
+	elseif self.type == 2 then
+		love.graphics.draw(imgShortestPathCheckHouse,shortestPathHouse_frame,self.x,self.y)
+	elseif self.type == 3 then
+		love.graphics.draw(imgShortestPathEndHouse,shortestPathHouse_frame,self.x,self.y)
 	end
-end
-
-function ShortestPathHouse:Draw()
-	love.grapgics.draw(imgShortestPathHouse,ShortestPathHouse_frame,self.x,self.y)
 end
