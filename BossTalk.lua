@@ -6,6 +6,10 @@ talkList = {}
 
 function CheckBossMeeting()
 	--가을 보스스테이지.
+	if stageLevel == 5 and 200 < pl:GetX() and bossClearCheck == false then
+		bossTalkCheck = true
+	end
+
 	if stageLevel == 7 or stageLevel==6 and 200 < pl:GetX() and bossClearCheck == false then --일정 좌표 넘어가서 대화 이벤트 발생.
 		bossTalkCheck = true -- main에서의 update 중지.
 	end
@@ -85,13 +89,13 @@ function TalkSix() --Boss Talk 3
 end
 
 function ControlTalkWithBoss()
-	if bossTalkCheck and stageLevel == 7 or stageLevel==6 then
+	if bossTalkCheck and stageLevel == 7 or stageLevel==6 or stageLevel == 5 then
 		if love.keyboard.isDown("return") then --enter키임
 			if talkCount < 7 then
 				talkCount = talkCount + 1
 			end
 			if talkCount == 7 then
-				if stageLevel==6 then--미로 시작시 플레이어 좌표값 이동 
+				if stageLevel==6 then--미로 시작시 플레이어 좌표값 이동
 					pl:StartMaze()
 				end
 				algoCheck = true

@@ -72,6 +72,13 @@ function SetCoinAlgorithmDefault()
 	print("coinCount : "..coinCount)
 end
 
+function SpringExplainAlgorithm()
+	love.graphics.setColor(255, 0, 0, 255)
+	love.graphics.print("하늘에서 동전이 저금통으로 들어가요! \n다 떨어지고 난 후에 저금통에 얼마가 있을까요?",62+285, 13)
+	love.graphics.print("현재까지 모은 돈 : "..KeepCoin,62+285,50)
+	love.graphics.print("현재까지 떨어진 동전 : "..coinCount,62+285,100)
+end
+
 function StageSpringAlgorithm()
 	if stageLevel ~= 5 then
 		return
