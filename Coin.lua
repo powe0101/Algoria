@@ -4,7 +4,7 @@
 Coin = {}
 Coin.__index = Coin
 
-coin_frame = nil
+coin_frame = love.graphics.newQuad(0, 0, 32, 32, 32, 32)
 
 function Coin.Create()
   local self = {}
@@ -25,19 +25,20 @@ end
 
 function Coin:RegisterImage(_point)
   print(_point)
-  imgCoin = love.graphics.newImage("images/Coin.png")
-
   if _point == 10 then
-    coin_frame = love.graphics.newQuad(0, 0, 32, 32, 32, 32)
+    imgCoin = love.graphics.newImage("images/10_coin.png")
   elseif _point == 50 then
-    coin_frame = love.graphics.newQuad(32, 0, 32, 32, 32, 32)
+    imgCoin = love.graphics.newImage("images/50_coin.png")
   elseif _point == 100 then
-    coin_frame = love.graphics.newQuad(0, 32, 32, 32, 32, 32)
+    imgCoin = love.graphics.newImage("images/100_coin.png")
   end
+end
+function Coin:GetPoint()
+  return self.point
 end
 
 function Coin:SelectCoinRandom()
-  local random = 0
+  local random = love.math.random(0,2)
   print("선택된 코인 랜덤 값 : "..random)
 
   if random == 0 then
@@ -50,14 +51,14 @@ function Coin:SelectCoinRandom()
 
 end
 
+function Coin:GetY()
+  return self.y
+end
+
 function Coin:Draw()
   love.graphics.draw(imgCoin,coin_frame,self.x,self.y)
 end
 
 function Coin:Update()
-  if self.y == 150 then
-    return 
-  end
   self.y = self.y + 1 -- 계속 떨어져야 하므로.
-
 end

@@ -129,7 +129,7 @@ function love.load()
   createStage() -- stage 만들기 근영
   loadSplash() -- 스플래시 로드
   updateScale()
-
+  SetCoinAlgorithmDefault() -- 코인 알고리즘 초기값 설정을 위해 단한번만 호출되어야해서 임시 배치 
   SetGoyangFont() --폰트설정. BY.현식 0823.
   --SetNanumFont()
   start() -- 시작
