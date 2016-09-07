@@ -92,7 +92,6 @@ function ControlTalkWithBoss()
 			end
 			if talkCount == 7 then
 				algoCheck = true
-				love.timer.sleep(0.5)
 			end
     end
     if love.keyboard.isDown("escape") then

@@ -282,15 +282,18 @@ function love.draw()
     DrawBackToVillage()
   end
 
-  if tempForMainXCoord then --메인에서 용사 좌표 보려고
+  ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
+
+  if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
-    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
+    love.graphics.print("playerLife  : "..playerLife,20,80)
     love.graphics.setColor(255,255,255,255)
   end
 
-  HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
-  BheartListDraw()
+  if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
+    HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
+    BheartListDraw()
+  end
 end
 
 function SetScale(key,scancode)
@@ -326,18 +329,21 @@ end
 
 function CheckStartGameForTitle()
   if title and love.keyboard.isDown("return") then -- 타이틀에서 게임을 시작함
-    DeleteVillage() -- 타이틀용 마을 삭제
+    DeleteStage() -- 타이틀용 마을 삭제
     stageLevel = 0 -- 마을 스테이지 번호 0
     title = false -- 타이틀 조건 해제
     pl = Player.create() -- 플레이어 객체
     pl:reset()
     CreateVillage() -- 실제 마을 스테이지 생성
-    tempForMainXCoord = true
+    tempForMainXCoord = true --현식추가
+    reTitleCheck = false --현식추가, 다시 타이틀에 들어왔을때 라이프 안보이게 하깅 ㅟ해서.
   end
 end
 
 function love.keypressed(key,scancode) -- 키입력
+  BadEndingContorl()
   ControlBlackSmith()
+  ControlFadeOut() --어디서든 오답 메시지를 띄울 수 있도록
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
@@ -349,6 +355,9 @@ function love.keypressed(key,scancode) -- 키입력
   ControlAdminPopup() --관리자모드일 경우
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
+
+  --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
+
 
   if love.keyboard.isDown("return") then
       splashy.skipSplash()
@@ -452,7 +461,7 @@ function drawGame()
     PortalDraw()
     BlackSmithHouseDraw()
     SandStormDraw()
-  elseif stageLevel > 4 then
+  elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
     PortalDraw()
   end
   BossListDraw() --보스가 포탈보다 뒤에 그려져야함.
@@ -470,6 +479,10 @@ function drawGame()
 
   if blacksmithChar and stageLevel == 0 then
     blacksmithChar:draw()
+  end
+
+  if playerDeadCheck then
+    BadEnding()
   end
 
   QMarkListDraw()
@@ -624,6 +637,9 @@ function loadResources()
   imgWinterBlock = love.graphics.newImage("images/winterBlock.png")
   imgWinterBlock:setFilter("nearest","nearest")
 
+  imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
+  imgWarrorDead:setFilter("nearest","nearest")
+
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
@@ -641,6 +657,10 @@ function createStage() --0721 근영 맵 만드는 함수
     stageLevel = 7
     CreateBossCastle()
   end
+end
+
+function ResetColor()
+  love.graphics.setColor(255,255,255,255)
 end
 
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
