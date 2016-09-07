@@ -28,6 +28,11 @@ collision_Top_Y = 0
 collision_Bottom_Y = 0
 collision_Left_Y = 0
 
+--미로 관련 
+buttonCount=0   --Start버튼 클릭후 플레이어가 이동할때 count 하는 변수 
+coordinate_X=2  --플레이어의 미로 위치 
+coordinate_Y=8
+MazePlaying=false --start버튼 클릭후 플레이어 이동중인지 판단하는 bool변수 
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
 end
@@ -132,6 +137,38 @@ function Player:UpdateMove(dt)
 		end
 	end
 end
+
+function Player:UpdateMazeMove()--미로에서 플레이어 이동 관련 함수 
+		MazePlaying=true
+		MazeCheckCollect()
+	  	if buttonCount==5 then --5번 실행 됬을시 초기화 
+	    	mazePlayStart=false
+	    	buttonCount=0 
+	    	clickCountListDelete()
+	    	MazePlaying=false
+	    	return
+	    end
+        
+        if clickCountList[buttonCount]==0 then
+        	self.y=self.y-20
+        	buttonCount=buttonCount+1
+            coordinate_Y=coordinate_Y-1 --플레이어의 미로 Y 좌표
+        elseif clickCountList[buttonCount]==1 then
+        	self.y=self.y+20
+       		buttonCount=buttonCount+1
+            coordinate_Y=coordinate_Y+1 --플레이어의 미로 Y 좌표 
+        elseif clickCountList[buttonCount]==2 then
+        	self.x=self.x+20 
+		 	buttonCount=buttonCount+1
+            coordinate_X=coordinate_X+1 --플레이어의 미로 X 좌표 
+        elseif clickCountList[buttonCount]==3 then
+        	self.x=self.x-20 
+        	buttonCount=buttonCount+1
+        	coordinate_X=coordinate_X-1 --플레이어의 미로 X 좌표 
+        end
+     
+		 love.timer.sleep(0.5)
+end	
 
 --Add by G 0729
 function Player:CheckSpaceBarDown(dt)
@@ -412,6 +449,12 @@ function Player:StartWinterStage() --스테이지가 변경됐을 때 캐릭터 
 	self.x = PLAYER_START_X
 	self.y = PLAYER_START_Y
 end
+
+function Player:StartMaze()
+	self.x=76
+	self.y=146
+end
+
 
 --0805HS
 function Player:IfQuest()
