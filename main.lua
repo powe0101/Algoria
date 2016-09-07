@@ -75,6 +75,7 @@ require("BossTalk")
 require("Algorithm")
 require("BubbleSort")
 require("maze")
+require("ShortestPath")
 --봄
 require("DustWind")
 require("SandStorm")
@@ -640,6 +641,9 @@ function loadResources()
   imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
   imgWarrorDead:setFilter("nearest","nearest")
 
+  imgStartHouse = love.graphics.newImage("images/startHouse.png")
+  imgStartHouse:setFilter("nearest","nearest")
+  
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS

@@ -60,3 +60,16 @@ end
 function DrawShortestPath()
 
 end
+
+function ExplainShortestPath()
+  love.graphics.setColor(255, 0, 0, 255)
+  love.graphics.print("※조작법※\n 'Up','Dwon','Left','Right'",62+285, 13)
+  love.graphics.print("",62+285,50)
+  love.graphics.print("",62+285,100)
+end
+
+function StageWinterAlgorithm()
+
+  ExplainShortestPath()
+
+end
