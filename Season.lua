@@ -1,6 +1,4 @@
-scale = 2
-width = 25
-height = 50 --사각형을 만들기 위한 변수들. 마리오에서 따옴
+seasonList = {"봄", "여름", "가을", "겨울"}
 
 function CheckPortal() --0725 마을에서 포탈같이 일정 좌표에서 ↑키를 누르면 장소가 이동되도록 해봄. by.현식
   -- body
@@ -11,108 +9,57 @@ function CheckPortal() --0725 마을에서 포탈같이 일정 좌표에서 ↑�
   end
 end
 
-function CheckSeason()
-  if stageLevel == 1 then
-    --CreateSpring() --원래코드
-    stageLevel = 5
-    CreateBossCastle()
-  elseif stageLevel == 2 then
-    --CreateSummer()
-    stageLevel = 6
-    CreateBossCastle()
-  elseif stageLevel == 3 then
-    --CreateFall()
-    stageLevel = 7
-    CreateBossCastle()
-  elseif stageLevel == 4 then
-    CreateWinter()
-  end
-end
-
 function CheckPopup() --팝업창을 띄우고 메인 update를 멈추기 위해서 bool 변수를 사용함.
   popupCheck = true
 end
 
-function DrawPopup()
-  love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-  DrawRectangle(80, 5, 100, 80)
-  love.graphics.setColor(255,255,255,255)
-  love.graphics.rectangle("fill", 162, 12, 196, 156)
-
-  love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-  love.graphics.print("봄", 200, 45)
-  love.graphics.print("여름", 200, 65)
-  love.graphics.print("가을", 200, 85)
-  love.graphics.print("겨울", 200, 105)
-
-
-  if levelCheck == 1 then
-    DrawSpringMenu() --처음 선택지는 봄.
-  elseif levelCheck ==2 then
-    DrawSummerMenu()
-  elseif levelCheck == 3 then
-    DrawFallMenu()
-  elseif levelCheck == 4 then
-    DrawWinterMenu()
+function MoveNextStage()
+  stageLevel = clearLevel
+  if clearLevel == 1 then --마을에서 봄으로
+    CreateSpring()
+  elseif clearLevel == 2 then --마을에서 여름으로
+    CreateSummer()
+    
+  elseif clearLevel == 3 then --마을에서 가을로
+    CreateFall()
+  elseif clearLevel == 4 then --마을에서 겨울로
+    CreateWinter()
+  else --최종 마왕으로.
   end
-
-  love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA
-end
-
-function DrawSpringMenu() --팝업창에서 봄 선택
-  love.graphics.rectangle("fill", 180,53,10,10)
-end
-
-function DrawSummerMenu() --팝업창에서 여름 선택
-  love.graphics.rectangle("fill", 180,73,10,10)
-end
-
-function DrawFallMenu() --팝업창에서 겨울 선택
-  love.graphics.rectangle("fill", 180,93,10,10)
-end
-
-function DrawWinterMenu() --팝업창에서 겨울 선택
-  love.graphics.rectangle("fill", 180,113,10,10)
-
-end
-
-function DrawRectangle(x, y, width, height) --마리오에서 따온거임
-  love.graphics.rectangle("fill", x*scale, y*scale, width*scale, scale)
-  love.graphics.rectangle("fill", x*scale, y*scale, scale, height*scale)
-  love.graphics.rectangle("fill", x*scale, (y+height-1)*scale, width*scale, scale)
-  love.graphics.rectangle("fill", (x+width-1)*scale, y*scale, scale, height*scale)
 end
 
 function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/아래키로 스테이지를 선택하는 메서드.
-  if popupCheck then
-    if love.keyboard.isDown("up") then
-      if levelCheck == 1 then
-        --스테이지가 1보다 작아지면 아무 동작도 안함
-      else
-        levelCheck = levelCheck - 1
-      end
-    end
-
-    if love.keyboard.isDown("down") then
-      if levelCheck == 4 then
-        --스테이지가 4보다 커지면 아무 동작도 안함
-      else
-        levelCheck = levelCheck + 1
-      end
-    end
-
+  if popupCheck and portalAdmin == false then
+    --관리자 모드가 아닐 경우,..
     if love.keyboard.isDown("return") then --enter키임
-      stageLevel = levelCheck
-      popupCheck = false
+      --임시 테스트용. 클리어가 가능한 스테이지가 가을밖에 없어서. 나중에 지울것.
 
-      levelCheck = 1
-      DeleteVillage()
-      CheckSeason()
+      -- if clearLevel < 4 then
+      --   clearLevel = 3
+      -- end
+      DeleteStage()
+      MoveNextStage()
+      popupCheck = false
     end
+
 
     if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 팝업창이 닫히게끔.
-      levelCheck = 1
+      selectCheck = 1
       popupCheck = false
     end
   end
+end
+
+--------------이하 Draw부분.
+
+function DrawNextStage()
+  love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  DrawRectangle(80, 5, 110, 57)
+  love.graphics.setColor(255,255,255,255)
+  love.graphics.rectangle("fill", 162, 12, 216, 110)
+
+  love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  love.graphics.print(seasonList[clearLevel].." 스테이지로 이동하시겠습니까?", 170, 25)
+
+  love.graphics.print("이동하시려면 'enter'키를 눌러주세요.",168, 90)
 end

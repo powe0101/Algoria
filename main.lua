@@ -44,12 +44,14 @@ require("Tutorial")
 require("tutorialTalkList")
 require("village")
 require("Season")
+require("PortalAdmin")
 require("Stage")
 require("StageSpring")
 require("StageFall")
 require("StageSummer")
 require("StageWinter")
 require("StageBoss") --중간보스 스테이지
+require("Clear") --클리어
 
 --문제풀이 관련
 require("Quest")
@@ -72,9 +74,10 @@ require("ManageHeart")
 require("BossTalk")
 require("Algorithm")
 require("BubbleSort")
-
+require("maze")
 --봄
 require("DustWind")
+require("SandStorm")
 
 --block
 
@@ -115,6 +118,9 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
+
+clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
+portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 
 tempForMainXCoord = false
 
@@ -205,8 +211,8 @@ function love.update(dt)
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
-    and tutorialStart == false then
-    updateGame(dt)
+    and tutorialStart == false and returnToVillage == false then
+      updateGame(dt)
   end
 
   --마우스 테스트용
@@ -237,8 +243,11 @@ function love.draw()
     DrawTitleMenu()
   end
 
-  if popupCheck then --0805HS
+  --관리자 모드일 경우, 계절을 선택해서 이동할 수 있음. 아니면 그냥 다음 스테이지로 이동.
+  if popupCheck and portalAdmin then --0805HS
     DrawPopup()
+  elseif popupCheck then
+    DrawNextStage() --0901
   end
 
   if blacksmithCheck then
@@ -265,14 +274,26 @@ function love.draw()
     StartTutorial()
   end
 
-  if tempForMainXCoord then --메인에서 용사 좌표 보려고
+  if bossClearCheck and printBossClear then --보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
+    DrawBossClear()
+  end
+
+  if returnToVillage then
+    DrawBackToVillage()
+  end
+
+  ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
+
+  if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.print("playerLife  : "..playerLife,20,80)
     love.graphics.setColor(255,255,255,255)
   end
 
-  HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
-  BheartListDraw()
+  if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
+    HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
+    BheartListDraw()
+  end
 end
 
 function SetScale(key,scancode)
@@ -308,25 +329,35 @@ end
 
 function CheckStartGameForTitle()
   if title and love.keyboard.isDown("return") then -- 타이틀에서 게임을 시작함
-    DeleteVillage() -- 타이틀용 마을 삭제
+    DeleteStage() -- 타이틀용 마을 삭제
     stageLevel = 0 -- 마을 스테이지 번호 0
     title = false -- 타이틀 조건 해제
     pl = Player.create() -- 플레이어 객체
     pl:reset()
     CreateVillage() -- 실제 마을 스테이지 생성
-    tempForMainXCoord = true
+    tempForMainXCoord = true --현식추가
+    reTitleCheck = false --현식추가, 다시 타이틀에 들어왔을때 라이프 안보이게 하깅 ㅟ해서.
   end
 end
 
 function love.keypressed(key,scancode) -- 키입력
+  BadEndingContorl()
   ControlBlackSmith()
-  ControlPopup() --위, 아래키로 팝업창 컨트롤하는 부분. 함수로 만들어서 뺐음. by.현식 0801 --0805HS
+  ControlFadeOut() --어디서든 오답 메시지를 띄울 수 있도록
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
   ControlTalkWithBoss()
   CortrolBubbleSort()
   ControlTutorial()
+  ControlBackToVillage()
+
+  --Portal&Season
+  ControlPopup() --그냥 사용자가 이동할 경우.
+  ControlAdminPopup() --관리자모드일 경우
 
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
+
+  --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
+
 
   if love.keyboard.isDown("return") then
       splashy.skipSplash()
@@ -377,10 +408,10 @@ function updateGame(dt)
   RiverListUpdate(dt)
   PicketListUpdate(dt)
   QMarkListUpdate(dt)
+  BossListUpdate(dt)
   HeartListUpdate(dt) --라이프
   BheartListUpdate(dt) --라이프 닳은거
   CastleListUpdate(dt)
-  BossListUpdate(dt)
 
   if stageLevel == 1 then
     dustWind:Update(dt)
@@ -389,7 +420,12 @@ function updateGame(dt)
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
+    SandStormUpdate(dt)
+  elseif stageLevel > 4 then
+    PortalUpdate(dt)
   end
+
+
   if stageLevel == 2 and checkPlaying then --여름
 
     CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수.
@@ -416,7 +452,6 @@ function drawGame()
   RiverListDraw()
   PicketListDraw()
   CastleListDraw()
-  BossListDraw()
 
   if stageLevel == 1 then
     UpdateSpring()
@@ -425,8 +460,13 @@ function drawGame()
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
+    SandStormDraw()
+  elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
+    PortalDraw()
   end
-     if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
+  BossListDraw() --보스가 포탈보다 뒤에 그려져야함.
+
+  if stageLevel == 2 and canPass then --가시  애니메이션 그리는 부분.
        CreeperListDraw()
   end
    if stageLevel == 3 then --다리 애니메이션 그리는 부분.
@@ -439,6 +479,10 @@ function drawGame()
 
   if blacksmithChar and stageLevel == 0 then
     blacksmithChar:draw()
+  end
+
+  if playerDeadCheck then
+    BadEnding()
   end
 
   QMarkListDraw()
@@ -585,6 +629,16 @@ function loadResources()
   imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
   imgWinterBackGround2 :setFilter("nearest","nearest")
 
+  imgSandStorm = love.graphics.newImage("images/sandstorm.png")
+  imgSandStorm:setFilter("nearest","nearest")
+
+  imgSpringBlock = love.graphics.newImage("images/springBlock.png")
+  imgSpringBlock:setFilter("nearest","nearest")
+  imgWinterBlock = love.graphics.newImage("images/winterBlock.png")
+  imgWinterBlock:setFilter("nearest","nearest")
+
+  imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
+  imgWarrorDead:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
@@ -605,5 +659,12 @@ function createStage() --0721 근영 맵 만드는 함수
   end
 end
 
+function ResetColor()
+  love.graphics.setColor(255,255,255,255)
+end
+
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
+function love.mousepressed(x,y) --근영 마우스 클릭 됬을시 
+  ButtonClick(x,y)--maze루아의 buttonClick함수  
+end

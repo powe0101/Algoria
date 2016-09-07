@@ -21,6 +21,32 @@ function CheckFadeIn(dt) --main.lua의 update에서 계속 확인하고 있음.
 	end
 end
 
+function ControlFadeOut()
+	if phase > 1 and love.keyboard.isDown("tab") then
+	   	 --아무키나 누르시오를 구현하기 위함.
+	else
+	   	FadeOut() --오답일 경우 메시지가 뜨고난 다음, 그 메시지를 없애는 페이드아웃.
+	end
+end
+
+function ActivateFadeOut()
+	if fadeOn then --오답일 경우 오답이란 메시지를 페이드인으로 띄워줌.
+  		if fadeOnRight then --정답일 때도 만들수 있는데 구현은 안함. 딱히 필요 없을듯. by.0804 현식.
+	  		love.graphics.setColor(255, 255, 255, fadeLight)
+			love.graphics.draw(imgRightAnswer, wrong_now_frame, 50,50) --정답은 안쓰임
+		elseif fadeOnWrong then --오답일 때 오답이라고 창 뜨는 것 외에도 라이프가 깍이면 좋겠음.
+	  		love.graphics.setColor(255, 255, 255, fadeLight)
+			love.graphics.draw(imgWrongAnswer, wrong_now_frame, 200,25)
+		end
+	end	
+	ResetColor()
+end
+
+function TurnOnFadeOut()
+	fadeOn = true
+	fadeOnWrong = true
+end
+
 function FadeOut() --Quest.lua에서 정답/오답일 경우에 사용됨.
 	if fadeOn then
    		fadeOn = false

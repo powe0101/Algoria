@@ -56,16 +56,6 @@ function DrawQuest() -- phase별로 문제를 그리게 됨.
   		DrawMultipleChoice()
   	end
 
-  	if fadeOn then --오답일 경우 오답이란 메시지를 페이드인으로 띄워줌.
-  		if fadeOnRight then --정답일 때도 만들수 있는데 구현은 안함. 딱히 필요 없을듯. by.0804 현식.
-	  		love.graphics.setColor(255, 255, 255, fadeLight)
-			love.graphics.draw(imgRightAnswer, wrong_now_frame, 50,50) --정답은 안쓰임
-		elseif fadeOnWrong then --오답일 때 오답이라고 창 뜨는 것 외에도 라이프가 깍이면 좋겠음.
-	  		love.graphics.setColor(255, 255, 255, fadeLight)
-			love.graphics.draw(imgWrongAnswer, wrong_now_frame, 200,25)
-		end
-	end
-
   	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
 
@@ -162,12 +152,6 @@ end
 
 function ControlQuest()
 	if questCheck or bubbleTipCheck then
-		if phase > 1 and love.keyboard.isDown("tab") then
-	    	--아무키나 누르시오를 구현하기 위함.
-	    else
-	    	FadeOut() --오답일 경우 메시지가 뜨고난 다음, 그 메시지를 없애는 페이드아웃.
-	    end
-
 	    if stageLevel == 2 then
 	    	SummerQuest()
 	    elseif stageLevel == 3 then
@@ -182,6 +166,213 @@ function ControlQuest()
 	      multipleChoice = 1
 	    end
 	end
+end
+
+function GetQuestNum() --리스트에서 몇 번 문제인지 뽑아내기 위한 함수. by.현식 0805
+	if stageLevel == 1 then
+		return phase
+	elseif stageLevel == 2 then
+		return phase + 3
+	elseif stageLevel == 3 then
+		return phase + 6
+	elseif stageLevel == 4 then
+		return phase + 9
+	end
+end
+
+function ControlLeftRight()
+	if love.keyboard.isDown("left") then
+	   		if multipleChoice == 1 then
+		   	--1번 선택지에서 왼쪽으로 가면 아무 동작도 안함.
+	   	else
+	   		multipleChoice = multipleChoice - 1
+	   	end
+	end
+
+    if love.keyboard.isDown("right") then
+    		if multipleChoice == 4 then
+    		--4번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
+    	else
+    		multipleChoice = multipleChoice + 1
+    	end
+    end
+end
+
+function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
+		if phase == 1 then --1번째는 Tip.
+	    	if love.keyboard.isDown("return") then --enter키임.
+	      		questCheck = false
+	      		phase = phase + 1
+	      		qmarkCheck = true
+	      	end
+	    elseif phase == 2 then --2번째 객관식 문제.
+	    	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+    				questCheck = false
+			      	phase = phase + 1
+			      	multipleChoice = 1
+			      	qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		LifeMinus()
+		      	end
+
+	      	end
+	    elseif phase == 3 then --3번째 객관식 문제
+	      	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = 4
+		      		canPass = true
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		LifeMinus()
+		      	end
+	      	end
+	    end
+end
+
+function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
+		if phase == 1 then --1번째는 Tip.
+	    	if love.keyboard.isDown("return") then --enter키임.
+	      		questCheck = false
+	      		phase = phase + 1
+	      		qmarkCheck = true
+	      	end
+	    elseif phase == 2 then --2번째 객관식 문제.
+	    	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+    				questCheck = false
+			      	phase = phase + 1
+			      	multipleChoice = 1
+			      	qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		LifeMinus()
+		      	end
+
+	      	end
+	    elseif phase == 3 then --3번째 객관식 문제
+	      	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = 4
+		      		canPass = true
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      		groundList[0]:SetY(-300) -- ground의 y 값을 변경
+		      		groundList[1]:SetY(-300) -- ground의 y 값을 변경
+		      		BoxListDelete()
+		      		CreateBackGround(-50,200)
+							CreateBackGround(550,200)
+							CreateBackGround(-50,-200)
+							CreateBackGround(550,-200)
+		      		pl.player_ground_y = 335
+		      	else
+		      		--오답일 경우
+		      		LifeMinus()
+		      	end
+	      	end
+	    end
+end
+
+function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 메서드
+		if bubbleTipCheck then --가을에만 있는 버블소트를 위한 팁 제공
+			if love.keyboard.isDown("return") then --enter키임.
+	      		if bubbleTipCount == 1 then
+	      			bubbleTipCount = bubbleTipCount + 1
+	      			love.timer.sleep(0.3)
+	      		elseif bubbleTipCount == 2 then
+	      			bubbleTipCount = bubbleTipCount + 1
+	      			love.timer.sleep(0.3)
+	      		elseif bubbleTipCount == 3 then
+	      			bubbleTipCount = bubbleTipCount + 1
+	      			love.timer.sleep(0.3)
+	      		else
+	      			bubbleTipCount = 1
+	      			bubbleTipCheck = false
+	      		end
+	      	end
+	    elseif phase == 1 then --1번째는 Tip.
+	    	if love.keyboard.isDown("return") then --enter키임.
+	      		questCheck = false
+	      		phase = phase + 1
+	      		BridegePassValue = BridegePassValue + 185
+	      		qmarkCheck = true
+	      	end
+	    elseif phase == 2 then --2번째 객관식 문제.
+	    	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+
+    					--가을은 2번째 퀘스트를 해결했을 경우, 바로 다음으로 넘어가지 않고 버블소트에 대한 팁을 제공한다.
+    					bubbleTipCheck = true
+
+    					questCheck = false
+			      		phase = phase + 1
+			      		BridegePassValue = BridegePassValue + 109
+			      		multipleChoice = 1
+			      		qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		LifeMinus()
+		      	end
+		      	love.timer.sleep(0.3) --enter키 연속눌림 방지.
+	      	end
+	    elseif phase == 3 and bubbleTipCheck == false then --3번째 객관식 문제
+	      	ControlLeftRight()
+
+    		if love.keyboard.isDown("return") then --enter키임.
+    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
+    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
+    				--정답을 맞췄을 경우
+		      		questCheck = false
+		      		phase = 4
+		      		canPass = true
+		      		multipleChoice = 1
+		      		qmarkCheck = true
+		      	else
+		      		--오답일 경우
+		      		--추후에 오답일 경우에는 체력 게이지가 닳도록 만들기.
+		      		LifeMinus()
+		      	end
+	      	end
+	    end
+end
+
+function DrawQuestBackground()
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  	DrawRectangle(30, 5, 250, 85) --검은색 테두리
+  	love.graphics.setColor(255,255,255,255)
+  	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
+end
+
+function DrawTipBackground()
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  	DrawRectangle(15, 5, 271, 85) --검은색 테두리
+  	love.graphics.setColor(255,255,255,255)
+  	love.graphics.rectangle("fill", 32, 12, 538, 166) --테두리 안에 흰색 도화지?
 end
 
 function QuestLoad() --틀은 만들어놨으니 나중에 이미지만 바꾸면 그대로 적용할 수 있음.
@@ -239,227 +430,4 @@ function BubbleTipLoad()
 	bubbleTip4:setFilter("nearest","nearest")
 
 	tip_now_frame = love.graphics.newQuad(0,0, 528, 136, 528, 136)
-end
-
-function GetQuestNum() --리스트에서 몇 번 문제인지 뽑아내기 위한 함수. by.현식 0805
-	if stageLevel == 1 then
-		return phase
-	elseif stageLevel == 2 then
-		return phase + 3
-	elseif stageLevel == 3 then
-		return phase + 6
-	elseif stageLevel == 4 then
-		return phase + 9
-	end
-end
-
-function ControlLeftRight()
-	if love.keyboard.isDown("left") then
-	   		if multipleChoice == 1 then
-		   	--1번 선택지에서 왼쪽으로 가면 아무 동작도 안함.
-	   	else
-	   		multipleChoice = multipleChoice - 1
-	   	end
-	end
-
-    if love.keyboard.isDown("right") then
-    		if multipleChoice == 4 then
-    		--4번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
-    	else
-    		multipleChoice = multipleChoice + 1
-    	end
-    end
-end
-
-function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
-		if phase == 1 then --1번째는 Tip.
-	    	if love.keyboard.isDown("return") then --enter키임.
-	      		questCheck = false
-	      		phase = phase + 1
-	      		qmarkCheck = true
-	      	end
-	    elseif phase == 2 then --2번째 객관식 문제.
-	    	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-    				questCheck = false
-			      	phase = phase + 1
-			      	multipleChoice = 1
-			      	qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		fadeOn = true
-		      		fadeOnWrong = true
-		      		LifeMinus()
-		      	end
-
-	      	end
-	    elseif phase == 3 then --3번째 객관식 문제
-	      	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-		      		questCheck = false
-		      		phase = 4
-		      		canPass = true
-		      		multipleChoice = 1
-		      		qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		fadeOn = true
-		      		fadeOnWrong = true
-
-		      		LifeMinus()
-		      	end
-	      	end
-	    end
-end
-
-function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
-		if phase == 1 then --1번째는 Tip.
-	    	if love.keyboard.isDown("return") then --enter키임.
-	      		questCheck = false
-	      		phase = phase + 1
-	      		qmarkCheck = true
-	      	end
-	    elseif phase == 2 then --2번째 객관식 문제.
-	    	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-    				questCheck = false
-			      	phase = phase + 1
-			      	multipleChoice = 1
-			      	qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		fadeOn = true
-		      		fadeOnWrong = true
-		      		LifeMinus()
-		      	end
-
-	      	end
-	    elseif phase == 3 then --3번째 객관식 문제
-	      	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-		      		questCheck = false
-		      		phase = 4
-		      		canPass = true
-		      		multipleChoice = 1
-		      		qmarkCheck = true
-		      		groundList[0]:SetY(-300) -- ground의 y 값을 변경
-		      		groundList[1]:SetY(-300) -- ground의 y 값을 변경
-		      		BoxListDelete()
-		      		CreateBackGround(-50,200)
-							CreateBackGround(550,200)
-							CreateBackGround(-50,-200)
-							CreateBackGround(550,-200)
-		      		pl.player_ground_y = 335
-		      	else
-		      		--오답일 경우
-		      		fadeOn = true
-		      		fadeOnWrong = true
-
-		      		LifeMinus()
-		      	end
-	      	end
-	    end
-end
-
-function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 메서드
-		if bubbleTipCheck then --가을에만 있는 버블소트를 위한 팁 제공
-			if love.keyboard.isDown("return") then --enter키임.
-	      		if bubbleTipCount == 1 then
-	      			bubbleTipCount = bubbleTipCount + 1
-	      			love.timer.sleep(0.3)
-	      		elseif bubbleTipCount == 2 then
-	      			bubbleTipCount = bubbleTipCount + 1
-	      			love.timer.sleep(0.3)
-	      		elseif bubbleTipCount == 3 then
-	      			bubbleTipCount = bubbleTipCount + 1
-	      			love.timer.sleep(0.3)
-	      		else
-	      			bubbleTipCount = 1
-	      			bubbleTipCheck = false
-	      		end
-	      	end
-	    elseif phase == 1 then --1번째는 Tip.
-	    	if love.keyboard.isDown("return") then --enter키임.
-	      		questCheck = false
-	      		phase = phase + 1
-	      		BridegePassValue = BridegePassValue + 185
-	      		qmarkCheck = true
-	      	end
-	    elseif phase == 2 then --2번째 객관식 문제.
-	    	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-
-    					--가을은 2번째 퀘스트를 해결했을 경우, 바로 다음으로 넘어가지 않고 버블소트에 대한 팁을 제공한다.
-    					bubbleTipCheck = true
-
-    					questCheck = false
-			      		phase = phase + 1
-			      		BridegePassValue = BridegePassValue + 109
-			      		multipleChoice = 1
-			      		qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		fadeOn = true
-		      		fadeOnWrong = true
-
-		      		LifeMinus()
-		      	end
-		      	love.timer.sleep(0.3) --enter키 연속눌림 방지.
-	      	end
-	    elseif phase == 3 and bubbleTipCheck == false then --3번째 객관식 문제
-	      	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-		      		questCheck = false
-		      		phase = 4
-		      		canPass = true
-		      		multipleChoice = 1
-		      		qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		--추후에 오답일 경우에는 체력 게이지가 닳도록 만들기.
-		      		fadeOn = true
-		      		fadeOnWrong = true
-
-		      		LifeMinus()
-		      	end
-	      	end
-	    end
-end
-
-function DrawQuestBackground()
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-  	DrawRectangle(30, 5, 250, 85) --검은색 테두리
-  	love.graphics.setColor(255,255,255,255)
-  	love.graphics.rectangle("fill", 62, 12, 496, 166) --테두리 안에 흰색 도화지?
-end
-
-function DrawTipBackground()
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-  	DrawRectangle(15, 5, 271, 85) --검은색 테두리
-  	love.graphics.setColor(255,255,255,255)
-  	love.graphics.rectangle("fill", 32, 12, 538, 166) --테두리 안에 흰색 도화지?
 end
