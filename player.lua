@@ -182,6 +182,7 @@ function Player:CheckSpaceBarDown(dt)
 		elseif stageLevel==2 then
 		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 and canPass==false then
 			self.yspeed = self.jump_power
+			love.event.clear()
 		end
 
 		self.onGround = false
@@ -472,6 +473,6 @@ end
 function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
 	if self.y==330 and checkPlaying then --0816 근영 퀘스트 다 완료 했을시 그만 멈추여야 함
 		self.yspeed =-95
-    	LifeMinus()
+    	LifeMinusAtCreeper()  
 	end
 end
