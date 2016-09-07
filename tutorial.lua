@@ -1,5 +1,7 @@
+--튜토리얼의 전제는 오프닝에서 마왕이 처들어왔고, 마왕을 무찔러야 한다는 전제가 있어야함.
+
 tutorialStart = false
-tutorialProgressLevel = 1 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
+tutorialProgressLevel = 4 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
 
 talkCountWithElder = 1
 talkCountAtHome = 1
@@ -58,7 +60,7 @@ function ControlTutorial()
 					tutorialProgressLevel = tutorialProgressLevel + 1
 				end
 			elseif tutorialProgressLevel == 5 then
-				if talkCountWithElder == 9 then
+				if talkCountWithElder == 8 then
 					if multipleChoice == correctTutorialAnswer then
 						--정답일 경우.
 						tutorialProgressLevel = 6
@@ -130,7 +132,7 @@ function StartTutorial()
 			BlacksmtihTalk3()
 		end
 	elseif tutorialProgressLevel == 5 then
-		if talkCountWithElder == 9 then
+		if talkCountWithElder == 8 then
 			ElderTalkBackground()
 			FinalElderTalk()
 		elseif talkCountWithElder > 5 then
@@ -190,98 +192,6 @@ function DrawTipAndQuest()
 	if talkCountWithElder < 8 then --tip1,2
 		DrawTipBackground()
 		love.graphics.draw(tutorialTipList[talkCountWithElder-5],tip_now_frame,70,12) --문제 그리기.
-	elseif talkCountWithElder == 8 then --quest
-		DrawQuestBackground()
-		love.graphics.draw(tutorialQuest,quest_now_frame,70,12) --문제 그리기.
-		DrawMultipleTutorialChoice()
 	else -- 종료
 	end
-
-end
-
-function DrawMultipleTutorialChoice() --문제를 풀고 넘어가야 하는 객관식 방식. -- ~258 / 168
-	if multipleChoice == 1 then
-		DrawTutorialChoiceOne()
-	elseif multipleChoice == 2 then
-		DrawTutorialChoiceTwo()
-	elseif multipleChoice == 3 then
-		DrawTutorialChoiceThree()
-	elseif multipleChoice == 4 then
-		DrawTutorialChoiceFour()
-	end
-end
-
-function DrawTutorialChoiceOne()
-	--love.graphics.rectangle("line", 100,150,50, 30) --정답을 사각형으로 체크할 경우
-
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-	love.graphics.draw(tutorialAnswer1,answer_now_frame,100,145)
-	love.graphics.draw(tutorialAnswer2,answer_now_frame,200,145)
-	love.graphics.draw(tutorialAnswer3,answer_now_frame,300,145)
-	love.graphics.draw(tutorialAnswer4,answer_now_frame,400,145)
-
-	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 114, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기. ※0805. 후에 정답 이미지가 변경되면 좌표값이나 사이즈값을 수정할 필요가 있음.
-
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-end
-
-function DrawTutorialChoiceTwo()
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-	love.graphics.draw(tutorialAnswer1,answer_now_frame,100,145)
-	love.graphics.draw(tutorialAnswer2,answer_now_frame,200,145)
-	love.graphics.draw(tutorialAnswer3,answer_now_frame,300,145)
-	love.graphics.draw(tutorialAnswer4,answer_now_frame,400,145)
-
-	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 214, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
-
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-end
-
-function DrawTutorialChoiceThree()
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-	love.graphics.draw(tutorialAnswer1,answer_now_frame,100,145)
-	love.graphics.draw(tutorialAnswer2,answer_now_frame,200,145)
-	love.graphics.draw(tutorialAnswer3,answer_now_frame,300,145)
-	love.graphics.draw(tutorialAnswer4,answer_now_frame,400,145)
-
-	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 314, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
-
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-end
-
-function DrawTutorialChoiceFour()
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-	love.graphics.draw(tutorialAnswer1,answer_now_frame,100,145)
-	love.graphics.draw(tutorialAnswer2,answer_now_frame,200,145)
-	love.graphics.draw(tutorialAnswer3,answer_now_frame,300,145)
-	love.graphics.draw(tutorialAnswer4,answer_now_frame,400,145)
-
-	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 414, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
-
-	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
-end
-
-function TutorialLoad()
-	tutorialTip1 = love.graphics.newImage("images/tutorial/tutorialTip1.png")
-	tutorialTip1:setFilter("nearest","nearest")
-	tutorialTip2 = love.graphics.newImage("images/tutorial/tutorialTip2.png")
-	tutorialTip2:setFilter("nearest","nearest")
-
-	tutorialQuest = love.graphics.newImage("images/tutorial/tutorialQuest.png")
-	tutorialQuest:setFilter("nearest","nearest")
-
-	tutorialAnswer1 = love.graphics.newImage("images/tutorial/tutorialAnswer1.png")
-	tutorialAnswer1:setFilter("nearest","nearest")
-	tutorialAnswer2 = love.graphics.newImage("images/tutorial/tutorialAnswer2.png")
-	tutorialAnswer2:setFilter("nearest","nearest")
-	tutorialAnswer3 = love.graphics.newImage("images/tutorial/tutorialAnswer3.png")
-	tutorialAnswer3:setFilter("nearest","nearest")
-	tutorialAnswer4 = love.graphics.newImage("images/tutorial/tutorialAnswer4.png")
-	tutorialAnswer4:setFilter("nearest","nearest")
-
-	tutorialTipList = {tutorialTip1, tutorialTip2}
 end

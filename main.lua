@@ -40,7 +40,7 @@ require("backgroundList")
 require("Font")
 
 --이하 스테이지 관련
-require("Tutorial")
+require("Tutorial"); require("tutorial_backup") --이건 안쓰는건데 지우기 아까워성..
 require("tutorialTalkList")
 require("village")
 require("Season")
@@ -460,7 +460,6 @@ function drawGame()
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
-    SandStormDraw()
   elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
     PortalDraw()
   end

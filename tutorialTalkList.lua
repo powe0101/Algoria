@@ -41,7 +41,10 @@ end
 function BlacksmtihTalk1()
  	love.graphics.print("잘 지냈냐 알!", 355, 26)
  	love.graphics.print("장로님께서 맡겨놓으신", 355, 46)
- 	love.graphics.print("마스크는 완성됐다!", 355, 66)
+ 	SetBlueColor()
+ 	love.graphics.print("마스크", 355, 66)
+ 	SetBlackColor()
+ 	love.graphics.print("는 완성됐다!", 390, 66)
  	love.graphics.print("들어보니 마왕이 첫번째로", 355, 86)
  	love.graphics.print("사는 성에서는 모래바람이", 355, 106)
 end
@@ -61,9 +64,15 @@ end
 
 
 function ElderTalkAtHome1()
- 	love.graphics.print("너의 집에서는 종이를 이용", 365, 32)
- 	love.graphics.print("하여 지금까지 했던 모험에", 365, 52)
- 	love.graphics.print("대한 기록이 가능하단다!", 365, 72)
+	love.graphics.print("그 종이는 바로", 365, 32)
+	SetBlueColor()
+	love.graphics.print("'기억의 두루", 450, 32)
+	love.graphics.print("마리'", 365, 52)
+	SetBlackColor()
+	love.graphics.print("란다.", 395, 52)
+ 	love.graphics.print("너의 집에서는 그 종이를 이", 365, 82)
+ 	love.graphics.print("용하여 지금까지 했던 모험", 365, 102)
+ 	love.graphics.print("에 대한 기록이 가능하단다!", 365, 122)
 end
 
 function ElderTalkAtHome2()
@@ -71,13 +80,20 @@ function ElderTalkAtHome2()
  	love.graphics.print("중요한 요소들도 설명해주", 365, 52)
  	love.graphics.print("마!", 365, 72)
  	love.graphics.print("자, 이번에는 바로 앞에 있는", 365, 102)
- 	love.graphics.print("포탈로 이동해보거라!", 365, 122)
+ 	SetBlueColor()
+ 	love.graphics.print("포탈", 365, 122)
+ 	SetBlackColor()
+ 	love.graphics.print("로 이동해보거라!", 387, 122)
 end
 
 function ElderTalkAtProtal1()
  	love.graphics.print("이것은 보스가 있는 ", 365, 32)
  	love.graphics.print("각 스테이지로 이동할 ", 365, 52)
- 	love.graphics.print("수 있는 중요한 포탈이란다!", 365, 72)
+ 	love.graphics.print("수 있는 중요한", 365, 72)
+ 	SetBlueColor()
+ 	love.graphics.print("포탈", 450, 72)
+ 	SetBlackColor()
+ 	love.graphics.print("이란다!", 473, 72)
  	love.graphics.print("'↑'키를 눌러서 이동할 수", 365, 102)
  	love.graphics.print("있지!", 365, 122)
 end
@@ -125,7 +141,11 @@ end
 
 function ElderTalk3()
  	love.graphics.print("음.. 지난번에 내가 줬던 ", 365, 32)
- 	love.graphics.print("종이를 기억하니??", 365, 52)
+ 	SetBlueColor()
+ 	love.graphics.print("종이", 365, 52)
+ 	-- 이어서 
+ 	SetBlackColor()
+ 	love.graphics.print("를 기억하니??", 389, 52)
  	--love.graphics.print("Elder Talk 1", 365, 72)
 end
 
@@ -155,4 +175,12 @@ function ElderTalk5()
  	love.graphics.print("자! 파란지붕인 너의 집으로", 365, 92)
  	love.graphics.print("가서 찾아보거라", 365, 112)
  	--love.graphics.print("Elder Talk 1", 365, 72)
+end
+
+function SetBlueColor()
+	love.graphics.setColor(9,132,247,255)
+end
+
+function SetBlackColor()
+	love.graphics.setColor(0,0,0,255)
 end
