@@ -7,6 +7,19 @@ function FinalElderTalk()
  	love.graphics.print("무찌르러 떠나거라!", 365, 112)
 end
 
+function ElderTipTalk1()
+	love.graphics.print("마왕은 봄의 성, 여름의 성, 가을의 성, 겨울의 성까지 총 4개의 성을 가지고 있단다.", 35, 12)
+	love.graphics.print("지금은 봄의 성에서 머무리고 있다는 소리가 들리는구나. ", 35, 32)
+	love.graphics.print("하지만! 각각의 성까지 가는 데는 큰 장애물이 있을거야", 35, 52)
+	love.graphics.print("마왕은 자신의 성으로 오는 것을 막기위해 성의 위치를 이상한 곳에 숨겨두었거나(회오리?)", 35, 72)
+	love.graphics.print("문제를 풀어야만 통과할 수 있는 장애물(여기에 표지판 그림 삽입)을 설치하기도 했다고 한다.", 35, 92)
+	love.graphics.print("하지만 대장장이가 만들고 있는 물건을 사용하면 큰 문제없이 성에 도착할 수 있을 것이다.", 35, 112)
+end
+
+function ElderTipTalk2()
+	love.graphics.print("마왕의 성을 도착하면 마왕이 내는 문제를 풀어야 한단다.", 35, 12)
+end
+
 
 function AfterElderTalk4()
  	love.graphics.print("55", 365, 32)
@@ -24,7 +37,6 @@ function AfterElderTalk2()
  	love.graphics.print("이제 때가 됐단다, 알.", 365, 32)
  	love.graphics.print("비로소 지금에야 말로 마왕", 365, 52)
  	love.graphics.print("을 무찌를 기회가 왔단다.", 365, 72)
- 	love.graphics.print("우리가 마왕에 대항할 무기", 365, 92)
  	love.graphics.print("우리가 마왕에 대항할 물건.", 365, 92)
 end
 

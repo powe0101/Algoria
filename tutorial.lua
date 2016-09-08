@@ -1,7 +1,7 @@
 --튜토리얼의 전제는 오프닝에서 마왕이 처들어왔고, 마왕을 무찔러야 한다는 전제가 있어야함.
 
 tutorialStart = false
-tutorialProgressLevel = 4 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
+tutorialProgressLevel = 5 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
 
 talkCountWithElder = 1
 talkCountAtHome = 1
@@ -191,7 +191,14 @@ end
 function DrawTipAndQuest()
 	if talkCountWithElder < 8 then --tip1,2
 		DrawTipBackground()
-		love.graphics.draw(tutorialTipList[talkCountWithElder-5],tip_now_frame,70,12) --문제 그리기.
+		--love.graphics.draw(tutorialTipList[talkCountWithElder-5],tip_now_frame,70,12) --문제 그리기.
+		love.graphics.setColor(0,0,0,255)
+		if talkCountWithElder == 6 then
+			ElderTipTalk1()
+		elseif talkCountWithElder == 7 then
+			ElderTipTalk2()
+		end
+		love.graphics.setColor(255,255,255,255)
 	else -- 종료
 	end
 end
