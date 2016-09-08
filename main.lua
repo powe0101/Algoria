@@ -272,6 +272,10 @@ function love.draw()
 
   if tutorialStart then
     StartTutorial()
+  end 
+
+  if stageLevel == 0 then --StartTutorial 보다 뒤에서 draw되야만 함.
+    ElderTipImageDraw() --튜토리얼에서 장로가 주는 팁과 관련됨. 따로 리스토로 관리 안하고 바로 draw해줌.
   end
 
   if bossClearCheck and printBossClear then --보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
@@ -284,6 +288,7 @@ function love.draw()
 
   ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
 
+  --[[
   if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
     love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
@@ -291,6 +296,7 @@ function love.draw()
     love.graphics.print("phase  : "..phase,20,80)
     love.graphics.setColor(255,255,255,255)
   end
+  ]]--
 
   if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
     HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.

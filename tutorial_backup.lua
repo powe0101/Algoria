@@ -64,6 +64,7 @@ function DrawTutorialChoiceFour()
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
 
+--[[
 function TutorialLoad()
 	tutorialTip1 = love.graphics.newImage("images/tutorial/tutorialTip1.png")
 	tutorialTip1:setFilter("nearest","nearest")
@@ -84,3 +85,4 @@ function TutorialLoad()
 
 	tutorialTipList = {tutorialTip1, tutorialTip2}
 end
+]]--

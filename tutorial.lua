@@ -96,6 +96,7 @@ function StartTutorial()
 		tutorialTalkList = {}
 		tutorialTalkList = {AfterElderTalk1,AfterWarroirTalkAtVillage1,AfterElderTalk2,
 		AfterElderTalk3, AfterElderTalk4}
+		tutorialTipList = {ElderTipTalk1, ElderTipTalk2}
 		talkInit = false
 	end
 
@@ -193,11 +194,7 @@ function DrawTipAndQuest()
 		DrawTipBackground()
 		--love.graphics.draw(tutorialTipList[talkCountWithElder-5],tip_now_frame,70,12) --문제 그리기.
 		love.graphics.setColor(0,0,0,255)
-		if talkCountWithElder == 6 then
-			ElderTipTalk1()
-		elseif talkCountWithElder == 7 then
-			ElderTipTalk2()
-		end
+		tutorialTipList[talkCountWithElder-5]()
 		love.graphics.setColor(255,255,255,255)
 	else -- 종료
 	end
