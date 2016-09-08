@@ -72,8 +72,6 @@ function InitShortestPath()
   CreateShortestPathtHouse(250, 25, CHECKHOUSE)
   CreateShortestPathtHouse(250, 75, CHECKHOUSE)
   CreateShortestPathtHouse(250, 125, ENDHOUSE)
-
-  --CreateShortestPathtHouse(140, 25, CHECKHOUSE)
 end
 
 function DrawShortestPath()
@@ -82,8 +80,8 @@ end
 
 function ExplainShortestPath()
   love.graphics.setColor(255, 0, 0, 255)
-  love.graphics.print("※조작법※\n 'Up','Dwon','Left','Right'",62+285, 13)
-  love.graphics.print("\n두 번째 줄",62+285,50)
+  love.graphics.print("※조작법※\n 'Up','Dwon','Left','Right' \n선택 : 'Space'",62+285, 13)
+  love.graphics.print("\n",62+285,50)
   love.graphics.print("\n세 번째 줄",62+285,100)
   love.graphics.setColor(255, 255, 255, 255)
 end
