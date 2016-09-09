@@ -79,6 +79,8 @@ require("maze")
 require("DustWind")
 require("SandStorm")
 require("Coin")
+require("SpringAlgorithm")
+require("Bank")
 --block
 
 
