@@ -1,10 +1,7 @@
 ----------------------이하 대화내용
 function FinalElderTalk()
- 	love.graphics.print("잘했다 알!", 365, 32)
- 	love.graphics.print("이정도면 너를 믿고 맡겨도", 365, 52)
- 	love.graphics.print("되겠구나!", 365, 72)
- 	love.graphics.print("자, 그럼 이제 마왕을", 365, 92)
- 	love.graphics.print("무찌르러 떠나거라!", 365, 112)
+ 	love.graphics.print("어떻니 알. 잘 할 수 있겠니?", 365, 32)
+ 	--love.graphics.print("이정도면 너를 믿고 맡겨도", 365, 52)
 end
 
 function ElderTipTalk1()                                    --여기까지
@@ -32,11 +29,20 @@ function ElderTipTalk1()                                    --여기까지
 end
 
 function ElderTipTalk2()
-	love.graphics.print("하지만 차근차근 문제를 풀어나간다면 큰 문제없이 성에 도착할 수 있을 것이다.", 35, 12)
-	love.graphics.print("그리고 진짜 문제는문제는 성에 도착하고 난 다음이다!", 35, 42)
+	love.graphics.print("차근차근 문제를 풀어나간다면 큰 문제없이 성에 도착할 수 있을 것이다.", 35, 12)
+	love.graphics.print("하지만 진짜 문제는 성에 도착하고 난 다음이다!", 35, 42)
 	love.graphics.print("마왕의 성을 도착하면 마왕이 내는 문제를 풀어야 한단다.", 35, 62)
-	love.graphics.print("우린 그것을 마왕이 내는 문제, '알고리즘'이라 부르고 있지.", 35, 82)
-	love.graphics.print("그것을 풀기 위해서는 일정한 단계를 통해 주어진 문제를 해결하기 위한 절차나 방법이 필요하단다!", 35, 112)
+	SetBlackColor()
+	love.graphics.print("마왕이 내는 문제", 105, 82)
+	love.graphics.setColor(255,0,0,255)
+	love.graphics.print("'알고리즘'", 205, 82)
+	SetBlackColor()
+	love.graphics.print("우린 그것을                                        이라 부르고 있지.", 35, 82)
+	SetBlueColor()
+	love.graphics.print("일정한 단계를 통해 주어진 문제를 해결하기 위한 절차나 방법", 155, 112)
+	SetBlackColor()
+	love.graphics.print("그것을 풀기 위해서는", 35, 112)
+	love.graphics.print("이 필요하단다!", 489, 112)
 	love.graphics.print("마왕은 수 십, 수 백 가지의 문제를 알고 있단다.", 35, 132)
 	love.graphics.print("하지만 그 절차나 방법만 깨닫는다면 문제를 푸는데 어려움은 없을 것이야!", 35, 152)
 	--[[
@@ -49,22 +55,29 @@ function ElderTipTalk2()
 end
 
 function AfterElderTalk4()
- 	love.graphics.print("55", 365, 32)
- 	love.graphics.print("55", 365, 52)
- 	love.graphics.print("55", 365, 72)
+ 	love.graphics.print("하지만 이 마스크만 있다고", 365, 32)
+ 	love.graphics.print("해서 마왕을 무찌르기는", 365, 52)
+ 	love.graphics.print("쉽지 않을거야. ", 365, 72)
+ 	love.graphics.print("내가 설명해주는 것을 잘", 365, 102)
+ 	love.graphics.print("듣거라!", 365, 122)
 end
 
 function AfterElderTalk3()
- 	love.graphics.print("44", 365, 32)
- 	love.graphics.print("44", 365, 52)
- 	love.graphics.print("44", 365, 72)
+ 	love.graphics.print("수 있는 물건을 개발했단다!", 365, 32)
+ 	love.graphics.print("그 처음으로 만든 것이 니가", 365, 52)
+ 	SetBlueColor()
+ 	love.graphics.print("마스크", 392, 72)
+ 	SetBlackColor()
+ 	love.graphics.print("받은          란다.", 365, 72)
+ 	love.graphics.print("", 365, 92)
 end
 
 function AfterElderTalk2()
  	love.graphics.print("이제 때가 됐단다, 알.", 365, 32)
  	love.graphics.print("비로소 지금에야 말로 마왕", 365, 52)
- 	love.graphics.print("을 무찌를 기회가 왔단다.", 365, 72)
- 	love.graphics.print("우리가 마왕에 대항할 물건.", 365, 92)
+ 	love.graphics.print("을 무찌를 기회가 왔단다!", 365, 72)
+ 	love.graphics.print("우리가 마왕에 대한 오랜", 365, 92)
+ 	love.graphics.print("연구 끝에 마왕에 대항할", 365, 112)
 end
 
 function AfterWarroirTalkAtVillage1()
