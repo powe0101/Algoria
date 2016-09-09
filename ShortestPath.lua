@@ -16,6 +16,8 @@ INFINITE = 999
 STARTHOUSE = 1
 CHECKHOUSE = 2
 ENDHOUSE = 3
+VISITHOUSE = 4
+CHOOSEHOUSE = 5
 
 FIRSTHOUSE_X = 70+20
 SECONDHOUSE_x = 160+20
@@ -76,14 +78,20 @@ function ShortestPath()
   end
 end
 
+--[[
+1 2 5
+3 4
+6   7
+]]
 function InitShortestPathHouse()
+  -- 1 3 6
   CreateShortestPathtHouse(FIRSTHOUSE_X, FIRSTHOUSE_Y, STARTHOUSE)
   CreateShortestPathtHouse(FIRSTHOUSE_X, SECONDHOUSE_Y, CHECKHOUSE)
   CreateShortestPathtHouse(FIRSTHOUSE_X, THIRDHOUSE_Y, CHECKHOUSE)
-
+  -- 2 4
   CreateShortestPathtHouse(SECONDHOUSE_x, FIRSTHOUSE_Y, CHECKHOUSE)
   CreateShortestPathtHouse(SECONDHOUSE_x, SECONDHOUSE_Y, CHECKHOUSE)
-
+  -- 5 7
   CreateShortestPathtHouse(THIRDHOUSE_X, FIRSTHOUSE_Y, CHECKHOUSE)
   CreateShortestPathtHouse(THIRDHOUSE_X, THIRDHOUSE_Y, ENDHOUSE)
 end
@@ -130,6 +138,50 @@ function ExplainShortestPath()
   love.graphics.print("\n\n파란 지붕 집에서 빨간 지붕 집까지",62+285,50)
   love.graphics.print("\n가장 빠른 길을 선택 하시오.",62+285,100)
   love.graphics.setColor(255, 255, 255, 255)
+end
+
+StartPos = 1
+EndPos = 7
+CurPos = StartPos
+checkTwoPoint = {}
+for i=1, 7 do
+  checkTwoPoint[i] = {}
+  for j=1, 7 do
+    checkTwoPoint[i][j] = false
+  end
+end
+currentVisit = {1, 0, 0, 0, 0, 0, 0}
+checkVisit = {0, 0, 0, 0, 0, 0, 0}
+
+function ControlShortestPath()
+  if stageLevel == 8 and algoCheck then
+  -- 최단거리 알고리즘 컨트롤 시작
+    if love.keyboard.isDown("up") then
+    end
+    if love.keyboard.isDown("down") then
+    end
+    if love.keyboard.isDown("left") then
+    end
+    if love.keyboard.isDown("right") then
+    end
+    if love.keyboard.isDown("space") then
+      love.graphics.print("\n컨트롤 최단거리 함수 진입",62+285,100)
+    end
+  -- 끝
+  end
+end
+
+function updatePath()
+  if currentVisit[CurPos] == 1 then
+    currentVisit[CurPos] = 0
+    CurPos = 2
+    currentVisit[CurPos] = 1
+  end
+  if  currentVisit[CurPos] == 2 then
+    love.graphics.setColor(255, 0, 0, 255)
+    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    love.graphics.setColor(255, 255, 255, 255)
+  end
 end
 
 function StageWinterAlgorithm()

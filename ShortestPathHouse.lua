@@ -16,6 +16,10 @@ function ShortestPathHouse:reset(x,y,_type)
 	self.type = _type
 end
 
+function ShortestPathHouse:setType(_type)
+	self.type = _type
+end
+
 function ShortestPathHouse:draw()
 	if self.type == 1 then
 		love.graphics.draw(imgShortestPathStartHouse,shortestPathHouse_frame,self.x,self.y)
@@ -23,5 +27,9 @@ function ShortestPathHouse:draw()
 		love.graphics.draw(imgShortestPathCheckHouse,shortestPathHouse_frame,self.x,self.y)
 	elseif self.type == 3 then
 		love.graphics.draw(imgShortestPathEndHouse,shortestPathHouse_frame,self.x,self.y)
+	elseif self.type == 4 then
+		love.graphics.draw(imgShortestPathVisitHouse,shortestPathHouse_frame,self.x,self.y)
+	elseif self.type == 5 then
+		love.graphics.draw(imgShortestPathChooseHouse,shortestPathHouse_frame,self.x,self.y)
 	end
 end
