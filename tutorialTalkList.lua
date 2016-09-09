@@ -18,11 +18,17 @@ function ElderTipTalk1()                                    --여기까지
 	love.graphics.print("겨울의 성", 248, 22)
 	--봄의 성, 여름의 성, 가을의 성, 겨울의 성
 	SetBlackColor()
-	love.graphics.print("마왕은                                                         까지 총 4개의 성             을 가지고 있단다.", 35, 22)
+	love.graphics.print("마왕은                                                         까지 총 4개의 성           을 가지고 있단다.", 35, 22)
 	love.graphics.print("지금은 봄의 성에서 머무리고 있다는 소리가 들리는구나. ", 35, 52)
-	love.graphics.print("하지만! 각각의 성까지 가는 데는 여러가지의 장애물          들이 있을거야", 35, 82)
-	love.graphics.print("마왕은 자신의 성으로 오는 것을 막기위해 성의 위치를 이상한 곳에 숨겨두었거나(회오리?)", 35, 112)
-	love.graphics.print("문제를 풀어야만 통과할 수 있는 장애물          을 설치하기도 했다고 한다.", 35, 142)
+	SetBlueColor()
+	love.graphics.print("장애물", 280, 82)
+	SetBlackColor()
+	love.graphics.print("하지만! 각각의 성까지 가는 데는 여러가지의               	    들이 있을거야", 35, 82)
+	love.graphics.print("마왕은 자신의 성으로 오는 것을 막기위해 성의 위치를 이상한 곳에 숨겨두었거나", 35, 112)
+	SetBlueColor()
+	love.graphics.print("문제", 35, 142)
+	SetBlackColor()
+	love.graphics.print("를 풀어야만 통과할 수 있는 장애물          을 설치하기도 했다고 한다.", 60, 142)
 end
 
 function ElderTipTalk2()
@@ -222,7 +228,7 @@ function ElderTipImageDraw()
 	love.graphics.setColor(255,255,255,255)
 	--Tip1, talkCountWithElder6
 	if talkCountWithElder == 6 then
-		love.graphics.draw(imgMiniCastle, castle_frame,383,7)
+		love.graphics.draw(imgMiniCastle, castle_frame,382,7)
 		love.graphics.draw(imgMiniStrom, strom_frame,320,75)
 		love.graphics.draw(imgPicket, strom_frame,250,135)
 	elseif talkCountWithElder == 7 then
