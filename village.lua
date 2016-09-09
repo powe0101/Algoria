@@ -57,7 +57,7 @@ function SetVilliageBackgroundMusic()
 end
 
 function DeleteStage()
-  BackGroundListDelete()
+  BackGroundListDelete() 
   CloudListDelete()
   TreeListDelete()
   HouseListDelete()

@@ -45,8 +45,7 @@ function MakeBubbleSort()
 
 	love.graphics.setColor(255,255,255,255)
 
-	love.graphics.print(sortControl.."\n"..checkedNum.."\n"..secondControl,
-	10,30)
+	love.graphics.print(sortControl.."\n"..checkedNum.."\n"..secondControl,10,30)
 
 	love.graphics.print(hList[ranNum][1].."\n"..hList[ranNum][2].."\n"..hList[ranNum][3].."\n"..
 		hList[ranNum][4].."\n"..hList[ranNum][5].."\n", 10,80)
