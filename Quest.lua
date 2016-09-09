@@ -17,14 +17,16 @@ function CheckQuest(_x,_y)
   		if self.x-8 < pl:GetX() and pl:GetX() < self.x+8  then --봄에서의 표지퐌 자표를 입력해주면 됨. by.현식 0803
       		questCheck = true
     	end
-    elseif stageLevel == 2 or stageLevel==4 then --근영 여름 08 11
+    elseif stageLevel == 2     then --근영 여름 08 11
 
         	if picketList[2].x-20 < pl:GetX() and pl:GetX() < picketList[2].x+15 and phase == 3
         		and picketList[2].y-10< pl:GetY() and pl:GetY() < picketList[2].y+10 then --3단계
       		questCheck = true
+      		pl:StartMaze()
     	elseif picketList[1].x-20 < pl:GetX() and pl:GetX() < picketList[1].x+15 and phase == 2
     			and picketList[1].y-10< pl:GetY() and pl:GetY() < picketList[1].y+10  then
     		questCheck = true
+    		pl:StartMaze()
     	elseif picketList[0].x-20 < pl:GetX() and pl:GetX() < picketList[0].x+15 and phase == 1
     			and picketList[0].y-10< pl:GetY() and pl:GetY() < picketList[0].y+10 then
     		questCheck = true
@@ -38,6 +40,20 @@ function CheckQuest(_x,_y)
     		questCheck = true
     	end
     end
+    elseif  stageLevel==4 then --근영 여름 08 11
+
+        	if picketList[2].x-20 < pl:GetX() and pl:GetX() < picketList[2].x+15 and phase == 3
+        		and picketList[2].y-10< pl:GetY() and pl:GetY() < picketList[2].y+10 then --3단계
+      		questCheck = true
+      		
+    	elseif picketList[1].x-20 < pl:GetX() and pl:GetX() < picketList[1].x+15 and phase == 2
+    			and picketList[1].y-10< pl:GetY() and pl:GetY() < picketList[1].y+10  then
+    		questCheck = true
+  
+    	elseif picketList[0].x-20 < pl:GetX() and pl:GetX() < picketList[0].x+15 and phase == 1
+    			and picketList[0].y-10< pl:GetY() and pl:GetY() < picketList[0].y+10 then
+    		questCheck = true
+    	end
 
 
   end
@@ -278,6 +294,7 @@ function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 		      		canPass = true
 		      		multipleChoice = 1
 		      		qmarkCheck = true
+		      		
 		      		groundList[0]:SetY(-300) -- ground의 y 값을 변경
 		      		groundList[1]:SetY(-300) -- ground의 y 값을 변경
 		      		BoxListDelete()

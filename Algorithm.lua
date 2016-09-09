@@ -11,16 +11,8 @@ function MakeAlgorithm()
 			StageSpringAlgorithm()
 		end
 		if stageLevel == 6 then
-   			MazePrint()--미로 설명 만드는 함수
-   			CreateMaze()--미로 만드는 함수
-			BoxListDraw()--박스다시 draw
-			pl:draw()--플레이어 draw
-	        ButtonDraw()--버튼 생성
 
-	        if mazePlayStart then --
-	        	pl:UpdateMazeMove()
-	        	MazeCheckCollect()
-	        end
+   			MazeStart()
 		end
 
 		if stageLevel == 7 then
