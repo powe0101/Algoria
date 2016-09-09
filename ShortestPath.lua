@@ -76,7 +76,7 @@ function ShortestPath()
   end
 end
 
-function InitShortestPath()
+function InitShortestPathHouse()
   CreateShortestPathtHouse(FIRSTHOUSE_X, FIRSTHOUSE_Y, STARTHOUSE)
   CreateShortestPathtHouse(FIRSTHOUSE_X, SECONDHOUSE_Y, CHECKHOUSE)
   CreateShortestPathtHouse(FIRSTHOUSE_X, THIRDHOUSE_Y, CHECKHOUSE)
@@ -108,20 +108,33 @@ function DrawShortestPath()
                                 SECONDHOUSE_x-3+HOUSE_SIZE, SECONDHOUSE_Y-3+HOUSE_SIZE+5,
                                 THIRDHOUSE_X+5-5, THIRDHOUSE_Y+10,
                                 THIRDHOUSE_X+5, THIRDHOUSE_Y+10-5)
+
+  love.graphics.print(distTwoPoint[1][2], FIRSTHOUSE_X+HOUSE_SIZE+PATH_X/2, FIRSTHOUSE_Y+HOUSE_HALFSIZE-10)
+  love.graphics.print(distTwoPoint[2][5], SECONDHOUSE_x+HOUSE_SIZE+PATH_X/2, FIRSTHOUSE_Y+HOUSE_HALFSIZE-10)
+  love.graphics.print(distTwoPoint[3][4], FIRSTHOUSE_X+HOUSE_SIZE+PATH_X/2, SECONDHOUSE_Y+HOUSE_HALFSIZE-10)
+  love.graphics.print(distTwoPoint[6][7], FIRSTHOUSE_X+HOUSE_SIZE+PATH_X, THIRDHOUSE_Y+HOUSE_HALFSIZE-10)
+
+  love.graphics.print(distTwoPoint[1][3], FIRSTHOUSE_X+HOUSE_HALFSIZE-2-10, FIRSTHOUSE_Y+HOUSE_SIZE+PATH_Y/4)
+  love.graphics.print(distTwoPoint[2][4], SECONDHOUSE_x+HOUSE_HALFSIZE-2-10, FIRSTHOUSE_Y+HOUSE_SIZE+PATH_Y/4)
+  love.graphics.print(distTwoPoint[5][7], THIRDHOUSE_X+HOUSE_HALFSIZE-2-10, FIRSTHOUSE_Y+HOUSE_SIZE+PATH_Y)
+  love.graphics.print(distTwoPoint[3][6], FIRSTHOUSE_X+HOUSE_HALFSIZE-2-10, SECONDHOUSE_Y+HOUSE_SIZE+PATH_Y/4)
+
+  love.graphics.print(distTwoPoint[4][7], SECONDHOUSE_x-3+HOUSE_SIZE+5+PATH_X/2, SECONDHOUSE_Y-3+HOUSE_SIZE-10)
+
   love.graphics.setColor(255, 255, 255, 255)
 end
 
 function ExplainShortestPath()
   love.graphics.setColor(255, 0, 0, 255)
   love.graphics.print("※조작법※\n방향 : Up, Dwon, Left, Right\n선택 : Space",62+285, 13)
-  love.graphics.print("\n파란 지붕 집에서 빨간 지붕 집까지",62+285,50)
+  love.graphics.print("\n\n파란 지붕 집에서 빨간 지붕 집까지",62+285,50)
   love.graphics.print("\n가장 빠른 길을 선택 하시오.",62+285,100)
   love.graphics.setColor(255, 255, 255, 255)
 end
 
 function StageWinterAlgorithm()
   ExplainShortestPath()
-  InitShortestPath()
+  InitShortestPathHouse()
   DrawShortestPathHouse()
   DrawShortestPath()
 end
