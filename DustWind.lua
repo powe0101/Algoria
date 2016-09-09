@@ -50,12 +50,13 @@ function DustWind:Move(_distance)
 	-- 바람이 움직인다
 	local x = self.x
 	local y = self.y
-
+	print("x : "..tostring(x).." y : "..tostring(y))
 	for i=1,_distance,0.1 do
+
 		SandStorm:SetAniPostion(x+i,y)
 		self.x = x+i
+
 	end
-	
 	self:CheckCollideBoxForDustWind(self.x,self.y)
 end
 

@@ -1,7 +1,7 @@
 Box = {}
 Box.__index = Box
 
-box_frame = love.graphics.newQuad(0, 0, 22, 22, 22, 22)
+box_frame = love.graphics.newQuad(0, 0, 20, 20, 128, 128)
 
 BOX_WIDTH = 20
 BOX_HEIGHT = 20
@@ -62,6 +62,7 @@ function Box:CreateDirectionBox()
   self.dtBox[6] = self.x
   self.dtBox[7] = self.y - BOX_WIDTH
  	--top
+
 end
 
 function Box:SpaceJump(dt) --0808근영 점프함수
@@ -82,7 +83,10 @@ function Box:update(dt)
 	end
 	self:UpdateMove(dt)
 	self:normal(dt)
+
 end
+
+
 
 function Box:GetX()
 	return self.x
@@ -93,31 +97,22 @@ function Box:GetY()
 end
 
 function Box:DrawLine(_x,_y)
-	love.graphics.setColor(100,100,100)
+	love.graphics.setColor(0,255,0)
 	love.graphics.rectangle('line', _x,_y, BOX_WIDTH, BOX_HEIGHT)
 	love.graphics.setColor(255,255,255)
 end
 
 function Box:draw()
-	
-	love.graphics.setColor(236,243,201) -- 배경 .by근영  RGBA
-  
+	if stageLevel==2 then
+		love.graphics.setColor(236,243,201) -- 배경 .by근영  RGBA
+    else
+		love.graphics.setColor(255,255,255) -- 흰색 RGBA
+    end
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
 
-	if MazeCheck then--여름 보스 미로 에서 박스 테두리 
-  		self:DrawLine(self.x,self.y)
-  	end
-	
-	if DEBUG_SETTING then
+  	if DEBUG_SETTING then
  		drawDirectionBox(self,255,255,255)
  	end
-
-	if stageLevel==0 or stageLevel==1 then
-		love.graphics.draw(imgSpringBlock,box_frame,self.x-1,self.y-1)
-	end
-	if stageLevel==4 then
-		love.graphics.draw(imgWinterBlock,box_frame,self.x-1,self.y-1)
-	end
 
  	if self.isCollisionRight then
  		self:DrawLine(self.x + BOX_WIDTH, self.y)
@@ -138,6 +133,8 @@ function Box:draw()
  	love.graphics.setColor(255,255,255) -- 흰색 RGBA
 end
 
+
+
 function drawDirectionBox(box, r,g,b)
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x + BOX_WIDTH, box.y, BOX_WIDTH, BOX_HEIGHT)
@@ -154,6 +151,7 @@ function drawDirectionBox(box, r,g,b)
   love.graphics.setColor(r,g,b)
   love.graphics.rectangle("line", box.x , box.y + BOX_WIDTH , BOX_WIDTH, BOX_HEIGHT)
   --bottom
+
   love.graphics.setColor(r,g,b,70)
   love.graphics.rectangle("fill", box.x, box.y - BOX_WIDTH, BOX_WIDTH, BOX_HEIGHT)
   love.graphics.setColor(r,g,b)

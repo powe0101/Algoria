@@ -74,7 +74,7 @@ require("ManageHeart")
 require("BossTalk")
 require("Algorithm")
 require("BubbleSort")
-require("maze")
+
 --봄
 require("DustWind")
 require("SandStorm")
@@ -120,7 +120,6 @@ bossTalkCheck = false --보스와의 대화 및 문제풀이를 위한 변수. �
 algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분으로 넘어가는 것을 감지,체크함.
 
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
-
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 
@@ -132,7 +131,7 @@ function love.load()
   createStage() -- stage 만들기 근영
   loadSplash() -- 스플래시 로드
   updateScale()
-  SetCoinAlgorithmDefault()
+  SetCoinAlgorithmDefault() -- 코인 알고리즘 초기값 설정을 위해 단한번만 호출되어야해서 임시 배치 
   SetGoyangFont() --폰트설정. BY.현식 0823.
   --SetNanumFont()
   start() -- 시작
@@ -288,11 +287,13 @@ function love.draw()
 
   if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print("playerLife  : "..playerLife,20,80)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
+    love.graphics.print("phase  : "..phase,20,80)
     love.graphics.setColor(255,255,255,255)
   end
 
-  if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
+  if playerDeadCheck == false then --플레이어가 죽으면 라이프도 안보이게.
     HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
     BheartListDraw()
   end
@@ -331,19 +332,17 @@ end
 
 function CheckStartGameForTitle()
   if title and love.keyboard.isDown("return") then -- 타이틀에서 게임을 시작함
-    DeleteStage() -- 타이틀용 마을 삭제
+    DeleteVillage() -- 타이틀용 마을 삭제
     stageLevel = 0 -- 마을 스테이지 번호 0
     title = false -- 타이틀 조건 해제
     pl = Player.create() -- 플레이어 객체
     pl:reset()
     CreateVillage() -- 실제 마을 스테이지 생성
-    tempForMainXCoord = true --현식추가
-    reTitleCheck = false --현식추가, 다시 타이틀에 들어왔을때 라이프 안보이게 하깅 ㅟ해서.
+    tempForMainXCoord = true
   end
 end
 
 function love.keypressed(key,scancode) -- 키입력
-  BadEndingContorl()
   ControlBlackSmith()
   ControlFadeOut() --어디서든 오답 메시지를 띄울 수 있도록
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
@@ -463,7 +462,7 @@ function drawGame()
     PortalDraw()
     BlackSmithHouseDraw()
     SandStormDraw()
-  elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
+  elseif stageLevel > 4 then
     PortalDraw()
   end
   BossListDraw() --보스가 포탈보다 뒤에 그려져야함.
@@ -634,12 +633,7 @@ function loadResources()
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")
 
-  imgSpringBlock = love.graphics.newImage("images/springBlock.png")
-  imgSpringBlock:setFilter("nearest","nearest")
-  imgWinterBlock = love.graphics.newImage("images/winterBlock.png")
-  imgWinterBlock:setFilter("nearest","nearest")
-
-  imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
+  imgWarrorDead = love.graphics.newImage("images/finalDevil.png")
   imgWarrorDead:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
@@ -661,12 +655,5 @@ function createStage() --0721 근영 맵 만드는 함수
   end
 end
 
-function ResetColor()
-  love.graphics.setColor(255,255,255,255)
-end
-
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
-function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
-  ButtonClick(x,y)--maze루아의 buttonClick함수
-end

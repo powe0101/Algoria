@@ -19,7 +19,6 @@ function MoveNextStage()
     CreateSpring()
   elseif clearLevel == 2 then --마을에서 여름으로
     CreateSummer()
-    
   elseif clearLevel == 3 then --마을에서 가을로
     CreateFall()
   elseif clearLevel == 4 then --마을에서 겨울로
@@ -33,11 +32,10 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
     --관리자 모드가 아닐 경우,..
     if love.keyboard.isDown("return") then --enter키임
       --임시 테스트용. 클리어가 가능한 스테이지가 가을밖에 없어서. 나중에 지울것.
-
       -- if clearLevel < 4 then
       --   clearLevel = 3
       -- end
-      DeleteStage()
+      DeleteVillage()
       MoveNextStage()
       popupCheck = false
     end
