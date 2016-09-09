@@ -11,6 +11,7 @@ function MakeAlgorithm()
 			StageSpringAlgorithm()
 		end
 		if stageLevel == 6 then
+<<<<<<< HEAD
    		MazePrint()--미로 설명 만드는 함수
    		CreateMaze()--미로 만드는 함수
 			BoxListDraw()--박스다시 draw
@@ -20,6 +21,10 @@ function MakeAlgorithm()
 	    	pl:UpdateMazeMove()
 	    	MazeCheckCollect()
 	    end
+=======
+
+   			MazeStart()
+>>>>>>> refs/remotes/origin/master
 		end
 		if stageLevel == 7 then
 			MakeBubbleSort() --가을스테이지에서만 돌아가도록 태스팅.

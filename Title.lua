@@ -39,9 +39,6 @@ end
 
 
 function CreateTitleVillage(_y)
-  p1=nil
-  pl=Player.create()
-  pl:ResetCoord()
 
   CreateGround(-49,76 - _y)
   CreateGround(541,76 - _y)

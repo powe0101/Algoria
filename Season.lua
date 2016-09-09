@@ -19,7 +19,6 @@ function MoveNextStage()
     CreateSpring()
   elseif clearLevel == 2 then --마을에서 여름으로
     CreateSummer()
-    
   elseif clearLevel == 3 then --마을에서 가을로
     CreateFall()
   elseif clearLevel == 4 then --마을에서 겨울로
