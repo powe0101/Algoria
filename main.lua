@@ -79,6 +79,8 @@ require("maze")
 require("DustWind")
 require("SandStorm")
 require("Coin")
+require("SpringAlgorithm")
+require("bank")
 --block
 
 
@@ -256,7 +258,7 @@ function love.draw()
 
   if questCheck then --0805HS
     if stageLevel==2 and phase>1 then
-      MazeMap()--맵 바꿔주기 위해 
+      MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
       SplitBackground() --4:4:2 비율로 쪼개기.
       MazeStart()
