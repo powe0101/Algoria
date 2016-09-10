@@ -10,6 +10,7 @@ function CreateVillage()
     pl:ResetCoord()
   end
 
+
   chiefChar = Chief.create()
   chiefChar:reset(550,145)
   blacksmithChar = BlackSmith.create()
@@ -57,7 +58,7 @@ function SetVilliageBackgroundMusic()
 end
 
 function DeleteStage()
-  BackGroundListDelete() 
+  BackGroundListDelete()
   CloudListDelete()
   TreeListDelete()
   HouseListDelete()

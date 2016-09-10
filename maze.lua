@@ -5,7 +5,46 @@ MazeCheck=false
 MazeButton ={} 
 clickCount=0      --몇번 클릭 됬는지 카운트 
 clickCountList={} --클릭된 버튼이 무엇인지 가지고 있는 리스트 
-
+    mapBossOne={   
+      {1,1,1,1,1,1,1,1,1,1,1,2,1,1},
+      {1,1,0,1,0,1,0,0,0,1,1,0,0,1},
+      {1,0,0,0,0,0,0,1,1,1,0,1,0,1},
+      {1,0,1,1,1,1,0,1,1,0,0,1,0,1},
+      {1,0,0,0,0,1,0,0,0,1,0,0,0,1},
+      {1,1,0,1,0,1,0,1,0,1,1,1,0,1},
+      {0,0,0,1,0,1,0,1,0,0,0,0,0,1},
+      {0,1,1,1,1,1,1,1,1,1,1,1,1,1}
+    }
+    map= {
+      {1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+      {1,0,0,0,0,0,0,0,0,0,1,1,1,1},
+      {1,1,1,1,1,1,1,0,1,0,0,0,1,1},
+      {1,0,0,0,0,0,0,0,1,0,1,1,0,1},
+      {1,0,1,1,1,1,1,1,1,0,1,1,0,2},
+      {1,0,1,0,0,0,0,0,1,0,1,1,0,1},
+      {1,0,0,0,1,1,1,1,1,0,0,0,0,1},
+      {1,0,1,1,1,1,1,1,1,1,1,1,1,1},
+   }
+    mapBossTwo = {
+      {1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+      {1,0,0,0,1,0,1,0,0,0,0,1,1,1},
+      {1,1,1,0,1,0,0,0,1,1,0,0,0,1},
+      {1,0,0,0,1,0,1,1,1,0,0,1,0,1},
+      {2,0,1,0,1,0,0,1,1,0,1,1,0,1},
+      {1,0,1,0,1,1,0,1,1,0,0,1,1,1},
+      {1,1,1,0,0,0,0,1,1,1,0,0,1,1},
+      {1,1,1,1,1,1,1,1,1,1,1,0,1,1}
+   }
+    mapSummer = {
+      {1,1,1,1,1,1,1,1,1,1,2,1,1,1},
+      {1,0,1,0,0,0,1,0,0,0,0,0,0,1},
+      {1,0,1,0,1,1,1,1,1,1,1,0,1,1},
+      {1,0,0,0,1,0,0,0,1,0,0,0,0,1},
+      {1,0,1,0,1,0,1,0,1,0,1,1,0,1},
+      {1,0,1,0,1,0,1,0,1,0,1,0,0,1},
+      {1,0,1,0,0,0,1,0,0,0,1,1,0,1},
+      {1,0,1,1,1,1,1,1,1,1,1,1,1,1}
+   }
 
 function CreateButton(x,y,text,id)  --버튼 생성 함수  
   table.insert(MazeButton,{x=x,y=y,text=text,id=id})
@@ -65,25 +104,24 @@ function ButtonClick(x,y)-- 생성된 버튼이 눌렸을시
    
 end
 
-
-
 function clickCountListDelete()
    for i=0, clickCount-1 do
     clickCountList[i]=nil
    end
    clickCount=0
 end
+
+function MazeMap()
+  if phase ==3 then
+    map=mapSummer
+  elseif stageLevel==6 then
+    map=mapBossOne
+  end
+end
+
 function CreateMaze() --미로 맵 만드는 함수 
-	  map = {
-      {1,1,1,1,1,1,1,1,1,1,1,0,1,1},
-      {1,0,0,0,0,0,0,0,0,0,1,0,1,1},
-      {1,1,1,1,1,1,1,0,1,0,1,0,0,1},
-      {1,0,0,0,0,0,0,0,1,0,1,1,0,1},
-      {1,0,1,1,1,1,1,1,1,0,0,0,0,1},
-      {1,0,1,0,0,0,0,0,1,0,1,1,1,1},
-      {1,0,0,0,1,1,1,1,1,0,0,0,0,1},
-      {1,0,1,1,1,1,1,1,1,1,1,1,1,1},
- 	 }
+
+  
  	for y=1,#map do
     for x=1,#map[y] do
       if map[y][x] == 1 then
@@ -137,24 +175,60 @@ end
 love.graphics.setColor(255,255,255,255) -- 원상복구
 end
 
-function MazeCheckCollect()
+function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리는것을 체크 
 	if coordinate_Y >8 or coordinate_Y<1 or coordinate_X >15 or coordinate_X<1 or map[coordinate_Y][coordinate_X]==1 then
 		LifeMinus()--체력 깍기고 
 		pl:StartMaze()--시작점으로 돌아가고 
 		mazePlayStart=false--start버튼 클릭 유무 초기화 
-	    buttonCount=0 --start후 몇번 실행 되었는지 알려주는거 초기화 
-	   	clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트 
-	   	coordinate_Y=8
-	   	coordinate_X=2
-	   	MazePlaying=false
+	  buttonCount=0 --start후 몇번 실행 되었는지 알려주는거 초기화 
+	  clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트 
+	  MazePlaying=false
 		return
-	elseif coordinate_Y==1 and coordinate_X==12 then
-		pl:StartMaze()--시작점으로 돌아가고 
-		mazePlayStart=false--start버튼 클릭 유무 초기화 
-	    buttonCount=0 --start후 몇번 실행 되었는지 알려주는거 초기화 
-	   	clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트 
-	   	coordinate_Y=8
-	   	coordinate_X=2
-	   	MazePlaying=false
+	elseif map[coordinate_Y][coordinate_X]==2 and stageLevel==2 then
+      MazeReset()
+      pl:SetX(save_X)--플레이어 좌표값 복원 
+      pl:SetY(save_Y)
+      phase=phase+1
+      qmarkCheck = true
+      questCheck=false
+      if phase==4 then--문제 다 풀었을 시 
+        canPass = true
+        pl.y=pl.y+180
+        
+      end
+
+    
+  elseif  map[coordinate_Y][coordinate_X]==2 and stageLevel==6 then--보스에서 
+		  if coordinate_Y==1 and coordinate_X==12 then
+      map=mapBossTwo
+      BoxListDelete()
+      CreateMaze()
+      pl.y=pl.y+140
+      MazeReset()
+     else 
+      MazeReset()
+      algoCheck=false
+    end
 	end
+end
+
+function MazeReset()--미로 초기화 함수 
+  BoxListDelete()
+  mazePlayStart=false--start버튼 클릭 유무 초기화 
+  buttonCount=0 --start후 몇번 실행 되었는지 알려주는거 초기화 
+  clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트
+  MazePlaying=false  
+end
+
+function MazeStart()--미로 시작 함수 
+  BoxListDelete()
+  MazePrint()--미로 설명 만드는 함수
+  CreateMaze()--미로 만드는 함수
+  BoxListDraw()--박스다시 draw
+  pl:draw()--플레이어 draw
+  ButtonDraw()--버튼 생성
+  if mazePlayStart then --
+    pl:UpdateMazeMove()
+    MazeCheckCollect()
+  end
 end

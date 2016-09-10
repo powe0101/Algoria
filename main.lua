@@ -40,7 +40,7 @@ require("backgroundList")
 require("Font")
 
 --이하 스테이지 관련
-require("Tutorial"); require("tutorial_backup") --이건 안쓰는건데 지우기 아까워성..
+require("Tutorial")
 require("tutorialTalkList")
 require("village")
 require("Season")
@@ -79,6 +79,8 @@ require("maze")
 require("DustWind")
 require("SandStorm")
 require("Coin")
+require("SpringAlgorithm")
+require("bank")
 --block
 
 
@@ -255,7 +257,14 @@ function love.draw()
   end
 
   if questCheck then --0805HS
+    if stageLevel==2 and phase>1 then
+      MazeMap()--맵 바꿔주기 위해
+      DrawQuestBackground() --배경그리기.(496*166)
+      SplitBackground() --4:4:2 비율로 쪼개기.
+      MazeStart()
+    else
     DrawQuest()
+  end
   end
 
   if bossTalkCheck then
@@ -272,10 +281,6 @@ function love.draw()
 
   if tutorialStart then
     StartTutorial()
-  end 
-
-  if stageLevel == 0 then --StartTutorial 보다 뒤에서 draw되야만 함.
-    ElderTipImageDraw() --튜토리얼에서 장로가 주는 팁과 관련됨. 따로 리스토로 관리 안하고 바로 draw해줌.
   end
 
   if bossClearCheck and printBossClear then --보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
@@ -288,15 +293,11 @@ function love.draw()
 
   ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
 
-  --[[
   if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
-    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
-    love.graphics.print("phase  : "..phase,20,80)
+    love.graphics.print("playerLife  : "..playerLife,20,80)
     love.graphics.setColor(255,255,255,255)
   end
-  ]]--
 
   if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
     HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
@@ -468,6 +469,7 @@ function drawGame()
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
+    SandStormDraw()
   elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
     PortalDraw()
   end
