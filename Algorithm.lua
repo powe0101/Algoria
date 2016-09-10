@@ -7,8 +7,21 @@ function MakeAlgorithm()
 	if stageLevel > 4 and algoCheck then
 		DrawQuestBackground() --배경그리기.(496*166)
 		SplitBackground() --4:4:2 비율로 쪼개기.
+		if stageLevel == 5 then
+			StageSpringAlgorithm()
+		end
+		if stageLevel == 6 then
+   			MazePrint()--미로 설명 만드는 함수
+   			CreateMaze()--미로 만드는 함수
+			BoxListDraw()--박스다시 draw
+			pl:draw()--플레이어 draw
+	        ButtonDraw()--버튼 생성
 
-		StageSpringAlgorithm()
+	        if mazePlayStart then --
+	        	pl:UpdateMazeMove()
+	        	MazeCheckCollect()
+	        end
+		end
 
 		if stageLevel == 7 then
 			MakeBubbleSort() --가을스테이지에서만 돌아가도록 태스팅.
@@ -26,45 +39,6 @@ function MakeAlgorithm()
 	end
 	--다 마치면 algoCheck는 다시 false로..
 	love.graphics.setColor(255,255,255,255) -- 원상복구
-end
-
-function SetCoinAlgorithmDefault()
-	MaxCoin = love.math.random(5,10) -- 떨어지는 코인의 개수
-	KeepCoin = 0
-	coinCount = 0
-	print("MaxCoin : "..MaxCoin)
-	print("KeepCoin :"..KeepCoin)
-	print("coinCount : "..coinCount)
-end
-
-function StageSpringAlgorithm()
-	if stageLevel ~= 5 then
-		return
-	end
-	SpringExplainAlgorithm()
-
-	if coin == nil and coinCount < MaxCoin then
-			coin = Coin.Create()
-			KeepCoin = KeepCoin + coin:GetPoint()
-			coinCount = coinCount + 1
-	elseif coin ~= nil then
-		coin:Draw()
-		coin:Update()
-
-		if coin:GetY() == 130 then
-					coin = nil
-		end
-	elseif coin == nil and coinCount == MaxCoin then
-			-- PrintAnswer()
-			-- 정답 선택을 어떻게 할것인가?
-	end
-end
-
-function SpringExplainAlgorithm()
-	love.graphics.setColor(255, 0, 0, 255)
-	love.graphics.print("하늘에서 동전이 저금통으로 들어가요! \n다 떨어지고 난 후에 저금통에 얼마가 있을까요?",62+285, 13)
-	love.graphics.print("현재까지 모은 돈 : "..KeepCoin,62+285,50)
-	love.graphics.print("현재까지 떨어진 동전 : "..coinCount,62+285,100)
 end
 
 function SplitBackground()

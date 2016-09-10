@@ -10,35 +10,35 @@ function CreateBossCastle()
     CreateGround(-49,0) --이미지를 다시 조정하던지 보스성에서만 용사 y좌표를 바꾸던지 해야할 듯. 0811. 퇴근.
   	CreateGround(481,0)
 
-  	CreatePortal(560,113)
+  	CreatePortal(535,113)
   	CreateBoss(500,21)
 end
 
 function CheckBossCastle()
 	if love.keyboard.isDown('up') then
-		if stageLevel == 1 and 454 < pl:GetX() and pl:GetX() < 460 then --가을에서 보스성 이동하기.
-		stageLevel = 5 --가을 보스스테이 레벨은 7.
-		DeleteVillage()
-		CreateBossCastle()
-	end
+		if stageLevel ==1 and 480 < pl:GetX() and pl:GetX() < 500 then
+			stageLevel = 5
+			DeleteStage()
+			CreateBossCastle()
+		end
 		if stageLevel == 2 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
 			stageLevel = 6 --가을 보스스테이 레벨은 7.
-			DeleteVillage()
+			DeleteStage()
 			CreateBossCastle()
-		    HEIGHT=200
-    		updateScale()
+		  HEIGHT=200
+    	updateScale()
 		end
-	    if stageLevel == 3 and 43 < pl:GetX() and pl:GetX() < 56 then --가을에서 보스성 이동하기.
+	  if stageLevel == 3 and 43 < pl:GetX() and pl:GetX() < 56 then --가을에서 보스성 이동하기.
 			stageLevel = 7 --가을 보스스테이 레벨은 7.
-			DeleteVillage()
+			DeleteStage()
 			CreateBossCastle()
 		end
 		if stageLevel == 4 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
-			stageLevel = 7 --가을 보스스테이 레벨은 7.
-			DeleteVillage()
+			stageLevel = 8 --가을 보스스테이 레벨은 7.
+			DeleteStage()
 			CreateBossCastle()
-		    HEIGHT=200
-    		updateScale()
+		  HEIGHT=200
+    	updateScale()
 		end
 	end
 end

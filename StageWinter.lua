@@ -100,5 +100,4 @@ function CreateWinter()
 
  		CreateBox(1040,185)
 		CreateBox(1060,185)
-
 end
