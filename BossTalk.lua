@@ -6,7 +6,7 @@ talkList = {}
 
 function CheckBossMeeting()
 	--가을 보스스테이지.
-	if stageLevel > 4 and 200 < pl:GetX() and bossClearCheck == false then
+	if pl and stageLevel > 4 and 200 < pl:GetX() and bossClearCheck == false then
 		bossTalkCheck = true
 	end
 end

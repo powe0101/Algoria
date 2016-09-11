@@ -82,6 +82,8 @@ require("ShortestPathHouseList")
 require("DustWind")
 require("SandStorm")
 require("Coin")
+require("SpringAlgorithm")
+require("bank")
 --block
 
 
@@ -127,6 +129,11 @@ portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수
 
 tempForMainXCoord = false
 
+suit = nil
+
+-- storage for text input
+input = {text = ""}
+
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
   loadResources() -- 이미지 리소스 불러옴
@@ -136,7 +143,7 @@ function love.load()
   SetCoinAlgorithmDefault()
   SetGoyangFont() --폰트설정. BY.현식 0823.
   --SetNanumFont()
-  start() -- 시작
+  --start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식
@@ -232,6 +239,10 @@ function love.update(dt)
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
   CheckTutorial()
   CheckQmarkAtViilage() --마을에서 느낌표 띄우기.
+
+  if suit ~= nil then
+    CheckSpringAlgorithmAnswer()
+  end
 end
 
 function love.draw()
@@ -259,7 +270,7 @@ function love.draw()
 
   if questCheck then --0805HS
     if stageLevel==2 and phase>1 then
-      MazeMap()--맵 바꿔주기 위해 
+      MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
       SplitBackground() --4:4:2 비율로 쪼개기.
       MazeStart()
@@ -303,6 +314,10 @@ function love.draw()
   if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
     HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
     BheartListDraw()
+  end
+
+  if suit ~= nil then
+    suit.draw()
   end
 end
 
@@ -350,6 +365,14 @@ function CheckStartGameForTitle()
   end
 end
 
+function love.textinput(t)
+  if suit == nil then
+    return
+  end
+    -- forward text input to SUIT
+    suit.textinput(t)
+end
+
 function love.keypressed(key,scancode) -- 키입력
   BadEndingContorl()
   ControlBlackSmith()
@@ -367,8 +390,9 @@ function love.keypressed(key,scancode) -- 키입력
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
   --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
-
-
+  if suit ~= nil then
+    suit.keypressed(key)
+  end
   if love.keyboard.isDown("return") then
       splashy.skipSplash()
   end
@@ -504,6 +528,7 @@ function drawGame()
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
+
 end
 
 function loadResources()
