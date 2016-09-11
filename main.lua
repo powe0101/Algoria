@@ -135,7 +135,7 @@ function love.load()
   SetCoinAlgorithmDefault()
   SetGoyangFont() --폰트설정. BY.현식 0823.
   --SetNanumFont()
-  start() -- 시작
+  --start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
 
   --audio() --오디오를 뒤로 빼면 다른 것들이 다 로딩된 다음에 로딩되므로 사운드가 살짝 늦게 나오는 느낌이 있음. by.현식

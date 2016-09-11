@@ -9,11 +9,12 @@ function ElderTipTalk1()                                    --여기까지
 	love.graphics.print("봄의 성,", 80, 22)
 	love.graphics.setColor(0,0,255,255)
 	love.graphics.print("여름의 성,", 128, 22)
-	love.graphics.setColor(125,125,0,255)
+	love.graphics.setColor(255,128,0,255)
 	love.graphics.print("가을의 성,", 188, 22)
 	love.graphics.setColor(0,30,100,255)
 	love.graphics.print("겨울의 성", 248, 22)
 	--봄의 성, 여름의 성, 가을의 성, 겨울의 성
+	
 	SetBlackColor()
 	love.graphics.print("마왕은                                                         까지 총 4개의 성           을 가지고 있단다.", 35, 22)
 	love.graphics.print("지금은 봄의 성에서 머무리고 있다는 소리가 들리는구나. ", 35, 52)

@@ -94,7 +94,7 @@ end
 -- @param dt Time that has passed since last call
 function animation:update(dt)
 
-	if stageLevel==2 then
+	if stageLevel==2 and pl then
 	self:SpaceJump(dt)
 end
     self:UpdateMove(dt)

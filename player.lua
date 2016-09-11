@@ -505,3 +505,7 @@ function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
     	LifeMinusAtCreeper()  
 	end
 end
+
+function Player:DeletePlayer()
+	self = nil
+end
