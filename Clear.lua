@@ -65,11 +65,12 @@ function AllMakeFalse() --사실상 Init임..
 	questCheck = false; blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
 end
 
-function InitWhenDie()
+function InitEverything()
 	algoCheck = false; 	bubbleTipCheck = false; bossClearCheck = false;
 	printBossClear = false; popupCheck = false; questCheck = false;
 	blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
 
 	multipleChoice = 1
 	talkCount = 1
+	sortControl = 1
 end
