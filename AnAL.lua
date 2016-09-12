@@ -96,7 +96,7 @@ function animation:update(dt)
 
 	if stageLevel==2 and pl then
 	self:SpaceJump(dt)
-end
+	end
     self:UpdateMove(dt)
 	self:normal(dt)
 
