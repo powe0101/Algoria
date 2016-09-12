@@ -15,7 +15,7 @@ talkInit = true
 multipleTutorialChoice = 1 --4지선다형 퀘스트를 컨트롤 하기 위한 변수.
 correctTutorialAnswer = 1 --정답을 대조하기 위한 변수
 
-portalBlock = false --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
+portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
 
 -- ※ 튜토리얼 활성화 하기 전에는 포탈 못타게 막아놓을 것.
 

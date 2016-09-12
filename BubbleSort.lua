@@ -110,7 +110,7 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		--여기서 안내창을 바꿔주면 될듯.
 	end
 	sortLeng = table.getn(hList[ranNum])
-	secondCheck = true
+	secondCheck = true	
 
 	if test_i < count then
 		if test_j < sortLeng - test_i + 1 then

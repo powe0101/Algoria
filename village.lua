@@ -1,5 +1,8 @@
 function CreateVillage()
   InitLife()
+  if table.getn(stageClearList) == 0 then
+    InitStageClear()
+  end
 
   --다른 스테이지 갔다 올때를 대비해서 초기화시켜줌.
   if stageLevel ~= true then
