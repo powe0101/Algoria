@@ -75,6 +75,9 @@ require("BossTalk")
 require("Algorithm")
 require("BubbleSort")
 require("maze")
+require("ShortestPath")
+require("ShortestPathHouse")
+require("ShortestPathHouseList")
 --봄
 require("DustWind")
 require("SandStorm")
@@ -125,6 +128,11 @@ clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 
 tempForMainXCoord = false
+
+suit = nil
+
+-- storage for text input
+input = {text = ""}
 
 function love.load()
   love.graphics.setBackgroundColor(darkcolor) --배경 색을 지정함
@@ -303,6 +311,10 @@ function love.draw()
     HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
     BheartListDraw()
   end
+
+  if suit ~= nil then
+    suit.draw()
+  end
 end
 
 function SetScale(key,scancode)
@@ -349,6 +361,14 @@ function CheckStartGameForTitle()
   end
 end
 
+function love.textinput(t)
+  if suit == nil then
+    return
+  end
+    -- forward text input to SUIT
+    suit.textinput(t)
+end
+
 function love.keypressed(key,scancode) -- 키입력
   BadEndingContorl()
   ControlBlackSmith()
@@ -358,7 +378,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-
+  ControlShortestPath()
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
@@ -366,8 +386,9 @@ function love.keypressed(key,scancode) -- 키입력
   CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
   --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
-
-
+  if suit ~= nil then
+    suit.keypressed(key)
+  end
   if love.keyboard.isDown("return") then
       splashy.skipSplash()
   end
@@ -503,6 +524,7 @@ function drawGame()
   if pl then
     pl:draw() -- 플레이어 스프라이트 그리기
   end
+
 end
 
 function loadResources()
@@ -648,6 +670,17 @@ function loadResources()
 
   imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
   imgWarrorDead:setFilter("nearest","nearest")
+
+  imgShortestPathStartHouse = love.graphics.newImage("images/startHouse.png")
+  imgShortestPathStartHouse:setFilter("nearest","nearest")
+  imgShortestPathCheckHouse = love.graphics.newImage("images/checkHouse.png")
+  imgShortestPathCheckHouse:setFilter("nearest","nearest")
+  imgShortestPathVisitHouse = love.graphics.newImage("images/checkHouse2.png")
+  imgShortestPathVisitHouse:setFilter("nearest","nearest")
+  imgShortestPathChooseHouse = love.graphics.newImage("images/checkHouse3.png")
+  imgShortestPathChooseHouse:setFilter("nearest","nearest")
+  imgShortestPathEndHouse = love.graphics.newImage("images/endHouse.png")
+  imgShortestPathEndHouse:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS

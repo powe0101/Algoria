@@ -11,23 +11,23 @@ function MakeAlgorithm()
 			StageSpringAlgorithm()
 		end
 		if stageLevel == 6 then
-
    			MazeStart()
 		end
-
 		if stageLevel == 7 then
 			MakeBubbleSort() --가을스테이지에서만 돌아가도록 태스팅.
 			if fontOnceCheck then
 				SetNanumFont()
 				fontOnceCheck = false
 			end
-
 			if fallCorrectAnswer then
 				PrintWhenCorrectAnswer()
 			else
 				PrintFallExplanation()
 			end
 		end
+	end
+	if stageLevel == 8 then
+		StageWinterAlgorithm()
 	end
 	--다 마치면 algoCheck는 다시 false로..
 	love.graphics.setColor(255,255,255,255) -- 원상복구

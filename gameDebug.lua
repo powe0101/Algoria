@@ -1,11 +1,11 @@
-DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
-function drawDebug(setting)  
+function drawDebug(setting)
   if setting == false then
-    return 
+    return
   end
 
-  love.graphics.setColor(darkcolor)  
+  love.graphics.setColor(darkcolor)
 
   local DEBUG_FPS_X = 10
   local DEBUG_FPS_Y = 10
@@ -18,7 +18,7 @@ function drawDebug(setting)
   local DEBUG_DEVICE_X = 10
   local DEBUG_DEVICE_Y = 30
   showDeviceInfo(DEBUG_DEVICE_X,DEBUG_DEVICE_Y)
-  
+
   local DEBUG_MEMORY_X = 10
   local DEBUG_MEMORY_Y = 90
   showMemoryInfo(DEBUG_MEMORY_X,DEBUG_MEMORY_Y)
@@ -26,7 +26,7 @@ function drawDebug(setting)
   local DEBUG_FEATURE_X = 10
   local DEBUG_FEATURE_Y = 100
   showFeature(DEBUG_FEATURE_X,DEBUG_FEATURE_Y)
- 
+
   local DEBUG_KEYINFO_X = 0
   local DEBUG_KEYINFO_Y = HEIGHT - 20
   showKeyInfo(DEBUG_KEYINFO_X,DEBUG_KEYINFO_Y)
@@ -34,7 +34,7 @@ function drawDebug(setting)
   local DEBUG_PLAYERINFO_X = WIDTH/2/2 +100
   local DEBUG_PLAYERINFO_Y = HEIGHT-20
   showPlayerInfo(DEBUG_PLAYERINFO_X, DEBUG_PLAYERINFO_Y)
-  
+
   local DEBUG_BLOCKINFO_X = 200
   local DEBUG_BLOCKINFO_Y = 25
   showBlockInfo(DEBUG_BLOCKINFO_X,DEBUG_BLOCKINFO_Y)
@@ -68,7 +68,7 @@ function drawDebug(setting)
 
   showMouseInfo(DEBUG_MOUSEINFO_X, DEBUG_MOUSEINFO_Y)
 
-  love.graphics.setColor(255,255,255,255)  
+  love.graphics.setColor(255,255,255,255)
 end
 
 function showFps(x,y)
@@ -130,27 +130,27 @@ function showPopupIfno(x,y)
 end
 
 function showBoxDebug()
-if DEBUG_SETTING then 
-    
+if DEBUG_SETTING then
+
     for i = 0, boxCount -1 do
        drawDirectionBox(boxList[i],255,255,255)
-       if boxList[i].isCollisionRight then 
+       if boxList[i].isCollisionRight then
           boxList[i]:DrawLine(boxList[i].x + BOX_WIDTH, boxList[i].y)
         end
 
-        if boxList[i].isCollisionLeft then 
+        if boxList[i].isCollisionLeft then
             boxList[i]:DrawLine(boxList[i].x - BOX_WIDTH, boxList[i].y)
         end
 
-        if boxList[i].isCollisionBottom then 
+        if boxList[i].isCollisionBottom then
            boxList[i]:DrawLine(boxList[i].x, boxList[i].y + BOX_WIDTH)
         end
 
-        if boxList[i].isCollisionTop then 
+        if boxList[i].isCollisionTop then
             boxList[i]:DrawLine(boxList[i].x, boxList[i].y - BOX_WIDTH)
         end
-    end 
-  end  
+    end
+  end
 end
 
 function showPopupAndPhaseIfno(x,y)

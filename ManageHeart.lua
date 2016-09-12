@@ -18,7 +18,7 @@ function BadEndingContorl()
 			reTitleCheck = true
 			TitleRun()
 		end
-	end 
+	end
 end
 
 function UpdateLife()
@@ -26,7 +26,7 @@ function UpdateLife()
 		HeartListDelete()
 		BheartListDelete()
 		LifeControl()
-		
+
 		lifeCheck = false
 	end
 end
@@ -62,7 +62,7 @@ function InitLife()
     	HeartListDelete()
     	BheartListDelete()
     	playerLife = 5
-    	LifeFive()  
+    	LifeFive()
   	end
 end
 
@@ -72,6 +72,18 @@ function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 	DeleteStage()
 	AllMakeFalse()
 	--SetBadEndingFont()
+	print(stageLevel)
+
+	if stageLevel == 5 then
+		coin = nil
+		suit = nil
+		bank = nil
+		coinCount = 0
+		MaxCoin = 0
+		AllMakeFalse()
+		SetCoinAlgorithmDefault()
+		--?? 죽었는데 보스토크 발생 안함 .
+	end
 
 	if stageLevel == 2 or stageLevel == 4 then
 		--여름/겨울의 경우 사이즈 재배치 후 종료.
@@ -83,7 +95,7 @@ function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 	--플레이어도 사라지게
 	if pl then
 		pl = nil
-		--pl:DeletePlayer()	
+		--pl:DeletePlayer()
 	end
 
 	fadeOn = false
