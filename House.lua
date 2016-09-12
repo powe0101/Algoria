@@ -3,6 +3,8 @@ House.__index = House
 
 house_frames_x = {}
 house_frames_x[0]  = love.graphics.newQuad(0,0,128,72,128,72)
+house_frames_shortestPath = {}
+house_frames_shortestPath[0] = love.graphics.newQuad(0,0,32,32,32,32)
 
 function House.create()
 	local self = {}

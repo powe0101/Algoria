@@ -1,5 +1,9 @@
 suit = nil
-input = {text = ""}
+
+cb_list_1 = {}
+cb_list_2 = {}
+cb_list_3 = {}
+cb_list_4 = {}
 
 COIN_MIN = 0
 COIN_MAX = 3
@@ -64,19 +68,23 @@ function CheckSpringAlgorithmAnswer()
 		-- print("UI_X:"..UI_X.."UI_Y:"..UI_Y)
 	end
 
-	suit.layout:reset(350,80)
+	suit.layout:reset(0,0)
 
 	-- put an input widget at the layout origin, with a cell size of 200 by 30 pixels
-	suit.Input(input, suit.layout:row(200,30))
+	suit.Input(input, 350,80,200,30)
+	if SCALE ~= 1 then
+		suit.Label("입력값 : "..input.text,{align="left"},350,80,200,30)
+	end
 
 	-- put a label that displays the text below the first cell
 	-- the cell size is the same as the last one (200x30 px)
 	-- the label text will be aligned to the left
 	-- put a button of size 200x30 px in the cell below
 	-- if the button is pressed, quit the game
-	if suit.Button("확인", suit.layout:row()).hit then
-		if KeepCoin == input.text then
-			--정답
+	if suit.Button("정답 확인", 350,120,200,30).hit then
+		print(KeepCoin..input.text)
+		if tostring(KeepCoin) == input.text then
+			print("Correct!")
 		else
 			LifeMinus()
 		end

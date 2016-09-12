@@ -39,6 +39,9 @@ end
 
 
 function CreateTitleVillage(_y)
+  pl = nil
+  
+  InitWhenDie()
 
   CreateGround(-49,76 - _y)
   CreateGround(541,76 - _y)
