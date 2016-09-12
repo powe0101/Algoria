@@ -141,7 +141,7 @@ function Player:UpdateMove(dt)
 end
 
 function Player:UpdateMazeMove()--미로에서 플레이어 이동 관련 함수 
-		 love.timer.sleep(0.5)
+		love.timer.sleep(0.5)
 		MazePlaying=true
 		MazeCheckCollect()
 	  	if buttonCount==5 then --5번 실행 됬을시 초기화 
@@ -169,8 +169,6 @@ function Player:UpdateMazeMove()--미로에서 플레이어 이동 관련 함수
         	buttonCount=buttonCount+1
         	coordinate_X=coordinate_X-1 --플레이어의 미로 X 좌표 
         end
-     
-		
 end	
 
 --Add by G 0729

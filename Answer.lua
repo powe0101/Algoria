@@ -16,7 +16,7 @@ fadeOnWrong = false
 function CheckFadeIn(dt) --main.lua의 update에서 계속 확인하고 있음.
 	if fadeOn then
 	   fadeTime = fadeTime + dt
-	   fadeLight = 255 * math.sin(0.5 * fadeTime)
+	   fadeLight = 255 * math.sin(1 * fadeTime)
 	   --lightup = 127 + (127 * math.sin(time_1))
 	end
 end
@@ -29,14 +29,22 @@ function ControlFadeOut()
 	end
 end
 
+function ControlFadeOutVerMouse()
+	if fadeOn then
+    	if love.mouse.isDown(1) or love.mouse.isDown(2) then
+        	FadeOut() 
+   	 	end
+  	end 
+end
+
 function ActivateFadeOut()
 	if fadeOn then --오답일 경우 오답이란 메시지를 페이드인으로 띄워줌.
   		if fadeOnRight then --정답일 때도 만들수 있는데 구현은 안함. 딱히 필요 없을듯. by.0804 현식.
 	  		love.graphics.setColor(255, 255, 255, fadeLight)
 			love.graphics.draw(imgRightAnswer, wrong_now_frame, 50,50) --정답은 안쓰임
 		elseif fadeOnWrong then --오답일 때 오답이라고 창 뜨는 것 외에도 라이프가 깍이면 좋겠음.
-	  		love.graphics.setColor(255, 255, 255, fadeLight)
-			love.graphics.draw(imgWrongAnswer, wrong_now_frame, 200,25)
+	  		love.graphics.setColor(255,255,255, fadeLight)
+			love.graphics.draw(imgWrongAnswer, wrong_now_frame, 130,25)
 		end
 	end	
 	ResetColor()
@@ -61,11 +69,11 @@ function FadeLoad()
 	imgRightAnswer = love.graphics.newImage("images/rightAnswer(test).png")
 	imgRightAnswer:setFilter("nearest","nearest")
 
-	imgWrongAnswer = love.graphics.newImage("images/wrongAnswer(test).png")
+	imgWrongAnswer = love.graphics.newImage("images/wrongAnswer.png")
 	imgWrongAnswer:setFilter("nearest","nearest")
 
 	rihgt_now_frame =  love.graphics.newQuad(0,0, 207, 141, 207, 141)
-	wrong_now_frame =  love.graphics.newQuad(0,0, 207, 141, 207, 141)
+	wrong_now_frame =  love.graphics.newQuad(0,0, 386, 141, 386, 141)
 end
 
 function AnswerLoad()

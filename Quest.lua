@@ -120,7 +120,7 @@ function DrawChoiceOne()
 	--리스트 안에 리스트 테스트 성공. by.현식 0804
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 114, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기. ※0805. 후에 정답 이미지가 변경되면 좌표값이나 사이즈값을 수정할 필요가 있음.
+	love.graphics.ellipse("line", 113, 164, 6, 9, 100) -- 정답을 체크하는 원 그리기. ※0805. 후에 정답 이미지가 변경되면 좌표값이나 사이즈값을 수정할 필요가 있음.
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
@@ -133,7 +133,7 @@ function DrawChoiceTwo()
 	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145)
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 214, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
+	love.graphics.ellipse("line", 213, 164, 6, 9, 100) -- 정답을 체크하는 원 그리기
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
@@ -146,7 +146,7 @@ function DrawChoiceThree()
 	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145)
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 314, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
+	love.graphics.ellipse("line", 313, 164, 6, 9, 100) -- 정답을 체크하는 원 그리기
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
@@ -159,11 +159,10 @@ function DrawChoiceFour()
 	love.graphics.draw(exampleList[GetAnswerNum()][4],answer_now_frame,400,145)
 
 	love.graphics.setColor(255,0,0,255)
-	love.graphics.ellipse("line", 414, 164, 8, 11, 100) -- 정답을 체크하는 원 그리기
+	love.graphics.ellipse("line", 413, 164, 6, 9, 100) -- 정답을 체크하는 원 그리기
 
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 end
-
 
 
 function ControlQuest()

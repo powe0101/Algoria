@@ -60,8 +60,17 @@ function DrawBackToVillage()
   love.graphics.print("이동하시려면 'enter'키를 눌러주세요.",168, 90)
 end
 
-function AllMakeFalse()
-	algoCheck = false; 	bubbleTipCheck = false; 
-	popupCheck = false; questCheck = false; blacksmithCheck = false; 
-	bossTalkCheck = false; tutorialStart = false;
+function AllMakeFalse() --사실상 Init임..
+	algoCheck = false; 	bubbleTipCheck = false; bpopupCheck = false; 
+	questCheck = false; blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
+end
+
+function InitEverything()
+	algoCheck = false; 	bubbleTipCheck = false; bossClearCheck = false;
+	printBossClear = false; popupCheck = false; questCheck = false;
+	blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
+
+	multipleChoice = 1
+	talkCount = 1
+	sortControl = 1
 end
