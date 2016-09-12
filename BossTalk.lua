@@ -81,7 +81,7 @@ function TalkSix() --Boss Talk 3
 end
 
 function ControlTalkWithBoss()
-	if bossTalkCheck and stageLevel == 7 or stageLevel==6 or stageLevel == 5 then
+	if bossTalkCheck and stageLevel == 8 or stageLevel == 7 or stageLevel==6 or stageLevel == 5 then
 		if love.keyboard.isDown("return") then --enter키임
 			if talkCount < 7 then
 				talkCount = talkCount + 1
@@ -101,24 +101,5 @@ function ControlTalkWithBoss()
 			pl.x = 200
 			--컨트롤 좌표 수정하는 부분은 컨트롤에서 작업함.
     	end
-	end
-
-	if bossTalkCheck and stageLevel == 8 then
-		if love.keyboard.isDown("return") then --enter키임
-			if talkCount < 7 then
-				talkCount = talkCount + 1
-			end
-			if talkCount == 7 then
-				algoCheck = true
-				love.timer.sleep(0.5)
-			end
-		end
-		if love.keyboard.isDown("escape") then
-				--초기화 및 대화종료 여기서 폰트설정.
-			bossTalkCheck = false
-			talkCount = 1
-			pl.x = 200
-			--컨트롤 좌표 수정하는 부분은 컨트롤에서 작업함.
-			end
 	end
 end

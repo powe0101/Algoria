@@ -75,6 +75,9 @@ require("BossTalk")
 require("Algorithm")
 require("BubbleSort")
 require("maze")
+require("ShortestPath")
+require("ShortestPathHouse")
+require("ShortestPathHouseList")
 --봄
 require("DustWind")
 require("SandStorm")
@@ -375,7 +378,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-
+  ControlShortestPath()
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
@@ -667,6 +670,17 @@ function loadResources()
 
   imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
   imgWarrorDead:setFilter("nearest","nearest")
+
+  imgShortestPathStartHouse = love.graphics.newImage("images/startHouse.png")
+  imgShortestPathStartHouse:setFilter("nearest","nearest")
+  imgShortestPathCheckHouse = love.graphics.newImage("images/checkHouse.png")
+  imgShortestPathCheckHouse:setFilter("nearest","nearest")
+  imgShortestPathVisitHouse = love.graphics.newImage("images/checkHouse2.png")
+  imgShortestPathVisitHouse:setFilter("nearest","nearest")
+  imgShortestPathChooseHouse = love.graphics.newImage("images/checkHouse3.png")
+  imgShortestPathChooseHouse:setFilter("nearest","nearest")
+  imgShortestPathEndHouse = love.graphics.newImage("images/endHouse.png")
+  imgShortestPathEndHouse:setFilter("nearest","nearest")
 
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
