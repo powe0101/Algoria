@@ -61,14 +61,14 @@ function DrawBackToVillage()
 end
 
 function AllMakeFalse() --사실상 Init임..
-	algoCheck = false; 	bubbleTipCheck = false; bpopupCheck = false; 
+	algoCheck = false; 	bubbleTipCheck = false; bpopupCheck = false; needOverwork = false;
 	questCheck = false; blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
 end
 
 function InitEverything()
 	algoCheck = false; 	bubbleTipCheck = false; bossClearCheck = false;
 	printBossClear = false; popupCheck = false; questCheck = false;
-	blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
+	blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false; needOverwork = false;
 
 	multipleChoice = 1
 	talkCount = 1
