@@ -257,14 +257,14 @@ function love.draw()
   end
 
   if questCheck then --0805HS
-    if stageLevel==2 and phase>1 then
+    if pl and stageLevel==2 and phase>1 then
       MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
       SplitBackground() --4:4:2 비율로 쪼개기.
       MazeStart()
     else
     DrawQuest()
-  end
+    end
   end
 
   if bossTalkCheck then
@@ -676,4 +676,7 @@ end
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
 function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
   ButtonClick(x,y)--maze루아의 buttonClick함수
+
+  --여름에서 메시지 안없어지는 버그 해결.
+  ControlFadeOutVerMouse()
 end
