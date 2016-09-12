@@ -125,7 +125,8 @@ algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
 
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
-portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
+portalAdmin = false --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
+needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
 
@@ -221,7 +222,7 @@ function love.update(dt)
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
-    and tutorialStart == false and returnToVillage == false then
+    and tutorialStart == false and returnToVillage == false and needOverwork == false then
       updateGame(dt)
   end
 
@@ -260,6 +261,10 @@ function love.draw()
     DrawNextStage() --0901
   end
 
+  if needOverwork then --마을에 할 일이 남았을때 띄워주는 메시지
+    NeedOverworkAtVillage()
+  end
+
   if blacksmithCheck then
     DrawBlackSmith()
   end
@@ -290,6 +295,8 @@ function love.draw()
   if tutorialStart then
     StartTutorial()
   end
+
+  ElderTipImageDraw()
 
   if bossClearCheck and printBossClear then --보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
     DrawBossClear()
@@ -451,7 +458,6 @@ function updateGame(dt)
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
-    SandStormUpdate(dt)
   elseif stageLevel > 4 then
     PortalUpdate(dt)
   end
@@ -489,7 +495,6 @@ function drawGame()
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
-    SandStormDraw()
   elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
     PortalDraw()
   end
