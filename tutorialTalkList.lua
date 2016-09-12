@@ -1,5 +1,18 @@
 ----------------------이하 대화내용
-function FinalElderTalk()
+function FinalElderTalk2()
+ 	love.graphics.print("그래. 듬직하구나! 잘 다녀", 365, 32)
+ 	love.graphics.print("오거라! 그리고 마을에 돌아", 365, 52)
+ 	love.graphics.print("올때마다 꼭 대장간을 들리", 365, 72)
+ 	love.graphics.print("거라. 너를 위한 선물을 준비", 365, 92)
+ 	love.graphics.print("해놓으마!", 365, 112)
+end
+
+function FinalWarriorTalk()
+	love.graphics.print("물론이죠! 마왕을 물리치고", 115, 32)
+	love.graphics.print("평화를 되찾아 오겠어요!", 115, 52)
+end
+
+function FinalElderTalk1()
  	love.graphics.print("어떻니 알. 잘 할 수 있겠니?", 365, 32)
  	--love.graphics.print("이정도면 너를 믿고 맡겨도", 365, 52)
 end
@@ -40,7 +53,7 @@ function ElderTipTalk2()
 	SetBlackColor()
 	love.graphics.print("우린 그것을                                        이라 부르고 있지.", 35, 82)
 	SetBlueColor()
-	love.graphics.print("일정한 단계를 통해 주어진 문제를 해결하기 위한 절차나 방법", 155, 112)
+	love.graphics.print("일정한 단계를 통해 주어진 문제를 해결하기 위한 절차나 방법", 156, 112)
 	SetBlackColor()
 	love.graphics.print("그것을 풀기 위해서는", 35, 112)
 	love.graphics.print("이 필요하단다!", 489, 112)

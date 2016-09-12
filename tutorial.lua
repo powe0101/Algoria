@@ -15,18 +15,18 @@ talkInit = true
 multipleTutorialChoice = 1 --4지선다형 퀘스트를 컨트롤 하기 위한 변수.
 correctTutorialAnswer = 1 --정답을 대조하기 위한 변수
 
-portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
+portalBlock = false --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
 
 -- ※ 튜토리얼 활성화 하기 전에는 포탈 못타게 막아놓을 것.
 
 function ControlTutorial()
 	--마을에서 동작하는 튜토리얼
 	if stageLevel == 0 then
-		if tutorialProgressLevel == 1 and 275 < pl:GetX() and pl:GetX() < 285 then
+		if tutorialProgressLevel == 1 and 260 < pl:GetX() and pl:GetX() < 295 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
-		elseif tutorialProgressLevel == 5 and 275 < pl:GetX() and pl:GetX() < 285 then
+		elseif tutorialProgressLevel == 5 and 265 < pl:GetX() and pl:GetX() < 295 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
@@ -60,7 +60,7 @@ function ControlTutorial()
 					tutorialProgressLevel = tutorialProgressLevel + 1
 				end
 			elseif tutorialProgressLevel == 5 then
-				if talkCountWithElder == 8 then
+				if talkCountWithElder == 10 then
 					if multipleChoice == correctTutorialAnswer then
 						--정답일 경우.
 						tutorialProgressLevel = 6
@@ -95,7 +95,7 @@ function StartTutorial()
 		talkCountWithElder = 1
 		tutorialTalkList = {}
 		tutorialTalkList = {AfterElderTalk1,AfterWarroirTalkAtVillage1,AfterElderTalk2,
-		AfterElderTalk3, AfterElderTalk4}
+		AfterElderTalk3, AfterElderTalk4, FinalElderTalk1, FinalWarriorTalk, FinalElderTalk2}
 		tutorialTipList = {ElderTipTalk1, ElderTipTalk2}
 		talkInit = false
 	end
@@ -133,9 +133,13 @@ function StartTutorial()
 			BlacksmtihTalk3()
 		end
 	elseif tutorialProgressLevel == 5 then
-		if talkCountWithElder == 8 then
-			ElderTalkBackground()
-			FinalElderTalk()
+		if talkCountWithElder > 7 then
+			if talkCountWithElder % 2 == 0 then
+				ElderTalkBackground()
+			else 
+				WarriorTalkBackgroundAtVillage()
+			end
+			tutorialTalkList[talkCountWithElder-2]()
 		elseif talkCountWithElder > 5 then
 			--팁과 문제풀이 부분.
 			DrawTipAndQuest()
