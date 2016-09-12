@@ -456,9 +456,7 @@ function updateGame(dt)
     PortalUpdate(dt)
   end
 
-
   if stageLevel == 2 and checkPlaying then --여름
-
     CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수.
     CreeperListUpdate(dt)
   end
@@ -525,7 +523,6 @@ function drawGame()
   if pl and playerDeadCheck == false then --플레이어가 죽었을 때를 가정.
     pl:draw() -- 플레이어 스프라이트 그리기
   end
-
 end
 
 function loadResources()
