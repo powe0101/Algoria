@@ -236,10 +236,6 @@ function love.update(dt)
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
   CheckTutorial()
   CheckQmarkAtViilage() --마을에서 느낌표 띄우기.
-
-  if suit ~= nil then
-    CheckSpringAlgorithmAnswer()
-  end
 end
 
 function love.draw()

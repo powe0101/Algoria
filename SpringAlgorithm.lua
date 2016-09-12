@@ -3,6 +3,10 @@ input = {text = ""}
 
 COIN_MIN = 0
 COIN_MAX = 3
+
+UI_X = 350
+UI_Y = 80
+
 function SetCoinAlgorithmDefault()
 	MaxCoin = love.math.random(COIN_MIN,COIN_MAX) -- 떨어지는 코인의 개수
 	KeepCoin = 0
@@ -51,7 +55,16 @@ end
 function CheckSpringAlgorithmAnswer()
 	-- put the layout origin at position (100,100)
 	-- the layout will grow down and to the right from this point
-	suit.layout:reset(0,0)
+	if SCALE ~= 1 then
+		local x,y = suit.getMousePosition()
+		suit.updateMouse(x/SCALE,y/SCALE)
+		-- print("SCALE:"..SCALE)
+		-- UI_X = SCALE * 350
+		-- UI_Y = SCALE * 80
+		-- print("UI_X:"..UI_X.."UI_Y:"..UI_Y)
+	end
+
+	suit.layout:reset(350,80)
 
 	-- put an input widget at the layout origin, with a cell size of 200 by 30 pixels
 	suit.Input(input, suit.layout:row(200,30))
@@ -78,4 +91,7 @@ function StageSpringAlgorithm()
 	SpringExplainAlgorithm()
   DrawCoin()
   DrawBank()
+	if suit ~= nil then
+		CheckSpringAlgorithmAnswer()
+	end
 end
