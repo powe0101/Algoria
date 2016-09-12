@@ -171,14 +171,11 @@ function ControlShortestPath()
   -- 최단거리 알고리즘 컨트롤 시작
     if love.keyboard.isDown("up") then
       PathMoveUp()
-    end
-    if love.keyboard.isDown("down") then
+    elseif love.keyboard.isDown("down") then
       PathMoveDown()
-    end
-    if love.keyboard.isDown("left") then
+    elseif love.keyboard.isDown("left") then
       PathMoveLeft()
-    end
-    if love.keyboard.isDown("right") then
+    elseif love.keyboard.isDown("right") then
       PathMoveRight()
     end
     if love.keyboard.isDown("space") then
@@ -287,28 +284,37 @@ function PathMoveRight()
   elseif CurPos == 7 then
   end
 end
-
 function UpdatePath()
+  UpdateCurrentPosition()
+  UpdateCheckPath()
+end
+
+function UpdateCheckPath()
+  if checkVisit[2] == 1 then
+    love.graphics.setColor(255, 0, 0, 255)
+    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    love.graphics.setColor(255, 255, 255, 255)
+  end
+end
+
+function UpdateCurrentPosition()
   if CurPos == 1 then
     love.graphics.setColor(0, 255, 0, 255)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.setColor(255, 255, 255, 255)
-
   elseif CurPos == 2 then
     love.graphics.setColor(0, 255, 0, 255)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.setColor(255, 255, 255, 255)
-
   elseif CurPos == 3 then
     love.graphics.setColor(0, 255, 0, 255)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, SECONDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, SECONDHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.setColor(255, 255, 255, 255)
-
   elseif CurPos == 4 then
     love.graphics.setColor(0, 255, 0, 255)
     love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
@@ -318,19 +324,16 @@ function UpdatePath()
                                 THIRDHOUSE_X+5-5, THIRDHOUSE_Y+10,
                                 THIRDHOUSE_X+5, THIRDHOUSE_Y+10-5)
     love.graphics.setColor(255, 255, 255, 255)
-
   elseif CurPos == 5 then
     love.graphics.setColor(0, 255, 0, 255)
     love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.rectangle("fill", THIRDHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y*2+HOUSE_SIZE)
     love.graphics.setColor(255, 255, 255, 255)
-
   elseif CurPos == 6 then
     love.graphics.setColor(0, 255, 0, 255)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, SECONDHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, THIRDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X*2+HOUSE_SIZE, PATH_SIZE)
     love.graphics.setColor(255, 255, 255, 255)
-
   elseif CurPos == 7 then
     love.graphics.setColor(0, 255, 0, 255)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, THIRDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X*2+HOUSE_SIZE, PATH_SIZE)
