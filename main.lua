@@ -264,7 +264,7 @@ function love.draw()
     DrawBlackSmith()
   end
 
-  if questCheck then --0805HS
+  if questCheck then --0805HS 
     if pl and stageLevel==2 and phase>1 then
       MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
@@ -371,6 +371,7 @@ end
 
 function love.keypressed(key,scancode) -- 키입력
   BadEndingContorl()
+  ControlShortestPath()
   ControlBlackSmith()
   ControlFadeOut() --어디서든 오답 메시지를 띄울 수 있도록
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
@@ -378,7 +379,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-  ControlShortestPath()
+  
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
@@ -419,7 +420,7 @@ function updateScale()
 end
 
 function updateGame(dt)
-  if pl then
+  if pl and playerDeadCheck == false then
     pl:update(dt)
   end
   if chiefChar and stageLevel == 0 then
@@ -521,7 +522,7 @@ function drawGame()
     directionArrow:Draw()
   end
 
-  if pl then
+  if pl and playerDeadCheck == false then --플레이어가 죽었을 때를 가정.
     pl:draw() -- 플레이어 스프라이트 그리기
   end
 
