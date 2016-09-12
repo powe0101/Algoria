@@ -318,22 +318,22 @@ function love.draw()
 end
 
 function SetScale(key,scancode)
-  if scancode == '1'then
+  if scancode == 'f1'then
     SCALE = 1
     updateScale()
-  elseif scancode == '2' then
+  elseif scancode == 'f2' then
     SCALE = 2
     updateScale()
-  elseif scancode == '3'then
+  elseif scancode == 'f3'then
     SCALE = 3
     updateScale()
-  elseif scancode == '4' then
+  elseif scancode == 'f4' then
     SCALE = 4
     updateScale()
-  elseif scancode == '5' then
+  elseif scancode == 'f5' then
     SCALE = 5
     updateScale()
-  elseif scancode == '6' then
+  elseif scancode == 'f6' then
     SCALE = 6
     updateScale()
   end
