@@ -80,7 +80,6 @@ function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 		bank = nil
 		coinCount = 0
 		MaxCoin = 0
-		AllMakeFalse()
 		SetCoinAlgorithmDefault()
 		--?? 죽었는데 보스토크 발생 안함 .
 	end
