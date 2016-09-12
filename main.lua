@@ -75,6 +75,9 @@ require("BossTalk")
 require("Algorithm")
 require("BubbleSort")
 require("maze")
+require("ShortestPath")
+require("ShortestPathHouse")
+require("ShortestPathHouseList")
 --봄
 require("DustWind")
 require("SandStorm")
@@ -261,15 +264,15 @@ function love.draw()
     DrawBlackSmith()
   end
 
-  if questCheck then --0805HS
-    if stageLevel==2 and phase>1 then
+  if questCheck then --0805HS 
+    if pl and stageLevel==2 and phase>1 then
       MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
       SplitBackground() --4:4:2 비율로 쪼개기.
       MazeStart()
     else
     DrawQuest()
-  end
+    end
   end
 
   if bossTalkCheck then
@@ -315,22 +318,22 @@ function love.draw()
 end
 
 function SetScale(key,scancode)
-  if scancode == '1'then
+  if scancode == 'f1'then
     SCALE = 1
     updateScale()
-  elseif scancode == '2' then
+  elseif scancode == 'f2' then
     SCALE = 2
     updateScale()
-  elseif scancode == '3'then
+  elseif scancode == 'f3'then
     SCALE = 3
     updateScale()
-  elseif scancode == '4' then
+  elseif scancode == 'f4' then
     SCALE = 4
     updateScale()
-  elseif scancode == '5' then
+  elseif scancode == 'f5' then
     SCALE = 5
     updateScale()
-  elseif scancode == '6' then
+  elseif scancode == 'f6' then
     SCALE = 6
     updateScale()
   end
@@ -368,6 +371,7 @@ end
 
 function love.keypressed(key,scancode) -- 키입력
   BadEndingContorl()
+  ControlShortestPath()
   ControlBlackSmith()
   ControlFadeOut() --어디서든 오답 메시지를 띄울 수 있도록
   ControlQuest() --퀘스트 창이 떴을때 조작하는 부분. by.현식 0802 --0805HS
@@ -375,7 +379,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-
+  
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
@@ -416,7 +420,7 @@ function updateScale()
 end
 
 function updateGame(dt)
-  if pl then
+  if pl and playerDeadCheck == false then
     pl:update(dt)
   end
   if chiefChar and stageLevel == 0 then
@@ -518,7 +522,7 @@ function drawGame()
     directionArrow:Draw()
   end
 
-  if pl then
+  if pl and playerDeadCheck == false then --플레이어가 죽었을 때를 가정.
     pl:draw() -- 플레이어 스프라이트 그리기
   end
 
@@ -668,6 +672,17 @@ function loadResources()
   imgWarrorDead = love.graphics.newImage("images/warriorDead.png")
   imgWarrorDead:setFilter("nearest","nearest")
 
+  imgShortestPathStartHouse = love.graphics.newImage("images/startHouse.png")
+  imgShortestPathStartHouse:setFilter("nearest","nearest")
+  imgShortestPathCheckHouse = love.graphics.newImage("images/checkHouse.png")
+  imgShortestPathCheckHouse:setFilter("nearest","nearest")
+  imgShortestPathVisitHouse = love.graphics.newImage("images/checkHouse2.png")
+  imgShortestPathVisitHouse:setFilter("nearest","nearest")
+  imgShortestPathChooseHouse = love.graphics.newImage("images/checkHouse3.png")
+  imgShortestPathChooseHouse:setFilter("nearest","nearest")
+  imgShortestPathEndHouse = love.graphics.newImage("images/endHouse.png")
+  imgShortestPathEndHouse:setFilter("nearest","nearest")
+
   QuestLoad() --0805HS
   AnswerLoad() --0805HS
   FadeLoad() --정답과 관련된 이미지 호출. Answer.lua --0805HS
@@ -695,4 +710,7 @@ end
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
 function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
   ButtonClick(x,y)--maze루아의 buttonClick함수
+
+  --여름에서 메시지 안없어지는 버그 해결.
+  ControlFadeOutVerMouse()
 end

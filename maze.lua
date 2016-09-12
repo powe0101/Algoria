@@ -101,7 +101,6 @@ function ButtonClick(x,y)-- 생성된 버튼이 눌렸을시
     
     end
   end
-   
 end
 
 function clickCountListDelete()
@@ -176,7 +175,7 @@ love.graphics.setColor(255,255,255,255) -- 원상복구
 end
 
 function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리는것을 체크 
-	if coordinate_Y >8 or coordinate_Y<1 or coordinate_X >15 or coordinate_X<1 or map[coordinate_Y][coordinate_X]==1 then
+	if pl and coordinate_Y >8 or coordinate_Y<1 or coordinate_X >15 or coordinate_X<1 or map[coordinate_Y][coordinate_X]==1 then
 		LifeMinus()--체력 깍기고 
 		pl:StartMaze()--시작점으로 돌아가고 
 		mazePlayStart=false--start버튼 클릭 유무 초기화 
@@ -184,7 +183,7 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
 	  clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트 
 	  MazePlaying=false
 		return
-	elseif map[coordinate_Y][coordinate_X]==2 and stageLevel==2 then
+	elseif pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==2 then
       MazeReset()
       pl:SetX(save_X)--플레이어 좌표값 복원 
       pl:SetY(save_Y)
@@ -198,7 +197,7 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
       end
 
     
-  elseif  map[coordinate_Y][coordinate_X]==2 and stageLevel==6 then--보스에서 
+  elseif pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==6 then--보스에서 
 		  if coordinate_Y==1 and coordinate_X==12 then
       map=mapBossTwo
       BoxListDelete()
@@ -227,7 +226,7 @@ function MazeStart()--미로 시작 함수
   BoxListDraw()--박스다시 draw
   pl:draw()--플레이어 draw
   ButtonDraw()--버튼 생성
-  if mazePlayStart then --
+  if pl and mazePlayStart then --
     pl:UpdateMazeMove()
     MazeCheckCollect()
   end

@@ -29,6 +29,14 @@ function ControlFadeOut()
 	end
 end
 
+function ControlFadeOutVerMouse()
+	if fadeOn then
+    	if love.mouse.isDown(1) or love.mouse.isDown(2) then
+        	FadeOut() 
+   	 	end
+  	end 
+end
+
 function ActivateFadeOut()
 	if fadeOn then --오답일 경우 오답이란 메시지를 페이드인으로 띄워줌.
   		if fadeOnRight then --정답일 때도 만들수 있는데 구현은 안함. 딱히 필요 없을듯. by.0804 현식.

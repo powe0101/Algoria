@@ -92,9 +92,9 @@ function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 		updateScale()
 	end
 
-	--플레이어도 사라지게
+	--플레이어도 사라지게 하는거 nil 시키지 않고 조건문 걸어서 pl을 움직이지 않게함.
 	if pl then
-		pl = nil
+		--pl = nil
 		--pl:DeletePlayer()
 	end
 

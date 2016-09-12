@@ -21,7 +21,7 @@ function CheckBossCastle()
 			DeleteStage()
 			CreateBossCastle()
 		end
-		if stageLevel == 2 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
+		if playerDeadCheck == false and stageLevel == 2 and castleList[0].x +80 < pl:GetX() and pl:GetX() < castleList[0].x +140 and canPass then --가을에서 보스성 이동하기.
 			stageLevel = 6 --가을 보스스테이 레벨은 7.
 			DeleteStage()
 			CreateBossCastle()
