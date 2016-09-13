@@ -28,6 +28,8 @@ function MoveNextStage()
     CreateWinter()
   else --최종 마왕으로.
   end
+
+  portalBlock = false
 end
 
 function ControlPopup() 

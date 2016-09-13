@@ -1,4 +1,6 @@
 ----------------------이하 대화내용
+
+
 function FinalElderTalk2()
  	love.graphics.print("그래. 듬직하구나! 잘 다녀", 365, 32)
  	love.graphics.print("오거라! 그리고 마을에 돌아", 365, 52)
