@@ -146,14 +146,18 @@ end
 function ExplainShortestPath()
   love.graphics.setColor(255, 0, 0, 255)
   love.graphics.print("※조작법※\n방향 : Up, Dwon, Left, Right\n선택 : Space",62+285, 13)
-  love.graphics.print("\n\n파란 지붕 집에서 빨간 지붕 집까지",62+285,50)
-  love.graphics.print("\n가장 빠른 길을 선택 하시오.",62+285,100)
+  --love.graphics.print("\n\n파란 지붕 집에서 빨간 지붕 집까지",62+285,50)
+  --love.graphics.print("\n가장 빠른 길을 선택 하시오.",62+285,100)
+  love.graphics.print("\n\nfirstPos: "..firstPos.."  secondPos: "..secondPos,62+285,50)
+  love.graphics.print("\ncheckPoint[firstPos][secondPos]: "..checkPoint[firstPos][secondPos],62+285,100)
   love.graphics.print("CurPos: "..CurPos.."  PrePos: "..PrePos.."\n",62+285,150)
   love.graphics.setColor(255, 255, 255, 255)
 end
 
 CurPos = 1
 PrePos = 1
+firstPos = CurPos
+secondPos = PrePos
 checkVisit = {0, 0, 0, 0, 0, 0, 0}
 CurPath = 1
 Path1To2 = 1
@@ -165,6 +169,13 @@ Path3To6 = 6
 Path4To7 = 7
 Path5To7 = 8
 Path6To7 = 9
+checkPoint = {}
+for i=1, 7 do
+  checkPoint[i] = {}
+  for j=1, 7 do
+    checkPoint[i][j] = 0
+  end
+end
 
 function ControlShortestPath()
   if stageLevel == 8 and algoCheck then
@@ -179,10 +190,17 @@ function ControlShortestPath()
       PathMoveRight()
     end
     if love.keyboard.isDown("space") then
+      firstPos = CurPos
+      secondPos = PrePos
+
       if checkVisit[CurPos] == 1 then
         checkVisit[CurPos] = 0
+        checkPoint[firstPos][secondPos] = 0
+        checkPoint[secondPos][firstPos] = 0
       else
         checkVisit[CurPos] = 1
+        checkPoint[firstPos][secondPos] = 1
+        checkPoint[secondPos][firstPos] = 1
       end
     end
   -- 끝
@@ -290,11 +308,32 @@ function UpdatePath()
 end
 
 function UpdateCheckPath()
+  love.graphics.setColor(255, 0, 0, 255)
   if checkVisit[2] == 1 then
-    love.graphics.setColor(255, 0, 0, 255)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
-    love.graphics.setColor(255, 255, 255, 255)
   end
+  if checkVisit[3] == 1 then
+    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+  end
+  if checkVisit[4] == 1 then
+    if checkPoint[2][4] == 1 then
+      love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    end
+    if checkPoint[3][4] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, SECONDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    end
+  end
+  if checkVisit[5] == 1 then
+    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+  end
+  if checkVisit[6] == 1 then
+    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+  end
+  if checkVisit[7] == 1 then
+    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+  end
+  love.graphics.setColor(255, 255, 255, 255)
+
 end
 
 function UpdateCurrentPosition()
