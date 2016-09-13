@@ -1,4 +1,4 @@
-DEBUG_SETTING = true -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
+DEBUG_SETTING = false -- true == 디버그 정보 표시 false == 디버그 정보 표시 안됨 
 
 function drawDebug(setting)
   if setting == false then
@@ -100,7 +100,9 @@ function showKeyInfo(x,y)
 end
 
 function showPlayerInfo(x,y)
-  --love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",x, y)
+  if pl then
+    love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",x, y)
+  end
 end
 
 function showBlockInfo(x,y)
@@ -113,7 +115,7 @@ function showBooleanInfo(x,y)
 end
 
 function showStageIfno(x,y)
-  love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
+  love.graphics.print("StageLevel :"..tostring(stageLevel)..", clearLevel : "..clearLevel,x,y)
 end
 
 function showBoxInfo(x,y)
