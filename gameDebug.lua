@@ -100,9 +100,7 @@ function showKeyInfo(x,y)
 end
 
 function showPlayerInfo(x,y)
-  if pl then
-    love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",x, y)
-  end
+  --love.graphics.print("PLAYER X : "..pl:GetX().."PLAYER Y : "..pl:GetY().." ",x, y)
 end
 
 function showBlockInfo(x,y)
@@ -115,7 +113,7 @@ function showBooleanInfo(x,y)
 end
 
 function showStageIfno(x,y)
-  love.graphics.print("StageLevel :"..tostring(stageLevel)..", clearLevel : "..clearLevel,x,y)
+  love.graphics.print("StageLevel :"..tostring(stageLevel),x,y)
 end
 
 function showBoxInfo(x,y)
