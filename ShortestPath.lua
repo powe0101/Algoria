@@ -159,16 +159,6 @@ PrePos = 1
 firstPos = CurPos
 secondPos = PrePos
 checkVisit = {0, 0, 0, 0, 0, 0, 0}
-CurPath = 1
-Path1To2 = 1
-Path1To3 = 2
-Path2To4 = 3
-Path2To5 = 4
-Path3To4 = 5
-Path3To6 = 6
-Path4To7 = 7
-Path5To7 = 8
-Path6To7 = 9
 checkPoint = {}
 for i=1, 7 do
   checkPoint[i] = {}
@@ -310,10 +300,26 @@ end
 function UpdateCheckPath()
   love.graphics.setColor(255, 0, 0, 255)
   if checkVisit[2] == 1 then
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    if checkPoint[1][2] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    end
+    if checkPoint[2][4] == 1 then
+      love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    end
+    if checkPoint[2][5] == 1 then
+      love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    end
   end
   if checkVisit[3] == 1 then
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    if checkPoint[1][3] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    end
+    if checkPoint[3][4] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, SECONDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    end
+    if checkPoint[3][6] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, SECONDHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    end
   end
   if checkVisit[4] == 1 then
     if checkPoint[2][4] == 1 then
@@ -324,13 +330,34 @@ function UpdateCheckPath()
     end
   end
   if checkVisit[5] == 1 then
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    if checkPoint[2][5] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    end
+    if checkPoint[5][7] == 1 then
+      love.graphics.rectangle("fill", THIRDHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y*2+HOUSE_SIZE)
+    end
   end
   if checkVisit[6] == 1 then
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    if checkPoint[3][6] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, SECONDHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    end
+    if checkPoint[6][7] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, THIRDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X*2+HOUSE_SIZE, PATH_SIZE)
+    end
   end
   if checkVisit[7] == 1 then
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    if checkPoint[4][7] == 1 then
+      love.graphics.polygon("fill", SECONDHOUSE_x-3+HOUSE_SIZE+5, SECONDHOUSE_Y-3+HOUSE_SIZE,
+                                    SECONDHOUSE_x-3+HOUSE_SIZE, SECONDHOUSE_Y-3+HOUSE_SIZE+5,
+                                    THIRDHOUSE_X+5-5, THIRDHOUSE_Y+10,
+                                    THIRDHOUSE_X+5, THIRDHOUSE_Y+10-5)
+    end
+    if checkPoint[5][7] == 1 then
+      love.graphics.rectangle("fill", THIRDHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y*2+HOUSE_SIZE)
+    end
+    if checkPoint[6][7] == 1 then
+      love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, THIRDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X*2+HOUSE_SIZE, PATH_SIZE)
+    end
   end
   love.graphics.setColor(255, 255, 255, 255)
 
