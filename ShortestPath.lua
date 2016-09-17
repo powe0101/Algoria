@@ -416,6 +416,7 @@ function CheckShortestPath()
     for j=1, 7 do
       if checkPoint[i][j] == 1 then
         shortestPathAnswer = shortestPathAnswer + distTwoPoint[i][j]
+      end
     end
   end
 
