@@ -220,40 +220,7 @@ function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 	      		phase = phase + 1
 	      		qmarkCheck = true
 	      	end
-	    elseif phase == 2 then --2번째 객관식 문제.
-	    	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-    				questCheck = false
-			      	phase = phase + 1
-			      	multipleChoice = 1
-			      	qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		LifeMinus()
-		      	end
-
-	      	end
-	    elseif phase == 3 then --3번째 객관식 문제
-	      	ControlLeftRight()
-
-    		if love.keyboard.isDown("return") then --enter키임.
-    			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
-    			if answerList[GetAnswerNum()] == multipleChoice then --정답을 미리 리스트에 넣어넣고 일치하는지 여부를 확인. by. 현식 0804
-    				--정답을 맞췄을 경우
-		      		questCheck = false
-		      		phase = 4
-		      		canPass = true
-		      		multipleChoice = 1
-		      		qmarkCheck = true
-		      	else
-		      		--오답일 경우
-		      		LifeMinus()
-		      	end
-	      	end
+	    
 	    end
 end
 
@@ -264,7 +231,7 @@ function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 	      		phase = phase + 1
 	      		qmarkCheck = true
 	      	end
-	    elseif phase == 2 then --2번째 객관식 문제.
+	    elseif phase == 2 and stageLevel~=2 then --2번째 객관식 문제.
 	    	ControlLeftRight()
 
     		if love.keyboard.isDown("return") then --enter키임.

@@ -43,6 +43,14 @@ function QMark:update(dt)
 	self:normal(dt)
 end
 
+function QMark:SetX(_x)
+	self.x=_x
+end
+
+function QMark:SetY(_y)
+	self.y=_y
+end
+
 function QMark:draw()
 	love.graphics.draw(imgQMark,QMark_now_frame,self.x,self.y)
 end

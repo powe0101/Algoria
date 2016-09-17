@@ -1,5 +1,9 @@
 function CreateVillage()
   InitLife()
+  if table.getn(stageClearList) == 0 then
+    InitStageClear()
+    InitBlacksmithTalkList()
+  end
 
   --다른 스테이지 갔다 올때를 대비해서 초기화시켜줌.
   if stageLevel ~= true then
@@ -8,6 +12,12 @@ function CreateVillage()
     p1=nil
     pl=Player.create()
     pl:ResetCoord()
+  end
+
+  --무조건 마을에서는 대장장이와 대화를 할 수 있도록 만듦.
+  portalBlock = false 
+  if clearLevel > 1 then
+    firstTalkWithBlacksmith = true
   end
 
 

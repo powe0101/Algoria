@@ -3,13 +3,20 @@ isSpringClear = true
 isSummerClear = true
 isFallClear = true
 isWinterClear = true
---[[
-isTutorialClear = false
+
+isTutorialClear = true
 isSpringClear = false
 isSummerClear = false
 isFallClear = false
 isWinterClear = false
-]]
+
+stageClearLevel = 1
+stageClearList = {}
+
+function InitStageClear()
+	stageClearList = {SpringStageClear, SummerStageClear, FallStageClear, WinterStageClear}
+end
+
 function SpringStageClear()
   isSpringClear = true
 end

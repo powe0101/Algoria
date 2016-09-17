@@ -16,7 +16,6 @@ multipleTutorialChoice = 1 --4지선다형 퀘스트를 컨트롤 하기 위한 
 correctTutorialAnswer = 1 --정답을 대조하기 위한 변수
 
 portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
-
 -- ※ 튜토리얼 활성화 하기 전에는 포탈 못타게 막아놓을 것.
 
 function ControlTutorial()
@@ -173,8 +172,9 @@ function BlackSmithTalkBackground()
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 	DrawRectangle(175, 12, 80, 60)
 	love.graphics.setColor(255,255,255,255)
+
 	love.graphics.rectangle("fill", 352, 26, 156, 116)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+	love.graphics.setColor(255,255,255,255)
 end
 
 function ElderTalkBackground()

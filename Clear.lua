@@ -33,6 +33,11 @@ function BackToVillageAfterClear()
 	bossClearCheck = false
 	returnToVillage = false
 
+	if stageClearLevel > 0 then
+		stageClearList[stageClearLevel]()
+		stageClearLevel = stageClearLevel + 1
+	end
+
 	CreateVillage()
 end
 

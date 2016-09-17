@@ -126,9 +126,12 @@ bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
 
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
+
+portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
 needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
+hsDebug = false
 
 suit = nil
 
@@ -222,7 +225,8 @@ function love.update(dt)
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
-    and tutorialStart == false and returnToVillage == false and needOverwork == false then
+    and tutorialStart == false and returnToVillage == false and needOverwork == false
+    and blacksmithTalkCheck == false then
       updateGame(dt)
   end
 
@@ -240,6 +244,7 @@ function love.update(dt)
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
   CheckTutorial()
   CheckQmarkAtViilage() --마을에서 느낌표 띄우기.
+  CheckBlacksmithTalkAndQmark()
 end
 
 function love.draw()
@@ -308,11 +313,14 @@ function love.draw()
 
   ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
 
-  if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
+  if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print("playerLife  : "..playerLife,20,80)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
+    love.graphics.print("phase  : "..phase,20,80)
     love.graphics.setColor(255,255,255,255)
   end
+
 
   if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
     HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
@@ -520,6 +528,7 @@ function drawGame()
   end
 
   QMarkListDraw()
+  TalkWithBlacksmith() --대장장이와 대화
 
   if directionArrow then
     directionArrow:Draw()

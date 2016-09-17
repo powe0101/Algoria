@@ -32,12 +32,13 @@ end
 function CheckQMark()
   if qmarkCheck  then --가을용
       if phase == 2 then
-          QMarkListDelete()
-          CreateQMark(picketList[1].x, picketList[1].y-30) --좌표가 자꾸 어긋남. 미치겠네
+          
+          qmarkList[0]:SetX(picketList[1].x)
+          qmarkList[0]:SetY(picketList[1].y-30) --좌표가 자꾸 어긋남. 미치겠네
           qmarkCheck = false
       elseif phase== 3 then
-          QMarkListDelete()
-          CreateQMark(picketList[2].x, picketList[2].y-30)
+          qmarkList[0]:SetX(picketList[2].x)
+          qmarkList[0]:SetY(picketList[2].y-30) --좌표가 자꾸 어긋남. 미치겠네
           qmarkCheck = false
       elseif phase == 4 then
           QMarkListDelete()
