@@ -46,6 +46,8 @@ for i=1, 7 do
     distTwoPoint[i][j] = INFINITE
   end
 end
+shortestDist = 0
+shortestPathAnswer = 0
 -- 원하는 지점과 지점사이의 거리
 distTwoPoint[1][2]=4
 distTwoPoint[1][3]=2
@@ -76,7 +78,7 @@ function ShortestPath()
     MINDIST = INFINITE
     -- 가장 가까운 지점 찾기
     for j=1, 7 do
-      if visit[j] == 0 and min > dist[j] then
+      if visit[j] == 0 and MINDIST > dist[j] then
         MINDIST = dist[j]
         v = j
       end
@@ -88,15 +90,11 @@ function ShortestPath()
   for j=1, 7 do
       if dist[j] > dist[v] + distTwoPoint[v][j] then
         dist[j] = dist[v] + distTwoPoint[v][j]
+        shortestDist = dist[j]
       end
   end
 end
 
---[[
-1 2 5
-3 4
-6   7
-]]
 function InitShortestPathHouse()
   -- 1 3 6
   CreateShortestPathtHouse(FIRSTHOUSE_X, FIRSTHOUSE_Y, STARTHOUSE)
@@ -162,9 +160,9 @@ function ExplainShortestPath()
   love.graphics.print("※조작법※\n방향 : Up, Dwon, Left, Right\n선택 : Space",62+285, 13)
   --love.graphics.print("\n\n파란 지붕 집에서 빨간 지붕 집까지",62+285,50)
   --love.graphics.print("\n가장 빠른 길을 선택 하시오.",62+285,100)
-  love.graphics.print("\n\nfirstPos: "..firstPos.."  secondPos: "..secondPos,62+285,50)
+  love.graphics.print("\n\nCurPos: "..CurPos.."  PrePos: "..PrePos.."\nfirstPos: "..firstPos.."  secondPos: "..secondPos,62+285,50)
   love.graphics.print("\ncheckPoint[firstPos][secondPos]: "..checkPoint[firstPos][secondPos],62+285,100)
-  love.graphics.print("CurPos: "..CurPos.."  PrePos: "..PrePos.."\n",62+285,150)
+  love.graphics.print("shortestDist: "..shortestDist,62+285,150)
   love.graphics.setColor(255, 255, 255, 255)
 end
 
@@ -413,7 +411,21 @@ function UpdateCurrentPosition()
   end
 end
 
+function CheckShortestPath()
+  for i=1, 7 do
+    for j=1, 7 do
+      if checkPoint[i][j] == 1 then
+        shortestPathAnswer = shortestPathAnswer + distTwoPoint[i][j]
+    end
+  end
+
+  if shortestDist == shortestPathAnswer then
+    -- 정답
+  end
+end
+
 function StageWinterAlgorithm()
+  ShortestPath()
   ExplainShortestPath()
   InitShortestPathHouse()
   DrawShortestPathHouse()
