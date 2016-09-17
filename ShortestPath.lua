@@ -57,6 +57,20 @@ distTwoPoint[4][7]=3
 distTwoPoint[5][7]=1
 distTwoPoint[6][7]=5
 
+-- 그래픽 관련 변수
+CurPos = 1
+PrePos = 1
+firstPos = CurPos
+secondPos = PrePos
+checkVisit = {0, 0, 0, 0, 0, 0, 0}
+checkPoint = {}
+for i=1, 7 do
+  checkPoint[i] = {}
+  for j=1, 7 do
+    checkPoint[i][j] = 0
+  end
+end
+
 function ShortestPath()
   for i=1, 7 do
     MINDIST = INFINITE
@@ -152,19 +166,6 @@ function ExplainShortestPath()
   love.graphics.print("\ncheckPoint[firstPos][secondPos]: "..checkPoint[firstPos][secondPos],62+285,100)
   love.graphics.print("CurPos: "..CurPos.."  PrePos: "..PrePos.."\n",62+285,150)
   love.graphics.setColor(255, 255, 255, 255)
-end
-
-CurPos = 1
-PrePos = 1
-firstPos = CurPos
-secondPos = PrePos
-checkVisit = {0, 0, 0, 0, 0, 0, 0}
-checkPoint = {}
-for i=1, 7 do
-  checkPoint[i] = {}
-  for j=1, 7 do
-    checkPoint[i][j] = 0
-  end
 end
 
 function ControlShortestPath()
