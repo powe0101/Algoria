@@ -77,9 +77,7 @@ function CreateSpring()
 end
 
 function UpdateSpring() -- 메인에서 Draw 하기 위한 메서드 여기서'만'이미지 출력이 가능.
-  NoticeDraw()
   dustWind:Draw()
-
   stageSpring:DustWindBlowing(STORM_MOVE_POWER)
 end
 

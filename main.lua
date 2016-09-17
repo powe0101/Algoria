@@ -534,6 +534,10 @@ function drawGame()
   if pl and playerDeadCheck == false then --플레이어가 죽었을 때를 가정.
     pl:draw() -- 플레이어 스프라이트 그리기
   end
+
+  if notice then
+    NoticeDraw()
+  end
 end
 
 function loadResources()
