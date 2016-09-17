@@ -5,7 +5,8 @@ function CreateWinter()
     	updateScale()
 
 		PlayAudio("audio/363535.Winter.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
-
+		notice = Notice.Create()
+	  notice:SetText("겨울 스테이지")
 		pl:reset()
 		pl:StartWinterStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end
