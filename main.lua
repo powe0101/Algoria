@@ -127,7 +127,6 @@ bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
-
 needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
@@ -225,7 +224,7 @@ function love.update(dt)
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
-    and tutorialStart == false and returnToVillage == false and needOverwork == false 
+    and tutorialStart == false and returnToVillage == false and needOverwork == false
     and blacksmithTalkCheck == false then
       updateGame(dt)
   end
@@ -274,7 +273,7 @@ function love.draw()
     DrawBlackSmith()
   end
 
-  if questCheck then --0805HS 
+  if questCheck then --0805HS
     if pl and stageLevel==2 and phase>1 then
       MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
@@ -394,7 +393,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-  
+
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
