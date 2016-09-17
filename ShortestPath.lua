@@ -162,7 +162,7 @@ function ExplainShortestPath()
   --love.graphics.print("\n가장 빠른 길을 선택 하시오.",62+285,100)
   love.graphics.print("\n\nCurPos: "..CurPos.."  PrePos: "..PrePos.."\nfirstPos: "..firstPos.."  secondPos: "..secondPos,62+285,50)
   love.graphics.print("\ncheckPoint[firstPos][secondPos]: "..checkPoint[firstPos][secondPos],62+285,100)
-  love.graphics.print("shortestDist: "..shortestDist,62+285,150)
+  love.graphics.print("shortestPathAnswer:  "..shortestPathAnswer.."\nshortestDist: "..shortestDist,62+285,140)
   love.graphics.setColor(255, 255, 255, 255)
 end
 
@@ -191,6 +191,10 @@ function ControlShortestPath()
         checkPoint[firstPos][secondPos] = 1
         checkPoint[secondPos][firstPos] = 1
       end
+    end
+    if love.keyboard.isDown("return") then
+      CheckShortestPath()
+      --shortestPathAnswer = 0
     end
   -- 끝
   end
@@ -412,6 +416,7 @@ function UpdateCurrentPosition()
 end
 
 function CheckShortestPath()
+  --[[
   for i=1, 7 do
     for j=1, 7 do
       if checkPoint[i][j] == 1 then
@@ -419,9 +424,35 @@ function CheckShortestPath()
       end
     end
   end
+  ]]
 
+  --[[for i=1, 7 do
+    --if checkVisit[i] == 1 then
+      if checkVisit[2] == 1 then
+        shortestPathAnswer = shortestPathAnswer + distTwoPoint[1][2]
+      end
+      if checkVisit[3] == 1 then
+        --shortestPathAnswer = shortestPathAnswer + distTwoPoint[1][3]
+      end
+      if checkVisit[4] == 1 then
+        --shortestPathAnswer = shortestPathAnswer + distTwoPoint[1][2]
+      end
+      if checkVisit[5] == 1 then
+        shortestPathAnswer = shortestPathAnswer + distTwoPoint[2][5]
+      end
+      if checkVisit[6] == 1 then
+        --shortestPathAnswer = shortestPathAnswer + distTwoPoint[1][2]
+      end
+      if checkVisit[7] == 1 then
+        shortestPathAnswer = shortestPathAnswer + distTwoPoint[5][7]
+      end
+    --end
+  --end]]
+  shortestPathAnswer = 7
   if shortestDist == shortestPathAnswer then
     -- 정답
+    --algoCheck = false
+    LifeMinus()
   end
 end
 
