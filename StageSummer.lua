@@ -157,11 +157,6 @@ function CreateSummer()
     CreateCloud(100,900)
     CreateCloud(100,1000)
 
-   CreateButton(360,17," Up","Up")
-   CreateButton(410,17,"Dwon","Dwon")
-   CreateButton(355,44,"Right","Right")
-   CreateButton(410,44,"Left","Left")
-   CreateButton(459,23.5,"삭\n제","Delete")
-   CreateButton(397.5,30,"Start","start")
+
 	end
 end
