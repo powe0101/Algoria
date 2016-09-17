@@ -11,9 +11,23 @@ min_dt = 1/30
 next_time = love.timer.getTime()
 
 function DrawTitleMenu()
-  love.graphics.setColor(0,0,0)
-  love.graphics.print("Press Enter Key",250,100)
-  love.graphics.setColor(255,255,255,255)
+  suit = require 'suit'
+  if SCALE ~= 1 then
+    local x,y = suit.getMousePosition()
+    suit.updateMouse(x/SCALE,y/SCALE)
+  end
+
+  suit.layout:reset(0,0)
+  if suit.Button("게임시작", WIDTH/2-100,HEIGHT/2+20,200,15).hit then
+    CheckStartGameForTitle()
+  end
+
+  if suit.Button("불러오기", WIDTH/2-100,HEIGHT/2+20+25,200,15).hit then
+    --불러오기 미구현 
+  end
+  if suit.Button("종료", WIDTH/2-100,HEIGHT/2+20+50,200,15).hit then
+    love.event.quit()
+  end
 end
 
 function TitleRun() --main의 createStage 메서드에서 호출
@@ -40,7 +54,7 @@ end
 
 function CreateTitleVillage(_y)
   pl = nil
-  
+
   InitEverything()
 
   CreateGround(-49,76 - _y)
@@ -49,14 +63,10 @@ function CreateTitleVillage(_y)
   CreateBackGround(250,0 - _y)
   CreateBackGround(540,0 - _y)
   CreateBackGround(830,0 - _y)
-
-
   CreateTree(-50,80 - _y)
   CreateTree(220,80 - _y)
   CreateTree(580,80 - _y)
   CreateTree(800,80 - _y)
-
-
 
   CreateCloud(-50,1 - _y)
   CreateCloud(100,1 - _y)
@@ -69,5 +79,5 @@ function CreateTitleVillage(_y)
   CreateChiefHouse(480,77 - _y)
   CreateBlackSmithHouse(850,108 - _y)
 
-  CreatePortal(300,113 - _y) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
+
 end

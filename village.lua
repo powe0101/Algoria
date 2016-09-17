@@ -15,7 +15,7 @@ function CreateVillage()
   end
 
   --무조건 마을에서는 대장장이와 대화를 할 수 있도록 만듦.
-  portalBlock = false 
+  portalBlock = false
   if clearLevel > 1 then
     firstTalkWithBlacksmith = true
   end

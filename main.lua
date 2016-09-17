@@ -363,7 +363,7 @@ function SetScreen()
 end
 
 function CheckStartGameForTitle()
-  if title and love.keyboard.isDown("return") then -- 타이틀에서 게임을 시작함
+  if title then -- 타이틀에서 게임을 시작함
     DeleteStage() -- 타이틀용 마을 삭제
     stageLevel = 0 -- 마을 스테이지 번호 0
     title = false -- 타이틀 조건 해제
@@ -397,8 +397,6 @@ function love.keypressed(key,scancode) -- 키입력
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
-
-  CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
   --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
   if suit ~= nil then
