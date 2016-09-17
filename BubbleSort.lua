@@ -1,7 +1,7 @@
 bsortList = {"A", "B", "C", "D", "E"}
 
 hList = {} --y측 좌표 랜덤으로 부여하기.
-wList = {82, 133, 183, 233, 283} --x측 좌표 
+wList = {82, 133, 183, 233, 283} --x측 좌표
 
 bubbleSortAnswerList = {} --정답 비교를 위한 리스트.
 sortInitList = {} --초기화에 필요할지도 모르는 리스트.
@@ -78,7 +78,7 @@ function GetRandomHeight()
 
 	for l = 0, table.getn(hList[ranNum]) do
 		sortInitList[l] = hList[ranNum][l]
-	end	
+	end
 
 	firstMakeRandomSort = false
 end
@@ -98,7 +98,7 @@ end
 function InitSort(list)
 	for l = 0, table.getn(sortInitList) do
 		list[l] = sortInitList[l]
-	end	
+	end
 	bubbleSortAniCheckCount = 1
 	animationCheck = 2
 	sortControl = 6
@@ -110,7 +110,7 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 		--여기서 안내창을 바꿔주면 될듯.
 	end
 	sortLeng = table.getn(hList[ranNum])
-	secondCheck = true
+	secondCheck = true	
 
 	if test_i < count then
 		if test_j < sortLeng - test_i + 1 then
@@ -119,12 +119,12 @@ function BubbleSortAnimation(list, count) --for문을 if문으로.
 
 			--여기서 컬러지정
 			if list[test_j] > list[test_j+1] then
-				list[test_j], list[test_j+1] = list[test_j+1], list[test_j]				
-			end	
+				list[test_j], list[test_j+1] = list[test_j+1], list[test_j]
+			end
 			love.timer.sleep(1)
 			--원래는 슬립을 여기서 걸어줘야함.
 			test_j = test_j + 1
-		else 
+		else
 			test_j = 1
 			test_i = test_i + 1
 			completeCount = completeCount + 1
@@ -145,7 +145,7 @@ end
 
 function CheckSameTable(firstList, secondList)
 	sameCheck = true
-	for i = 1, table.getn(firstList) do 
+	for i = 1, table.getn(firstList) do
 		if firstList[i] ~= secondList[i] then
 			sameCheck = false
 		end
@@ -183,12 +183,12 @@ function CortrolBubbleSort()
 		    	else
 		    		secondControl = 1
 		    	end
-	    	end	
+	    	end
 
 	    	if love.keyboard.isDown("escape") and bossClearCheck == false then
    				algoCheck = false
-				pl.x = 200
-				firstMakeRandomSort = true
+					pl.x = 200
+					firstMakeRandomSort = true
 	    	end
    		else --첫번째 버블소트를 선택했을 경우..
    			ContorlSecondLeftRight()
@@ -234,14 +234,14 @@ function ContorlLeftRight()
 	   		sortControl = sortControl - 1
 	   	end
 	end
-    			
+
     if love.keyboard.isDown("right") then
     	if sortControl == 5 then
     		--5번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
     	else
     		sortControl = sortControl + 1
     	end
-    end	
+    end
 end
 
 function ContorlSecondLeftRight()
@@ -256,7 +256,7 @@ function ContorlSecondLeftRight()
 	   		secondControl = secondControl - 1
 	   	end
 	end
-    			
+
     if love.keyboard.isDown("right") then
     	if secondControl == 5 then
     		--5번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
@@ -277,7 +277,7 @@ function UpdateRectSelect()
 	if bsortList[sortControl] == "A" then
 		SelectRectA(wList[sortControl]) --이 부분에서 순서대로 값을 부여할 수 있는 방법을 찾아봐야함.
 	elseif bsortList[sortControl] == "B" then
-		SelectRectB(wList[sortControl]) 
+		SelectRectB(wList[sortControl])
 	elseif bsortList[sortControl] == "C" then
 		SelectRectC(wList[sortControl])
 	elseif bsortList[sortControl] == "D" then
@@ -306,7 +306,7 @@ function UpdateSecondRectSelect()
 end
 
 function DrawBubbleSort()
-	for i = 1, table.getn(bsortList) do	
+	for i = 1, table.getn(bsortList) do
 		if bsortList[i] == "A" then
 			DrawRectA(wList[i])
 		elseif bsortList[i] == "B" then
@@ -322,7 +322,7 @@ function DrawBubbleSort()
 end
 
 function UpdateRectValue()
-	for i = 1, table.getn(bsortList) do	
+	for i = 1, table.getn(bsortList) do
 		if bsortList[i] == "A" then
 			PrintRectA(wList[i])
 		elseif bsortList[i] == "B" then
@@ -342,27 +342,27 @@ end
 ---------------------------------------------------
 
 function PrintRectA(xPosition)
-	love.graphics.setColor(0,0,0,255) 
+	love.graphics.setColor(0,0,0,255)
 	love.graphics.print(hList[ranNum][1], xPosition+3, 160-hList[ranNum][1])
 end
 
 function PrintRectB(xPosition)
-	love.graphics.setColor(0,0,0,255) 
+	love.graphics.setColor(0,0,0,255)
 	love.graphics.print(hList[ranNum][2], xPosition+3, 160-hList[ranNum][2])
 end
 
 function PrintRectC(xPosition)
-	love.graphics.setColor(0,0,0,255) 
+	love.graphics.setColor(0,0,0,255)
 	love.graphics.print(hList[ranNum][3], xPosition+3, 160-hList[ranNum][3])
 end
 
 function PrintRectD(xPosition)
-	love.graphics.setColor(0,0,0,255) 
+	love.graphics.setColor(0,0,0,255)
 	love.graphics.print(hList[ranNum][4], xPosition+3, 160-hList[ranNum][4])
 end
 
 function PrintRectE(xPosition)
-	love.graphics.setColor(0,0,0,255) 
+	love.graphics.setColor(0,0,0,255)
 	love.graphics.print(hList[ranNum][5], xPosition+3, 160-hList[ranNum][5])
 end
 
@@ -403,7 +403,7 @@ function SelectRectA(xPosition)
 end
 
 function SelectRectB(xPosition)
-	love.graphics.setColor(255,0,0,255) 
+	love.graphics.setColor(255,0,0,255)
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][2], 30, hList[ranNum][2]) --178까지
 end
 
@@ -418,7 +418,7 @@ function SelectRectD(xPosition)
 end
 
 function SelectRectE(xPosition)
-	love.graphics.setColor(255,0,0,255) 
+	love.graphics.setColor(255,0,0,255)
 	love.graphics.rectangle("fill", xPosition, 178-hList[ranNum][5], 30, hList[ranNum][5]) --178까지
 end
 

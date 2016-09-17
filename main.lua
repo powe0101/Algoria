@@ -126,8 +126,11 @@ bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
 
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
+portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
+needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
+hsDebug = false
 
 suit = nil
 
@@ -221,7 +224,8 @@ function love.update(dt)
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
-    and tutorialStart == false and returnToVillage == false then
+    and tutorialStart == false and returnToVillage == false and needOverwork == false
+    and blacksmithTalkCheck == false then
       updateGame(dt)
   end
 
@@ -239,6 +243,7 @@ function love.update(dt)
   CheckBossMeeting() --중간보스성 내부에서 일정좌표를 넘으면 업데이트를 멈추고 보스와 대화를 나누고 보스 문제를 푸는 단계로 넘어가는 것을 체크함.
   CheckTutorial()
   CheckQmarkAtViilage() --마을에서 느낌표 띄우기.
+  CheckBlacksmithTalkAndQmark()
 end
 
 function love.draw()
@@ -260,11 +265,15 @@ function love.draw()
     DrawNextStage() --0901
   end
 
+  if needOverwork then --마을에 할 일이 남았을때 띄워주는 메시지
+    NeedOverworkAtVillage()
+  end
+
   if blacksmithCheck then
     DrawBlackSmith()
   end
 
-  if questCheck then --0805HS 
+  if questCheck then --0805HS
     if pl and stageLevel==2 and phase>1 then
       MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
@@ -291,6 +300,8 @@ function love.draw()
     StartTutorial()
   end
 
+  ElderTipImageDraw()
+
   if bossClearCheck and printBossClear then --보스를 깨면 엔터키를 누를 수 있게끔. 바로 넘어가면 알고리즘이 완성된걸 못보잖아.
     DrawBossClear()
   end
@@ -301,11 +312,14 @@ function love.draw()
 
   ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
 
-  if tempForMainXCoord and pl then --메인에서 용사 좌표 보려고
+  if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print("playerLife  : "..playerLife,20,80)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
+    love.graphics.print("phase  : "..phase,20,80)
     love.graphics.setColor(255,255,255,255)
   end
+
 
   if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
     HeartListDraw() --라이프를 맨 앞에 보이게 하기 위해서 Heart관련만 여기에 그림.
@@ -379,7 +393,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-  
+
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
@@ -451,14 +465,11 @@ function updateGame(dt)
   if stageLevel == 0 then
     PortalUpdate(dt)
     BlackSmithHouseUpdate(dt)
-    SandStormUpdate(dt)
   elseif stageLevel > 4 then
     PortalUpdate(dt)
   end
 
-
   if stageLevel == 2 and checkPlaying then --여름
-
     CheckCreeperAniPassValue()--by.근영 0802  가시 의 애니메이션 언제 시작 할 것인지 조건 함수.
     CreeperListUpdate(dt)
   end
@@ -491,7 +502,6 @@ function drawGame()
   if stageLevel == 0 then
     PortalDraw()
     BlackSmithHouseDraw()
-    SandStormDraw()
   elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
     PortalDraw()
   end
@@ -517,6 +527,7 @@ function drawGame()
   end
 
   QMarkListDraw()
+  TalkWithBlacksmith() --대장장이와 대화
 
   if directionArrow then
     directionArrow:Draw()
@@ -525,7 +536,6 @@ function drawGame()
   if pl and playerDeadCheck == false then --플레이어가 죽었을 때를 가정.
     pl:draw() -- 플레이어 스프라이트 그리기
   end
-
 end
 
 function loadResources()
@@ -708,9 +718,4 @@ end
 
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
-function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
-  ButtonClick(x,y)--maze루아의 buttonClick함수
-
-  --여름에서 메시지 안없어지는 버그 해결.
-  ControlFadeOutVerMouse()
-end
+--love.mousepressed(x,y)삭제 by. 근영 0917

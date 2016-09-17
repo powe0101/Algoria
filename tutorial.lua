@@ -15,18 +15,16 @@ talkInit = true
 multipleTutorialChoice = 1 --4지선다형 퀘스트를 컨트롤 하기 위한 변수.
 correctTutorialAnswer = 1 --정답을 대조하기 위한 변수
 
-portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
-
 -- ※ 튜토리얼 활성화 하기 전에는 포탈 못타게 막아놓을 것.
 
 function ControlTutorial()
 	--마을에서 동작하는 튜토리얼
 	if stageLevel == 0 then
-		if tutorialProgressLevel == 1 and 275 < pl:GetX() and pl:GetX() < 285 then
+		if tutorialProgressLevel == 1 and 260 < pl:GetX() and pl:GetX() < 295 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
-		elseif tutorialProgressLevel == 5 and 275 < pl:GetX() and pl:GetX() < 285 then
+		elseif tutorialProgressLevel == 5 and 265 < pl:GetX() and pl:GetX() < 295 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
@@ -60,7 +58,7 @@ function ControlTutorial()
 					tutorialProgressLevel = tutorialProgressLevel + 1
 				end
 			elseif tutorialProgressLevel == 5 then
-				if talkCountWithElder == 8 then
+				if talkCountWithElder == 10 then
 					if multipleChoice == correctTutorialAnswer then
 						--정답일 경우.
 						tutorialProgressLevel = 6
@@ -89,13 +87,13 @@ function StartTutorial()
 	love.graphics.setColor(0,0,0,255)
 	if talkCountWithElder == 1 and tutorialProgressLevel ~= 5 then
 		--맨 처음에만 리스트에 추가할 수 있도록.
-		tutorialTalkList = {WarriorTalk1, ElderTalk1, WarriorTalk2, ElderTalk2, 
+		tutorialTalkList = {WarriorTalk1, ElderTalk1, WarriorTalk2, ElderTalk2,
 		WarriorTalk3, ElderTalk3, WarriorTalk4, ElderTalk4,WarriorTalk5, ElderTalk5}
 	elseif tutorialProgressLevel == 5 and talkInit then
 		talkCountWithElder = 1
 		tutorialTalkList = {}
 		tutorialTalkList = {AfterElderTalk1,AfterWarroirTalkAtVillage1,AfterElderTalk2,
-		AfterElderTalk3, AfterElderTalk4}
+		AfterElderTalk3, AfterElderTalk4, FinalElderTalk1, FinalWarriorTalk, FinalElderTalk2}
 		tutorialTipList = {ElderTipTalk1, ElderTipTalk2}
 		talkInit = false
 	end
@@ -111,11 +109,11 @@ function StartTutorial()
 		ElderTalkBackground()
 		if talkCountAtHome == 1 then
 			ElderTalkAtHome1()
-		else 
+		else
 			ElderTalkAtHome2()
 		end
 	elseif tutorialProgressLevel == 3 then --포탈
-		ElderTalkBackground() 
+		ElderTalkBackground()
 		if talkCountAtPortal == 1 then
 			ElderTalkAtProtal1()
 		elseif talkCountAtPortal == 2 then
@@ -129,13 +127,17 @@ function StartTutorial()
 			BlacksmtihTalk1()
 		elseif talkCountAtBlackSmith == 2 then
 			BlacksmtihTalk2()
-		else 
+		else
 			BlacksmtihTalk3()
 		end
 	elseif tutorialProgressLevel == 5 then
-		if talkCountWithElder == 8 then
-			ElderTalkBackground()
-			FinalElderTalk()
+		if talkCountWithElder > 7 then
+			if talkCountWithElder % 2 == 0 then
+				ElderTalkBackground()
+			else
+				WarriorTalkBackgroundAtVillage()
+			end
+			tutorialTalkList[talkCountWithElder-2]()
 		elseif talkCountWithElder > 5 then
 			--팁과 문제풀이 부분.
 			DrawTipAndQuest()
@@ -151,7 +153,7 @@ function StartTutorial()
 		tutorialProgressLevel = tutorialProgressLevel + 1
 		qmarkCheckAtVillage = true
 	end
-	
+
 	love.graphics.setColor(255,255,255,255)
 end
 
@@ -161,7 +163,7 @@ function CheckTutorial()
 	elseif stageLevel == 0 and pl:GetX() == 180 and tutorialProgressLevel == 3 then
 		tutorialStart = true
 	elseif stageLevel == 0 and pl:GetX() == 440 and tutorialProgressLevel == 4 then
-		tutorialStart = true 
+		tutorialStart = true
 	end
 end
 
@@ -169,15 +171,16 @@ function BlackSmithTalkBackground()
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 	DrawRectangle(175, 12, 80, 60)
 	love.graphics.setColor(255,255,255,255)
-	love.graphics.rectangle("fill", 352, 26, 156, 116) 
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+
+	love.graphics.rectangle("fill", 352, 26, 156, 116)
+	love.graphics.setColor(255,255,255,255)
 end
 
 function ElderTalkBackground()
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 	DrawRectangle(180, 15, 80, 60)
 	love.graphics.setColor(255,255,255,255)
-	love.graphics.rectangle("fill", 362, 32, 156, 116) 
+	love.graphics.rectangle("fill", 362, 32, 156, 116)
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
 
@@ -186,7 +189,7 @@ function WarriorTalkBackgroundAtVillage()
 	DrawRectangle(55, 15, 80, 60)
   	love.graphics.setColor(255,255,255,255)
 	love.graphics.rectangle("fill", 112, 32, 156, 116)
-	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA	
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
 end
 
 function DrawTipAndQuest()

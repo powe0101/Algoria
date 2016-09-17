@@ -5,6 +5,9 @@ function CheckPortal() --0725 마을에서 포탈같이 일정 좌표에서 ↑�
   if love.keyboard.isDown('up') then --마을에서 스테이지로 넘어갈 때, 좌표값 뿐만 아니라 스테이지레벨도 같이 조건을 줘야할 듯. by.현식 0727
     if portalBlock and pl and 170 < pl:GetX() and pl:GetX() < 190 and stageLevel == 0 then --0722 스테이지 변경을 위한 테스트 진행중.. by.현식
       CheckPopup()
+    elseif portalBlock == false and pl and 170 < pl:GetX() and pl:GetX() < 190 and stageLevel == 0 then 
+      -- 마을에 아직 할 일이 남아서 못 가게 막음.
+      needOverwork = true
     end
   end
 end
@@ -25,9 +28,11 @@ function MoveNextStage()
     CreateWinter()
   else --최종 마왕으로.
   end
+
+  portalBlock = false
 end
 
-function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/아래키로 스테이지를 선택하는 메서드.
+function ControlPopup() 
   if popupCheck and portalAdmin == false then
     --관리자 모드가 아닐 경우,..
     if love.keyboard.isDown("return") then --enter키임
@@ -41,10 +46,15 @@ function ControlPopup() --계절을 선택하는 팝업창이 떴을 때, 위/�
       popupCheck = false
     end
 
-
     if love.keyboard.isDown("escape") then -- esc누르면 아무일도 일어나지 않고 팝업창이 닫히게끔.
       selectCheck = 1
       popupCheck = false
+    end
+  end
+
+  if needOverwork then
+    if love.keyboard.isDown('return') then
+      needOverwork = false
     end
   end
 end
@@ -61,4 +71,16 @@ function DrawNextStage()
   love.graphics.print(seasonList[clearLevel].." 스테이지로 이동하시겠습니까?", 170, 25)
 
   love.graphics.print("이동하시려면 'enter'키를 눌러주세요.",168, 90)
+end
+
+function NeedOverworkAtVillage()
+  love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  DrawRectangle(80, 5, 110, 57)
+  love.graphics.setColor(255,255,255,255)
+  love.graphics.rectangle("fill", 162, 12, 216, 110)
+
+  love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  love.graphics.print("아직 마을에 볼 일이 남아있습니다!", 170, 25)
+
+  love.graphics.print("확인하셨다면 'enter'키를 눌러주세요.",168, 90)
 end
