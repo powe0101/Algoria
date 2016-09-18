@@ -131,7 +131,7 @@ portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없�
 needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
-hsDebug = false
+hsDebug = false 
 
 suit = nil
 
