@@ -107,6 +107,7 @@ function AfterElderTalk1()
 end
 
 function BlacksmtihTalk1()
+	SetBlackColor()
  	love.graphics.print("잘 지냈냐 알!", 355, 26)
  	love.graphics.print("장로님께서 맡겨놓으신", 355, 46)
  	SetBlueColor()
@@ -118,12 +119,14 @@ function BlacksmtihTalk1()
 end
 
 function BlacksmtihTalk2()
+	SetBlackColor()
  	love.graphics.print("굉장히 강하게 분다고 하구", 355, 26)
  	love.graphics.print("나! 이 마스크를 쓰고 꼭", 355, 46)
  	love.graphics.print("마왕을 무찔러다오!", 355, 66)
 end
 
 function BlacksmtihTalk3()
+	SetBlackColor()
  	love.graphics.print("아참! 니가 가지고 있는", 355, 26)
  	love.graphics.print("물건들은 이 대장간의 문 ", 355, 46)
  	love.graphics.print("앞에서  '↑'키를 누르면", 355, 66)
@@ -184,6 +187,10 @@ function WarriorTalk1()
  	love.graphics.print("장로님!", 115, 32)
  	love.graphics.print("안녕하세요?", 115, 52)
  	--love.graphics.print("Warrior Part1.", 115, 72)
+
+ 	love.graphics.setColor(255,0,0,255)
+ 	love.graphics.print("(  'Enter'키를 통해 대화를", 115, 102)
+ 	love.graphics.print("진행할 수 있습니다!  )", 115, 122)
 end
 
 function ElderTalk1()
@@ -256,7 +263,7 @@ end
 function ElderTipImageDraw()
 	love.graphics.setColor(255,255,255,255)
 	--Tip1, talkCountWithElder6
-	if talkCountWithElder == 6 then
+	if talkCountWithElder == 6 and tutorialProgressLevel == 5 then
 		love.graphics.draw(imgMiniCastle, castle_frame,382,7)
 		love.graphics.draw(imgMiniStrom, strom_frame,320,75)
 		love.graphics.draw(imgPicket, strom_frame,250,135)
