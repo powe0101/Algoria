@@ -20,11 +20,11 @@ correctTutorialAnswer = 1 --정답을 대조하기 위한 변수
 function ControlTutorial()
 	--마을에서 동작하는 튜토리얼
 	if stageLevel == 0 then
-		if tutorialProgressLevel == 1 and 260 < pl:GetX() and pl:GetX() < 295 then
+		if tutorialProgressLevel == 1 and 260 < pl:GetX() and pl:GetX() < 295 and clearLevel == 1 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
-		elseif tutorialProgressLevel == 5 and 265 < pl:GetX() and pl:GetX() < 295 then
+		elseif tutorialProgressLevel == 5 and 265 < pl:GetX() and pl:GetX() < 295 and clearLevel == 1 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
