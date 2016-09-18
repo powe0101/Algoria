@@ -1,6 +1,6 @@
 -- Made : 2016/08/04 - G
 -- Name : Notice.lua
--- notice = Notice.Create 
+-- notice = Notice.Create
 -- notice:SetText("STring")
 
 Notice = {}
@@ -9,10 +9,10 @@ Notice.__index = Notice
 function Notice.Create()
 	local self = {}
 	setmetatable(self,Notice)
-	
+
 	self:reset()
-	
-	return self	
+
+	return self
 end
 
 function Notice:reset() -- 초기값
@@ -23,7 +23,7 @@ function Notice:reset() -- 초기값
 	self.height = 48
 	self.x = 0
 	self.y = 0
-	self.makeTime = love.timer.getTime() -- 노티스가 생성된 시간 
+	self.makeTime = love.timer.getTime() -- 노티스가 생성된 시간
 	self.reduceAlpha = 0.7 --alpha값의 변화량
 	self.text = ""
 end
@@ -63,7 +63,7 @@ function Notice:Draw()
 	--노티스 그리기
 	if love.timer.getTime() - 2 > self.makeTime then
 		self:Delete()
-		return 
+		return
 	end
 
 	self:DrawBackGround()
@@ -71,14 +71,12 @@ function Notice:Draw()
 end
 
 function NoticeDraw()
-	if notice then
-		notice:Draw()
-	end
+	notice:Draw()
 end
 
 function Notice:Delete()
-	if self then 
-		self = nil 
+	if self then
+		self = nil
 	end
 end
 
@@ -89,7 +87,7 @@ function Notice:SetTextColor(red,green,blue)
 end
 
 function Notice:SetBackgroundColor(red,green,blue)
-	self.backGroundColor[1] = red--노티스 배경 색 
+	self.backGroundColor[1] = red--노티스 배경 색
 	self.backGroundColor[2] = green
 	self.backGroundColor[3] = blue
 end

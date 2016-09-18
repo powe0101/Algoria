@@ -1,4 +1,5 @@
 returnToVillage = false
+checkClearOrDeath = false
 --298 328
 
 function ControlBackToVillage()
@@ -32,6 +33,7 @@ function BackToVillageAfterClear()
 
 	bossClearCheck = false
 	returnToVillage = false
+	checkClearOrDeath = true --by.현식 0918 , 마을에 돌아갔을때 죽어서 돌아가는지 클리어해서 돌아가는지 여부를 확인함.
 
 	if stageClearLevel > 0 then
 		stageClearList[stageClearLevel]()
@@ -52,6 +54,21 @@ function SkipFallBoss()
    	bossTalkCheck = false
    	BossListDelete()
 end
+
+function IfStageClear()
+	if clearLevel > 1 then --clearLevel이 1이하라는 뜻은 아무것도 클리어하지 못해거나 클리어하지 못하고 죽었다는 뜻. 때문에 클리어/데스의 경우는 이 경우에만 적용해야만 함.
+   		if checkClearOrDeath then
+      		WhenStageClearSetting()
+      		checkClearOrDeath = false
+    	end
+ 	end
+end
+
+function WhenStageClearSetting()
+	portalBlock = false 
+    firstTalkWithBlacksmith = true
+end
+
 
 function DrawBackToVillage()
   love.graphics.setColor(0,0,0,255) -- 검은색 RGBA

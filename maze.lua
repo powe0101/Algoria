@@ -1,4 +1,4 @@
-
+suit=nil
 MAZE_X=42
 MAZE_Y=-5
 MazeCheck=false
@@ -45,62 +45,87 @@ clickCountList={} --클릭된 버튼이 무엇인지 가지고 있는 리스트
       {1,0,1,0,0,0,1,0,0,0,1,1,0,1},
       {1,0,1,1,1,1,1,1,1,1,1,1,1,1}
    }
+function CheckSummerAlgorithmAnswer()
+	-- put the layout origin at position (100,100)
+	-- the layout will grow down and to the right from this point
+	suit = require 'suit'
+	if SCALE ~= 1 then
+		local x,y = suit.getMousePosition()
+		suit.updateMouse(x/SCALE,y/SCALE)
+		-- print("SCALE:"..SCALE)
+		-- UI_X = SCALE * 350
+		-- UI_Y = SCALE * 80
+		-- print("UI_X:"..UI_X.."UI_Y:"..UI_Y)
+	end
 
-function CreateButton(x,y,text,id)  --버튼 생성 함수  
-  table.insert(MazeButton,{x=x,y=y,text=text,id=id})
+	suit.layout:reset(0,0)
+
+	-- put an input widget at the layout origin, with a cell size of 200 by 30 pixels
+	suit.Input(input, 350,80,200,30)
+	if SCALE ~= 1 then
+		suit.Label("입력값 : "..input.text,{align="left"},350,80,200,30)
+	end
+
+	-- put a label that displays the text below the first cell
+	-- the cell size is the same as the last one (200x30 px)
+	-- the label text will be aligned to the left
+	-- put a button of size 200x30 px in the cell below
+	-- if the button is pressed, quit the game
+	if suit.Button("정답 확인", 350,120,200,30).hit then
+		print(KeepCoin..input.text)
+		if tostring(KeepCoin) == input.text then
+			print("Correct!")
+		else
+			LifeMinus()
+		end
+	end
+
 end
 
-function ButtonDraw() -- 버튼 그리기 함수 
-  love.graphics.setColor(0,0,0)
-  for i,v in ipairs(MazeButton) do
-    if clickCount~=5 and v.text~="Start" then  -- clickCount가 5가 아니면 up dwon left right 버튼 생성
-      love.graphics.print(v.text,v.x,v.y)
-    elseif clickCount==5 and v.text=="Start" and MazePlaying==false then --clickCount가 5면 start함수 생성 
-     love.graphics.print(v.text,v.x,v.y)
-    end
 
-  end
-  love.graphics.setColor(255, 255, 255, 255)
-end
+function ButtonDraw(x,y)-- 생성된 버튼이 눌렸을시 
+ 
+   if SCALE ~= 1 then
+		local x,y = suit.getMousePosition()
+		suit.updateMouse(x/SCALE,y/SCALE)
+		-- print("SCALE:"..SCALE)
+		-- UI_X = SCALE * 350
+		-- UI_Y = SCALE * 80
+		-- print("UI_X:"..UI_X.."UI_Y:"..UI_Y)
+	end
 
-
-
-function ButtonClick(x,y)-- 생성된 버튼이 눌렸을시 
-  for i,v in ipairs(MazeButton) do
-   
-     if --버튼 조건문 
-     x/2>v.x-5 and 
-     x/2<v.x + 40 and
-     y/2>v.y-5  and 
-     y/2<v.y + 20 then
-    if v.id =="Up" and clickCount~=5 then --up키 
-       clickCountList[clickCount]=0
-       clickCount=clickCount+1-- 클릭 횟수
-    end
-    if v.id =="Dwon" and clickCount~=5 then --dwon키
-       clickCountList[clickCount]=1
-       clickCount=clickCount+1
-    end
-    if v.id =="Right" and clickCount~=5 then --right 키 
-       clickCountList[clickCount]=2
-       clickCount=clickCount+1 -- 클릭 횟수 
-    end
-    if v.id =="Left" and clickCount~=5 then --left키 
-       clickCountList[clickCount]=3
-       clickCount=clickCount+1-- 클릭 횟수
-    end
-    if v.id == "Delete" and clickCount~=5 and clickCount~=0 then --start 눌렸을시 
+	suit.layout:reset(0,0)
+	if  MazePlaying==false then --start 눌렸을시 
+      if suit.Button("삭제",454,11.5,25,56).hit and clickCount~=0 then
       clickCountList[clickCount-1]=nil 
       clickCount=clickCount-1
+	 end
     end
-    if v.id == "start" and clickCount==5  then --start 눌렸을시 
-      mazePlayStart=true
-    end
+	if clickCount~=5 then
+		if suit.Button(" Up ",344,11,53,27).hit then
+			clickCountList[clickCount]=0
+       		clickCount=clickCount+1-- 클릭 횟수
+		end
+		if suit.Button("Dwon", 399,11,53,27).hit then
+		    clickCountList[clickCount]=1
+            clickCount=clickCount+1
+		end
+		if suit.Button("Right", 344,40,53,27).hit then
+			clickCountList[clickCount]=2
+       		clickCount=clickCount+1 -- 클릭 횟수
+		end
+		if suit.Button("Left", 399,40,53,27).hit then
+			clickCountList[clickCount]=3
+      		clickCount=clickCount+1-- 클릭 횟수
+		end
+	end 
+	if clickCount==5 and MazePlaying==false then
+		if suit.Button("Start",344,11,108,56).hit then
+			mazePlayStart=true
+		end
 
-    love.timer.sleep(0.2)
-    
-    end
-  end
+	end
+   
 end
 
 function clickCountListDelete()
@@ -120,7 +145,7 @@ end
 
 function CreateMaze() --미로 맵 만드는 함수 
 
-  
+    suit = require 'suit'
  	for y=1,#map do
     for x=1,#map[y] do
       if map[y][x] == 1 then
@@ -140,13 +165,16 @@ function MazePrint() --버튼이 눌렸을시 머가 눌렸는지 보여주는 �
  	
 
  	if clickCount~=5 then
-		love.graphics.rectangle("fill",  397, 12, 2, 60) 
+		love.graphics.rectangle("fill",  397, 12, 2, 57) 
 		love.graphics.rectangle("fill", 340, 38, 112,2) 
- 		love.graphics.rectangle("fill",  452, 12, 2, 60)--나두고 
+ 		 
+ 	end
+ 	if MazePlaying==false then
+ 		love.graphics.rectangle("fill",  452, 12, 2, 57)--나두고
  	end
  	
- 	love.graphics.rectangle("fill",  477, 12, 2, 60)--나두고
- 	love.graphics.rectangle("fill", 340, 70, 220, 2)--나두고
+ 	love.graphics.rectangle("fill",  477, 12, 2, 57)--나두고
+ 	love.graphics.rectangle("fill", 340, 67, 220, 2)--나두고
  	love.graphics.setColor(255,255,255,255) -- 검은색 RGBA
  	love.graphics.rectangle("fill", 62, 180, 495, 20)--나두고 
  	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
@@ -155,7 +183,7 @@ function MazePrint() --버튼이 눌렸을시 머가 눌렸는지 보여주는 �
  	love.graphics.print("<- 버튼을 \n 클릭하세요  " ,485,15)
 
  	if MazePlaying==true then
- 		love.graphics.print("ongoing..." ,397.5,30)
+ 		love.graphics.print("ongoing..." ,393,30)
  	end
 
  for i=0,clickCount do
@@ -209,6 +237,7 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
       algoCheck=false
     end
 	end
+	ControlFadeOutVerMouse()
 end
 
 function MazeReset()--미로 초기화 함수 

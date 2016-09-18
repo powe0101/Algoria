@@ -126,8 +126,7 @@ bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
 
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
-portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
-
+portalBlock = false --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
 needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
@@ -225,7 +224,7 @@ function love.update(dt)
 
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
-    and tutorialStart == false and returnToVillage == false and needOverwork == false 
+    and tutorialStart == false and returnToVillage == false and needOverwork == false
     and blacksmithTalkCheck == false then
       updateGame(dt)
   end
@@ -274,7 +273,7 @@ function love.draw()
     DrawBlackSmith()
   end
 
-  if questCheck then --0805HS 
+  if questCheck then --0805HS
     if pl and stageLevel==2 and phase>1 then
       MazeMap()--맵 바꿔주기 위해
       DrawQuestBackground() --배경그리기.(496*166)
@@ -364,7 +363,7 @@ function SetScreen()
 end
 
 function CheckStartGameForTitle()
-  if title and love.keyboard.isDown("return") then -- 타이틀에서 게임을 시작함
+  if title then -- 타이틀에서 게임을 시작함
     DeleteStage() -- 타이틀용 마을 삭제
     stageLevel = 0 -- 마을 스테이지 번호 0
     title = false -- 타이틀 조건 해제
@@ -394,12 +393,10 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
-  
+
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
   ControlAdminPopup() --관리자모드일 경우
-
-  CheckStartGameForTitle() -- 타이틀 키 입력 체크
 
   --문제풀때 오답때 나오는 메시지를 없애기 위함. 0904.현식
   if suit ~= nil then
@@ -536,6 +533,10 @@ function drawGame()
 
   if pl and playerDeadCheck == false then --플레이어가 죽었을 때를 가정.
     pl:draw() -- 플레이어 스프라이트 그리기
+  end
+
+  if notice then
+    NoticeDraw()
   end
 end
 
@@ -719,9 +720,4 @@ end
 
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
-function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
-  ButtonClick(x,y)--maze루아의 buttonClick함수
-
-  --여름에서 메시지 안없어지는 버그 해결.
-  ControlFadeOutVerMouse()
-end
+--love.mousepressed(x,y)삭제 by. 근영 0917

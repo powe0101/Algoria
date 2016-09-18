@@ -51,47 +51,41 @@ function CreateSpring()
     phase = 1
     pl:reset()
   end
+
   PlayAudio("audio/363533.Spring.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
   CreateBackGround(-50,0)
-
-
   CreateBackGround(550,0)
+  CreateTree(150,54)
+  --CreateRiver(346,150)
 
-
-  CreateTree(220,80)
-
-  CreateTree(820,80)
+  CreateTree(354,40)
+  CreateTree(600,24)
+  CreateTree(750,5)
 
   stageSpring = StageSpring.Create()
   stageSpring:CreateDustWind()
   stageSpring:MakePuzzle(5)
-  notice = Notice.Create()
-  notice:SetText("Stage Spring")
 
-  stageSpring:MakePuzzle(5)
+  notice = Notice.Create()
+  notice:SetText("봄 스테이지")
+
   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
-  CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
+  CreateGround(0,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
   CreateCastle(800, 15) -- 중간보스 성
+
 end
 
 function UpdateSpring() -- 메인에서 Draw 하기 위한 메서드 여기서'만'이미지 출력이 가능.
-  NoticeDraw()
   dustWind:Draw()
-
   stageSpring:DustWindBlowing(STORM_MOVE_POWER)
 end
+
     --CreateGround(-177,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
  --   CreateGround(622,76)
 
- --   CreateRiver(346,150)
  --   CreateRiver(430,150)
  --    CreateRiver(447,150)
-
- --   CreateTree(150,54)
-  --  CreateTree(300,54)
- --     CreateTree(600,54)
- --     CreateTree(750,54)
 
  --    CreatePicket(400,146)
 
