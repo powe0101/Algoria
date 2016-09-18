@@ -132,8 +132,7 @@ needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시�
 tempForMainXCoord = false
 hsDebug = false 
 
-suit = nil
-
+suit = nil -- button context
 -- storage for text input
 input = {text = ""}
 
@@ -244,6 +243,7 @@ function love.update(dt)
   CheckTutorial()
   CheckQmarkAtViilage() --마을에서 느낌표 띄우기.
   CheckBlacksmithTalkAndQmark()
+  CheckSpringClear()
 end
 
 function love.draw()

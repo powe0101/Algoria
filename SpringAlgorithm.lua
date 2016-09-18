@@ -1,15 +1,10 @@
-suit = nil
-
-cb_list_1 = {}
-cb_list_2 = {}
-cb_list_3 = {}
-cb_list_4 = {}
-
 COIN_MIN = 0
 COIN_MAX = 3
 
 UI_X = 350
 UI_Y = 80
+
+springClearCheck = false
 
 function SetCoinAlgorithmDefault()
 	MaxCoin = love.math.random(COIN_MIN,COIN_MAX) -- 떨어지는 코인의 개수
@@ -62,18 +57,14 @@ function CheckSpringAlgorithmAnswer()
 	if SCALE ~= 1 then
 		local x,y = suit.getMousePosition()
 		suit.updateMouse(x/SCALE,y/SCALE)
-		-- print("SCALE:"..SCALE)
-		-- UI_X = SCALE * 350
-		-- UI_Y = SCALE * 80
-		-- print("UI_X:"..UI_X.."UI_Y:"..UI_Y)
 	end
 
 	suit.layout:reset(0,0)
 
 	-- put an input widget at the layout origin, with a cell size of 200 by 30 pixels
-	suit.Input(input, 350,80,200,30)
+	suit.Input(input, UI_X,UI_Y,200,30)
 	if SCALE ~= 1 then
-		suit.Label("입력값 : "..input.text,{align="left"},350,80,200,30)
+		suit.Label("입력값 : "..input.text,{align="left"},UI_X,UI_Y,200,30)
 	end
 
 	-- put a label that displays the text below the first cell
@@ -81,15 +72,14 @@ function CheckSpringAlgorithmAnswer()
 	-- the label text will be aligned to the left
 	-- put a button of size 200x30 px in the cell below
 	-- if the button is pressed, quit the game
-	if suit.Button("정답 확인", 350,120,200,30).hit then
+	if suit.Button("정답 확인", UI_X,UI_Y+40,200,30).hit then
 		print(KeepCoin..input.text)
 		if tostring(KeepCoin) == input.text then
-			print("Correct!")
+			springClearCheck = true
 		else
 			LifeMinus()
 		end
 	end
-
 end
 
 function StageSpringAlgorithm()
@@ -101,5 +91,14 @@ function StageSpringAlgorithm()
   DrawBank()
 	if suit ~= nil then
 		CheckSpringAlgorithmAnswer()
+	end
+end
+
+function CheckSpringClear() -- using at main
+	if springClearCheck then
+		algoCheck = false
+		bossTalkCheck = false
+		bossClearCheck = true
+	  BossListDelete()
 	end
 end

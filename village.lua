@@ -26,7 +26,7 @@ function CreateVillage()
 
   directionArrow = DirectionArrow.Create()
 
-  SetVilliageBackgroundMusic()
+  PlayAudio("audio/363489.Opening.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
   CreateGround(-49,76)
   CreateGround(541,76)
   CreateBackGround(-40,0)
