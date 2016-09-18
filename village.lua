@@ -52,8 +52,9 @@ function CreateVillage()
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
 
-
-  CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
+  if tutorialProgressLevel == 1 then
+    CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
+  end
 
   CreateSandStorm(650,-10)
   phase = 0
