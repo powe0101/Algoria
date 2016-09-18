@@ -59,12 +59,12 @@ function ControlTutorial()
 				end
 			elseif tutorialProgressLevel == 5 then
 				if talkCountWithElder == 10 then
-					if multipleChoice == correctTutorialAnswer then
+					--if multipleChoice == correctTutorialAnswer then --튜토리어을 단순 팁 방식으로 바꾸며 없어진 기능.
 						--정답일 경우.
-						tutorialProgressLevel = 6
-						multipleChoice = 1 --초기화
-						portalBlock = true --튜토리얼이 다 끝나면 포탈을 탈 수 있게됨.
-					end
+					tutorialProgressLevel = 6
+					multipleChoice = 1 --초기화
+					portalBlock = true --튜토리얼이 다 끝나면 포탈을 탈 수 있게됨.
+					--end 
 				else
 					talkCountWithElder = talkCountWithElder + 1
 				end

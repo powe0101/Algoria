@@ -126,11 +126,11 @@ bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
 
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
-portalBlock = false --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
+portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
 needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
-hsDebug = false 
+hsDebug = true 
 
 suit = nil -- button context
 -- storage for text input
@@ -284,7 +284,7 @@ function love.draw()
     end
   end
 
-  if bossTalkCheck then
+  if bossTalkCheck and stageLevel > 4 then
     BossTalk() --보스와의 대화 후 알고리즘 문제 푸는 부분으로 진입.
   end
 
@@ -314,9 +314,10 @@ function love.draw()
 
   if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
-    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
-    love.graphics.print("phase  : "..phase,20,80)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,20)
+    love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
+    love.graphics.print("multipleChoice  : "..multipleChoice..", correctTutorialAnswer : "..correctTutorialAnswer,20,100)
     love.graphics.setColor(255,255,255,255)
   end
 

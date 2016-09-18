@@ -43,6 +43,8 @@ function MakeBubbleSort()
 	UpdateSecondRectSelect()
 	UpdateRectValue()
 
+	sortControl = 1
+
 	love.graphics.setColor(255,255,255,255)
 
 	love.graphics.print(sortControl.."\n"..checkedNum.."\n"..secondControl,10,30)
