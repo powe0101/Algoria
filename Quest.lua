@@ -261,13 +261,13 @@ function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 		      		multipleChoice = 1
 		      		qmarkCheck = true
 		      		
-		      		groundList[0]:SetY(-300) -- ground의 y 값을 변경
-		      		groundList[1]:SetY(-300) -- ground의 y 값을 변경
+		      		groundList[0]:SetY(-320) -- ground의 y 값을 변경
+		      		groundList[1]:SetY(-320) -- ground의 y 값을 변경
 		      		BoxListDelete()
 		      		CreateBackGround(-50,200)
-							CreateBackGround(550,200)
-							CreateBackGround(-50,-200)
-							CreateBackGround(550,-200)
+					CreateBackGround(550,200)
+					CreateBackGround(-50,-200)
+					CreateBackGround(550,-200)
 		      		pl.player_ground_y = 335
 		      	else
 		      		--오답일 경우
