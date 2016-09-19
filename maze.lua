@@ -136,15 +136,17 @@ function clickCountListDelete()
 end
 
 function MazeMap()
-  if phase ==3 then
-    map=mapSummer
-  elseif stageLevel==6 then
+  if phase ==4 then
     map=mapBossOne
   end
+  if phase ==3  then
+    map=mapSummer
+  end
+ 
 end
 
 function CreateMaze() --미로 맵 만드는 함수 
-
+    
     suit = require 'suit'
  	for y=1,#map do
     for x=1,#map[y] do
@@ -221,7 +223,7 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
       if phase==4 then--문제 다 풀었을 시 
         canPass = true
         pl.y=pl.y+180
-        
+        MazeMap()
       end
 
     

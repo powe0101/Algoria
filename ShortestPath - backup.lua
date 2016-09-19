@@ -434,8 +434,7 @@ function CheckShortestPath()
   end
 
   if shortestDist == shortestPathAnswer then
-    -- 정답
-    WinterClear()
+    LifeMinus()
   end
 end
 
@@ -446,13 +445,4 @@ function StageWinterAlgorithm()
   DrawShortestPathHouse()
   DrawShortestPath()
   UpdatePath()
-end
-
-function WinterClear() -- using at main
-  if stageLevel == 8 then
-    algoCheck = false
-    bossTalkCheck = false
-    bossClearCheck = true
-    BossListDelete()
-  end
 end
