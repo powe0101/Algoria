@@ -426,8 +426,8 @@ function CheckShortestPath()
   end
   ]]
 
-  --[[for i=1, 7 do
-    --if checkVisit[i] == 1 then
+  for i=1, 7 do
+    if checkVisit[i] == 1 then
       if checkVisit[2] == 1 then
         shortestPathAnswer = shortestPathAnswer + distTwoPoint[1][2]
       end
@@ -446,13 +446,12 @@ function CheckShortestPath()
       if checkVisit[7] == 1 then
         shortestPathAnswer = shortestPathAnswer + distTwoPoint[5][7]
       end
-    --end
-  --end]]
-  shortestPathAnswer = 7
+    end
+  end
+  --shortestPathAnswer = 7
   if shortestDist == shortestPathAnswer then
     -- 정답
-    --algoCheck = false
-    LifeMinus()
+    WinterClear()
   end
 end
 
@@ -463,4 +462,13 @@ function StageWinterAlgorithm()
   DrawShortestPathHouse()
   DrawShortestPath()
   UpdatePath()
+end
+
+function WinterClear() -- using at main
+  if stageLevel == 8 then
+    algoCheck = false
+    bossTalkCheck = false
+    bossClearCheck = true
+    BossListDelete()
+  end
 end
