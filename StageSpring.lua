@@ -28,7 +28,21 @@ function StageSpring:CreateDustWind()
 end
 
 function StageSpring:MakePuzzle(_x)
+  for i=1,10 do
+    CreateBox(200+(i*20),130)
+  end
 
+  for i=1,10 do
+    CreateBox(430+(i*20),110)
+  end
+
+  for i=1,10 do
+    CreateBox(650+(i*20),90)
+  end
+
+  for i=1,10 do
+    CreateBox(850+(i*20),115)
+  end
   -- for i = 1, _count do
   --   --local x = randomSeed:random(100,50)
   --   CreateBox(randomSeed:random(COLLIDE_MIN_X,COLLIDE_MAX_X),randomSeed:random(0,135))
@@ -42,7 +56,6 @@ end
 function StageSpring:DustWindBlowing(_distance)
   local x = dustWind:GetX()
   dustWind:Move(_distance)
-  StageSpring:MakePuzzle(x)
 
   if x > 1000 then
     dustWind.x = 10
@@ -75,10 +88,10 @@ function CreateSpring()
   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
   CreateGround(0,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
-  CreateCastle(800, 15) -- 중간보스 성
-  for i = 1, table.getn(boxMap) do
-    CreateBox(boxMap[i][1],boxMap[i][2])
-  end
+  CreateCastle(850, -45) -- 중간보스 성
+  StageSpring:MakePuzzle(x)
+  SetBoxListInvisible()
+
 end
 
 function UpdateSpring() -- 메인에서 Draw 하기 위한 메서드 여기서'만'이미지 출력이 가능.
