@@ -266,7 +266,7 @@ end
 function Player:reset()
 	if stageLevel==2 then --stageLevel 이 2일때 설정 값
 		self.jump_power = -40
-		self.gravity = -470
+		self.gravity = -370
 		self.player_ground_y = 330
 		self.y=300
 		self.yspeed = 0
