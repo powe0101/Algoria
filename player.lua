@@ -264,7 +264,7 @@ end
 function Player:reset()
 	if stageLevel==2 then --stageLevel 이 2일때 설정 값
 		self.jump_power = -40
-		self.gravity = -470
+		self.gravity = -370
 		self.player_ground_y = 330
 		self.y=300
 		self.yspeed = 0   
@@ -469,11 +469,13 @@ end
 
 function Player:StartMaze()
 	if map[1][12]==2 then
+	self:SaveSummerPoint(self:GetX(),self:GetY())
 	self.x=56
 	self.y=148
 	coordinate_Y=8
 	coordinate_X=1
 	elseif map[5][1]==2 then
+	self:SaveSummerPoint(self:GetX(),self:GetY())
 	self.x=56+11*20
 	self.y=148
 	coordinate_Y=8
@@ -505,7 +507,7 @@ function Player:IfQuest()
 end
 
 function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
-	if self.y==330 and checkPlaying then --0816 근영 퀘스트 다 완료 했을시 그만 멈추여야 함
+	if self.y==330 and checkPlaying and phase ~= 4 then --0816 근영 퀘스트 다 완료 했을시 그만 멈추여야 함
 		self.yspeed =-95
     	LifeMinusAtCreeper()  
 	end
