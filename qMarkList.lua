@@ -73,7 +73,7 @@ function CheckQmarkAtViilage()
 end
 
 function CheckBlacksmithTalkAndQmark()
-  if firstTalkWithBlacksmith and stageLevel == 0 then
+  if firstTalkWithBlacksmith and stageLevel == 0 and qmarkCount == 0 then
         CreateQMark(blacksmithChar.x+12, 110)
   end
 end
