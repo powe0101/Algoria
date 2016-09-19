@@ -153,14 +153,30 @@ function CreateSummer()
 	CreateBackGround(-210,910)
     CreateGround(-180,435)
     CreateGround(410,435)
-    CreateCloud(100,460)
-    CreateCloud(100,500)
-    CreateCloud(100,600)
-    CreateCloud(100,700)
-    CreateCloud(100,800)
-    CreateCloud(100,900)
-    CreateCloud(100,1000)
 
+    CreateCloud(-68,500)
+    CreateCloud(142,470)
+    CreateCloud(342,470)
+    CreateCloud(542,470)
+    CreateCloud(742,470)
+
+    CreateCloud(42,620)
+    CreateCloud(242,620)
+    CreateCloud(442,620)
+    CreateCloud(642,620)
+    CreateCloud(842,620)
+     --------------------- 3행 구름
+    CreateCloud(-68,740)
+    CreateCloud(142,740)
+    CreateCloud(342,740)
+    CreateCloud(542,740)
+    CreateCloud(742,740)
+    --------------------- 4행 구름
+	CreateCloud(42,860)
+    CreateCloud(242,860)
+	CreateCloud(442,860)
+	CreateCloud(642,860)
+	CreateCloud(842,860)
 
 	end
 end
