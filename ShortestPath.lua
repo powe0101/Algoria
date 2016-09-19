@@ -60,11 +60,15 @@ distTwoPoint[5][7]=1
 distTwoPoint[6][7]=5
 
 -- 그래픽 관련 변수
+-- 현재위치와 이전위치
 CurPos = 1
 PrePos = 1
+-- 현재위치와 이전위치 저장변수
 firstPos = CurPos
 secondPos = PrePos
+-- 각 집에 해당하는 체크 변수 0, 1
 checkVisit = {0, 0, 0, 0, 0, 0, 0}
+-- 각 길에 해당하는 체크 변수 0, 1
 checkPoint = {}
 for i=1, 7 do
   checkPoint[i] = {}
@@ -72,6 +76,8 @@ for i=1, 7 do
     checkPoint[i][j] = 0
   end
 end
+-- 이동횟수 저장 변수
+checkMove = 0
 
 function ShortestPath()
   for i=1, 7 do
@@ -167,7 +173,7 @@ function ExplainShortestPath()
 end
 
 function ControlShortestPath()
-  if stageLevel == 8 and algoCheck then
+  if stageLevel == 8 and algoCheck and checkMove <= 3 then
   -- 최단거리 알고리즘 컨트롤 시작
     if love.keyboard.isDown("up") then
       PathMoveUp()
@@ -179,24 +185,26 @@ function ControlShortestPath()
       PathMoveRight()
     end
     if love.keyboard.isDown("space") then
-      firstPos = CurPos
-      secondPos = PrePos
-
-      if checkVisit[CurPos] == 1 then
-        checkVisit[CurPos] = 0
-        checkPoint[firstPos][secondPos] = 0
-        checkPoint[secondPos][firstPos] = 0
-      else
-        checkVisit[CurPos] = 1
-        checkPoint[firstPos][secondPos] = 1
-        checkPoint[secondPos][firstPos] = 1
-      end
     end
     if love.keyboard.isDown("return") then
       CheckShortestPath()
-      --shortestPathAnswer = 0
+    end
+    if love.keyboard.isDown("escape") then
+      ResetShortestPath()
     end
   -- 끝
+  end
+end
+
+function CheckShortestPathPosition()
+  firstPos = CurPos
+  secondPos = PrePos
+  if checkVisit[CurPos] == 1 then
+    checkVisit[CurPos] = 0
+    checkPoint[secondPos][firstPos] = 0
+  else
+    checkVisit[CurPos] = 1
+    checkPoint[secondPos][firstPos] = 1
   end
 end
 
@@ -204,26 +212,10 @@ function PathMoveUp()
   if CurPos == 1 then
   elseif CurPos == 2 then
   elseif CurPos == 3 then
-    CurPos = 1
-    PrePos = 3
   elseif CurPos == 4 then
-    CurPos = 2
-    PrePos = 4
   elseif CurPos == 5 then
   elseif CurPos == 6 then
-    CurPos = 3
-    PrePos = 6
   elseif CurPos == 7 then
-    if PrePos == 4 then
-      CurPos = 4
-      PrePos = 7
-    elseif PrePos == 5 then
-      CurPos = 5
-      PrePos = 7
-    elseif PrePos == 6 then
-      CurPos = 5
-      PrePos = 7
-    end
   end
 end
 
@@ -231,18 +223,28 @@ function PathMoveDown()
   if CurPos == 1 then
     CurPos = 3
     PrePos = 1
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 2 then
     CurPos = 4
     PrePos = 2
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 3 then
     CurPos = 6
     PrePos = 3
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 4 then
     CurPos = 7
     PrePos = 4
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 5 then
     CurPos = 7
     PrePos = 5
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 6 then
   elseif CurPos == 7 then
   end
@@ -251,27 +253,11 @@ end
 function PathMoveLeft()
   if CurPos == 1 then
   elseif CurPos == 2 then
-    CurPos = 1
-    PrePos = 2
   elseif CurPos == 3 then
   elseif CurPos == 4 then
-    CurPos = 3
-    PrePos = 4
   elseif CurPos == 5 then
-    CurPos = 2
-    PrePos = 5
   elseif CurPos == 6 then
   elseif CurPos == 7 then
-    if PrePos == 4 then
-      CurPos = 4
-      PrePos = 7
-    elseif PrePos == 5 then
-      CurPos = 6
-      PrePos = 7
-    elseif PrePos == 6 then
-      CurPos = 6
-      PrePos = 7
-    end
   end
 end
 
@@ -279,22 +265,33 @@ function PathMoveRight()
   if CurPos == 1 then
     CurPos = 2
     PrePos = 1
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 2 then
     CurPos = 5
     PrePos = 2
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 3 then
     CurPos = 4
     PrePos = 3
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 4 then
     CurPos = 7
     PrePos = 4
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 5 then
   elseif CurPos == 6 then
     CurPos = 7
     PrePos = 6
+    checkMove = checkMove + 1
+    CheckShortestPathPosition()
   elseif CurPos == 7 then
   end
 end
+
 function UpdatePath()
   UpdateCurrentPosition()
   UpdateCheckPath()
@@ -421,21 +418,57 @@ function CheckShortestPath()
     shortestPathAnswer = shortestPathAnswer + distTwoPoint[1][2]
   end
   if checkVisit[3] == 1 then
+    shortestPathAnswer = shortestPathAnswer + distTwoPoint[1][3]
   end
   if checkVisit[4] == 1 then
+    if checkPoint[2][4] == 1 then
+      shortestPathAnswer = shortestPathAnswer + distTwoPoint[2][4]
+    end
+    if checkPoint[3][4] == 1 then
+      shortestPathAnswer = shortestPathAnswer + distTwoPoint[3][4]
+    end
   end
   if checkVisit[5] == 1 then
     shortestPathAnswer = shortestPathAnswer + distTwoPoint[2][5]
   end
   if checkVisit[6] == 1 then
+    shortestPathAnswer = shortestPathAnswer + distTwoPoint[3][6]
   end
   if checkVisit[7] == 1 then
-    shortestPathAnswer = shortestPathAnswer + distTwoPoint[5][7]
+    if checkPoint[4][7] == 1 then
+      shortestPathAnswer = shortestPathAnswer + distTwoPoint[4][7]
+    end
+    if checkPoint[5][7] == 1 then
+      shortestPathAnswer = shortestPathAnswer + distTwoPoint[5][7]
+    end
+    if checkPoint[6][7] == 1 then
+      shortestPathAnswer = shortestPathAnswer + distTwoPoint[6][7]
+    end
   end
 
   if shortestDist == shortestPathAnswer then
     LifeMinus()
   end
+end
+
+function ResetShortestPath()
+  CurPos = 1
+  PrePos = 1
+  firstPos = CurPos
+  secondPos = PrePos
+  for i=1, 7 do
+    if checkVisit[i] == 1 then
+      checkVisit[i] = 0
+    end
+  end
+  for i=1, 7 do
+    for j=1, 7 do
+      if checkPoint[i][j] == 1 then
+        checkPoint[i][j] = 0
+      end
+    end
+  end
+  checkMove = 0
 end
 
 function StageWinterAlgorithm()
