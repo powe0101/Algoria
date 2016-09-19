@@ -1,7 +1,7 @@
 --튜토리얼의 전제는 오프닝에서 마왕이 처들어왔고, 마왕을 무찔러야 한다는 전제가 있어야함.
 
 tutorialStart = false
-tutorialProgressLevel = 5 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
+tutorialProgressLevel = 1 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
 
 talkCountWithElder = 1
 talkCountAtHome = 1
@@ -20,11 +20,11 @@ correctTutorialAnswer = 1 --정답을 대조하기 위한 변수
 function ControlTutorial()
 	--마을에서 동작하는 튜토리얼
 	if stageLevel == 0 then
-		if tutorialProgressLevel == 1 and 260 < pl:GetX() and pl:GetX() < 295 then
+		if tutorialProgressLevel == 1 and 260 < pl:GetX() and pl:GetX() < 295 and clearLevel == 1 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
-		elseif tutorialProgressLevel == 5 and 265 < pl:GetX() and pl:GetX() < 295 then
+		elseif tutorialProgressLevel == 5 and 265 < pl:GetX() and pl:GetX() < 295 and clearLevel == 1 then
 			if love.keyboard.isDown('up') then --엔터키도 넣으면 좋은데 or love.keyboard.isDown('return') then
 				tutorialStart = true
 			end
@@ -59,25 +59,28 @@ function ControlTutorial()
 				end
 			elseif tutorialProgressLevel == 5 then
 				if talkCountWithElder == 10 then
-					if multipleChoice == correctTutorialAnswer then
+					--if multipleChoice == correctTutorialAnswer then --튜토리어을 단순 팁 방식으로 바꾸며 없어진 기능.
 						--정답일 경우.
-						tutorialProgressLevel = 6
-						multipleChoice = 1 --초기화
-						portalBlock = true --튜토리얼이 다 끝나면 포탈을 탈 수 있게됨.
-					end
+					tutorialProgressLevel = 6
+					multipleChoice = 1 --초기화
+					portalBlock = true --튜토리얼이 다 끝나면 포탈을 탈 수 있게됨.
+					--end 
 				else
 					talkCountWithElder = talkCountWithElder + 1
 				end
 			end
 		end
+		--[[
 		if love.keyboard.isDown('escape') then
 			--esc누르면 튜토리얼 취소.
 			tutorialStart = false
 			talkCountWithElder = 1
 		end
+		
 		if tutorialProgressLevel == 5 and talkCountWithElder == 8 then
 			ControlLeftRight()
 		end
+		]]--
 	end
 
 	end --if stageLevel == 0

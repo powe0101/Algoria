@@ -284,7 +284,7 @@ function love.draw()
     end
   end
 
-  if bossTalkCheck then
+  if bossTalkCheck and stageLevel > 4 then
     BossTalk() --보스와의 대화 후 알고리즘 문제 푸는 부분으로 진입.
   end
 
@@ -314,9 +314,10 @@ function love.draw()
 
   if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
     love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,30)
-    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,60)
-    love.graphics.print("phase  : "..phase,20,80)
+    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,20)
+    love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
+    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
+    love.graphics.print("qmarkCount  : "..qmarkCount..", correctTutorialAnswer : "..correctTutorialAnswer,20,100)
     love.graphics.setColor(255,255,255,255)
   end
 
@@ -721,3 +722,9 @@ end
 --ControlPopup()은 Season.lua로 옮겼습니다. by.현식 0802
 --CheckPassValue()는 Bridge.lua로 합침. by. 현식 0810
 --love.mousepressed(x,y)삭제 by. 근영 0917
+--love.mousepressed(x,y)다시 추가 윤근영 빵꾸똥꾸야 by.현식 0918
+
+function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
+  --여름에서 메시지 안없어지는 버그 해결.
+  ControlFadeOutVerMouse()
+end

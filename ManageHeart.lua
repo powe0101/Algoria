@@ -70,7 +70,7 @@ end
 function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 	love.graphics.setBackgroundColor(255,255,255,255)
 	DeleteStage()
-	AllMakeFalse()
+	InitWhenClear()
 	--SetBadEndingFont()
 	print(stageLevel)
 
@@ -91,14 +91,9 @@ function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 		updateScale()
 	end
 
-	--플레이어도 사라지게 하는거 nil 시키지 않고 조건문 걸어서 pl을 움직이지 않게함.
-	if pl then
-		--pl = nil
-		--pl:DeletePlayer()
-	end
-
 	fadeOn = false
 	playerDeadCheck = true --타이틀로 넘어가는 부분에서 다시 false로 만들면 될 듯.
+	stageLevel = -2
 
 	--배드엔딩곡 필요
 	--기존 플레이어 없애고 우는 모습의 플레이어 필요.
@@ -110,8 +105,7 @@ function BadEnding()
 	--추후에 용사가 죽은 이미지로 변경할 것.
 	love.graphics.setColor(0,0,0,255)
 	love.graphics.print("Game Over", 200,30)
-	love.graphics.print("다시 시작하려면 'Space'키를 누르세요.",70
-		,155)
+	love.graphics.print("다시 시작하려면 'Space'키를 누르세요.",70,155)
 	love.graphics.setColor(255,255,255,255)
 	love.graphics.draw(imgWarrorDead, dead_frame, 250, 60)
 end

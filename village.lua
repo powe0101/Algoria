@@ -15,10 +15,8 @@ function CreateVillage()
   end
 
   --무조건 마을에서는 대장장이와 대화를 할 수 있도록 만듦.
-  portalBlock = false
-  if clearLevel > 1 then
-    firstTalkWithBlacksmith = true
-  end
+  --마을이 생성되는 경우는 2가지. 클리어했거나 죽었을 때. 때문에 그거와 관련된 bool형 변수로 이를 체크해주면 됨.
+  IfStageClear()
 
 
   chiefChar = Chief.create()
@@ -54,8 +52,9 @@ function CreateVillage()
 
   CreatePortal(300,113) -- 0725 마을 집 문 앞에 만들어놓은 포탈은 세이브/로드 팝업을 띄우도록 추후에 수정해야함. by.현식
 
-
-  CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
+  if tutorialProgressLevel == 1 then
+    CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
+  end
 
   CreateSandStorm(650,-10)
   phase = 0

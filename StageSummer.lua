@@ -1,5 +1,7 @@
 function CreateSummer()
 	if stageLevel == 2 then
+        love.graphics.setBackgroundColor(bgcolor)
+        
     phase = 1
 
 		PlayAudio("audio/363526.Summer.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복

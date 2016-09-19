@@ -95,10 +95,11 @@ function StageSpringAlgorithm()
 end
 
 function CheckSpringClear() -- using at main
-	if springClearCheck then
+	if springClearCheck and stageLevel == 5 then
 		algoCheck = false
 		bossTalkCheck = false
 		bossClearCheck = true
-	  BossListDelete()
+	  	BossListDelete()
+	  	springClearCheck = false
 	end
 end
