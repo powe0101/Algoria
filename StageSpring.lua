@@ -88,7 +88,7 @@ function CreateSpring()
   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
   CreateGround(0,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
-  CreateCastle(850, -45) -- 중간보스 성
+  CreateCastle(820, -45) -- 중간보스 성
   StageSpring:MakePuzzle(x)
   SetBoxListInvisible()
 
