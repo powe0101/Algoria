@@ -55,8 +55,8 @@ function DustWind:Move(_distance)
 		SandStorm:SetAniPostion(x+i,y)
 		self.x = x+i
 	end
-	
-	self:CheckCollideBoxForDustWind(self.x,self.y)
+
+--	self:CheckCollideBoxForDustWind(self.x,self.y)
 end
 
 function DustWind:Pause()

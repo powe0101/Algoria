@@ -8,6 +8,7 @@ STORM_MOVE_POWER = 1
 COLLIDE_MIN_X = 300
 COLLIDE_MAX_X = 500
 
+
 function StageSpring.Create()
   local self = {}
   setmetatable(self, StageSpring)
@@ -26,11 +27,12 @@ function StageSpring:CreateDustWind()
   dustWind = DustWind.Create()
 end
 
-function StageSpring:MakePuzzle(_count)
-  for i = 1, _count do
-    --local x = randomSeed:random(100,50)
-    CreateBox(randomSeed:random(COLLIDE_MIN_X,COLLIDE_MAX_X),randomSeed:random(0,135))
-  end
+function StageSpring:MakePuzzle(_x)
+
+  -- for i = 1, _count do
+  --   --local x = randomSeed:random(100,50)
+  --   CreateBox(randomSeed:random(COLLIDE_MIN_X,COLLIDE_MAX_X),randomSeed:random(0,135))
+  -- end
 end
 
 function StageSpring:DeletePuzzle()
@@ -38,12 +40,13 @@ function StageSpring:DeletePuzzle()
 end
 
 function StageSpring:DustWindBlowing(_distance)
-
-  --퍼즐은 랜덤?
-  --경고?
+  local x = dustWind:GetX()
   dustWind:Move(_distance)
-  --돌풍이 움직인다
-  --퍼즐이 바뀐다
+  StageSpring:MakePuzzle(x)
+
+  if x > 1000 then
+    dustWind.x = 10
+  end
 end
 
 function CreateSpring()
@@ -64,7 +67,7 @@ function CreateSpring()
 
   stageSpring = StageSpring.Create()
   stageSpring:CreateDustWind()
-  stageSpring:MakePuzzle(5)
+  --stageSpring:MakePuzzle(5)
 
   notice = Notice.Create()
   notice:SetText("봄 스테이지")
@@ -73,7 +76,9 @@ function CreateSpring()
   CreateGround(0,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
   CreateCastle(800, 15) -- 중간보스 성
-
+  for i = 1, table.getn(boxMap) do
+    CreateBox(boxMap[i][1],boxMap[i][2])
+  end
 end
 
 function UpdateSpring() -- 메인에서 Draw 하기 위한 메서드 여기서'만'이미지 출력이 가능.
