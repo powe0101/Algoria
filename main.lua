@@ -128,7 +128,7 @@ clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
 needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
 tempForMainXCoord = false
-hsDebug = false
+hsDebug = true
 
 suit = nil -- button context
 -- storage for text input
