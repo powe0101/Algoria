@@ -1,3 +1,5 @@
+portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
+
 seasonList = {"봄", "여름", "가을", "겨울"}
 
 function CheckPortal() --0725 마을에서 포탈같이 일정 좌표에서 ↑키를 누르면 장소가 이동되도록 해봄. by.현식

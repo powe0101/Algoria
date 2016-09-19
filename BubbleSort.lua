@@ -27,6 +27,7 @@ function MakeBubbleSort()
 	if firstMakeRandomSort then
 		GetRandomHeight()
 		GetBubbleSortAnswer()
+		sortControl = 1
 	end
 
 	if animationCheck ~= 0 then
