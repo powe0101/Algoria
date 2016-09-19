@@ -8,6 +8,7 @@ STORM_MOVE_POWER = 1
 COLLIDE_MIN_X = 300
 COLLIDE_MAX_X = 500
 
+
 function StageSpring.Create()
   local self = {}
   setmetatable(self, StageSpring)
@@ -26,11 +27,26 @@ function StageSpring:CreateDustWind()
   dustWind = DustWind.Create()
 end
 
-function StageSpring:MakePuzzle(_count)
-  for i = 1, _count do
-    --local x = randomSeed:random(100,50)
-    CreateBox(randomSeed:random(COLLIDE_MIN_X,COLLIDE_MAX_X),randomSeed:random(0,135))
+function StageSpring:MakePuzzle(_x)
+  for i=1,10 do
+    CreateBox(200+(i*20),130)
   end
+
+  for i=1,10 do
+    CreateBox(430+(i*20),110)
+  end
+
+  for i=1,10 do
+    CreateBox(650+(i*20),90)
+  end
+
+  for i=1,10 do
+    CreateBox(850+(i*20),115)
+  end
+  -- for i = 1, _count do
+  --   --local x = randomSeed:random(100,50)
+  --   CreateBox(randomSeed:random(COLLIDE_MIN_X,COLLIDE_MAX_X),randomSeed:random(0,135))
+  -- end
 end
 
 function StageSpring:DeletePuzzle()
@@ -38,12 +54,12 @@ function StageSpring:DeletePuzzle()
 end
 
 function StageSpring:DustWindBlowing(_distance)
-
-  --퍼즐은 랜덤?
-  --경고?
+  local x = dustWind:GetX()
   dustWind:Move(_distance)
-  --돌풍이 움직인다
-  --퍼즐이 바뀐다
+
+  if x > 1000 then
+    dustWind.x = 10
+  end
 end
 
 function CreateSpring()
@@ -64,7 +80,7 @@ function CreateSpring()
 
   stageSpring = StageSpring.Create()
   stageSpring:CreateDustWind()
-  stageSpring:MakePuzzle(5)
+  --stageSpring:MakePuzzle(5)
 
   notice = Notice.Create()
   notice:SetText("봄 스테이지")
@@ -72,7 +88,9 @@ function CreateSpring()
   pl:StartSpringStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
   CreateGround(0,76) --도개교가 깔리고 그 아래 강물이 생길거니까 플레이어로 부터 얻은 좌표 기준으로 290이상 못가게 막아야 함.
   CreateGround(600,76)
-  CreateCastle(800, 15) -- 중간보스 성
+  CreateCastle(850, -45) -- 중간보스 성
+  StageSpring:MakePuzzle(x)
+  SetBoxListInvisible()
 
 end
 

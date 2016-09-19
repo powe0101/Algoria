@@ -24,7 +24,7 @@ function Box:reset(x,y)
 	self.yfix=y
 	self.yspeed = 0
 	self.onGround = true
-	self.status = 0
+	self.status = 0 -- status == 1 박스 투명 status == 0 박스 불투명
 	self.frame = 1
 	self.x = x
 	self.y = y
@@ -99,20 +99,24 @@ function Box:DrawLine(_x,_y)
 end
 
 function Box:draw()
-	
+	if stageLevel == 1 and self.status == 1 then
+		return
+	end
+
 	love.graphics.setColor(236,243,201) -- 배경 .by근영  RGBA
-  
+
   	love.graphics.rectangle('fill', self.x,self.y, BOX_WIDTH, BOX_HEIGHT)
 
-	if MazeCheck then--여름 보스 미로 에서 박스 테두리 
+	if MazeCheck then--여름 보스 미로 에서 박스 테두리
   		self:DrawLine(self.x,self.y)
   	end
-	
+
 	if DEBUG_SETTING then
  		drawDirectionBox(self,255,255,255)
  	end
 
 	if stageLevel==0 or stageLevel==1 then
+
 		love.graphics.draw(imgSpringBlock,box_frame,self.x-1,self.y-1)
 	end
 	if stageLevel==4 then
