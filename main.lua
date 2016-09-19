@@ -125,7 +125,7 @@ algoCheck = false --보스와의 대화가 끝난 후 알고리즘 푸는 부분
 bubbleTipCheck = false --버블소트에 관한 팁을 설명하기 위함.
 
 clearLevel = 1 --맞는 스테이지로 이동하기 위한 변수..
-portalAdmin = false --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
+portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
 portalBlock = true --튜토리얼을 끝내기 전에는 포탈을 탈 수 없도록 막아놓음.
 needOverwork = false --마을에서 할 일이 있을 때 true로 해서 메시지를 띄워줌.
 
