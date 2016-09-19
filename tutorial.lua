@@ -1,7 +1,7 @@
 --튜토리얼의 전제는 오프닝에서 마왕이 처들어왔고, 마왕을 무찔러야 한다는 전제가 있어야함.
 
 tutorialStart = false
-tutorialProgressLevel = 1 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
+tutorialProgressLevel = 5 --1은 기본. 2는 용사집. 3은 포탈. 4는 대장장이. 5는 다시 장로와의 대화.
 
 talkCountWithElder = 1
 talkCountAtHome = 1
