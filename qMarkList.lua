@@ -32,7 +32,7 @@ end
 function CheckQMark()
   if qmarkCheck  then --가을용
       if phase == 2 then
-          
+
           qmarkList[0]:SetX(picketList[1].x)
           qmarkList[0]:SetY(picketList[1].y-30) --좌표가 자꾸 어긋남. 미치겠네
           qmarkCheck = false
@@ -48,7 +48,7 @@ function CheckQMark()
 end
 
 function CheckQmarkAtViilage()
-  if qmarkCheckAtVillage and stageLevel == 0 then --마을, 튜토리얼용
+  if qmarkCheckAtVillage and stageLevel == 0 and clearLevel == 1 then --마을, 튜토리얼용
       if tutorialProgressLevel == 2 then --용사 집 위에 느낌표
           QMarkListDelete()
           CreateQMark(houseList[0].x+50, 115)
@@ -62,12 +62,18 @@ function CheckQmarkAtViilage()
           CreateQMark(blacksmithChar.x+12, 110)
           qmarkCheck = false
       elseif tutorialProgressLevel == 5 then --다시 장로 위에 느낌표
-        QMarkListDelete()
-        CreateQMark(chiefChar.x, 115)
-        qmarkCheck = false
+          QMarkListDelete()
+          CreateQMark(chiefChar.x, 115)
+          qmarkCheck = false
       else
-        QMarkListDelete()
-        qmarkCheck = false
+          QMarkListDelete()
+          qmarkCheck = false
       end
+  end
+end
+
+function CheckBlacksmithTalkAndQmark()
+  if firstTalkWithBlacksmith and stageLevel == 0 then
+        CreateQMark(blacksmithChar.x+12, 110)
   end
 end

@@ -185,9 +185,12 @@ function Player:CheckSpaceBarDown(dt)
 			self.yspeed = self.jump_power
 			love.event.clear()
 		end
-
+		if self.yspeed < -100 then
+			self.yspeed=-36
+		else
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity+13
+		end
 	end
 end
 
@@ -200,6 +203,7 @@ function Player:HitbyTrampolin(dt)
 end
 
 function Player:normal(dt)
+	
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
 		if collision_Top_Y > 0 and self.y > collision_Top_Y-10  and self.yspeed > 0 and stageLevel~=2 and stageLevel~=4 then
@@ -244,6 +248,7 @@ end
 
 function Player:update(dt)
 	-- Update walk frame
+	
 	self:FindPlayerPosWithBox()	--박스 찾는 알고리즘
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
@@ -262,16 +267,18 @@ function Player:reset()
 		self.gravity = -470
 		self.player_ground_y = 330
 		self.y=300
+		self.yspeed = 0   
 	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값
 		self.jump_power = -300
 		self.gravity = 1000
 		self.player_ground_y = 145
 		self.y = PLAYER_START_Y
+		self.yspeed = 0
 	end
 	self.frame = 1
 	self.x = PLAYER_START_X
 
-	self.yspeed = 0
+	
 	self.onGround = true
 	self.status = 0
 

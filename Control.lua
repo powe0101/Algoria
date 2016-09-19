@@ -64,8 +64,13 @@ function SCheckSpaceBarDown(_s,dt) --0808근영 여름 스테이지 점프 함�
     if pl and love.keyboard.isDown('space') and pl:GetY()>30 and canPass==false then
       self.yspeed = SJUMP_POWER
     end
-
+        if self.yspeed < -100 then
+      self.yspeed=-36
+    else
+    self.onGround = false
     self.yspeed = self.yspeed + dt*SGRAVITY+13
+    end
+    
     return self
   end
 end

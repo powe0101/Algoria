@@ -1,5 +1,7 @@
 function CreateSummer()
 	if stageLevel == 2 then
+        love.graphics.setBackgroundColor(bgcolor)
+        
     phase = 1
 
 		PlayAudio("audio/363526.Summer.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
@@ -7,9 +9,11 @@ function CreateSummer()
     updateScale()
 
     pl:reset()
+		notice = Notice.Create()
+		notice:SetText("여름 스테이지")
     pl:StartSummerStage()
-	
-	
+
+
     CreateCreeper(-79,430)
     CreateCreeper(500,430)
 
@@ -17,15 +21,15 @@ function CreateSummer()
     CreateQMark(60, -65)
     CreatePicket(60,-45)
 
-    --------------------- 1행 구름 
+    --------------------- 1행 구름
     CreateCloud(-68,-130)
     CreateCloud(142,-130)
     CreateCloud(342,-130)
     CreateCloud(542,-130)
-    CreateCloud(742,-130)	
-    --------------------- 2행 구름 
+    CreateCloud(742,-130)
+    --------------------- 2행 구름
     CreateCloud(42,-30)
-    ---------------------박스 
+    ---------------------박스
     CreateBox(40,-16)
     CreateBox(50,-16)
     CreateBox(60,-16)
@@ -41,7 +45,7 @@ function CreateSummer()
     CreateCloud(242,-30)
     CreateCloud(442,-30)
     CreateCloud(642,-30)
-    ---------------------박스 
+    ---------------------박스
     CreateBox(640,-16)
     CreateBox(650,-16)
     CreateBox(660,-16)
@@ -56,11 +60,11 @@ function CreateSummer()
     CreateBox(690,-26)
     ---------------------
     CreateCloud(842,-30)
-     --------------------- 3행 구름 
+     --------------------- 3행 구름
     CreateCloud(-68,70)
     CreateCloud(142,70)
     CreateCloud(342,70)
-            ---------------------박스 
+            ---------------------박스
     CreateBox(340,84)
     CreateBox(350,84)
     CreateBox(360,84)
@@ -74,17 +78,17 @@ function CreateSummer()
     CreateBox(380,74)
     CreateBox(390,74)
     CreateCloud(542,70)
-    CreateCloud(742,70)	
-    --------------------- 4행 구름 
+    CreateCloud(742,70)
+    --------------------- 4행 구름
 	CreateCloud(42,170)
     CreateCloud(242,170)
 	CreateCloud(442,170)
 	CreateCloud(642,170)
 	CreateCloud(842,170)
-   
+
     ---------------------문제 2
     CreatePicket(863,153)
-	---------------------- 박스 
+	---------------------- 박스
 	CreateBox(842,176)
     CreateBox(852,176)
     CreateBox(862,176)
@@ -98,10 +102,10 @@ function CreateSummer()
     CreateBox(882,166)
     CreateBox(892,166)
 	------------------------
-	--------------------- 5행 구름 
+	--------------------- 5행 구름
 	CreateCloud(-68,270)
 	CreateCloud(142,270)
-	---------------------박스 
+	---------------------박스
     CreateBox(140,284)
     CreateBox(150,284)
     CreateBox(160,284)
@@ -124,7 +128,7 @@ function CreateSummer()
     ------------------- 문제 3
         --문제 3
     CreatePicket(467,340)
-    --------------------- 6행 구름 
+    --------------------- 6행 구름
     CreateCloud(442,355)
     CreateBox(450,366)
     CreateBox(460,366)
@@ -144,7 +148,7 @@ function CreateSummer()
     CreateCloud(842,370)
 
 
-    
+
     CreateCastle(710, 870) -- 중간보스 성
 	CreateBackGround(-210,910)
     CreateGround(-180,435)
@@ -157,11 +161,6 @@ function CreateSummer()
     CreateCloud(100,900)
     CreateCloud(100,1000)
 
-   CreateButton(360,17," Up","Up")
-   CreateButton(410,17,"Dwon","Dwon")
-   CreateButton(355,44,"Right","Right")
-   CreateButton(410,44,"Left","Left")
-   CreateButton(459,23.5,"삭\n제","Delete")
-   CreateButton(397.5,30,"Start","start")
+
 	end
 end
