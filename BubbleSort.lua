@@ -27,6 +27,7 @@ function MakeBubbleSort()
 	if firstMakeRandomSort then
 		GetRandomHeight()
 		GetBubbleSortAnswer()
+		sortControl = 1
 	end
 
 	if animationCheck ~= 0 then
@@ -42,8 +43,6 @@ function MakeBubbleSort()
 	UpdateRectSelect()
 	UpdateSecondRectSelect()
 	UpdateRectValue()
-
-	sortControl = 1
 
 	love.graphics.setColor(255,255,255,255)
 

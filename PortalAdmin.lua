@@ -1,5 +1,7 @@
 --기존의 Season.lua에서 사용하던 포탈을 관리자모드로 옮김.
 
+portalAdmin = true --앞으로는 포탈을 이용해 마음대로 이동할 수 없고, 관리자 변수가 true되어 있어야만 가능하게 수정.
+
 scale = 2
 width = 25
 height = 50 --사각형을 만들기 위한 변수들. 마리오에서 따옴
@@ -9,8 +11,8 @@ function CheckSeason()
     --CreateSpring()
     stageLevel = 5; CreateBossCastle()
   elseif stageLevel == 2 then
-    --CreateSummer()
-    stageLevel = 6; CreateBossCastle()
+    CreateSummer()
+    --stageLevel = 6; CreateBossCastle()
   elseif stageLevel == 3 then
     --CreateFall()
     stageLevel = 7;    CreateBossCastle()
