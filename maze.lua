@@ -255,7 +255,7 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
       MazeReset()
      else 
       MazeReset()
-      algoCheck=false
+      SummerClear()
     end
 	end
 	ControlFadeOutVerMouse()
@@ -279,5 +279,14 @@ function MazeStart()--미로 시작 함수
   if pl and mazePlayStart then --
     pl:UpdateMazeMove()
     MazeCheckCollect()
+  end
+end
+
+function SummerClear()
+  if stageLevel == 6 then
+    algoCheck = false
+    bossTalkCheck = false
+    bossClearCheck = true
+    BossListDelete()
   end
 end

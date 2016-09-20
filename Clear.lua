@@ -2,10 +2,16 @@ returnToVillage = false
 checkClearOrDeath = false
 --298 328
 
-function ControlBackToVillage()
-	if stageLevel > 4 and bossClearCheck and 298 < pl:GetX() and pl:GetX() < 328 then
-		if love.keyboard.isDown('up') then
-			returnToVillage = true
+function ControlBackToVillage() --여름은 336~364, 봄은 283~316
+	if stageLevel > 4 and bossClearCheck then
+		if stageLevel == 6 and 336 < pl:GetX() and pl:GetX() < 364 then
+			if love.keyboard.isDown('up') then
+				returnToVillage = true
+			end
+		elseif 283 < pl:GetX() and pl:GetX() < 316 then
+			if love.keyboard.isDown('up') then
+				returnToVillage = true
+			end
 		end
 	end
 
