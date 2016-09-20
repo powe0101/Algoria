@@ -9,11 +9,11 @@ end
 
 
 --FindCollision is Find Box for player
---Using boxList for Side Box 
+--Using boxList for Side Box
 function FindCollisionRightDirection()
   for i =0, boxCount-1 do
     if boxList[i].isCollisionLeft then
-   
+
       return false
     end
   end
@@ -51,14 +51,14 @@ function FindCollisionBottomDirection()
     end
   end
   collision_Bottom_Y = 0
-  return false 
+  return false
 end
 
 function BoxListUpdate(dt)
   for i = 0, boxCount-1 do
     boxList[i]:update(dt)
   end
-end 
+end
 
 function BoxListDelete()
    for i=0, boxCount-1 do
@@ -73,3 +73,8 @@ function BoxListDraw()
   	end
 end
 
+function SetBoxListInvisible()
+  for i = 0, boxCount - 1 do
+    boxList[i].status = 1
+  end
+end

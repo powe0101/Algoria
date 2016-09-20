@@ -28,13 +28,13 @@ collision_Top_Y = 0
 collision_Bottom_Y = 0
 collision_Left_Y = 0
 
---미로 관련 
-buttonCount=0   --Start버튼 클릭후 플레이어가 이동할때 count 하는 변수 
-coordinate_X=nil --플레이어의 미로 위치 
+--미로 관련
+buttonCount=0   --Start버튼 클릭후 플레이어가 이동할때 count 하는 변수
+coordinate_X=nil --플레이어의 미로 위치
 coordinate_Y=nil
 save_X=nil
 save_Y=nil
-MazePlaying=false --start버튼 클릭후 플레이어 이동중인지 판단하는 bool변수 
+MazePlaying=false --start버튼 클릭후 플레이어 이동중인지 판단하는 bool변수
 for i=0,2 do
 	player_frames_left[i] = love.graphics.newQuad(32*i,0,32,32,96,64)
 end
@@ -93,7 +93,7 @@ end
 
 function Player:UpdateMoveLeft(dt)
 	self.frame = (self.frame + 15*dt) % 3
-	
+
 	if self.x > 0  and isCanMoveLeft and stageLevel~=2 then
 		self.x = self.x - PLAYER_MOVE_POWER
 	elseif self.x > 0 and stageLevel==2 then --0812 여름 스테이지 일때 벽 통과
@@ -118,7 +118,7 @@ end
 function Player:UpdateMove(dt)
 	if love.keyboard.isDown('right') then --0805HS
 		self:UpdateMoveRight(dt)
-	end 
+	end
 
 	if love.keyboard.isDown('left') then --0805HS
 		if self.x < 460 - BridegePassValue and stageLevel == 3 then --가을은 오른쪽에서 시작해서 왼쪽으로 가는 방식임.
@@ -140,18 +140,18 @@ function Player:UpdateMove(dt)
 	end
 end
 
-function Player:UpdateMazeMove()--미로에서 플레이어 이동 관련 함수 
+function Player:UpdateMazeMove()--미로에서 플레이어 이동 관련 함수
 		love.timer.sleep(0.5)
 		MazePlaying=true
 		MazeCheckCollect()
-	  	if buttonCount==5 then --5번 실행 됬을시 초기화 
+	  	if buttonCount==5 then --5번 실행 됬을시 초기화
 	    	mazePlayStart=false
-	    	buttonCount=0 
+	    	buttonCount=0
 	    	clickCountListDelete()
 	    	MazePlaying=false
 	    	return
 	    end
-        
+
         if clickCountList[buttonCount]==0 then
         	self.y=self.y-20
         	buttonCount=buttonCount+1
@@ -159,17 +159,17 @@ function Player:UpdateMazeMove()--미로에서 플레이어 이동 관련 함수
         elseif clickCountList[buttonCount]==1 then
         	self.y=self.y+20
        		buttonCount=buttonCount+1
-            coordinate_Y=coordinate_Y+1 --플레이어의 미로 Y 좌표 
+            coordinate_Y=coordinate_Y+1 --플레이어의 미로 Y 좌표
         elseif clickCountList[buttonCount]==2 then
-        	self.x=self.x+20 
+        	self.x=self.x+20
 		 	buttonCount=buttonCount+1
-            coordinate_X=coordinate_X+1 --플레이어의 미로 X 좌표 
+            coordinate_X=coordinate_X+1 --플레이어의 미로 X 좌표
         elseif clickCountList[buttonCount]==3 then
-        	self.x=self.x-20 
+        	self.x=self.x-20
         	buttonCount=buttonCount+1
-        	coordinate_X=coordinate_X-1 --플레이어의 미로 X 좌표 
+        	coordinate_X=coordinate_X-1 --플레이어의 미로 X 좌표
         end
-end	
+end
 
 --Add by G 0729
 function Player:CheckSpaceBarDown(dt)
@@ -180,17 +180,19 @@ function Player:CheckSpaceBarDown(dt)
 
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity
-		elseif stageLevel==2 then
+	elseif stageLevel==2 then
+		if self.yspeed < -100 then
+			self.yspeed=-36
+			return
+	    end
 		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 and canPass==false then
 			self.yspeed = self.jump_power
 			love.event.clear()
 		end
-		if self.yspeed < -100 then
-			self.yspeed=-36
-		else
+
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity+13
-		end
+
 	end
 end
 
@@ -203,7 +205,7 @@ function Player:HitbyTrampolin(dt)
 end
 
 function Player:normal(dt)
-	
+
 	if self.status == 0 then -- normal ourside
 		self.y = self.y + self.yspeed*dt
 		if collision_Top_Y > 0 and self.y > collision_Top_Y-10  and self.yspeed > 0 and stageLevel~=2 and stageLevel~=4 then
@@ -221,9 +223,9 @@ function Player:normal(dt)
 				return
 			end
         elseif self.isTop and self.isBottom and stageLevel==2 and canPass==false then
-        
+
         	self.yspeed=0
- 
+
         	return
 		elseif self.y > self.player_ground_y then
 		 --원래 설정값은 150이었음. 공중에 떠있는 것 같아서 10늘림. by.현식
@@ -248,7 +250,7 @@ end
 
 function Player:update(dt)
 	-- Update walk frame
-	
+
 	self:FindPlayerPosWithBox()	--박스 찾는 알고리즘
 	self:CheckSpaceBarDown(dt)
 	self:UpdateMove(dt)
@@ -267,7 +269,7 @@ function Player:reset()
 		self.gravity = -370
 		self.player_ground_y = 330
 		self.y=300
-		self.yspeed = 0   
+		self.yspeed = 0
 	elseif stageLevel~=2 then--stageLevel 이 2가 아닐때 설정 값
 		self.jump_power = -300
 		self.gravity = 1000
@@ -278,7 +280,7 @@ function Player:reset()
 	self.frame = 1
 	self.x = PLAYER_START_X
 
-	
+
 	self.onGround = true
 	self.status = 0
 
@@ -367,14 +369,18 @@ end
 
 function Player:CollisionByBox()
 	for i = 0 , boxCount - 1 do
+		if boxList[i].status == 1 then
+			goto continue -- 투명인 경우 해당 박스 는 충돌검사를 하지 않고 다음 박스로 넘어가도록 goto 사용
+		end
+
 		boxList[i].isCollisionRight =
 		self:collideWithPoint(boxList[i]:GetX()+BOX_WIDTH+3,boxList[i]:GetY()+20,self)
-   	      
+
 		if boxList[i].isCollisionRight==true then--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
 			boxList[i].isCollisionRight =
 			self:CheckIsLeft(boxList[i]:GetX()+BOX_WIDTH,boxList[i]:GetY())
 		end
-		
+
 		boxList[i].isCollisionLeft =
 		self:collideWithPoint(boxList[i]:GetX() - BOX_WIDTH+6,boxList[i]:GetY()+20,self)
 
@@ -386,32 +392,33 @@ function Player:CollisionByBox()
 		boxList[i].isCollisionBottom =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() + BOX_WIDTH,self)
 
-		
+
 		boxList[i].isCollisionTop =
 		self:collideWithPoint(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH-10,self)
-		
+
 		if boxList[i].isCollisionTop==false then--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
 			boxList[i].isCollisionTop =
 			self:CheckIsTop(boxList[i]:GetX(),boxList[i]:GetY() - BOX_WIDTH)
 		end
+		::continue::
 	end
 end
 function Player:CheckIsTop(x,y)--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
- 		if 
+ 		if
          pl:GetX()-4<x and x<pl:GetX()+20 then
              if pl:GetY()<y then
-        	return true         
-        	end     
+        	return true
+        	end
    		else
-       		 return false                 
+       		 return false
    		end
 end
 function Player:CheckIsLeft(x,y)--0824 근영 박스위에 올라가는거 판던 더 좋게 하기 위해
 
 	if collision_Top_Y>0 and collision_Left_Y>0 and collision_Top_Y-collision_Left_Y~=20 then
-		
+
 	return false
-	
+
 else
 	return true
 end
@@ -463,7 +470,7 @@ function Player:StartWinterStage() --스테이지가 변경됐을 때 캐릭터 
 end
 
 function Player:SaveSummerPoint(_x,_y)
-	save_X=_x 
+	save_X=_x
 	save_Y=_y
 end
 
@@ -509,7 +516,7 @@ end
 function Player:SCheckHudle()-- 0811 근영 가시에 닿앗을때 점프
 	if self.y==330 and checkPlaying and phase ~= 4 then --0816 근영 퀘스트 다 완료 했을시 그만 멈추여야 함
 		self.yspeed =-95
-    	LifeMinusAtCreeper()  
+    	LifeMinusAtCreeper()
 	end
 end
 

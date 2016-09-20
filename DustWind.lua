@@ -41,7 +41,7 @@ end
 function DustWind:CheckCollideBoxForDustWind(x,y)
 	for i =0, boxCount-1 do
 		if x - boxList[i].x < 64 and x - boxList[i].x > -64 then
-			boxList[i].x = randomSeed:random(300,500)
+			boxList[i].status = 0
 		end
 	end
 end
@@ -55,7 +55,7 @@ function DustWind:Move(_distance)
 		SandStorm:SetAniPostion(x+i,y)
 		self.x = x+i
 	end
-	
+
 	self:CheckCollideBoxForDustWind(self.x,self.y)
 end
 
