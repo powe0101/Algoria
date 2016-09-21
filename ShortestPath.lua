@@ -11,6 +11,7 @@ a[4][7] = 3
 a[5][7] = 1
 a[6][7] = 5
 ]]
+suit = nil
 
 INFINITE = 999
 STARTHOUSE = 1
@@ -163,12 +164,12 @@ end
 
 function ExplainShortestPath()
   love.graphics.setColor(255, 0, 0, 255)
-  love.graphics.print("※조작법※\n방향 : Up, Dwon, Left, Right\n선택 : Space",62+285, 13)
-  --love.graphics.print("\n\n파란 지붕 집에서 빨간 지붕 집까지",62+285,50)
-  --love.graphics.print("\n가장 빠른 길을 선택 하시오.",62+285,100)
-  love.graphics.print("\n\nCurPos: "..CurPos.."  PrePos: "..PrePos.."\nfirstPos: "..firstPos.."  secondPos: "..secondPos,62+285,50)
-  love.graphics.print("\ncheckPoint[firstPos][secondPos]: "..checkPoint[firstPos][secondPos],62+285,100)
-  love.graphics.print("shortestPathAnswer:  "..shortestPathAnswer.."\nshortestDist: "..shortestDist,62+285,140)
+  love.graphics.print("※조작법※\n방향 : Up, Dwon, Left, Right",62+285, 13)
+  love.graphics.print("\n※문제※\n파란 지붕 집에서 빨간 지붕 집까지\n가장 빠른 길을 선택 하시오.",62+285,50)
+  --love.graphics.print("",62+285,100)
+  --love.graphics.print("\n\nCurPos: "..CurPos.."  PrePos: "..PrePos.."\nfirstPos: "..firstPos.."  secondPos: "..secondPos,62+285,50)
+  --love.graphics.print("\ncheckPoint[firstPos][secondPos]: "..checkPoint[firstPos][secondPos],62+285,100)
+  --love.graphics.print("shortestPathAnswer:  "..shortestPathAnswer.."\nshortestDist: "..shortestDist,62+285,140)
   love.graphics.setColor(255, 255, 255, 255)
 end
 
@@ -183,20 +184,17 @@ function ControlShortestPath()
       PathMoveLeft()
     elseif love.keyboard.isDown("right") then
       PathMoveRight()
-    end
-    if love.keyboard.isDown("space") then
-    end
-    if love.keyboard.isDown("return") then
-      CheckShortestPath()
-    end
-    if love.keyboard.isDown("escape") then
-      ResetShortestPath()
+    elseif love.keyboard.isDown("space") then
+    elseif love.keyboard.isDown("return") then
+      --CheckShortestPath()
+    elseif love.keyboard.isDown("escape") then
+      --ResetShortestPath()
     end
   -- 끝
   end
 end
 
-function CheckShortestPathPosition()
+function UpdateVisitPos()
   firstPos = CurPos
   secondPos = PrePos
   if checkVisit[CurPos] == 1 then
@@ -206,8 +204,8 @@ function CheckShortestPathPosition()
     checkVisit[CurPos] = 1
     checkPoint[secondPos][firstPos] = 1
   end
+  checkMove = checkMove + 1
 end
-
 function PathMoveUp()
   if CurPos == 1 then
   elseif CurPos == 2 then
@@ -218,38 +216,31 @@ function PathMoveUp()
   elseif CurPos == 7 then
   end
 end
-
 function PathMoveDown()
   if CurPos == 1 then
     CurPos = 3
     PrePos = 1
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 2 then
     CurPos = 4
     PrePos = 2
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 3 then
     CurPos = 6
     PrePos = 3
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 4 then
     CurPos = 7
     PrePos = 4
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 5 then
     CurPos = 7
     PrePos = 5
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 6 then
   elseif CurPos == 7 then
   end
 end
-
 function PathMoveLeft()
   if CurPos == 1 then
   elseif CurPos == 2 then
@@ -260,34 +251,28 @@ function PathMoveLeft()
   elseif CurPos == 7 then
   end
 end
-
 function PathMoveRight()
   if CurPos == 1 then
     CurPos = 2
     PrePos = 1
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 2 then
     CurPos = 5
     PrePos = 2
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 3 then
     CurPos = 4
     PrePos = 3
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 4 then
     CurPos = 7
     PrePos = 4
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 5 then
   elseif CurPos == 6 then
     CurPos = 7
     PrePos = 6
-    checkMove = checkMove + 1
-    CheckShortestPathPosition()
+    UpdateVisitPos()
   elseif CurPos == 7 then
   end
 end
@@ -296,7 +281,6 @@ function UpdatePath()
   UpdateCurrentPosition()
   UpdateCheckPath()
 end
-
 function UpdateCheckPath()
   love.graphics.setColor(255, 0, 0, 255)
   if checkVisit[2] == 1 then
@@ -362,7 +346,6 @@ function UpdateCheckPath()
   love.graphics.setColor(255, 255, 255, 255)
 
 end
-
 function UpdateCurrentPosition()
   if CurPos == 1 then
     love.graphics.setColor(0, 255, 0, 255)
@@ -371,20 +354,20 @@ function UpdateCurrentPosition()
     love.graphics.setColor(255, 255, 255, 255)
   elseif CurPos == 2 then
     love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    --love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.setColor(255, 255, 255, 255)
   elseif CurPos == 3 then
     love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    --love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, SECONDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, SECONDHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.setColor(255, 255, 255, 255)
   elseif CurPos == 4 then
     love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, SECONDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    --love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    --love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, SECONDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.polygon("fill", SECONDHOUSE_x-3+HOUSE_SIZE+5, SECONDHOUSE_Y-3+HOUSE_SIZE,
                                 SECONDHOUSE_x-3+HOUSE_SIZE, SECONDHOUSE_Y-3+HOUSE_SIZE+5,
                                 THIRDHOUSE_X+5-5, THIRDHOUSE_Y+10,
@@ -392,22 +375,23 @@ function UpdateCurrentPosition()
     love.graphics.setColor(255, 255, 255, 255)
   elseif CurPos == 5 then
     love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
+    --love.graphics.rectangle("fill", SECONDHOUSE_x+HOUSE_SIZE, FIRSTHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X, PATH_SIZE)
     love.graphics.rectangle("fill", THIRDHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y*2+HOUSE_SIZE)
     love.graphics.setColor(255, 255, 255, 255)
   elseif CurPos == 6 then
     love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, SECONDHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
+    --love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_HALFSIZE-2, SECONDHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y)
     love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, THIRDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X*2+HOUSE_SIZE, PATH_SIZE)
     love.graphics.setColor(255, 255, 255, 255)
   elseif CurPos == 7 then
     love.graphics.setColor(0, 255, 0, 255)
-    love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, THIRDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X*2+HOUSE_SIZE, PATH_SIZE)
-    love.graphics.rectangle("fill", THIRDHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y*2+HOUSE_SIZE)
-    love.graphics.polygon("fill", SECONDHOUSE_x-3+HOUSE_SIZE+5, SECONDHOUSE_Y-3+HOUSE_SIZE,
+    --love.graphics.rectangle("fill", FIRSTHOUSE_X+HOUSE_SIZE, THIRDHOUSE_Y+HOUSE_HALFSIZE+5, PATH_X*2+HOUSE_SIZE, PATH_SIZE)
+    --love.graphics.rectangle("fill", THIRDHOUSE_X+HOUSE_HALFSIZE-2, FIRSTHOUSE_Y+HOUSE_SIZE, PATH_SIZE, PATH_Y*2+HOUSE_SIZE)
+    --[[love.graphics.polygon("fill", SECONDHOUSE_x-3+HOUSE_SIZE+5, SECONDHOUSE_Y-3+HOUSE_SIZE,
                                   SECONDHOUSE_x-3+HOUSE_SIZE, SECONDHOUSE_Y-3+HOUSE_SIZE+5,
                                   THIRDHOUSE_X+5-5, THIRDHOUSE_Y+10,
                                   THIRDHOUSE_X+5, THIRDHOUSE_Y+10-5)
+      ]]
     love.graphics.setColor(255, 255, 255, 255)
   end
 end
@@ -449,9 +433,11 @@ function CheckShortestPath()
   if shortestDist == shortestPathAnswer then
     -- 정답
     WinterClear()
+  else
+    -- 라이프 감소
+    LifeMinus()
   end
 end
-
 function ResetShortestPath()
   CurPos = 1
   PrePos = 1
@@ -472,6 +458,21 @@ function ResetShortestPath()
   checkMove = 0
 end
 
+function ShortestPathButtonDraw(x,y)
+  suit = require 'suit'
+  if SCALE ~= 1 then
+    local x,y = suit.getMousePosition()
+    suit.updateMouse(x/SCALE,y/SCALE)
+  end
+  suit.layout:reset(0,0)
+  if suit.Button("다시하기",80+285,137,75,30).hit then
+    ResetShortestPath()
+  end
+  if suit.Button("정답 확인",80+285+85,137,75,30).hit then
+    CheckShortestPath()
+  end
+end
+
 function StageWinterAlgorithm()
   ShortestPath()
   ExplainShortestPath()
@@ -479,6 +480,7 @@ function StageWinterAlgorithm()
   DrawShortestPathHouse()
   DrawShortestPath()
   UpdatePath()
+  ShortestPathButtonDraw()
 end
 
 function WinterClear() -- using at main
