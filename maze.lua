@@ -96,17 +96,33 @@ function ButtonDraw(x,y)-- 생성된 버튼이 눌렸을시
 
 	suit.layout:reset(0,0)
 	if  MazePlaying==false then --start 눌렸을시 
-      if suit.Button("삭제",454,11.5,25,56).hit and clickCount~=0 then
+      if suit.Button("삭제",454,11.5,23,56).hit and clickCount~=0 then
       clickCountList[clickCount-1]=nil 
       clickCount=clickCount-1
 	 end
     end
 	if clickCount~=5 then
+    if suit.Button(" pass ",300,11,53,27).hit then
+      MazeReset()
+     
+      pl:SetX(save_X)--플레이어 좌표값 복원 
+      pl:SetY(save_Y)
+    
+      phase=phase+1
+      qmarkCheck = true
+      questCheck=false
+      if phase==4 then--문제 다 풀었을 시 
+        canPass = true
+        --pl.y=pl.y+180
+        MazeMap()
+      end
+
+    end
 		if suit.Button(" Up ",344,11,53,27).hit then
 			clickCountList[clickCount]=0
        		clickCount=clickCount+1-- 클릭 횟수
 		end
-		if suit.Button("Dwon", 399,11,53,27).hit then
+		if suit.Button("Down", 399,11,53,27).hit then
 		    clickCountList[clickCount]=1
             clickCount=clickCount+1
 		end
@@ -213,21 +229,24 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
 	  clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트 
 	  MazePlaying=false
 		return
-	elseif pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==2 then
+  end
+	if pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==2 then
       MazeReset()
+      
       pl:SetX(save_X)--플레이어 좌표값 복원 
       pl:SetY(save_Y)
+      
       phase=phase+1
       qmarkCheck = true
       questCheck=false
       if phase==4 then--문제 다 풀었을 시 
         canPass = true
-        pl.y=pl.y+180
+        --pl.y=pl.y+180
         MazeMap()
       end
 
-    
-  elseif pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==6 then--보스에서 
+  end
+  if pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==6 then--보스에서 
 		  if coordinate_Y==1 and coordinate_X==12 then
       map=mapBossTwo
       BoxListDelete()
