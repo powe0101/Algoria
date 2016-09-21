@@ -180,17 +180,19 @@ function Player:CheckSpaceBarDown(dt)
 
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity
-		elseif stageLevel==2 then
+	elseif stageLevel==2 then
+		if self.yspeed < -100 then
+			self.yspeed=-36
+			return
+	    end
 		if love.keyboard.isDown('space') and self.y>30 and self.y < 360 and canPass==false then
 			self.yspeed = self.jump_power
 			love.event.clear()
 		end
-		if self.yspeed < -100 then
-			self.yspeed=-36
-		else
+
 		self.onGround = false
 		self.yspeed = self.yspeed + dt*self.gravity+13
-		end
+
 	end
 end
 

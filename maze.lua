@@ -96,7 +96,7 @@ function ButtonDraw(x,y)-- 생성된 버튼이 눌렸을시
 
 	suit.layout:reset(0,0)
 	if  MazePlaying==false then --start 눌렸을시 
-      if suit.Button("삭제",454,11.5,25,56).hit and clickCount~=0 then
+      if suit.Button("삭제",454,11.5,23,56).hit and clickCount~=0 then
       clickCountList[clickCount-1]=nil 
       clickCount=clickCount-1
 	 end
@@ -122,7 +122,7 @@ function ButtonDraw(x,y)-- 생성된 버튼이 눌렸을시
 			clickCountList[clickCount]=0
        		clickCount=clickCount+1-- 클릭 횟수
 		end
-		if suit.Button("Dwon", 399,11,53,27).hit then
+		if suit.Button("Down", 399,11,53,27).hit then
 		    clickCountList[clickCount]=1
             clickCount=clickCount+1
 		end
