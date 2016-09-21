@@ -1,5 +1,5 @@
-COIN_MIN = 0
-COIN_MAX = 3
+COIN_MIN = 4
+COIN_MAX = 7
 
 UI_X = 350
 UI_Y = 80

@@ -16,7 +16,7 @@ end
 
 function CheckBossCastle()
 	if love.keyboard.isDown('up') then
-		if stageLevel ==1 and 500 < pl:GetX() and pl:GetX() < 510 and pl:GetY() < 115 then
+		if stageLevel ==1 and 500 < pl:GetX() and pl:GetX() < 510 and pl:GetY() < 80 then
 			stageLevel = 5
 			DeleteStage()
 			CreateBossCastle()
