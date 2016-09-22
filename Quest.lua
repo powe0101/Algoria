@@ -5,6 +5,7 @@ phase = 0 --표지판을 통한 퀘스트 단계. 다리가 3번 열려야 하�
 multipleChoice = 1
 
 questList = {} --문제 이미지를 담기 위한 리스트.
+winterList = {} --겨울 전용 리스트.
 
 bubbleTipCount = 1
 
@@ -60,16 +61,37 @@ function CheckQuest(_x,_y)
 end
 
 function DrawQuest() -- phase별로 문제를 그리게 됨.
-	DrawQuestBackground()
+	if stageLevel == 4 and phase > 1 then
+		--겨울 문제는 다른 크기의 배경을 그림.
+		DrawWinterQuestBackground()
+	else
+		DrawQuestBackground()
+	end
+
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 
-	love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
+	if stageLevel == 4 and phase == 3 then
+		--아무것도 안그려도 됨.
+	elseif stageLevel == 4 and phase == 2 then
+		--겨울 문제는 다른 크기로 그림.
+		love.graphics.draw(questList[GetQuestNum()],quest_winter_frame,70,12) --겨울은 프레임이랑 위치만 다르게 그리면 될 듯.
+	else
+		love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
+	end
 
   	if phase == 1 then
   		DrawTip()
-  	elseif phase ==2 or phase ==3 then
-  		--조건문을 걸어서 계절별/단계별로 문제를 어떻게 다르게 출력할 것인지 생각해봐야 할 듯.
-  		DrawMultipleChoice()
+  	elseif phase > 1 then
+  		if stageLevel == 4 then 
+  			--겨울만 다른 크기로 그림
+  			if phase == 2 then
+  				DrawWinterPhase2()
+  			elseif phase == 3 then
+  				DrawWinterPhase3()
+  			end
+  		else
+  			DrawMultipleChoice()
+  		end
   	end
 
   	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
@@ -95,6 +117,28 @@ function DrawBubbleSortTip()
 	else
 		love.graphics.draw(bubbleTip4,tip_now_frame,40,12)
 	end
+end
+
+function DrawWinterPhase2()
+	love.graphics.setColor(255,0,0,255)
+
+	if multipleChoice == 1 then
+		love.graphics.ellipse("line", 281, 66, 10, 10, 100) 
+	elseif multipleChoice == 2 then
+		love.graphics.ellipse("line", 281, 141, 10, 10, 100)
+	elseif multipleChoice == 3 then
+		love.graphics.ellipse("line", 281, 200, 10, 10, 100)
+	elseif multipleChoice == 4 then
+		love.graphics.ellipse("line", 282, 278, 10, 10, 100)
+	end	
+
+	love.graphics.setColor(255,255,255,255)
+end
+
+function DrawWinterPhase3()
+	love.graphics.setColor(255,255,255,255)
+
+	love.graphics.draw(winterList[multipleChoice],quest_winter_frame,70,12) --겨울은 프레임이랑 위치만 다르게 그리면 될 듯.
 end
 
 function DrawMultipleChoice() --문제를 풀고 넘어가야 하는 객관식 방식. -- ~258 / 168
@@ -171,7 +215,6 @@ function ControlQuest()
 	    	SummerQuest()
 	    elseif stageLevel == 3 then
 	    	FallQuest()
-
 	    elseif stageLevel == 4 then
 	    	WinterQuest()
 	    end
@@ -213,6 +256,24 @@ function ControlLeftRight()
     end
 end
 
+function ControlUpDown()
+	if love.keyboard.isDown("up") then
+	   		if multipleChoice == 1 then
+		   	--1번 선택지에서 왼쪽으로 가면 아무 동작도 안함.
+	   	else
+	   		multipleChoice = multipleChoice - 1
+	   	end
+	end
+
+    if love.keyboard.isDown("down") then
+    		if multipleChoice == 4 then
+    		--4번 선택지에서 오른쪽으로 가면 아무 동작도 안함.
+    	else
+    		multipleChoice = multipleChoice + 1
+    	end
+    end
+end
+
 function SummerQuest() --여름 스테이지에서의 좌표 및 컨트롤 하는 메서드
 		if phase == 1 then --1번째는 Tip.
 	    	if love.keyboard.isDown("return") then --enter키임.
@@ -232,7 +293,7 @@ function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 	      		qmarkCheck = true
 	      	end
 	    elseif phase == 2 and stageLevel~=2 then --2번째 객관식 문제.
-	    	ControlLeftRight()
+	    	ControlUpDown()
 
     		if love.keyboard.isDown("return") then --enter키임.
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
@@ -249,7 +310,7 @@ function WinterQuest() --여름 스테이지에서의 좌표 및 컨트롤 하�
 
 	      	end
 	    elseif phase == 3 then --3번째 객관식 문제
-	      	ControlLeftRight()
+	      	ControlUpDown()
 
     		if love.keyboard.isDown("return") then --enter키임.
     			--이하는 정답일 경우에만. 정답인지 아닌지를 가리기 위해서는 이걸 테이블로 만드는게 나을 것 같음.
@@ -344,6 +405,13 @@ function FallQuest() --가을 스테이지에서의 좌표 및 컨트롤 하는 
 	    end
 end
 
+function DrawWinterQuestBackground()
+	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+  	DrawRectangle(30, 5, 250, 150) --검은색 테두리
+  	love.graphics.setColor(255,255,255,255)
+  	love.graphics.rectangle("fill", 62, 12, 496, 296) --테두리 안에 흰색 도화지?
+end
+
 function DrawQuestBackground()
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
   	DrawRectangle(30, 5, 250, 85) --검은색 테두리
@@ -384,19 +452,31 @@ function QuestLoad() --틀은 만들어놨으니 나중에 이미지만 바꾸�
 	fallPhase3Quest:setFilter("nearest","nearest")
 
 	--겨울 퀘스트
-	winterPhase1Quest = love.graphics.newImage("images/quest/winter_phase1_quest.png") --그림판으로 작업한 임시 문제
+	winterPhase1Quest = love.graphics.newImage("images/quest/winter_phase1_quest.png")
 	winterPhase1Quest:setFilter("nearest","nearest")
-	winterPhase2Quest = love.graphics.newImage("images/quest/winter_phase2_quest.png") --그림판으로 작업한 임시 문제
+	winterPhase2Quest = love.graphics.newImage("images/quest/winter_phase2_quest.png")
 	winterPhase2Quest:setFilter("nearest","nearest")
-	winterPhase3Quest = love.graphics.newImage("images/quest/winter_phase3_quest.png") --그림판으로 작업한 임시 문제
+	winterPhase3Quest = love.graphics.newImage("images/quest/winter_phase3_quest.png") 
 	winterPhase3Quest:setFilter("nearest","nearest")
 
+	winterPhase3Quest_2 = love.graphics.newImage("images/quest/winter_phase3_quest_2.png") 
+	winterPhase3Quest_2:setFilter("nearest","nearest")
+	winterPhase3Quest_3 = love.graphics.newImage("images/quest/winter_phase3_quest_3.png") 
+	winterPhase3Quest_3:setFilter("nearest","nearest")
+	winterPhase3Quest_4 = love.graphics.newImage("images/quest/winter_phase3_quest_4.png") 
+	winterPhase3Quest_4:setFilter("nearest","nearest")
+
+
 	quest_now_frame =  love.graphics.newQuad(0,0, 481, 121, 481, 121) --이 사이즈가 딱 맞음.
+	quest_winter_frame = love.graphics.newQuad(0,0, 481, 280, 481, 280) 
 
 	questList = {springPhase1Quest,springPhase2Quest,springPhase3Quest,
 				summerPhase1Quest, summerPhase2Quest, summerPhase3Quest,
 				fallPhase1Quest, fallPhase2Quest, fallPhase3Quest,
 				winterPhase1Quest, winterPhase2Quest, winterPhase3Quest}
+
+	winterList = {winterPhase3Quest, winterPhase3Quest_2, winterPhase3Quest_3, winterPhase3Quest_4}
+
 end
 
 function BubbleTipLoad()
