@@ -60,16 +60,29 @@ function CheckQuest(_x,_y)
 end
 
 function DrawQuest() -- phase별로 문제를 그리게 됨.
-	DrawQuestBackground()
+	if stageLevel == 4 and phase > 1 then
+		--겨울 문제는 다른 크기의 배경을 그림.
+	else
+		DrawQuestBackground()
+	end
+
 	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
 
-	love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
+	if stageLevel == 4 and phase > 1 then
+		--겨울 문제는 다른 크기로 그림.
+		love.graphics.draw(questList[GetQuestNum()],quest_winter_frame,70,12) --겨울은 프레임이랑 위치만 다르게 그리면 될 듯.
+	else
+		love.graphics.draw(questList[GetQuestNum()],quest_now_frame,70,12) --문제 그리기.
+	end
 
   	if phase == 1 then
   		DrawTip()
   	elseif phase ==2 or phase ==3 then
-  		--조건문을 걸어서 계절별/단계별로 문제를 어떻게 다르게 출력할 것인지 생각해봐야 할 듯.
-  		DrawMultipleChoice()
+  		if stageLevel ~= 4 then
+  			DrawMultipleChoice()
+  		elseif stageLevel == 4 then 
+  			--겨울만 다른 크기로 그림
+  		end
   	end
 
   	love.graphics.setColor(255,255,255,255) -- 하얀색 RGBA로 마무리해야함.
@@ -392,6 +405,7 @@ function QuestLoad() --틀은 만들어놨으니 나중에 이미지만 바꾸�
 	winterPhase3Quest:setFilter("nearest","nearest")
 
 	quest_now_frame =  love.graphics.newQuad(0,0, 481, 121, 481, 121) --이 사이즈가 딱 맞음.
+	quest_winter_frame = love.graphics.newQuad(0,0, 481, 280, 481, 280) 
 
 	questList = {springPhase1Quest,springPhase2Quest,springPhase3Quest,
 				summerPhase1Quest, summerPhase2Quest, summerPhase3Quest,
