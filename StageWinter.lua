@@ -10,12 +10,12 @@ function CreateWinter()
 		pl:reset()
 		pl:StartWinterStage() --스테이지가 변경됐을때 초기좌표로 되돌리기 위한 메서드
 	end
-		--CreatePicket(-20,200)  --진짜 피켓 위치
-		--CreatePicket(1040,155)
-		--CreatePicket(65,45)
-		CreatePicket(-20,330) -- 임시 피켓 위치
-		CreatePicket(40,335)
-		CreatePicket(65,335)
+		CreatePicket(-20,200)  --진짜 피켓 위치
+		CreatePicket(1040,155)
+		CreatePicket(65,45)
+		--CreatePicket(-20,330) -- 임시 피켓 위치
+		--CreatePicket(40,335)
+		--CreatePicket(65,335)
 		CreateCastle(310, -360) -- 중간보스 성
 		CreateBackGround(-50,0)
 		CreateBackGround(550,0)
