@@ -50,23 +50,27 @@ function DrawBlackSmith()
   love.graphics.setColor(255,255,255,255)
 	if isTutorialClear == true then
 		love.graphics.draw(imgSavePaper,185,40)
-		love.graphics.draw(imgMask,185,120)
+		love.graphics.draw(imgMask,235,120)
+		love.graphics.draw(imgSword1,185-1,120-1)
 	end
 	if isSpringClear == true then
 		love.graphics.draw(imgStone,235,40)
-		love.graphics.draw(imgWing,235,120)
+		love.graphics.draw(imgWing,285,120)
+		love.graphics.draw(imgSword2,185-1,120-1)
 	end
 	if isSummerClear == true then
 		love.graphics.draw(imgSStone,285,40)
-		love.graphics.draw(imgHorse,285,120)
+		love.graphics.draw(imgHorse,335,120)
+		love.graphics.draw(imgSword3,185-1,120-1)
 	end
 	if isFallClear == true then
 		love.graphics.draw(imgFStone,335,40)
-		love.graphics.draw(imgEisen,335,120)
+		love.graphics.draw(imgEisen,385,120)
+		love.graphics.draw(imgSword4,185-1,120-1)
 	end
 	if isWinterClear == true then
 		love.graphics.draw(imgWStone,385,40)
-		love.graphics.draw(imgSword,385-1,120-1)
+		love.graphics.draw(imgSword5,185-1,120-1)
 	end
 
   love.graphics.setColor(0,0,0,255)

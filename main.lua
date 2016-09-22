@@ -636,8 +636,16 @@ function loadResources()
   imgEisen = love.graphics.newImage("images/item/eisen.png")
   imgEisen:setFilter("nearest","nearest")
 
-  imgSword = love.graphics.newImage("images/item/swordMax.png")
+  imgSword = love.graphics.newImage("images/item/sword1.png")
   imgSword:setFilter("nearest","nearest")
+  imgSword2 = love.graphics.newImage("images/item/sword2.png")
+  imgSword2:setFilter("nearest","nearest")
+  imgSword3 = love.graphics.newImage("images/item/sword3.png")
+  imgSword3:setFilter("nearest","nearest")
+  imgSword4 = love.graphics.newImage("images/item/sword4.png")
+  imgSword4:setFilter("nearest","nearest")
+  imgSword5 = love.graphics.newImage("images/item/sword5.png")
+  imgSword5:setFilter("nearest","nearest")
 
   imgBoss = love.graphics.newImage("images/devil.png")  --중간보스 이미지 임시용
   imgBoss:setFilter("nearest","nearest")
