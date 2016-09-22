@@ -9,6 +9,7 @@ title = false
 
 min_dt = 1/30
 next_time = love.timer.getTime()
+titleImg = love.graphics.newImage("images/title.png")
 
 function DrawTitleMenu()
   suit = require 'suit'
@@ -17,13 +18,14 @@ function DrawTitleMenu()
     suit.updateMouse(x/SCALE,y/SCALE)
   end
 
+  love.graphics.draw(titleImg,WIDTH/2-110,16)
   suit.layout:reset(0,0)
   if suit.Button("게임시작", WIDTH/2-100,HEIGHT/2+20,200,15).hit then
     CheckStartGameForTitle()
   end
 
   if suit.Button("불러오기", WIDTH/2-100,HEIGHT/2+20+25,200,15).hit then
-    --불러오기 미구현 
+    --불러오기 미구현
   end
   if suit.Button("종료", WIDTH/2-100,HEIGHT/2+20+50,200,15).hit then
     love.event.quit()
