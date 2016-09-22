@@ -2,25 +2,22 @@
 -- 보스와 대화하는 기능과 관련된 루아파일.
 
 talkCount = 1 --대화 진행을 위한 변수.
-talkList = {}
 
 function CheckBossMeeting()
-	--가을 보스스테이지.
+	--보스 스테이지에서 보스와의 대화 활성화.
 	if pl and stageLevel > 4 and 200 < pl:GetX() and bossClearCheck == false then
 		bossTalkCheck = true
 	end
 end
 
 function BossTalk()
-	talkList = {TalkOne,TalkTwo,TalkThree,TalkFour
-				,TalkFive,TalkSix}
 	if talkCount < 7 then
 	 	if talkCount % 2 == 0 then--짝수, 즉 마왕이 말할 때
 	 		BossTalkBackground()
 	 	else --용사가 말할 때
 	 		WarriorTalkBackground()
 	 	end
-	 	talkList[talkCount]()
+	 	bossTalkList[stageLevel-4][talkCount]()
 	 end
 
  	love.graphics.setColor(255,255,255,255)
@@ -40,44 +37,6 @@ function WarriorTalkBackground()
   	love.graphics.setColor(255,255,255,255)
 	love.graphics.rectangle("fill", 42, 12, 156, 116)
 	love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-end
-
-function TalkOne() --Warrior Talk 1
-
- 	love.graphics.print("Warrior Part1.", 45, 12)
- 	love.graphics.print("Warrior Part1.", 45, 32)
- 	love.graphics.print("Warrior Part1.", 45, 52)
-end
-
-function TalkTwo() --Boss Talk 1
-
- 	love.graphics.print("Boss Talk 1", 405, 22)
- 	love.graphics.print("Boss Talk 1", 405, 42)
- 	love.graphics.print("Boss Talk 1", 405, 62)
-end
-
-function TalkThree() --Warrior Talk 2
- 	love.graphics.print("Warrior Talk 2", 45, 12)
- 	love.graphics.print("Warrior Talk 2", 45, 32)
- 	love.graphics.print("Warrior Talk 2", 45, 52)
-end
-
-function TalkFour() --Boss Talk 2
- 	love.graphics.print("Boss Talk 2", 405, 22)
- 	love.graphics.print("Boss Talk 2", 405, 42)
- 	love.graphics.print("Boss Talk 2", 405, 62)
-end
-
-function TalkFive() --Warrior Talk 3
- 	love.graphics.print("Warrior Talk 3", 45, 12)
- 	love.graphics.print("Warrior Talk 3", 45, 32)
- 	love.graphics.print("Warrior Talk 3", 45, 52)
-end
-
-function TalkSix() --Boss Talk 3
- 	love.graphics.print("Boss Talk 3", 405, 22)
- 	love.graphics.print("Boss Talk 3", 405, 42)
- 	love.graphics.print("Boss Talk 3", 405, 62)
 end
 
 function ControlTalkWithBoss()
