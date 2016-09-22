@@ -615,7 +615,7 @@ function loadResources()
 
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
-  imgFCastle = love.graphics.newImage("images/fianlCastle.png")
+  imgFCastle = love.graphics.newImage("images/finalCastle.png")
   imgFCastle:setFilter("nearest","nearest")
 
   imgSavePaper = love.graphics.newImage("images/item/savePaper.png")
@@ -668,7 +668,7 @@ function loadResources()
   imgFallCastle:setFilter("nearest","nearest")
   imgWinterCastle = love.graphics.newImage("images/winterInnerCastle.png")
   imgWinterCastle:setFilter("nearest","nearest")
-  imgFinalCastle = love.graphics.newImage("images/fianlInnerCastle.png")
+  imgFinalCastle = love.graphics.newImage("images/finalInnerCastle.png")
   imgFinalCastle:setFilter("nearest","nearest")
 
   imgVillageBackGround = love.graphics.newImage("images/village.png")
