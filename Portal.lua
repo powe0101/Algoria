@@ -6,6 +6,9 @@ function CreatePortal(x, y)
 end
 
 function PortalDraw()
+	if Portal == nil then
+		return 
+	end
 	Portal:draw()
 end
 

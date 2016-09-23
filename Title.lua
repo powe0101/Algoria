@@ -7,7 +7,6 @@
 -- main.lua -> update
 title = false
 
-min_dt = 1/30
 next_time = love.timer.getTime()
 titleImg = love.graphics.newImage("images/title.png")
 
@@ -55,8 +54,6 @@ end
 
 
 function CreateTitleVillage(_y)
-  pl = nil
-
   InitEverything()
 
   CreateGround(-49,76 - _y)
@@ -77,12 +74,14 @@ function CreateTitleVillage(_y)
   CreateCloud(700,1 - _y)
   CreateCloud(900,1 - _y)
 
-  CreateHouse(17,108 - _y)
-  CreateChiefHouse(480,77 - _y)
-  CreateBlackSmithHouse(850,108 - _y)
+  CreateHouse(17,108)
+  CreateChiefHouse(480,77)
+  CreateBlackSmithHouse(850,108)
+
+
+
   CreateBackGround(-40,0)
   CreateBackGround(250,0)
   CreateBackGround(540,0)
   CreateBackGround(830,0)
-
 end
