@@ -694,6 +694,8 @@ function loadResources()
   imgWinterBackGround :setFilter("nearest","nearest")
   imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
   imgWinterBackGround2 :setFilter("nearest","nearest")
+  imgFinalBackGround = love.graphics.newImage("images/finalBackground.png")
+  imgFinalBackGround :setFilter("nearest","nearest")
 
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")

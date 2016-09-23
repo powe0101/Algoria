@@ -20,10 +20,6 @@ function FinalCastle:reset(x,y)
 	self.y = y
 end
 
-function FinalCastle:SpaceJump(dt)
-	self=SCheckSpaceBarDown(self,dt)
-end
-
 function FinalCastle:UpdateMove(dt)
 	self=BackgroundMove(self,dt)
   end
