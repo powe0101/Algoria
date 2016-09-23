@@ -80,6 +80,9 @@ function CreateTitleVillage(_y)
   CreateHouse(17,108 - _y)
   CreateChiefHouse(480,77 - _y)
   CreateBlackSmithHouse(850,108 - _y)
-
+  CreateBackGround(-40,0)
+  CreateBackGround(250,0)
+  CreateBackGround(540,0)
+  CreateBackGround(830,0)
 
 end
