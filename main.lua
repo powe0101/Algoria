@@ -480,7 +480,7 @@ function updateGame(dt)
     BridgeListUpdate(dt)
   end
 
-  if stageLevel == 0 then
+  if stageLevel == 9 then
     fCastle:update(dt)
   end
 end
@@ -544,7 +544,7 @@ function drawGame()
     NoticeDraw()
   end
 
-  if stageLevel == 0 then
+  if stageLevel == 9 then
     fCastle:draw()
   end
 end

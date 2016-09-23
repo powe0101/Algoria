@@ -33,10 +33,10 @@ function ChiefHouse:update(dt)
 end
 
 function ChiefHouse:draw()
-	if stageLevel == 0 then
-		love.graphics.draw(imgCHouse,chiefHouse_now_frames,self.x,self.y)
-	else
+	if stageLevel == 9 then
 		love.graphics.draw(imgFinalCHouse,chiefHouse_now_frames,self.x,self.y)
+	else
+		love.graphics.draw(imgCHouse,chiefHouse_now_frames,self.x,self.y)
 	end
 end
 

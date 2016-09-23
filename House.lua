@@ -35,10 +35,10 @@ function House:update(dt)
 end
 
 function House:draw()
-	if stageLevel == 0 then
-		love.graphics.draw(imgHouse,house_frames_x[0],self.x,self.y)
-	else
+	if stageLevel == 9 then
 		love.graphics.draw(imgFinalHouse,house_frames_x[0],self.x,self.y)
+	else
+		love.graphics.draw(imgHouse,house_frames_x[0],self.x,self.y)
 	end
 end
 
