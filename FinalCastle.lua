@@ -66,6 +66,9 @@ function AppearFinalCastle()
 
 	-- 암전 1 + 음악 바뀜
 	-- 마왕성 하강
+	if fCastle:GetY() < 100 then
+		fCastle.self.y = fCastle.self.y + 10
+	end
 	-- 암전 2
 	-- 마왕성 착지
 
