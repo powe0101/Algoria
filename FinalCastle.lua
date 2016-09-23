@@ -60,4 +60,13 @@ function AppearFinalCastle()
 	2. 마왕성을 직접 y좌표가 점점 감소하게 만드는 방식
 	]]
 
+	-- 마왕성 생성
+	fCastle = FinalCastle.create()
+	fCastle:reset(300, 0)
+
+	-- 암전 1 + 음악 바뀜
+	-- 마왕성 하강
+	-- 암전 2
+	-- 마왕성 착지
+
 end
