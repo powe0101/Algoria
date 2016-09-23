@@ -72,6 +72,7 @@ require("ManageHeart")
 
 --보스 관련
 require("BossTalk")
+require("BossTalkList")
 require("Algorithm")
 require("BubbleSort")
 require("maze")
@@ -142,6 +143,7 @@ function love.load()
   updateScale()
   SetCoinAlgorithmDefault()
   SetGoyangFont() --폰트설정. BY.현식 0823.
+  BossTalkLoad()
   --SetNanumFont()
   --start() -- 시작
   --start() -- 시작 // 0823 : 스플래시가 추가되고 스타트 메서드가 필요 없게 됨
