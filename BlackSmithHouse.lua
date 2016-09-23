@@ -55,7 +55,7 @@ function DrawBlackSmith()
 	if isTutorialClear == true then
 		love.graphics.draw(imgSavePaper,185,40)
 		love.graphics.draw(imgMask,235,120)
-		love.graphics.draw(imgSword1,185-1,120-1)
+		love.graphics.draw(imgSword,185-1,120-1)
 	end
 	if isSpringClear == true then
 		love.graphics.draw(imgStone,235,40)
