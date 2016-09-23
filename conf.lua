@@ -2,8 +2,8 @@ function love.conf(t)
     t.identity = nil                   -- 세이브 디렉토리의 이름 (string)
     t.version = "0.10.1"                -- 게임에서 사용한 LÖVE의 버전 (string)
     t.console = true                  -- 옆에 콘솔을 띄움 (boolean, 윈도우즈 전용)
- 
-    t.window.title = "테스트"        -- 게임의 창 제목 (string)
+
+    t.window.title = "알고리아"        -- 게임의 창 제목 (string)
     t.window.icon = nil                -- 윈도우 아이콘으로 사용할 이미지 파일의 경로 (string)
     t.window.width = 600               -- 윈도우 너비 (number)
     t.window.height = 200              -- 윈도우 높이 (number)
@@ -18,7 +18,7 @@ function love.conf(t)
     t.window.display = 1               -- 듀얼 모니터 환경에서, 창을 띄울 모니터 번호 (number)
     t.window.highdpi = true           -- 레티나 디스플레이에서의 고해상도 모드 (boolean). 0.9.1에서 추가됨.
     t.window.srgb = true              -- sRGB 활성화 (boolean). 0.9.1에서 추가됨.
- 
+
     t.modules.audio = true             -- 오디오 모듈 활성화 (boolean)
     t.modules.event = true             -- 이벤트 모듈 활성화 (boolean)
     t.modules.graphics = true          -- 그래픽 모듈 활성화 (boolean)

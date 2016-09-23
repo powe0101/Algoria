@@ -4,9 +4,19 @@ setmetatable(self,Control)
 MOVE_POWER = 1
 SJUMP_POWER = -40 --0808 근영 cloud가 플레이어 점프에 맞처서 이동 할대 쓰임
 SGRAVITY = -370 --0808 근영 cloud가 플레이어 점프에 맞처서 이동 할대 쓰임
+
+TITLE_MAX_MOVE = 10000
+TITLE_MIN_MOVE = 0
+TITLE_CAM_DIRECTION = 0 -- 0 : RIGHT 1 : LEFT
+TITLE_COUNT = 0
+TITLE_MOVE_POWER = 0.35
+
 function BackgroundMove(_s,dt) --07 21 근영 key 입력 받았을시
   self=_s --tree,cloud에서 self를 받는다
   if stageLevel~=2 then
+    if stageLevel == -1 then
+      TitleBackgroundMove(self,dt)
+    end
     if love.keyboard.isDown('right') then
       if pl and pl:GetX()~=WIDTH-30 and pl:GetX()~=0 and isCanMoveRight then
           self.frame = (self.frame + 15*dt) % 3
@@ -21,7 +31,7 @@ function BackgroundMove(_s,dt) --07 21 근영 key 입력 받았을시
           self.frame = (self.frame + 15*dt) % 3
           self.x = self.x + MOVE_POWER
         end -- canPass
- 
+
       elseif pl and pl:GetX()~=WIDTH-30 and pl:GetX()~=0 and isCanMoveLeft then
         self.frame = (self.frame + 15*dt) % 3
         self.x = self.x + MOVE_POWER
@@ -53,16 +63,16 @@ function BackgroundNormal(_s,dt) --07 21 근영 background 이동
     if checkPlaying==false and groundList[0]:GetY()>270 and canPass and stageLevel==2 then -- 여름 스테이지에서 문제를 다 풀고 가시애니메이션이 실행 후
     	self.yspeed=200
       return self
-    
+
     elseif stageLevel==4 and canPass and groundList[0]:GetY()<251  then
       self.yspeed=-300
       return self
-    
+
     elseif pl and stageLevel==2 and pl:GetIsTop() and pl:GetIsBottom() and canPass==false then--상자 위에 올라 갔을때
       self.yspeed=0
       return self
-         
-    
+
+
     elseif pl and pl:GetY()>290 then
       self.yspeed = 0
       self.onGround = true
@@ -86,5 +96,26 @@ function SCheckSpaceBarDown(_s,dt) --0808근영 여름 스테이지 점프 함�
     self.onGround = false
     self.yspeed = self.yspeed + dt*SGRAVITY+13
     end
+  end
+end
+
+function TitleBackgroundMove(self,dt)
+  if TITLE_CAM_DIRECTION == 1 then
+    TITLE_COUNT = TITLE_COUNT - 1
+    if TITLE_COUNT < TITLE_MIN_MOVE then
+      TITLE_CAM_DIRECTION = 0
+      return
+    end
+    self.frame = (self.frame + 15*dt) % 3
+    self.x = self.x + TITLE_MOVE_POWER
+  end
+  if TITLE_CAM_DIRECTION == 0 then
+    TITLE_COUNT = TITLE_COUNT + 1
+    if TITLE_COUNT > TITLE_MAX_MOVE then
+      TITLE_CAM_DIRECTION = 1
+      return
+    end
+    self.frame = (self.frame + 15*dt) % 3
+    self.x = self.x - TITLE_MOVE_POWER
   end
 end

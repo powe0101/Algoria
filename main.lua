@@ -52,7 +52,7 @@ require("StageSummer")
 require("StageWinter")
 require("StageBoss") --중간보스 스테이지
 require("Clear") --클리어
-
+require("FinalCastle")
 --문제풀이 관련
 require("Quest")
 require("Answer")
@@ -479,6 +479,10 @@ function updateGame(dt)
     CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     BridgeListUpdate(dt)
   end
+
+  if stageLevel == 9 then
+    fCastle:update(dt)
+  end
 end
 
 function drawGame()
@@ -498,7 +502,7 @@ function drawGame()
     UpdateSpring()
   end
 
-  if stageLevel == 0 then
+  if stageLevel == 0 or stageLevel == -1 then
     PortalDraw()
     BlackSmithHouseDraw()
   elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
@@ -539,6 +543,10 @@ function drawGame()
   if notice then
     NoticeDraw()
   end
+
+  if stageLevel == 9 then
+    fCastle:draw()
+  end
 end
 
 function loadResources()
@@ -567,6 +575,8 @@ function loadResources()
   imgFTree:setFilter("nearest","nearest")
   imgWTree = love.graphics.newImage("images/winterTree.png")
   imgWTree:setFilter("nearest","nearest")
+  imgFinalTree = love.graphics.newImage("images/finalTree.png")
+  imgFinalTree:setFilter("nearest","nearest")
 
   imgCloud = love.graphics.newImage("images/cloud.png")
   imgCloud:setFilter("nearest","nearest")
@@ -577,6 +587,12 @@ function loadResources()
   imgCHouse:setFilter("nearest","nearest")
   imgBSHouse = love.graphics.newImage("images/blacksmithhouse.png")
   imgBSHouse:setFilter("nearest","nearest")
+  imgFinalHouse = love.graphics.newImage("images/crashedHouse.png")
+  imgFinalHouse:setFilter("nearest","nearest")
+  imgFinalCHouse = love.graphics.newImage("images/crashedChiefHouse.png")
+  imgFinalCHouse:setFilter("nearest","nearest")
+  imgFinalBSHouse = love.graphics.newImage("images/crashedBlacksmithHouse.png")
+  imgFinalBSHouse:setFilter("nearest","nearest")
 
   imgPortal = love.graphics.newImage("images/portal.png")
   imgPortal:setFilter("nearest","nearest")
@@ -594,10 +610,11 @@ function loadResources()
   imgWGround:setFilter("nearest","nearest")
   imgWGround2 = love.graphics.newImage("images/winterGround2.png")
   imgWGround2:setFilter("nearest","nearest")
+  imgFinalGround = love.graphics.newImage("images/finalGround.png")
+  imgFinalGround:setFilter("nearest","nearest")
 
   imgSCreeper = love.graphics.newImage("images/creeper.png")
   imgSCreeper:setFilter("nearest","nearest")
-
   imgCreeperFire = love.graphics.newImage("images/creeperfire.png")
   imgCreeperFire:setFilter("nearest","nearest")
 
@@ -617,6 +634,8 @@ function loadResources()
 
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
+  imgFCastle = love.graphics.newImage("images/finalCastle.png")
+  imgFCastle:setFilter("nearest","nearest")
 
   imgSavePaper = love.graphics.newImage("images/item/savePaper.png")
   imgSavePaper:setFilter("nearest","nearest")
@@ -668,6 +687,8 @@ function loadResources()
   imgFallCastle:setFilter("nearest","nearest")
   imgWinterCastle = love.graphics.newImage("images/winterInnerCastle.png")
   imgWinterCastle:setFilter("nearest","nearest")
+  imgFinalCastle = love.graphics.newImage("images/finalInnerCastle.png")
+  imgFinalCastle:setFilter("nearest","nearest")
 
   imgVillageBackGround = love.graphics.newImage("images/village.png")
   imgVillageBackGround:setFilter("nearest","nearest")
@@ -681,6 +702,8 @@ function loadResources()
   imgWinterBackGround :setFilter("nearest","nearest")
   imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
   imgWinterBackGround2 :setFilter("nearest","nearest")
+  imgFinalBackGround = love.graphics.newImage("images/finalBackground.png")
+  imgFinalBackGround :setFilter("nearest","nearest")
 
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")

@@ -9,7 +9,6 @@ function CreateVillage()
   if stageLevel ~= true then
     stageLevel = 0
 
-    p1=nil
     pl=Player.create()
     pl:ResetCoord()
   end
@@ -56,8 +55,9 @@ function CreateVillage()
     CreateQMark(chiefChar.x, 115) --장로위에 느낌표.
   end
 
-  CreateSandStorm(650,-10)
   phase = 0
+
+  --AppearFinalCastle()
 end
 
 function SetVilliageBackgroundMusic()

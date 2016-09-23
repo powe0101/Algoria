@@ -7,8 +7,8 @@
 -- main.lua -> update
 title = false
 
-min_dt = 1/30
 next_time = love.timer.getTime()
+titleImg = love.graphics.newImage("images/title.png")
 
 function DrawTitleMenu()
   suit = require 'suit'
@@ -17,13 +17,14 @@ function DrawTitleMenu()
     suit.updateMouse(x/SCALE,y/SCALE)
   end
 
+  love.graphics.draw(titleImg,WIDTH/2-110,16)
   suit.layout:reset(0,0)
   if suit.Button("게임시작", WIDTH/2-100,HEIGHT/2+20,200,15).hit then
     CheckStartGameForTitle()
   end
 
   if suit.Button("불러오기", WIDTH/2-100,HEIGHT/2+20+25,200,15).hit then
-    --불러오기 미구현 
+    --불러오기 미구현
   end
   if suit.Button("종료", WIDTH/2-100,HEIGHT/2+20+50,200,15).hit then
     love.event.quit()
@@ -53,8 +54,6 @@ end
 
 
 function CreateTitleVillage(_y)
-  pl = nil
-
   InitEverything()
 
   CreateGround(-49,76 - _y)
@@ -75,9 +74,14 @@ function CreateTitleVillage(_y)
   CreateCloud(700,1 - _y)
   CreateCloud(900,1 - _y)
 
-  CreateHouse(17,108 - _y)
-  CreateChiefHouse(480,77 - _y)
-  CreateBlackSmithHouse(850,108 - _y)
+  CreateHouse(17,108)
+  CreateChiefHouse(480,77)
+  CreateBlackSmithHouse(850,108)
 
 
+
+  CreateBackGround(-40,0)
+  CreateBackGround(250,0)
+  CreateBackGround(540,0)
+  CreateBackGround(830,0)
 end

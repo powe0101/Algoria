@@ -44,7 +44,7 @@ end
 
 function Tree:draw()
 	--나무가 생성될 때 계절,스테이지에 따라 다르게 생성되게끔 만듬. by.현식
-	if stageLevel == 0 then
+	if stageLevel == 0 or stageLevel == -1 then
 		love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 1 then
 		love.graphics.draw(imgTree,tree_frames_x[0],self.x,self.y)
@@ -54,6 +54,8 @@ function Tree:draw()
 		love.graphics.draw(imgFTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 4 then
 		love.graphics.draw(imgWTree,tree_frames_x[0],self.x,self.y)
+	elseif stageLevel == 9 then
+		love.graphics.draw(imgFinalTree,tree_frames_x[0],self.x,self.y)
 	end
 end
 
