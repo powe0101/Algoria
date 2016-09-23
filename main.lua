@@ -52,7 +52,7 @@ require("StageSummer")
 require("StageWinter")
 require("StageBoss") --중간보스 스테이지
 require("Clear") --클리어
-
+require("FinalCastle")
 --문제풀이 관련
 require("Quest")
 require("Answer")
@@ -479,6 +479,10 @@ function updateGame(dt)
     CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     BridgeListUpdate(dt)
   end
+
+  if stageLevel == 9 then
+    fCastle:update(dt)
+  end
 end
 
 function drawGame()
@@ -539,6 +543,10 @@ function drawGame()
   if notice then
     NoticeDraw()
   end
+
+  if stageLevel == 9 then
+    fCastle:draw()
+  end
 end
 
 function loadResources()
@@ -567,8 +575,8 @@ function loadResources()
   imgFTree:setFilter("nearest","nearest")
   imgWTree = love.graphics.newImage("images/winterTree.png")
   imgWTree:setFilter("nearest","nearest")
-  imgfinalTree = love.graphics.newImage("images/finalTree.png")
-  imgfinalTree:setFilter("nearest","nearest")
+  imgFinalTree = love.graphics.newImage("images/finalTree.png")
+  imgFinalTree:setFilter("nearest","nearest")
 
   imgCloud = love.graphics.newImage("images/cloud.png")
   imgCloud:setFilter("nearest","nearest")
@@ -694,6 +702,8 @@ function loadResources()
   imgWinterBackGround :setFilter("nearest","nearest")
   imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
   imgWinterBackGround2 :setFilter("nearest","nearest")
+  imgFinalBackGround = love.graphics.newImage("images/finalBackground.png")
+  imgFinalBackGround :setFilter("nearest","nearest")
 
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")

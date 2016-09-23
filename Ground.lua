@@ -73,7 +73,7 @@ function Ground:draw()
 		if canPass then
 			love.graphics.draw(imgWGround2,Ground_now_frame,self.x,self.y)
 		else
-			Ground_now_frame = love.graphics.newQuad(0,0,608,208,608,156) 
+			Ground_now_frame = love.graphics.newQuad(0,0,608,208,608,156)
 			love.graphics.draw(imgWGround,Ground_now_frame,self.x,self.y)
 		end
 	elseif stageLevel == 5 then
@@ -84,5 +84,7 @@ function Ground:draw()
 		love.graphics.draw(imgFallCastle,Ground_castle_frames,self.x,self.y)
 	elseif stageLevel == 8 then
 		love.graphics.draw(imgWinterCastle,Ground_castle_frames,self.x,self.y)
+	elseif stageLevel == 9 then
+		love.graphics.draw(imgFinalGround,Ground_castle_frames,self.x,self.y)
 	end
 end
