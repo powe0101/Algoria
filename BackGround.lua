@@ -46,7 +46,7 @@ function BackGround:update(dt)
 end
 
 function BackGround:draw()
-	if stageLevel==0 then
+	if stageLevel==0 or stageLevel == -1 then
 		backGround_frames_x[0]  = love.graphics.newQuad(0,0,300,200,300,200)
 		love.graphics.draw(imgVillageBackGround,backGround_frames_x[0],self.x,self.y)
 	elseif stageLevel==1 then

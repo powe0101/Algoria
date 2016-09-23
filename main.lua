@@ -502,7 +502,7 @@ function drawGame()
     UpdateSpring()
   end
 
-  if stageLevel == 0 then
+  if stageLevel == 0 or stageLevel == -1 then
     PortalDraw()
     BlackSmithHouseDraw()
   elseif stageLevel > 4 and playerDeadCheck == false then --보스방에서 죽었을때 포탈 안그려지게 하려고 수정함. 0905 현식
