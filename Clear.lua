@@ -91,6 +91,7 @@ end
 function InitWhenClear() --클리어했을때 초기화.
 	algoCheck = false; 	bubbleTipCheck = false; bpopupCheck = false; needOverwork = false;
 	questCheck = false; blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
+	askSave = false
 
 	talkCount = 1
 end
@@ -99,6 +100,7 @@ function InitEverything() --죽었을 때 초기화.
 	algoCheck = false; 	bubbleTipCheck = false; bossClearCheck = false;
 	printBossClear = false; popupCheck = false; questCheck = false;
 	blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false; needOverwork = false;
+	askSave = false
 
 	multipleChoice = 1
 	talkCount = 1

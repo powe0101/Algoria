@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.identity = nil                   -- 세이브 디렉토리의 이름 (string)
+    t.identity = "savefile"                   -- 세이브 디렉토리의 이름 (string)
     t.version = "0.10.1"                -- 게임에서 사용한 LÖVE의 버전 (string)
     t.console = true                  -- 옆에 콘솔을 띄움 (boolean, 윈도우즈 전용)
 

@@ -4,6 +4,9 @@ require("Control")
 
 require("AnAL") --애니메이션 관련
 
+--파일입출력 관련
+require("Save")
+
 --그래픽 관련
 require("Box")
 require("BoxList")
@@ -224,7 +227,7 @@ function love.update(dt)
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
     and tutorialStart == false and returnToVillage == false and needOverwork == false
-    and blacksmithTalkCheck == false then
+    and blacksmithTalkCheck == false and askSave == false then
       updateGame(dt)
   end
 
@@ -233,6 +236,7 @@ function love.update(dt)
   mouse_y = love.mouse.getY()
 
   CheckPortal()
+  CheckGameSave()
 
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
@@ -266,8 +270,10 @@ function love.draw()
   end
 
   if needOverwork then --마을에 할 일이 남았을때 띄워주는 메시지
-    NeedOverworkAtVillage()
+    NeedOverwoㅒrkAtVillage()
   end
+
+  DrawAskSaveGame()
 
   if blacksmithCheck then
     DrawBlackSmith()
@@ -316,6 +322,10 @@ function love.draw()
     love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
     love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
     love.graphics.print("stageClearLevel  : "..stageClearLevel..", correctTutorialAnswer : "..correctTutorialAnswer,20,100)
+
+    if result ~= nil then
+    	love.graphics.print(('result: ' .. tostring(result)),20,120)
+    end
     love.graphics.setColor(255,255,255,255)
   end
 
@@ -394,6 +404,7 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
+  ControlGameSave()
 
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
