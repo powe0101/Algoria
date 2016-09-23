@@ -1,7 +1,7 @@
 FinalCastle = {}
 FinalCastle.__index = FinalCastle
 
-fianlCastle_frame = love.graphics.newQuad(0,0,400,200,400,200)
+fianlCastle_frame = love.graphics.newQuad(0,0,300,169,300,169)
 
 function FinalCastle.create()
 	local self = {}
@@ -11,10 +11,6 @@ function FinalCastle.create()
 end
 
 function FinalCastle:reset(x,y)
-	self.yfix=y
-	self.yspeed = 0
-	self.onGround = true
-	self.status = 0
 	self.frame = 1
 	self.x = x
 	self.y = y
@@ -22,7 +18,7 @@ end
 
 function FinalCastle:UpdateMove(dt)
 	self=BackgroundMove(self,dt)
-  end
+end
 
 function FinalCastle:normal(dt)
 	self=BackgroundNormal(self,dt)
@@ -46,6 +42,7 @@ end
 
 function AppearFinalCastle()
 	-- 겨울까지 클리어 후 특정 조건 만족시 발생
+	-- if stageLvel == 9 then 발생
 
 	--[[ 겨울 스테이지까지 클리어하면 마왕을 봉인했다고 생각했으나
 	마왕은 자신의 진정한 힘을 각성하여 자신의 성을 마을에 떨어뜨려
@@ -58,13 +55,10 @@ function AppearFinalCastle()
 
 	-- 마왕성 생성
 	fCastle = FinalCastle.create()
-	fCastle:reset(300, 0)
+	fCastle:reset(180, 15)
 
 	-- 암전 1 + 음악 바뀜
 	-- 마왕성 하강, 착지
-	if fCastle:GetY() < 100 then
-		fCastle.self.y = fCastle.self.y + 10
-	end
 	-- 암전 2 + 마을 폐허화
 	-- 스테이지 레벨 변경
 	-- 마을 폐허로 다시 그리기

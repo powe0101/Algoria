@@ -58,6 +58,8 @@ function CreateVillage()
 
   CreateSandStorm(650,-10)
   phase = 0
+
+  --AppearFinalCastle()
 end
 
 function SetVilliageBackgroundMusic()
