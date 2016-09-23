@@ -10,6 +10,10 @@ function CreateBlackSmithHouse(x, y)
 end
 
 function BlackSmithHouseDraw()
+	if BlackSmithHouse == nil then
+		return
+	end
+
 	BlackSmithHouse:draw()
 end
 
