@@ -315,7 +315,7 @@ function love.draw()
     love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,20)
     love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
     love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
-    love.graphics.print("qmarkCount  : "..qmarkCount..", correctTutorialAnswer : "..correctTutorialAnswer,20,100)
+    love.graphics.print("stageClearLevel  : "..stageClearLevel..", correctTutorialAnswer : "..correctTutorialAnswer,20,100)
     love.graphics.setColor(255,255,255,255)
   end
 

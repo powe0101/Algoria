@@ -42,7 +42,7 @@ function BackToVillageAfterClear()
 	checkClearOrDeath = true --by.현식 0918 , 마을에 돌아갔을때 죽어서 돌아가는지 클리어해서 돌아가는지 여부를 확인함.
 
 	if stageClearLevel > 0 then
-		stageClearList[stageClearLevel]()
+		stageClearForItem[stageClearLevel]()
 		stageClearLevel = stageClearLevel + 1
 	end
 
