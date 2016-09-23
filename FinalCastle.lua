@@ -65,11 +65,11 @@ function AppearFinalCastle()
 	fCastle:reset(300, 0)
 
 	-- 암전 1 + 음악 바뀜
-	-- 마왕성 하강
+	-- 마왕성 하강, 착지
 	if fCastle:GetY() < 100 then
 		fCastle.self.y = fCastle.self.y + 10
 	end
-	-- 암전 2
-	-- 마왕성 착지
-
+	-- 암전 2 + 마을 폐허화
+	-- 스테이지 레벨 변경
+	-- 마을 폐허로 다시 그리기
 end
