@@ -24,8 +24,12 @@ function DrawTitleMenu()
   end
 
   if suit.Button("불러오기", WIDTH/2-100,HEIGHT/2+20+25,200,15).hit then
-    --불러오기 미구현
-    LoadGame()
+    if love.filesystem.exists( 'savedData.txt' ) then
+      LoadGame()
+    else 
+      --이 상태면 기존의 세이브가 없는 상태.
+      nonLoad = true
+    end
   end
   if suit.Button("종료", WIDTH/2-100,HEIGHT/2+20+50,200,15).hit then
     love.event.quit()

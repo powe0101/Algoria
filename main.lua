@@ -395,6 +395,7 @@ function love.keypressed(key,scancode) -- 키입력
   ControlTutorial()
   ControlBackToVillage()
   ControlGameSave()
+  ControlNonLoad()
 
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
@@ -529,6 +530,8 @@ function drawGame()
   if playerDeadCheck then
     BadEnding()
   end
+
+  NonLoad()
 
   QMarkListDraw()
   TalkWithBlacksmith() --대장장이와 대화

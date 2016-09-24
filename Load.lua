@@ -1,3 +1,5 @@
+nonLoad = false
+
 function LoadGame()
 	if title then --특정 데이터를 불러오는 것 외에는 시작할때와 동일.
 	    DeleteStage() -- 타이틀용 마을 삭제
@@ -46,10 +48,37 @@ function LoadItem()
 	if stageClearLevel == 2 then --봄 클리어 상태
 		SpringStageClear()
 	elseif stageClearLevel == 3 then --여름 클리어 상태
+		SpringStageClear()
 		SummerStageClear()
 	elseif stageClearLevel == 4 then --가울 클리어 상태
+		SpringStageClear()
+		SummerStageClear()
 		FallStageClear()
 	elseif stageClearLevel == 5 then --겨울 클리어 상태
+		SpringStageClear()
+		SummerStageClear()
+		FallStageClear()
 		WinterStageClear()
 	end
+end
+
+function NonLoad()
+	if nonLoad then
+		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+		DrawRectangle(80, 5, 110, 57)
+		love.graphics.setColor(255,255,255,255)
+		love.graphics.rectangle("fill", 162, 12, 216, 110)
+
+		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
+		love.graphics.print("기존에 저장된 파일이 없습니다.", 170, 25)
+
+		love.graphics.print("'Enter'키를 누르면 처음부터 시작합니다.",168, 90)
+	end
+end
+
+function ControlNonLoad()
+	if nonLoad and love.keyboard.isDown('return') then
+		nonLoad = false
+		CheckStartGameForTitle()
+	end	
 end
