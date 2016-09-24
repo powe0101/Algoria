@@ -1,5 +1,6 @@
 function CreateVillage()
   InitLife()
+  
   if table.getn(stageClearForItem) == 0 then
     InitStageClear()
     InitBlacksmithTalkList()

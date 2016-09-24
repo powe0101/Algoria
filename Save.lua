@@ -1,7 +1,8 @@
 --테스트 중이기 때문에 우선 로드와 세이브를 따로 구분하지 않았음.
 
+getSaved = nil
 askSave = false
-savedList = {}
+savedDataList = {}
 
 function CheckGameSave()
 	--52~64
@@ -46,53 +47,19 @@ function AskSaveGame()
 end
 
 function SaveGame()
-	savedTutorialProgressLevel = tutorialProgressLevel
-	savedtalkCountWithElder = talkCountWithElder
-	savedClearLevel = clearLevel
-	savedStageClearLevel = stageClearLevel --위의 clearLevel과 다른 변수. 이건 단순 아이템을 체킹하기 위한 변수.
-	savedPortalBlock = savedPortalBlock
-	savedPlayerLife = playerLife
+	savedString = "tutorialProgressLevel:\n"..tostring(tutorialProgressLevel).."\n"..
+	"talkCountWithElder:\n"..tostring(talkCountWithElder).."\n"..
+	"clearLevel:\n"..tostring(clearLevel).."\n"..
+	"stageClearLevel:\n"..tostring(stageClearLevel).."\n".. 
+	--위의 clearLevel과 다른 변수. 이건 단순 아이템을 체킹하기 위한 변수.
+	"portalBlock:\n"..tostring(portalBlock).."\n"..
+	"playerLife:\n"..tostring(playerLife).."\n"..
+	"firstTalkWithBlacksmith\n"..tostring(firstTalkWithBlacksmith)
 
-	savedList = {savedTutorialProgressLevel, savedtalkCountWithElder, savedClearLevel, savedStageClearLevel,
-				savedPortalBlock, savedPlayerLife}
-	hello = "hello"
-	savedCheck = love.filesystem.write('savedData.lua', hello )
+	--love.filesystem.setIdentity("Algoria") --세이브 디렉토리 경로
+	savedCheck = love.filesystem.write('savedData.txt', savedString )
 
 	if savedCheck then
 		love.timer.sleep(2)
-	end
-end
-
------------------- 이하 로드
-
-function LoadGame()
-	if title then --특정 데이터를 불러오는 것 외에는 시작할때와 동일.
-	    DeleteStage() -- 타이틀용 마을 삭제
-	    stageLevel = 0 -- 마을 스테이지 번호 0
-	    title = false -- 타이틀 조건 해제
-	    pl = Player.create() -- 플레이어 객체
-	    pl:reset()
-	    CreateVillage() -- 실제 마을 스테이지 생성
-	    tempForMainXCoord = true --현식추가
-	    reTitleCheck = false --현식추가, 다시 타이틀에 들어왔을때 라이프 안보이게 하깅 ㅟ해서.
-
-	    --이 부분에서 저장되어 있던 데이터를 가져와야 함.
-	    LoadSavedData()
-	    --LoadItem()
-   	end
-end
-
-function LoadSavedData()
-	if love.filesystem.exists( 'savedData.lua' ) then
-        savedd = love.filesystem.load( 'savedData.lua' )
-        love.timer.sleep(2)
-
-		result = savedd() -- execute the chunk
-    end
-end
-
-function LoadItem()
-	for i = 0, stageClaerLevel-1 do
-		--stageClearForItem[i]()
 	end
 end
