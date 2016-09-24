@@ -26,6 +26,7 @@ end
 function FinalCastle:update(dt)
 	self:UpdateMove(dt)
 	self:normal(dt)
+	--self.y = self.y + 1
 end
 
 function FinalCastle:draw()
@@ -55,7 +56,7 @@ function AppearFinalCastle()
 
 	-- 마왕성 생성
 	fCastle = FinalCastle.create()
-	fCastle:reset(180, 15)
+	fCastle:reset(180, -160)
 
 	-- 암전 1 + 음악 바뀜
 	-- 마왕성 하강, 착지

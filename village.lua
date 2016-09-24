@@ -57,7 +57,7 @@ function CreateVillage()
 
   phase = 0
 
-  --AppearFinalCastle()
+  AppearFinalCastle()
 end
 
 function SetVilliageBackgroundMusic()
