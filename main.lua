@@ -4,6 +4,10 @@ require("Control")
 
 require("AnAL") --애니메이션 관련
 
+--파일입출력 관련
+require("Save")
+require("Load")
+
 --그래픽 관련
 require("Box")
 require("BoxList")
@@ -224,7 +228,7 @@ function love.update(dt)
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
     and tutorialStart == false and returnToVillage == false and needOverwork == false
-    and blacksmithTalkCheck == false then
+    and blacksmithTalkCheck == false and askSave == false then
       updateGame(dt)
   end
 
@@ -233,6 +237,7 @@ function love.update(dt)
   mouse_y = love.mouse.getY()
 
   CheckPortal()
+  CheckGameSave()
 
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
@@ -268,6 +273,8 @@ function love.draw()
   if needOverwork then --마을에 할 일이 남았을때 띄워주는 메시지
     NeedOverworkAtVillage()
   end
+
+  DrawAskSaveGame()
 
   if blacksmithCheck then
     DrawBlackSmith()
@@ -310,14 +317,7 @@ function love.draw()
     DrawBackToVillage()
   end
 
-  if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
-    love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,20)
-    love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
-    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
-    love.graphics.print("qmarkCount  : "..qmarkCount..", correctTutorialAnswer : "..correctTutorialAnswer,20,100)
-    love.graphics.setColor(255,255,255,255)
-  end
+  HSDebug()
 
 
   if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
@@ -394,6 +394,8 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
+  ControlGameSave()
+  ControlNonLoad()
 
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
@@ -528,6 +530,8 @@ function drawGame()
   if playerDeadCheck then
     BadEnding()
   end
+
+  NonLoad()
 
   QMarkListDraw()
   TalkWithBlacksmith() --대장장이와 대화
@@ -758,4 +762,31 @@ end
 function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
   --여름에서 메시지 안없어지는 버그 해결.
   ControlFadeOutVerMouse()
+end
+
+function HSDebug()
+  if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
+    if table.getn(savedDataList) > 0 then
+      love.graphics.setColor(0,0,255,255)
+      --love.graphics.print('getSaved: ' .. tostring(getSaved),20,10)
+      --love.graphics.print('savedDataList: ' .. tostring(table.getn(savedDataList)),20,10)
+      --for i = 1, table.getn(savedDataList) do
+        --love.graphics.print(tostring(savedDataList[i]).." ",20,10+i*10)
+        love.graphics.print("tutorialProgressLevel : "..tutorialProgressLevel,20,10)
+        love.graphics.print("talkCountWithElder : "..talkCountWithElder,20,25)
+        love.graphics.print("clearLevel : "..clearLevel,20,40)
+        love.graphics.print("stageClearLevel : "..stageClearLevel,20,55)
+        love.graphics.print("portalBlock : "..tostring(portalBlock),20,70)
+        love.graphics.print("playerLife : "..playerLife,20,85)
+        love.graphics.print("firstTalkWithBlacksmith:"..tostring(firstTalkWithBlacksmith),20,100)
+      --end
+    else
+      love.graphics.setColor(255,0,0,255)
+      love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,20)
+      love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
+      love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
+      love.graphics.print("stageClearLevel  : "..stageClearLevel,20,100)
+    end
+    love.graphics.setColor(255,255,255,255)
+  end
 end

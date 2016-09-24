@@ -247,7 +247,7 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
 
   end
   if pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==6 then--보스에서 
-		  if coordinate_Y==1 and coordinate_X==12 then
+      if coordinate_Y==1 and coordinate_X==12 then
       map=mapBossTwo
       BoxListDelete()
       CreateMaze()
@@ -255,10 +255,10 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
       MazeReset()
      else 
       MazeReset()
-      algoCheck=false
+      SummerClear()
     end
-	end
-	ControlFadeOutVerMouse()
+  end
+  ControlFadeOutVerMouse()
 end
 
 function MazeReset()--미로 초기화 함수 
@@ -279,5 +279,14 @@ function MazeStart()--미로 시작 함수
   if pl and mazePlayStart then --
     pl:UpdateMazeMove()
     MazeCheckCollect()
+  end
+end
+
+function SummerClear()
+  if stageLevel == 6 then
+    algoCheck = false
+    bossTalkCheck = false
+    bossClearCheck = true
+    BossListDelete()
   end
 end
