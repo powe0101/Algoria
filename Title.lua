@@ -26,7 +26,7 @@ function DrawTitleMenu()
   if suit.Button("불러오기", WIDTH/2-100,HEIGHT/2+20+25,200,15).hit then
     if love.filesystem.exists( 'savedData.txt' ) then
       LoadGame()
-    else 
+    else
       --이 상태면 기존의 세이브가 없는 상태.
       nonLoad = true
     end
@@ -89,4 +89,8 @@ function CreateTitleVillage(_y)
   CreateBackGround(250,0)
   CreateBackGround(540,0)
   CreateBackGround(830,0)
+
+  PortalDelete()
+  pl = nil
+  -- 버그 수정 G
 end

@@ -7,11 +7,17 @@ end
 
 function PortalDraw()
 	if Portal == nil then
-		return 
+		return
 	end
 	Portal:draw()
 end
 
 function PortalUpdate(dt)
 	Portal:update(dt)
+end
+
+function PortalDelete()
+	if Portal ~= nil then
+		Portal = nil
+	end
 end
