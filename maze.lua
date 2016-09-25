@@ -102,6 +102,7 @@ function ButtonDraw(x,y)-- 생성된 버튼이 눌렸을시
 	 end
     end
 	if clickCount~=5 then
+	if stageLevel==2 then
     if suit.Button(" pass ",300,11,53,27).hit then
       MazeReset()
      
@@ -117,7 +118,8 @@ function ButtonDraw(x,y)-- 생성된 버튼이 눌렸을시
         MazeMap()
       end
 
-    end
+    	end
+	end
 		if suit.Button(" Up ",344,11,53,27).hit then
 			clickCountList[clickCount]=0
        		clickCount=clickCount+1-- 클릭 횟수
@@ -201,18 +203,18 @@ function MazePrint() --버튼이 눌렸을시 머가 눌렸는지 보여주는 �
  	love.graphics.print("<- 버튼을 \n 클릭하세요  " ,485,15)
 
  	if MazePlaying==true then
- 		love.graphics.print("ongoing..." ,393,30)
+ 		love.graphics.print("Ongoing..." ,393,30)
  	end
 
  for i=0,clickCount do
  	if clickCountList[i]==0 then
- 	    love.graphics.print("  UP",190+i*38, 180)
+ 	    love.graphics.print(" UP",190+i*38, 180)
     elseif clickCountList[i]==1 then
-        love.graphics.print("Dwon",190+i*38, 180)
+        love.graphics.print("Down",190+i*38, 180)
     elseif clickCountList[i]==2 then
           love.graphics.print("Right",190+i*38, 180)
     elseif clickCountList[i]==3 then
-         love.graphics.print("left",190+i*38, 180)
+         love.graphics.print("Left",190+i*38, 180)
     end
    
 end
@@ -253,6 +255,7 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
       CreateMaze()
       pl.y=pl.y+140
       MazeReset()
+      pl:StartMaze()
      else 
       MazeReset()
       SummerClear()
