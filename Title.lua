@@ -14,16 +14,18 @@ function DrawTitleMenu()
   suit = require 'suit'
   if SCALE ~= 1 then
     local x,y = suit.getMousePosition()
-    suit.updateMouse(x/SCALE,y/SCALE)
+    if nonLoad == false then
+      suit.updateMouse(x/SCALE,y/SCALE)
+    end
   end
 
   love.graphics.draw(titleImg,WIDTH/2-110,16)
   suit.layout:reset(0,0)
-  if suit.Button("게임시작", WIDTH/2-100,HEIGHT/2+20,200,15).hit and nonLoad == false  then
+  if suit.Button("게임시작", WIDTH/2-100,HEIGHT/2+20,200,15).hit then
     CheckStartGameForTitle()
   end
 
-  if suit.Button("불러오기", WIDTH/2-100,HEIGHT/2+20+25,200,15).hit and nonLoad == false then
+  if suit.Button("불러오기", WIDTH/2-100,HEIGHT/2+20+25,200,15).hit then
     if love.filesystem.exists( 'savedData.txt' ) then
       LoadGame()
     else
