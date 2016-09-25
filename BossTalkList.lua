@@ -118,52 +118,54 @@ function FallBossBossTalk2() --Boss Talk 2
 end
 
 function FallBossWarriorTalk3() --Warrior Talk 3
- 	love.graphics.print("훗 나도 빠르게 문제를 풀고 널 ", 45, 12)
- 	love.graphics.print("이번에야 말로 붙잡을 것이다!", 45, 32)
-
+ 	love.graphics.print("나도 빠르게 문제를 풀고 ", 45, 12)
+ 	love.graphics.print("이번에야 말로 널", 45, 32)
+ 	love.graphics.print("놓치지 않을 것이다!.", 45, 32)
+ 
 end
 
 function FallBossBossTalk3() --Boss Talk 3
- 	love.graphics.print("이건 작전상 후퇴라는 것이다. ", 405, 22)
- 	love.graphics.print("용사여 자 이번에야 말로 널", 405, 42)
+ 	love.graphics.print("난 도망치는것이 아니라 ", 405, 22)
+ 	love.graphics.print("작전상 후퇴라는 것이다.", 405, 42)
+ 	love.graphics.print("자 용사여 이번에야 말로 널", 405, 42)
  	love.graphics.print("쓰러트려 줄 것이다", 405, 62)
 end
 
 ---------------------------------------------------------------겨울 대화
 function WinterBossWarriorTalk1() --Warrior Talk 1
 
- 	love.graphics.print("Winter Warrior Part1.", 45, 12)
- 	love.graphics.print("Winter Warrior Part1.", 45, 32)
- 	love.graphics.print("Winter Warrior Part1.", 45, 52)
+ 	love.graphics.print("내가 알기로는 여긴 겨울 ", 45, 12)
+ 	love.graphics.print("스테이지 넌 더 이상 ", 45, 32)
+ 	love.graphics.print("도망갈 길이 없을거다.", 45, 52)
 end
 
 function WinterBossBossTalk1() --Boss Talk 1
 
- 	love.graphics.print("Winter Boss Talk 1", 405, 22)
- 	love.graphics.print("Winter Boss Talk 1", 405, 42)
- 	love.graphics.print("Winter Boss Talk 1", 405, 62)
+ 	love.graphics.print("이게 고통이라는 느낌인가?", 405, 22)
+ 	love.graphics.print("너무 아프다.", 405, 42)
 end
 
 function WinterBossWarriorTalk2() --Warrior Talk 2
- 	love.graphics.print("Winter Warrior Talk 2", 45, 12)
- 	love.graphics.print("Winter Warrior Talk 2", 45, 32)
- 	love.graphics.print("Winter Warrior Talk 2", 45, 52)
+ 	love.graphics.print("이번에야말로 널 쓰러트리고", 45, 12)
+ 	love.graphics.print("세계를 구원할 것이다.", 45, 32)
+
 end
 
 function WinterBossBossTalk2() --Boss Talk 2
- 	love.graphics.print("Winter Boss Talk 2", 405, 22)
- 	love.graphics.print("Winter Boss Talk 2", 405, 42)
- 	love.graphics.print("Winter Boss Talk 2", 405, 62)
+ 	love.graphics.print("'역시 역대 마왕들이 용사와", 405, 22)
+ 	love.graphics.print("상종 안 하는 이유가 있었어'", 405, 42)
+	
 end
 
 function WinterBossWarriorTalk3() --Warrior Talk 3
- 	love.graphics.print("Winter Warrior Talk 3", 45, 12)
- 	love.graphics.print("Winter Warrior Talk 3", 45, 32)
- 	love.graphics.print("Winter Warrior Talk 3", 45, 52)
+ 	love.graphics.print("마왕이여 이번엔 다를거다", 45, 12)
+ 	love.graphics.print("자 마지막 진검승부닷!", 45, 32)
+
 end
 
 function WinterBossBossTalk3() --Boss Talk 3
- 	love.graphics.print("Winter Boss Talk 3", 405, 22)
- 	love.graphics.print("Winter Boss Talk 3", 405, 42)
- 	love.graphics.print("Winter Boss Talk 3", 405, 62)
+ 	love.graphics.print("이제 거의 문제도 다", 405, 22)
+ 	love.graphics.print("바닥났는데 이판 사판이다", 405, 42)
+ 	love.graphics.print("자 받아라 나의 마지막 ", 405, 62)
+ 	love.graphics.print("문제다!", 405, 82)
 end
