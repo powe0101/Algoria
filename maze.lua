@@ -208,7 +208,7 @@ function MazePrint() --버튼이 눌렸을시 머가 눌렸는지 보여주는 �
 
  for i=0,clickCount do
  	if clickCountList[i]==0 then
- 	    love.graphics.print(" UP",190+i*38, 180)
+ 	    love.graphics.print("  UP",190+i*38, 180)
     elseif clickCountList[i]==1 then
         love.graphics.print("Down",190+i*38, 180)
     elseif clickCountList[i]==2 then

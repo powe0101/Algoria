@@ -164,10 +164,20 @@ function Player:UpdateMazeMove()--미로에서 플레이어 이동 관련 함수
         	self.x=self.x+20
 		 	buttonCount=buttonCount+1
             coordinate_X=coordinate_X+1 --플레이어의 미로 X 좌표
+            if stageLevel==2 then
+            	player_now_frame = summerPlayer_frames_left[math.floor(self.frame)]
+            elseif stageLevel==6 then
+            	player_now_frame = player_frames_left[math.floor(self.frame)]
+            end
         elseif clickCountList[buttonCount]==3 then
         	self.x=self.x-20
         	buttonCount=buttonCount+1
         	coordinate_X=coordinate_X-1 --플레이어의 미로 X 좌표
+        	if stageLevel==2 then
+            	player_now_frame = summerPlayer_frames_right[math.floor(self.frame)]
+            elseif stageLevel==6 then
+            	player_now_frame = player_frames_right[math.floor(self.frame)]
+            end
         end
 end
 
