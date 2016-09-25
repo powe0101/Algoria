@@ -41,6 +41,18 @@ function LoadSavedData()
 		else
 			firstTalkWithBlacksmith = true
 		end
+
+		if tostring(savedDataList[16]) == "false" then
+			playerDeadCheck = false
+		else
+			playerDeadCheck = true
+		end
+
+		if tostring(savedDataList[18]) == "false" then
+			reTitleCheck = false
+		else
+			reTitleCheck = true
+		end
     end
 end
 
