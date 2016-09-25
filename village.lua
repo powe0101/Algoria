@@ -28,10 +28,10 @@ function CreateVillage()
   PlayAudio("audio/363489.Opening.mp3",1,0.3,true) -- 파일 주소 , 피치, 볼륨, 반복
   CreateGround(-49,76)
   CreateGround(541,76)
-  CreateBackGround(-40,0)
-  CreateBackGround(250,0)
-  CreateBackGround(540,0)
-  CreateBackGround(830,0)
+  CreateBackGround(-50,0)
+  CreateBackGround(240,0)
+  CreateBackGround(530,0)
+  CreateBackGround(820,0)
 
   CreateTree(-50,80)
   CreateTree(220,80)
@@ -56,8 +56,6 @@ function CreateVillage()
   end
 
   phase = 0
-
-  AppearFinalCastle()
 end
 
 function SetVilliageBackgroundMusic()

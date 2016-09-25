@@ -17,8 +17,9 @@ function CheckSeason()
     CreateFall()
     --stageLevel = 7;    CreateBossCastle()
   elseif stageLevel == 4 then
-    CreateWinter()
+    --CreateWinter()
     --stageLevel = 8; CreateBossCastle()
+    CreateFinal()
   end
 end
 

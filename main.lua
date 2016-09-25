@@ -18,6 +18,7 @@ require("chiefHouseList")
 require("BlackSmithHouse")
 require("chief")
 require("Portal")
+require("FinalPortal")
 require("Ground")
 require("groundList")
 require("River")
@@ -28,6 +29,7 @@ require("QMark")
 require("qMarkList")
 require("Castle")
 require("castleList")
+require("FinalCastle")
 require("Bridge")
 require("bridgeList")
 require("Boss")
@@ -52,7 +54,8 @@ require("StageSummer")
 require("StageWinter")
 require("StageBoss") --중간보스 스테이지
 require("Clear") --클리어
-require("FinalCastle")
+require("StageFinal")
+
 --문제풀이 관련
 require("Quest")
 require("Answer")
@@ -480,8 +483,11 @@ function updateGame(dt)
     BridgeListUpdate(dt)
   end
 
-  if stageLevel == 0 then
+  if stageLevel == 9 then
     fCastle:update(dt)
+    --if fCastle:GetY() == 15 then
+      FinalPortalUpdate(dt)
+    --end
   end
 end
 
@@ -536,16 +542,19 @@ function drawGame()
     directionArrow:Draw()
   end
 
+  if stageLevel == 9 then
+    fCastle:draw()
+    if fCastle:GetY() == 15 then
+      FinalPortalDraw()
+    end
+  end
+
   if pl and playerDeadCheck == false then --플레이어가 죽었을 때를 가정.
     pl:draw() -- 플레이어 스프라이트 그리기
   end
 
   if notice then
     NoticeDraw()
-  end
-
-  if stageLevel == 0 then
-    fCastle:draw()
   end
 end
 
@@ -596,6 +605,8 @@ function loadResources()
 
   imgPortal = love.graphics.newImage("images/portal.png")
   imgPortal:setFilter("nearest","nearest")
+  imgFPortal = love.graphics.newImage("images/finalPortal.png")
+  imgFPortal:setFilter("nearest","nearest")
 
   imgPicket = love.graphics.newImage("images/picket.png")
   imgPicket:setFilter("nearest", "nearest")

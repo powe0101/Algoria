@@ -85,6 +85,6 @@ function Ground:draw()
 	elseif stageLevel == 8 then
 		love.graphics.draw(imgWinterCastle,Ground_castle_frames,self.x,self.y)
 	elseif stageLevel == 9 then
-		love.graphics.draw(imgFinalGround,Ground_castle_frames,self.x,self.y)
+		love.graphics.draw(imgFinalGround,Ground_now_frame,self.x,self.y)
 	end
 end
