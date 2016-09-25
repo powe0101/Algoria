@@ -94,40 +94,39 @@ end
 ---------------------------------------------------------------가을 대화
 function FallBossWarriorTalk1() --Warrior Talk 1
 
- 	love.graphics.print("Fall Warrior Part1.", 45, 12)
- 	love.graphics.print("Fall Warrior Part1.", 45, 32)
- 	love.graphics.print("Fall Warrior Part1.", 45, 52)
+ 	love.graphics.print("너의 체면 보다 이제 너의", 45, 12)
+ 	love.graphics.print("목숨을 챙겨야 할 것이다! ", 45, 32)
 end
 
 function FallBossBossTalk1() --Boss Talk 1
 
- 	love.graphics.print("Fall Boss Talk 1", 405, 22)
- 	love.graphics.print("Fall Boss Talk 1", 405, 42)
- 	love.graphics.print("Fall Boss Talk 1", 405, 62)
+ 	love.graphics.print("이제 가을 스테이지 까지 ", 405, 22)
+ 	love.graphics.print("오다니 마왕 체면 구기는군", 405, 42)
+ 	
 end
 
 function FallBossWarriorTalk2() --Warrior Talk 2
- 	love.graphics.print("Fall Warrior Talk 2", 45, 12)
- 	love.graphics.print("Fall Warrior Talk 2", 45, 32)
- 	love.graphics.print("Fall Warrior Talk 2", 45, 52)
+ 	love.graphics.print("칫 불멸자라면서 계속 ", 45, 12)
+ 	love.graphics.print("도망만 가고 있잖아? ", 45, 32)
+ 
 end
 
 function FallBossBossTalk2() --Boss Talk 2
- 	love.graphics.print("Fall Boss Talk 2", 405, 22)
- 	love.graphics.print("Fall Boss Talk 2", 405, 42)
- 	love.graphics.print("Fall Boss Talk 2", 405, 62)
+ 	love.graphics.print("나는 마계의 지배자이며 ", 405, 22)
+ 	love.graphics.print("나는 불멸이다. 필멸자여", 405, 42)
+ 	love.graphics.print("용사 따위에게 질 수야 없지", 405, 62)
 end
 
 function FallBossWarriorTalk3() --Warrior Talk 3
- 	love.graphics.print("Fall Warrior Talk 3", 45, 12)
- 	love.graphics.print("Fall Warrior Talk 3", 45, 32)
- 	love.graphics.print("Fall Warrior Talk 3", 45, 52)
+ 	love.graphics.print("훗 나도 빠르게 문제를 풀고 널 ", 45, 12)
+ 	love.graphics.print("이번에야 말로 붙잡을 것이다!", 45, 32)
+
 end
 
 function FallBossBossTalk3() --Boss Talk 3
- 	love.graphics.print("Fall Boss Talk 3", 405, 22)
- 	love.graphics.print("Fall Boss Talk 3", 405, 42)
- 	love.graphics.print("Fall Boss Talk 3", 405, 62)
+ 	love.graphics.print("이건 작전상 후퇴라는 것이다. ", 405, 22)
+ 	love.graphics.print("용사여 자 이번에야 말로 널", 405, 42)
+ 	love.graphics.print("쓰러트려 줄 것이다", 405, 62)
 end
 
 ---------------------------------------------------------------겨울 대화
