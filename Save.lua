@@ -58,8 +58,4 @@ function SaveGame()
 
 	--love.filesystem.setIdentity("Algoria") --세이브 디렉토리 경로
 	savedCheck = love.filesystem.write('savedData.txt', savedString )
-
-	if savedCheck then
-		love.timer.sleep(2)
-	end
 end
