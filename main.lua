@@ -4,6 +4,10 @@ require("Control")
 
 require("AnAL") --애니메이션 관련
 
+--파일입출력 관련
+require("Save")
+require("Load")
+
 --그래픽 관련
 require("Box")
 require("BoxList")
@@ -52,7 +56,7 @@ require("StageSummer")
 require("StageWinter")
 require("StageBoss") --중간보스 스테이지
 require("Clear") --클리어
-
+require("FinalCastle")
 --문제풀이 관련
 require("Quest")
 require("Answer")
@@ -224,7 +228,7 @@ function love.update(dt)
   if popupCheck == false and questCheck == false and blacksmithCheck == false
     and bossTalkCheck == false and algoCheck == false and bubbleTipCheck == false
     and tutorialStart == false and returnToVillage == false and needOverwork == false
-    and blacksmithTalkCheck == false then
+    and blacksmithTalkCheck == false and askSave == false then
       updateGame(dt)
   end
 
@@ -233,6 +237,7 @@ function love.update(dt)
   mouse_y = love.mouse.getY()
 
   CheckPortal()
+  CheckGameSave()
 
   CheckBlackSmith()
   CheckFadeIn(dt) --정답/오답 뜰때 페이드인/아웃 적용 테스트중.. by.0804 현식.
@@ -268,6 +273,8 @@ function love.draw()
   if needOverwork then --마을에 할 일이 남았을때 띄워주는 메시지
     NeedOverworkAtVillage()
   end
+
+  DrawAskSaveGame()
 
   if blacksmithCheck then
     DrawBlackSmith()
@@ -310,14 +317,7 @@ function love.draw()
     DrawBackToVillage()
   end
 
-  if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
-    love.graphics.setColor(255,0,0,255)
-    love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,20)
-    love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
-    love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
-    love.graphics.print("qmarkCount  : "..qmarkCount..", correctTutorialAnswer : "..correctTutorialAnswer,20,100)
-    love.graphics.setColor(255,255,255,255)
-  end
+  HSDebug()
 
 
   if playerDeadCheck == false and reTitleCheck == false then --플레이어가 죽으면 라이프도 안보이게.
@@ -394,6 +394,8 @@ function love.keypressed(key,scancode) -- 키입력
   CortrolBubbleSort()
   ControlTutorial()
   ControlBackToVillage()
+  ControlGameSave()
+  ControlNonLoad()
 
   --Portal&Season
   ControlPopup() --그냥 사용자가 이동할 경우.
@@ -479,6 +481,10 @@ function updateGame(dt)
     CheckBridegeAniPassValue()--by.근영 0802  다리의 애니메이션 언제 시작 할 것인지 조건 함수. -> by.현식 0810, 리스트화 시키면서 수정함.
     BridgeListUpdate(dt)
   end
+
+  if stageLevel == 9 then
+    fCastle:update(dt)
+  end
 end
 
 function drawGame()
@@ -525,6 +531,8 @@ function drawGame()
     BadEnding()
   end
 
+  NonLoad()
+
   QMarkListDraw()
   TalkWithBlacksmith() --대장장이와 대화
 
@@ -538,6 +546,10 @@ function drawGame()
 
   if notice then
     NoticeDraw()
+  end
+
+  if stageLevel == 9 then
+    fCastle:draw()
   end
 end
 
@@ -567,6 +579,8 @@ function loadResources()
   imgFTree:setFilter("nearest","nearest")
   imgWTree = love.graphics.newImage("images/winterTree.png")
   imgWTree:setFilter("nearest","nearest")
+  imgFinalTree = love.graphics.newImage("images/finalTree.png")
+  imgFinalTree:setFilter("nearest","nearest")
 
   imgCloud = love.graphics.newImage("images/cloud.png")
   imgCloud:setFilter("nearest","nearest")
@@ -577,6 +591,12 @@ function loadResources()
   imgCHouse:setFilter("nearest","nearest")
   imgBSHouse = love.graphics.newImage("images/blacksmithhouse.png")
   imgBSHouse:setFilter("nearest","nearest")
+  imgFinalHouse = love.graphics.newImage("images/crashedHouse.png")
+  imgFinalHouse:setFilter("nearest","nearest")
+  imgFinalCHouse = love.graphics.newImage("images/crashedChiefHouse.png")
+  imgFinalCHouse:setFilter("nearest","nearest")
+  imgFinalBSHouse = love.graphics.newImage("images/crashedBlacksmithHouse.png")
+  imgFinalBSHouse:setFilter("nearest","nearest")
 
   imgPortal = love.graphics.newImage("images/portal.png")
   imgPortal:setFilter("nearest","nearest")
@@ -594,10 +614,11 @@ function loadResources()
   imgWGround:setFilter("nearest","nearest")
   imgWGround2 = love.graphics.newImage("images/winterGround2.png")
   imgWGround2:setFilter("nearest","nearest")
+  imgFinalGround = love.graphics.newImage("images/finalGround.png")
+  imgFinalGround:setFilter("nearest","nearest")
 
   imgSCreeper = love.graphics.newImage("images/creeper.png")
   imgSCreeper:setFilter("nearest","nearest")
-
   imgCreeperFire = love.graphics.newImage("images/creeperfire.png")
   imgCreeperFire:setFilter("nearest","nearest")
 
@@ -617,6 +638,8 @@ function loadResources()
 
   imgCastle = love.graphics.newImage("images/castle.png")
   imgCastle:setFilter("nearest","nearest")
+  imgFCastle = love.graphics.newImage("images/finalCastle.png")
+  imgFCastle:setFilter("nearest","nearest")
 
   imgSavePaper = love.graphics.newImage("images/item/savePaper.png")
   imgSavePaper:setFilter("nearest","nearest")
@@ -668,6 +691,8 @@ function loadResources()
   imgFallCastle:setFilter("nearest","nearest")
   imgWinterCastle = love.graphics.newImage("images/winterInnerCastle.png")
   imgWinterCastle:setFilter("nearest","nearest")
+  imgFinalCastle = love.graphics.newImage("images/finalInnerCastle.png")
+  imgFinalCastle:setFilter("nearest","nearest")
 
   imgVillageBackGround = love.graphics.newImage("images/village.png")
   imgVillageBackGround:setFilter("nearest","nearest")
@@ -681,6 +706,8 @@ function loadResources()
   imgWinterBackGround :setFilter("nearest","nearest")
   imgWinterBackGround2 = love.graphics.newImage("images/winter2.png")
   imgWinterBackGround2 :setFilter("nearest","nearest")
+  imgFinalBackGround = love.graphics.newImage("images/finalBackground.png")
+  imgFinalBackGround :setFilter("nearest","nearest")
 
   imgSandStorm = love.graphics.newImage("images/sandstorm.png")
   imgSandStorm:setFilter("nearest","nearest")
@@ -735,4 +762,31 @@ end
 function love.mousepressed(x,y) --근영 마우스 클릭 됬을시
   --여름에서 메시지 안없어지는 버그 해결.
   ControlFadeOutVerMouse()
+end
+
+function HSDebug()
+  if tempForMainXCoord and pl and hsDebug then --메인에서 용사 좌표 보려고
+    if table.getn(savedDataList) > 0 then
+      love.graphics.setColor(0,0,255,255)
+      --love.graphics.print('getSaved: ' .. tostring(getSaved),20,10)
+      --love.graphics.print('savedDataList: ' .. tostring(table.getn(savedDataList)),20,10)
+      --for i = 1, table.getn(savedDataList) do
+        --love.graphics.print(tostring(savedDataList[i]).." ",20,10+i*10)
+        love.graphics.print("tutorialProgressLevel : "..tutorialProgressLevel,20,10)
+        love.graphics.print("talkCountWithElder : "..talkCountWithElder,20,25)
+        love.graphics.print("clearLevel : "..clearLevel,20,40)
+        love.graphics.print("stageClearLevel : "..stageClearLevel,20,55)
+        love.graphics.print("portalBlock : "..tostring(portalBlock),20,70)
+        love.graphics.print("playerLife : "..playerLife,20,85)
+        love.graphics.print("firstTalkWithBlacksmith:"..tostring(firstTalkWithBlacksmith),20,100)
+      --end
+    else
+      love.graphics.setColor(255,0,0,255)
+      love.graphics.print(pl:GetX().."\ntutorialProgressLevel : "..tutorialProgressLevel,20,20)
+      love.graphics.print("talkCountWithElder  : "..talkCountWithElder,20,60)
+      love.graphics.print("stageLevel  : "..stageLevel..", clearLevel : "..clearLevel,20,80)
+      love.graphics.print("stageClearLevel  : "..stageClearLevel,20,100)
+    end
+    love.graphics.setColor(255,255,255,255)
+  end
 end

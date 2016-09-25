@@ -54,6 +54,8 @@ function Tree:draw()
 		love.graphics.draw(imgFTree,tree_frames_x[0],self.x,self.y)
 	elseif stageLevel == 4 then
 		love.graphics.draw(imgWTree,tree_frames_x[0],self.x,self.y)
+	elseif stageLevel == 9 then
+		love.graphics.draw(imgFinalTree,tree_frames_x[0],self.x,self.y)
 	end
 end
 

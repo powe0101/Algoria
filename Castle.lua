@@ -23,13 +23,11 @@ function Castle:reset(x,y)
 	castle_now_frame = castle_frames[0]
 end
 
-
-
-function Castle:SpaceJump(dt) --0808근영 점프함수  
+function Castle:SpaceJump(dt) --0808근영 점프함수
 	self=SCheckSpaceBarDown(self,dt)
 end
 
-function Castle:UpdateMove(dt) 
+function Castle:UpdateMove(dt)
 	self=BackgroundMove(self,dt)
   end
 

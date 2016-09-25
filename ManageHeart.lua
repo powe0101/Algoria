@@ -58,6 +58,14 @@ end
 function InitLife()
 	if playerLife == 5 then
     	LifeFive() --최초에 게임이 시작될때 라이프가 5개로 띄워지도록. 단, 다른 스테이지 갔다가 라이프가 5개 밑일 경우 실행되지 않도록.
+    elseif playerLife == 4 then
+    	LifeFour()
+    elseif playerLife == 3 then
+    	LifeThree()
+    elseif playerLife == 2 then
+    	LifeTwo()
+    elseif playerLife == 1 then
+    	LifeOne()
   	elseif playerLife == 0 then
     	HeartListDelete()
     	BheartListDelete()
