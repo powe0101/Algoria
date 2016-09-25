@@ -41,6 +41,18 @@ function LoadSavedData()
 		else
 			firstTalkWithBlacksmith = true
 		end
+
+		if tostring(savedDataList[16]) == "false" then
+			playerDeadCheck = false
+		else
+			playerDeadCheck = true
+		end
+
+		if tostring(savedDataList[18]) == "false" then
+			reTitleCheck = false
+		else
+			reTitleCheck = true
+		end
     end
 end
 
@@ -62,17 +74,17 @@ function LoadItem()
 	end
 end
 
-function NonLoad()
+function NonLoadDraw()
 	if nonLoad then
 		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-		DrawRectangle(80, 5, 110, 57)
+		DrawRectangle(95, 5, 110, 57)
 		love.graphics.setColor(255,255,255,255)
-		love.graphics.rectangle("fill", 162, 12, 216, 110)
+		love.graphics.rectangle("fill", 192, 12, 216, 110)
 
 		love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
-		love.graphics.print("기존에 저장된 파일이 없습니다.", 170, 25)
+		love.graphics.print("기존에 저장된 데이터가 없습니다!", 198, 25)
 
-		love.graphics.print("'Enter'키를 누르면 처음부터 시작합니다.",168, 90)
+		love.graphics.print("'Enter'키를 누르면 \n                       처음부터 시작합니다.",198, 75)
 	end
 end
 

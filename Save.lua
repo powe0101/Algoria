@@ -54,12 +54,9 @@ function SaveGame()
 	--위의 clearLevel과 다른 변수. 이건 단순 아이템을 체킹하기 위한 변수.
 	"portalBlock:\n"..tostring(portalBlock).."\n"..
 	"playerLife:\n"..tostring(playerLife).."\n"..
-	"firstTalkWithBlacksmith\n"..tostring(firstTalkWithBlacksmith)
+	"playerDeadCheck\n"..tostring(playerDeadCheck).."\n"..
+	"reTitleCheck\n"..tostring(reTitleCheck)
 
 	--love.filesystem.setIdentity("Algoria") --세이브 디렉토리 경로
 	savedCheck = love.filesystem.write('savedData.txt', savedString )
-
-	if savedCheck then
-		love.timer.sleep(2)
-	end
 end

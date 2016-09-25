@@ -85,7 +85,7 @@ function DrawBackToVillage()
   love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
   love.graphics.print("마을로 이동하시겠습니까?", 170, 25)
 
-  love.graphics.print("이동하시려면 'enter'키를 눌러주세요.",168, 90)
+  love.graphics.print("이동하시려면 'Enter'키를 눌러주세요.",168, 90)
 end
 
 function InitWhenClear() --클리어했을때 초기화.

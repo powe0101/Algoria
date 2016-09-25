@@ -316,7 +316,6 @@ function love.draw()
   if returnToVillage then
     DrawBackToVillage()
   end
-
   HSDebug()
 
 
@@ -329,6 +328,7 @@ function love.draw()
     suit.draw()
   end
 
+  NonLoadDraw()
   ActivateFadeOut() --Answer.lua, 오답시 띄워주는 메시지.
 end
 
@@ -531,7 +531,7 @@ function drawGame()
     BadEnding()
   end
 
-  NonLoad()
+  
 
   QMarkListDraw()
   TalkWithBlacksmith() --대장장이와 대화

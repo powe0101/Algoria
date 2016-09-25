@@ -74,6 +74,21 @@ function InitLife()
   	end
 end
 
+function LifeControl()
+	if playerLife == 5 then
+		LifeFive() --최초 1회 실행해야할 필요가 있음. Village에서 실행시킴.
+	elseif playerLife ==4 then
+		LifeFour()
+	elseif playerLife == 3 then
+		LifeThree()
+	elseif playerLife == 2 then
+		LifeTwo()
+	elseif playerLife == 1 then
+		LifeOne()
+	elseif playerLife == 0 then
+		--LifeZero() --라이프가 0이므로 게임종료시켜야함. 근데 생각해보면 이거 필요없음.
+	end
+end
 
 function PlayerDie() --라이프가 다 닳아서 죽는 부분.
 	love.graphics.setBackgroundColor(255,255,255,255)
@@ -116,22 +131,6 @@ function BadEnding()
 	love.graphics.print("다시 시작하려면 'Space'키를 누르세요.",70,155)
 	love.graphics.setColor(255,255,255,255)
 	love.graphics.draw(imgWarrorDead, dead_frame, 250, 60)
-end
-
-function LifeControl()
-	if playerLife == 5 then
-		LifeFive() --최초 1회 실행해야할 필요가 있음. Village에서 실행시킴.
-	elseif playerLife ==4 then
-		LifeFour()
-	elseif playerLife == 3 then
-		LifeThree()
-	elseif playerLife == 2 then
-		LifeTwo()
-	elseif playerLife == 1 then
-		LifeOne()
-	elseif playerLife == 0 then
-		LifeZero() --라이프가 0이므로 게임종료시켜야함.
-	end
 end
 
 function LifeFive()
