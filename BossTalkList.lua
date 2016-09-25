@@ -53,40 +53,41 @@ end
 ---------------------------------------------------------------여름 대화
 function SummerBossWarriorTalk1() --Warrior Talk 1
 
- 	love.graphics.print("Summer Warrior Part1.", 45, 12)
- 	love.graphics.print("Summer Warrior Part1.", 45, 32)
- 	love.graphics.print("Summer Warrior Part1.", 45, 52)
+ 	love.graphics.print("훗. 나에게는 하늘을", 45, 12)
+ 	love.graphics.print("날 수 있는 날개가 ", 45, 32)
+ 	love.graphics.print("있기 때문이다!", 45, 52)
 end
 
 function SummerBossBossTalk1() --Boss Talk 1
 
- 	love.graphics.print("Summer Boss Talk 1", 405, 22)
- 	love.graphics.print("Summer Boss Talk 1", 405, 42)
- 	love.graphics.print("Summer Boss Talk 1", 405, 62)
+ 	love.graphics.print("아니!? 그 미로와", 405, 22)
+ 	love.graphics.print("하늘의 가시는 어떻게", 405, 42)
+ 	love.graphics.print("해치고 왔지?", 405, 62)
 end
 
 function SummerBossWarriorTalk2() --Warrior Talk 2
- 	love.graphics.print("Summer Warrior Talk 2", 45, 12)
- 	love.graphics.print("Summer Warrior Talk 2", 45, 32)
- 	love.graphics.print("Summer Warrior Talk 2", 45, 52)
+ 	love.graphics.print("자 마왕이여 이제 ", 45, 12)
+ 	love.graphics.print("순순히 항복해라", 45, 32)
+
 end
 
 function SummerBossBossTalk2() --Boss Talk 2
- 	love.graphics.print("Summer Boss Talk 2", 405, 22)
- 	love.graphics.print("Summer Boss Talk 2", 405, 42)
- 	love.graphics.print("Summer Boss Talk 2", 405, 62)
+ 	love.graphics.print("'그래서 나의 여름 ", 405, 22)
+ 	love.graphics.print("스테이지를 용사가 ", 405, 42)
+ 	love.graphics.print("빠져 나올 수 있었군'", 405, 62)
 end
 
 function SummerBossWarriorTalk3() --Warrior Talk 3
- 	love.graphics.print("Summer Warrior Talk 3", 45, 12)
- 	love.graphics.print("Summer Warrior Talk 3", 45, 32)
- 	love.graphics.print("Summer Warrior Talk 3", 45, 52)
+ 	love.graphics.print("흥 난 어떤 문제에도 ", 45, 12)
+ 	love.graphics.print("쉽게 굴복하지 않아!", 45, 32)
 end
 
 function SummerBossBossTalk3() --Boss Talk 3
- 	love.graphics.print("Summer Boss Talk 3", 405, 22)
- 	love.graphics.print("Summer Boss Talk 3", 405, 42)
- 	love.graphics.print("Summer Boss Talk 3", 405, 62)
+ 	love.graphics.print("훗 그동안 너무 ", 405, 22)
+ 	love.graphics.print("지겨운 세월이었는데 ", 405, 42)
+ 	love.graphics.print("좀 재미 있어지는군", 405, 62)
+ 	love.graphics.print("아무리 용사의 핏줄이여도", 405, 82)
+ 	love.graphics.print("이번은 다를것이다.", 405, 102)
 end
 
 
