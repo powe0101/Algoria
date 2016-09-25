@@ -89,8 +89,14 @@ function NonLoadDraw()
 end
 
 function ControlNonLoad()
-	if nonLoad and love.keyboard.isDown('return') then
-		nonLoad = false
-		CheckStartGameForTitle()
+	if nonLoad then
+		if love.keyboard.isDown('return') then
+			nonLoad = false
+			CheckStartGameForTitle()
+		end
+
+		if love.keyboard.isDown('escape') then
+			nonLoad = false
+		end
 	end	
 end
