@@ -1,3 +1,4 @@
+bossPassCount=0 --임시 pass 버튼 
 suit=nil
 MAZE_X=42
 MAZE_Y=-5
@@ -102,24 +103,41 @@ function ButtonDraw(x,y)-- 생성된 버튼이 눌렸을시
 	 end
     end
 	if clickCount~=5 then
-	if stageLevel==2 then
-    if suit.Button(" pass ",300,11,53,27).hit then
-      MazeReset()
+	 	if stageLevel==2 then-------------------------------------------pass 버튼 
+     		if suit.Button(" pass ",300,11,53,27).hit then
+      			MazeReset()
      
-      pl:SetX(save_X)--플레이어 좌표값 복원 
-      pl:SetY(save_Y)
+     	 		pl:SetX(save_X)--플레이어 좌표값 복원 
+     	 		pl:SetY(save_Y)
     
-      phase=phase+1
-      qmarkCheck = true
-      questCheck=false
-      if phase==4 then--문제 다 풀었을 시 
-        canPass = true
-        --pl.y=pl.y+180
-        MazeMap()
-      end
+      			phase=phase+1
+      			qmarkCheck = true
+      			questCheck=false
+      			if phase==4 then--문제 다 풀었을 시 
+        			canPass = true
+        			MazeMap()
+      			end
+      		end
+ 		end 
+     	if stageLevel==6 then
+      		if suit.Button(" pass ",300,11,53,27).hit then
+       			if bossPassCount==1 then
+       				MazeReset()
+       				SummerClear()
+       				bossPassCount=0
+   	   			end
+       			if bossPassCount==0 then
+      				map=mapBossTwo
+       				BoxListDelete()
+       				CreateMaze()
+       				pl.y=pl.y+140
+       				MazeReset()
+       				pl:StartMaze()
+       				bossPassCount=bossPassCount+1
+       			end 
+      		end
+     	end-------------------------------------pass 버튼 
 
-    	end
-	end
 		if suit.Button(" Up ",344,11,53,27).hit then
 			clickCountList[clickCount]=0
        		clickCount=clickCount+1-- 클릭 횟수
@@ -227,38 +245,37 @@ function MazeCheckCollect()--미로에서 미로가 끝나거가 답을 틀리�
 		LifeMinus()--체력 깍기고 
 		pl:StartMaze()--시작점으로 돌아가고 
 		mazePlayStart=false--start버튼 클릭 유무 초기화 
-	  buttonCount=0 --start후 몇번 실행 되었는지 알려주는거 초기화 
-	  clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트 
-	  MazePlaying=false
-		return
-  end
+	   buttonCount=0 --start후 몇번 실행 되었는지 알려주는거 초기화 
+	   clickCountListDelete()--어떤거 클릭했는지 테이블 딜리트 
+	   MazePlaying=false
+	   return
+  	end
 	if pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==2 then
-      MazeReset()
-      
-      pl:SetX(save_X)--플레이어 좌표값 복원 
-      pl:SetY(save_Y)
-      
-      phase=phase+1
-      qmarkCheck = true
-      questCheck=false
-      if phase==4 then--문제 다 풀었을 시 
-        canPass = true
-        --pl.y=pl.y+180
-        MazeMap()
-      end
+		MazeReset()
+     
+        pl:SetX(save_X)--플레이어 좌표값 복원 
+     	pl:SetY(save_Y)
+    
+      	phase=phase+1
+      	qmarkCheck = true
+      	questCheck=false
+      	if phase==4 then--문제 다 풀었을 시 
+        	canPass = true
+        	MazeMap()
+      	end
 
   end
   if pl and map[coordinate_Y][coordinate_X]==2 and stageLevel==6 then--보스에서 
       if coordinate_Y==1 and coordinate_X==12 then
-      map=mapBossTwo
-      BoxListDelete()
-      CreateMaze()
-      pl.y=pl.y+140
-      MazeReset()
-      pl:StartMaze()
-     else 
-      MazeReset()
-      SummerClear()
+       map=mapBossTwo
+       BoxListDelete()
+       CreateMaze()
+       pl.y=pl.y+140
+       MazeReset()
+       pl:StartMaze()
+      else 
+       MazeReset()
+       SummerClear()
     end
   end
   ControlFadeOutVerMouse()
