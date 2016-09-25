@@ -11,10 +11,10 @@ isFallClear = false
 isWinterClear = false
 
 stageClearLevel = 1
-stageClearList = {}
+stageClearForItem = {} --리스트이자 메소드처럼 쓰임.
 
 function InitStageClear()
-	stageClearList = {SpringStageClear, SummerStageClear, FallStageClear, WinterStageClear}
+	stageClearForItem = {SpringStageClear, SummerStageClear, FallStageClear, WinterStageClear}
 end
 
 function SpringStageClear()

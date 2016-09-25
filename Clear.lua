@@ -4,7 +4,7 @@ checkClearOrDeath = false
 
 function ControlBackToVillage() --여름은 336~364, 봄은 283~316
 	if stageLevel > 4 and bossClearCheck then
-		if stageLevel == 6 and 336 < pl:GetX() and pl:GetX() < 364 then
+		if stageLevel == 6 and 210 < pl:GetX() and pl:GetX() < 242 then
 			if love.keyboard.isDown('up') then
 				returnToVillage = true
 			end
@@ -42,7 +42,7 @@ function BackToVillageAfterClear()
 	checkClearOrDeath = true --by.현식 0918 , 마을에 돌아갔을때 죽어서 돌아가는지 클리어해서 돌아가는지 여부를 확인함.
 
 	if stageClearLevel > 0 then
-		stageClearList[stageClearLevel]()
+		stageClearForItem[stageClearLevel]()
 		stageClearLevel = stageClearLevel + 1
 	end
 
@@ -85,12 +85,13 @@ function DrawBackToVillage()
   love.graphics.setColor(0,0,0,255) -- 검은색 RGBA
   love.graphics.print("마을로 이동하시겠습니까?", 170, 25)
 
-  love.graphics.print("이동하시려면 'enter'키를 눌러주세요.",168, 90)
+  love.graphics.print("이동하시려면 'Enter'키를 눌러주세요.",168, 90)
 end
 
 function InitWhenClear() --클리어했을때 초기화.
 	algoCheck = false; 	bubbleTipCheck = false; bpopupCheck = false; needOverwork = false;
 	questCheck = false; blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false;
+	askSave = false
 
 	talkCount = 1
 end
@@ -99,6 +100,7 @@ function InitEverything() --죽었을 때 초기화.
 	algoCheck = false; 	bubbleTipCheck = false; bossClearCheck = false;
 	printBossClear = false; popupCheck = false; questCheck = false;
 	blacksmithCheck = false; bossTalkCheck = false; tutorialStart = false; needOverwork = false;
+	askSave = false
 
 	multipleChoice = 1
 	talkCount = 1

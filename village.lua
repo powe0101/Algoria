@@ -1,6 +1,7 @@
 function CreateVillage()
   InitLife()
-  if table.getn(stageClearList) == 0 then
+
+  if table.getn(stageClearForItem) == 0 then
     InitStageClear()
     InitBlacksmithTalkList()
   end
@@ -78,7 +79,6 @@ function DeleteStage()
   PicketListDelete()
   CastleListDelete()
   BossListDelete()
-
   --초기화
   if stageLevel == 3 then
     GroundFullFrameChange()
