@@ -1,4 +1,5 @@
-ForYes
-===========
+글로벌 소프트웨어 공모대전 출품작 
 
-So: move with LEFT/RIGHT, jump with SPACE.
+------------------------------------------
+사용언어 : Lua ( Love2d 엔진)
+
